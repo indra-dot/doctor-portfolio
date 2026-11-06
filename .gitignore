@@ -1,0 +1,5 @@
+node_modules/
+dist/
+*.pre-fix.bak
+.DS_Store
+Thumbs.db

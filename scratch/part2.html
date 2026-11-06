@@ -1,0 +1,716 @@
+
+            <!-- ================= MODULE 1: THYROID & MYXEDEMA ================= -->
+            <section id="tab-thyroid" class="module-section hidden space-y-6 md:space-y-8">
+                <button type="button" onclick="navigateTo('home-module', 'Home Dashboard', 'pill-dash')" class="btn-back">
+                    <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
+                </button>
+
+                <!-- 1. BWPS (Burch-Wartofsky Point Scale) -->
+                <div class="glass-card rounded-2xl p-6 sm:p-7 lg:p-8 flex flex-col" id="card-bwps">
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-5 mb-6 border-b border-slate-800/80 gap-4">
+                    <div>
+                      <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2.5 flex-wrap">
+                        Burch-Wartofsky Point Scale (BWPS)
+                        <span class="text-[11px] bg-rose-500/10 border border-rose-500/20 text-rose-300 px-2.5 py-0.5 rounded-full font-medium tracking-wide">Thyroid Storm</span>
+                      </h2>
+                      <p class="text-xs sm:text-sm text-slate-400 mt-1">Kriteria diagnostik obyektif badai tiroid (krisis tirotoksikosis).</p>
+                    </div>
+                    
+                    <div class="flex items-center gap-3">
+                      <div class="flex items-center gap-1.5 bg-slate-900/50 p-1 rounded-xl border border-slate-800">
+                        <button type="button" onclick="togglePin('bwps')" class="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-amber-400 transition" title="Pin ke Favorit Dashboard">
+                          <i class="fa-regular fa-star text-xs star-icon" id="star-bwps"></i>
+                        </button>
+                        <button type="button" onclick="resetCalculator('bwps')" class="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition group" title="Reset Parameter">
+                          <i class="fa-solid fa-rotate-left text-xs group-hover:-rotate-90 transition-transform"></i>
+                        </button>
+                        <button type="button" onclick="copyCPPTResume('bwps')" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 text-xs font-medium transition flex items-center gap-1.5" title="Salin Resume SOAP / CPPT">
+                          <i class="fa-solid fa-clipboard-list text-xs"></i>
+                          <span>Salin CPPT</span>
+                        </button>
+                      </div>
+
+                      <div class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center bg-slate-900/60 border border-slate-800/80 rounded-xl px-4 py-2.5 sm:px-5 sm:py-3 shrink-0 min-w-[150px]">
+                        <div class="text-3xl sm:text-4xl font-extrabold text-emerald-400 tracking-tight leading-none" id="res-bwps">0</div>
+                        <div class="text-[11px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 sm:mt-1.5 text-right" id="res-bwps-interp">Unlikely</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">Suhu Tubuh (°C)</label>
+                      <select id="bwps-temp" class="input-modern bwps-input">
+                        <option value="0">&lt; 37.2 °C (0)</option>
+                        <option value="5">37.2 - 37.7 °C (+5)</option>
+                        <option value="10">37.8 - 38.3 °C (+10)</option>
+                        <option value="15">38.4 - 38.8 °C (+15)</option>
+                        <option value="20">38.9 - 39.3 °C (+20)</option>
+                        <option value="25">39.4 - 39.9 °C (+25)</option>
+                        <option value="30">&ge; 40.0 °C (+30)</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">Disfungsi Sistem Saraf Pusat (SSP)</label>
+                      <select id="bwps-cns" class="input-modern bwps-input">
+                        <option value="0">Tidak Ada (0)</option>
+                        <option value="10">Ringan: Agitasi (+10)</option>
+                        <option value="20">Sedang: Delirium, Psikosis, Letargi Ekstrem (+20)</option>
+                        <option value="30">Berat: Kejang, Koma (+30)</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">Disfungsi Gastrointestinal / Hepar</label>
+                      <select id="bwps-gi" class="input-modern bwps-input">
+                        <option value="0">Tidak Ada (0)</option>
+                        <option value="10">Sedang: Diare, Mual/Muntah, Nyeri Abdomen (+10)</option>
+                        <option value="20">Berat: Ikterus tanpa sebab jelas (+20)</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">Kardiovaskular: Laju Nadi (bpm)</label>
+                      <select id="bwps-hr" class="input-modern bwps-input">
+                        <option value="0">&lt; 90 bpm (0)</option>
+                        <option value="5">90 - 109 bpm (+5)</option>
+                        <option value="10">110 - 119 bpm (+10)</option>
+                        <option value="15">120 - 129 bpm (+15)</option>
+                        <option value="20">130 - 139 bpm (+20)</option>
+                        <option value="25">&ge; 140 bpm (+25)</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">Gagal Jantung Kongestif (CHF)</label>
+                      <select id="bwps-chf" class="input-modern bwps-input">
+                        <option value="0">Tidak Ada (0)</option>
+                        <option value="5">Ringan: Edema Perifer (+5)</option>
+                        <option value="10">Sedang: Ronki Basal Bilateral (+10)</option>
+                        <option value="15">Berat: Edema Paru Akut (+15)</option>
+                      </select>
+                    </div>
+                    <div class="flex flex-col gap-4 justify-center md:pt-6 bg-slate-900/30 p-3 rounded-lg border border-slate-800/50">
+                      <label class="flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" id="bwps-af" value="10" class="checkbox-modern bwps-input">
+                        <span class="text-sm text-slate-300 group-hover:text-white transition-colors">Fibrilasi Atrium (AF) (+) (+10)</span>
+                      </label>
+                      <label class="flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" id="bwps-precipitant" value="10" class="checkbox-modern bwps-input">
+                        <span class="text-sm text-slate-300 group-hover:text-white transition-colors">Riwayat Faktor Pencetus Akut (+) (+10)</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="pearl-box">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                      <div>
+                        <span class="flex items-center text-xs font-bold text-emerald-400 mb-1.5 uppercase tracking-wider"><i class="fa-solid fa-microscope mr-2 text-sm"></i> Clinical Pearl</span>
+                        <p class="text-[13px] text-slate-300 leading-relaxed">Sensitivitas mendekati 100%. Skor &lt; 25: Thyroid storm unlikely; 25-44: Impending thyroid storm; &ge; 45: Highly suggestive of Thyroid Storm (Krisis Tiroid).</p>
+                      </div>
+                      <div>
+                        <span class="flex items-center text-xs font-bold text-emerald-400 mb-1.5 uppercase tracking-wider"><i class="fa-solid fa-forward-step mr-2 text-sm"></i> Next Step (Sekuens Terapi)</span>
+                        <p class="text-[13px] text-slate-300 leading-relaxed">Rawat ICU. Urutan: 1) Beta-blocker (Propranolol 60-80 mg p.o. q4h atau IV) &rarr; 2) Thionamide (PTU loading 500-1000 mg p.o./NGT, lalu 200 mg q4h) &rarr; 3) Lugol (5 tetes q8h, 1 jam pasca PTU) &rarr; 4) Hidrokortison 100 mg IV q8h.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 2. Wayne's Index -->
+                <div class="glass-card rounded-2xl p-6 sm:p-7 lg:p-8" id="card-wayne">
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-5 mb-6 border-b border-slate-800/80 gap-4">
+                    <div>
+                      <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2.5 flex-wrap">
+                        Wayne's Clinical Index
+                        <span class="text-[11px] bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 px-2.5 py-0.5 rounded-full font-medium tracking-wide">Hyperthyroidism</span>
+                      </h2>
+                      <p class="text-xs sm:text-sm text-slate-400 mt-1">Evaluasi klinis hipertiroidisme berdasarkan anamnesis dan pemeriksaan fisik.</p>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                      <div class="flex items-center gap-1.5 bg-slate-900/50 p-1 rounded-xl border border-slate-800">
+                        <button type="button" onclick="togglePin('wayne')" class="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-amber-400 transition" title="Pin ke Favorit Dashboard">
+                          <i class="fa-regular fa-star text-xs star-icon" id="star-wayne"></i>
+                        </button>
+                        <button type="button" onclick="resetCalculator('wayne')" class="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition group" title="Reset Parameter">
+                          <i class="fa-solid fa-rotate-left text-xs group-hover:-rotate-90 transition-transform"></i>
+                        </button>
+                        <button type="button" onclick="copyCPPTResume('wayne')" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 text-xs font-medium transition flex items-center gap-1.5" title="Salin Resume SOAP / CPPT">
+                          <i class="fa-solid fa-clipboard-list text-xs"></i>
+                          <span>Salin CPPT</span>
+                        </button>
+                      </div>
+
+                      <div class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center bg-slate-900/60 border border-slate-800/80 rounded-xl px-4 py-2.5 sm:px-5 sm:py-3 shrink-0 min-w-[150px]">
+                        <div class="text-3xl sm:text-4xl font-extrabold text-cyan-400 tracking-tight leading-none" id="res-wayne">0</div>
+                        <div class="text-[11px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 sm:mt-1.5 text-right" id="res-wayne-interp">Euthyroid</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
+                    <div class="space-y-3 bg-slate-900/20 p-4 rounded-xl border border-slate-800/40">
+                      <h3 class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Gejala Subyektif (Symptoms)</h3>
+                      <label class="flex items-center justify-between cursor-pointer group">
+                        <span class="text-sm text-slate-300 group-hover:text-white transition-colors">Dispnea saat aktivitas (+1)</span>
+                        <input type="checkbox" value="1" class="checkbox-modern wayne-input">
+                      </label>
+                      <label class="flex items-center justify-between cursor-pointer group">
+                        <span class="text-sm text-slate-300 group-hover:text-white transition-colors">Palpitasi / berdebar (+2)</span>
+                        <input type="checkbox" value="2" class="checkbox-modern wayne-input">
+                      </label>
+                      <label class="flex items-center justify-between cursor-pointer group">
+                        <span class="text-sm text-slate-300 group-hover:text-white transition-colors">Mudah lelah (+2)</span>
+                        <input type="checkbox" value="2" class="checkbox-modern wayne-input">
+                      </label>
+                      <label class="flex items-center justify-between cursor-pointer group">
+                        <span class="text-sm text-slate-300 group-hover:text-white transition-colors">Suka suhu panas (-5)</span>
+                        <input type="checkbox" value="-5" class="checkbox-modern wayne-input">
+                      </label>
+                      <label class="flex items-center justify-between cursor-pointer group">
+                        <span class="text-sm text-slate-300 group-hover:text-white transition-colors">Suka suhu dingin (+5)</span>
+                        <input type="checkbox" value="5" class="checkbox-modern wayne-input">
+                      </label>
+                      <label class="flex items-center justify-between cursor-pointer group">
+                        <span class="text-sm text-slate-300 group-hover:text-white transition-colors">Keringat berlebih (+3)</span>
+                        <input type="checkbox" value="3" class="checkbox-modern wayne-input">
+                      </label>
+                      <label class="flex items-center justify-between cursor-pointer group">
+                        <span class="text-sm text-slate-300 group-hover:text-white transition-colors">Gelisah / Nervousness (+2)</span>
+                        <input type="checkbox" value="2" class="checkbox-modern wayne-input">
+                      </label>
+                      <label class="flex items-center justify-between cursor-pointer group">
+                        <span class="text-sm text-slate-300 group-hover:text-white transition-colors">Nafsu makan bertambah (+3)</span>
+                        <input type="checkbox" value="3" class="checkbox-modern wayne-input">
+                      </label>
+                      <label class="flex items-center justify-between cursor-pointer group">
+                        <span class="text-sm text-slate-300 group-hover:text-white transition-colors">Nafsu makan berkurang (-3)</span>
+                        <input type="checkbox" value="-3" class="checkbox-modern wayne-input">
+                      </label>
+                      <label class="flex items-center justify-between cursor-pointer group">
+                        <span class="text-sm text-slate-300 group-hover:text-white transition-colors">Berat badan naik (-3)</span>
+                        <input type="checkbox" value="-3" class="checkbox-modern wayne-input">
+                      </label>
+                      <label class="flex items-center justify-between cursor-pointer group">
+                        <span class="text-sm text-slate-300 group-hover:text-white transition-colors">Berat badan turun (+3)</span>
+                        <input type="checkbox" value="3" class="checkbox-modern wayne-input">
+                      </label>
+                    </div>
+                    
+                    <div class="space-y-3 bg-slate-900/20 p-4 rounded-xl border border-slate-800/40 flex flex-col">
+                      <h3 class="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Tanda Obyektif (Signs)</h3>
+                      <div class="space-y-3 flex-1">
+                        <label class="flex items-center justify-between cursor-pointer group">
+                          <span class="text-sm text-slate-300 group-hover:text-white transition-colors">Tiroid teraba membesar (+3)</span>
+                          <input type="checkbox" value="3" class="checkbox-modern wayne-input">
+                        </label>
+                        <label class="flex items-center justify-between cursor-pointer group">
+                          <span class="text-sm text-slate-300 group-hover:text-white transition-colors">Bruit pada kelenjar tiroid (+2)</span>
+                          <input type="checkbox" value="2" class="checkbox-modern wayne-input">
+                        </label>
+                        <label class="flex items-center justify-between cursor-pointer group">
+                          <span class="text-sm text-slate-300 group-hover:text-white transition-colors">Eksoftalmus (+2)</span>
+                          <input type="checkbox" value="2" class="checkbox-modern wayne-input">
+                        </label>
+                        <label class="flex items-center justify-between cursor-pointer group">
+                          <span class="text-sm text-slate-300 group-hover:text-white transition-colors">Retraksi kelopak mata (+2)</span>
+                          <input type="checkbox" value="2" class="checkbox-modern wayne-input">
+                        </label>
+                        <label class="flex items-center justify-between cursor-pointer group">
+                          <span class="text-sm text-slate-300 group-hover:text-white transition-colors">Lid lag (+1)</span>
+                          <input type="checkbox" value="1" class="checkbox-modern wayne-input">
+                        </label>
+                        <label class="flex items-center justify-between cursor-pointer group">
+                          <span class="text-sm text-slate-300 group-hover:text-white transition-colors">Gerakan hiperkinetik (+4)</span>
+                          <input type="checkbox" value="4" class="checkbox-modern wayne-input">
+                        </label>
+                        <label class="flex items-center justify-between cursor-pointer group">
+                          <span class="text-sm text-slate-300 group-hover:text-white transition-colors">Fine tremor jari tangan (+1)</span>
+                          <input type="checkbox" value="1" class="checkbox-modern wayne-input">
+                        </label>
+                        <label class="flex items-center justify-between cursor-pointer group">
+                          <span class="text-sm text-slate-300 group-hover:text-white transition-colors">Telapak tangan hangat (+2)</span>
+                          <input type="checkbox" value="2" class="checkbox-modern wayne-input">
+                        </label>
+                        <label class="flex items-center justify-between cursor-pointer group">
+                          <span class="text-sm text-slate-300 group-hover:text-white transition-colors">Telapak tangan basah (+1)</span>
+                          <input type="checkbox" value="1" class="checkbox-modern wayne-input">
+                        </label>
+                      </div>
+                      
+                      <div class="mt-4 pt-4 border-t border-slate-700/50">
+                        <label class="block text-xs font-medium text-slate-400 mb-1.5">Laju Nadi / Irama Jantung</label>
+                        <select id="wayne-pulse" class="input-modern wayne-input">
+                          <option value="0">Normal (80 - 90 bpm) (0)</option>
+                          <option value="-3">&lt; 80 bpm (-3)</option>
+                          <option value="3">&gt; 90 bpm (+3)</option>
+                          <option value="4">Atrial Fibrillation (+4)</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pearl-box !border-cyan-500 !bg-gradient-to-r !from-cyan-500/10 !to-transparent">
+                    <p class="text-[13px] text-slate-300"><span class="text-cyan-400 font-bold uppercase text-[11px] tracking-wider block mb-1">Clinical Pearl & Interpretation</span> Skor &lt; 11: Eutiroid; 11-19: Meragukan (Equivocal, evaluasi TSHs/FT4); &gt; 19: Toksik / Hipertiroidisme Klinis. Sangat berguna di faskes perifer sebelum hasil lab rujukan keluar.</p>
+                  </div>
+                </div>
+
+                <!-- 3. Billewicz Score -->
+                <div class="glass-card rounded-2xl p-6 sm:p-7 lg:p-8" id="card-billewicz">
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-5 mb-6 border-b border-slate-800/80 gap-4">
+                    <div>
+                      <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2.5 flex-wrap">
+                        Billewicz Score
+                        <span class="text-[11px] bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 px-2.5 py-0.5 rounded-full font-medium tracking-wide">Hypothyroidism</span>
+                      </h2>
+                      <p class="text-xs sm:text-sm text-slate-400 mt-1">Skor diagnostik klinis hipotiroidisme dan tanda Woltman.</p>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                      <div class="flex items-center gap-1.5 bg-slate-900/50 p-1 rounded-xl border border-slate-800">
+                        <button type="button" onclick="togglePin('billewicz')" class="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-amber-400 transition" title="Pin ke Favorit Dashboard">
+                          <i class="fa-regular fa-star text-xs star-icon" id="star-billewicz"></i>
+                        </button>
+                        <button type="button" onclick="resetCalculator('billewicz')" class="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition group" title="Reset Parameter">
+                          <i class="fa-solid fa-rotate-left text-xs group-hover:-rotate-90 transition-transform"></i>
+                        </button>
+                        <button type="button" onclick="copyCPPTResume('billewicz')" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 text-xs font-medium transition flex items-center gap-1.5" title="Salin Resume SOAP / CPPT">
+                          <i class="fa-solid fa-clipboard-list text-xs"></i>
+                          <span>Salin CPPT</span>
+                        </button>
+                      </div>
+
+                      <div class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center bg-slate-900/60 border border-slate-800/80 rounded-xl px-4 py-2.5 sm:px-5 sm:py-3 shrink-0 min-w-[150px]">
+                        <div class="text-3xl sm:text-4xl font-extrabold text-indigo-400 tracking-tight leading-none" id="res-billewicz">-51</div>
+                        <div class="text-[11px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 sm:mt-1.5 text-right" id="res-billewicz-interp">Euthyroid</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">Berkurangnya Keringat</label>
+                      <select class="input-modern billewicz-input">
+                        <option value="-2">Tidak Ada (-2)</option>
+                        <option value="6">Ada (+6)</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">Kulit Kering</label>
+                      <select class="input-modern billewicz-input">
+                        <option value="-6">Tidak Ada (-6)</option>
+                        <option value="3">Ada (+3)</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">Intoleransi Dingin</label>
+                      <select class="input-modern billewicz-input">
+                        <option value="-5">Tidak Ada (-5)</option>
+                        <option value="4">Ada (+4)</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">Peningkatan Berat Badan</label>
+                      <select class="input-modern billewicz-input">
+                        <option value="-1">Tidak Ada (-1)</option>
+                        <option value="1">Ada (+1)</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">Konstipasi</label>
+                      <select class="input-modern billewicz-input">
+                        <option value="-1">Tidak Ada (-1)</option>
+                        <option value="2">Ada (+2)</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">Suara Serak (Hoarseness)</label>
+                      <select class="input-modern billewicz-input">
+                        <option value="-6">Tidak Ada (-6)</option>
+                        <option value="5">Ada (+5)</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">Parestesia</label>
+                      <select class="input-modern billewicz-input">
+                        <option value="-4">Tidak Ada (-4)</option>
+                        <option value="5">Ada (+5)</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">Penurunan Pendengaran</label>
+                      <select class="input-modern billewicz-input">
+                        <option value="0">Tidak Ada (0)</option>
+                        <option value="2">Ada (+2)</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">Gerakan Melambat (Slow movements)</label>
+                      <select class="input-modern billewicz-input">
+                        <option value="-3">Tidak Ada (-3)</option>
+                        <option value="11">Ada (+11)</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">Delayed Ankle Jerk (Woltman's sign)</label>
+                      <select class="input-modern billewicz-input">
+                        <option value="-6">Tidak Ada (-6)</option>
+                        <option value="15">Ada (+15)</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">Kulit Kasar (Coarse skin)</label>
+                      <select class="input-modern billewicz-input">
+                        <option value="-7">Tidak Ada (-7)</option>
+                        <option value="7">Ada (+7)</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">Kulit Dingin (Cold skin)</label>
+                      <select class="input-modern billewicz-input">
+                        <option value="-2">Tidak Ada (-2)</option>
+                        <option value="3">Ada (+3)</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">Sembab Periorbita</label>
+                      <select class="input-modern billewicz-input">
+                        <option value="-6">Tidak Ada (-6)</option>
+                        <option value="4">Ada (+4)</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">Frekuensi Nadi</label>
+                      <select class="input-modern billewicz-input">
+                        <option value="0">75 - 85 bpm (0)</option>
+                        <option value="4">&lt; 75 bpm (+4)</option>
+                        <option value="-4">&gt; 85 bpm (-4)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="pearl-box !border-indigo-500 !bg-gradient-to-r !from-indigo-500/10 !to-transparent mt-5">
+                    <p class="text-[13px] text-slate-300"><span class="text-indigo-400 font-bold uppercase text-[11px] tracking-wider block mb-1">Clinical Pearl & Next Step</span> Skor &ge; 25: Hipotiroid; -29 s/d +24: Equivocal; &le; -30: Eutiroid. Delayed ankle jerk (tanda Woltman) memiliki bobot spesifisitas tinggi (+15 poin). Mulai Levothyroxine dosis rendah (12.5 - 25 mcg/hari) terutama pada geriatri atau CAD.</p>
+                  </div>
+                </div>
+
+                <!-- 4. Myxedema Coma Diagnostic Score (Popoveniuc 2014) [NEW] -->
+                <div class="glass-card rounded-2xl p-6 sm:p-7 lg:p-8" id="card-myxedema">
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-5 mb-6 border-b border-slate-800/80 gap-4">
+                    <div>
+                      <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2.5 flex-wrap">
+                        Myxedema Coma Diagnostic Score
+                        <span class="text-[11px] bg-purple-500/10 border border-purple-500/20 text-purple-300 px-2.5 py-0.5 rounded-full font-medium tracking-wide">Popoveniuc et al., 2014</span>
+                      </h2>
+                      <p class="text-xs sm:text-sm text-slate-400 mt-1">Sistem skor pendukung keputusan diagnostik & stratifikasi koma miksedema.</p>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                      <div class="flex items-center gap-1.5 bg-slate-900/50 p-1 rounded-xl border border-slate-800">
+                        <button type="button" onclick="togglePin('myxedema')" class="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-amber-400 transition" title="Pin ke Favorit Dashboard">
+                          <i class="fa-regular fa-star text-xs star-icon" id="star-myxedema"></i>
+                        </button>
+                        <button type="button" onclick="resetCalculator('myxedema')" class="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition group" title="Reset Parameter">
+                          <i class="fa-solid fa-rotate-left text-xs group-hover:-rotate-90 transition-transform"></i>
+                        </button>
+                        <button type="button" onclick="copyCPPTResume('myxedema')" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 text-xs font-medium transition flex items-center gap-1.5" title="Salin Resume SOAP / CPPT">
+                          <i class="fa-solid fa-clipboard-list text-xs"></i>
+                          <span>Salin CPPT</span>
+                        </button>
+                      </div>
+
+                      <div class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center bg-slate-900/60 border border-slate-800/80 rounded-xl px-4 py-2.5 sm:px-5 sm:py-3 shrink-0 min-w-[150px]">
+                        <div class="text-3xl sm:text-4xl font-extrabold text-purple-400 tracking-tight leading-none" id="res-myxedema">0</div>
+                        <div class="text-[11px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 sm:mt-1.5 text-right" id="res-myxedema-interp">Unlikely</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Safety Guardrail Banner -->
+                  <div id="guardrail-myxedema" class="guardrail-box hidden mb-5">
+                    <div class="flex items-start gap-3">
+                      <i class="fa-solid fa-triangle-exclamation text-rose-400 text-lg mt-0.5 animate-pulse"></i>
+                      <div>
+                        <h4 class="text-xs font-bold text-rose-300 uppercase tracking-wider">CRITICAL CLINICAL GUARDRAIL</h4>
+                        <p class="text-xs text-slate-200 mt-0.5 leading-relaxed">
+                          <strong>WASPADA INSUFISIENSI ADRENAL SEKUNDER:</strong> Berikan <strong>Hidrokortison 100 mg IV stres dosis SEBELUM atau bersamaan dengan hormon tiroid</strong>. Terapi hormon tiroid tunggal tanpa steroid dapat memicu Krisis Adrenal fatal akibat peningkatan clearance kortisol metabolik!
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">Termoregulasi / Suhu Tubuh (°C)</label>
+                      <select id="myx-temp" class="input-modern myx-input">
+                        <option value="0">&gt; 35.0 °C (0)</option>
+                        <option value="10">32.0 - 35.0 °C (+10)</option>
+                        <option value="15">30.0 - 31.9 °C (+15)</option>
+                        <option value="20">&lt; 30.0 °C (+20)</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">Disfungsi SSP (Status Mental)</label>
+                      <select id="myx-cns" class="input-modern myx-input">
+                        <option value="0">Tidak Ada / Alert (0)</option>
+                        <option value="10">Somnolen / Letargi (+10)</option>
+                        <option value="15">Stupor (+15)</option>
+                        <option value="20">Koma atau Kejang (+20)</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">Disfungsi Gastrointestinal</label>
+                      <select id="myx-gi" class="input-modern myx-input">
+                        <option value="0">Tidak Ada (0)</option>
+                        <option value="5">Anoreksia, Nyeri Perut, atau Konstipasi (+5)</option>
+                        <option value="15">Ileus Paralitik / Penurunan bising usus berat (+15)</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">Kardiovaskular: Laju Nadi (Bradikardia)</label>
+                      <select id="myx-hr" class="input-modern myx-input">
+                        <option value="0">&ge; 60 bpm (0)</option>
+                        <option value="5">50 - 59 bpm (+5)</option>
+                        <option value="10">&lt; 50 bpm (+10)</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">Kardiovaskular: Tekanan Darah (Hipotensi)</label>
+                      <select id="myx-bp" class="input-modern myx-input">
+                        <option value="0">Normotensi / SBP &ge; 100 mmHg (0)</option>
+                        <option value="10">Hipotensi Ringan: SBP 80 - 100 mmHg (+10)</option>
+                        <option value="20">Hipotensi Berat: SBP &lt; 80 mmHg (+20)</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">Elektrolit: Hiponatremia</label>
+                      <select id="myx-na" class="input-modern myx-input">
+                        <option value="0">Na &ge; 130 mEq/L (0)</option>
+                        <option value="10">Na 120 - 129 mEq/L (+10)</option>
+                        <option value="15">Na &lt; 120 mEq/L (+15)</option>
+                      </select>
+                    </div>
+
+                    <!-- Checkboxes for additional findings -->
+                    <div class="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 bg-slate-900/30 p-4 rounded-xl border border-slate-800/50">
+                      <label class="flex items-center gap-2.5 cursor-pointer group">
+                        <input type="checkbox" id="myx-glu" value="10" class="checkbox-modern myx-input">
+                        <span class="text-xs text-slate-300 group-hover:text-white transition-colors">Hipoglikemia (&lt; 60 mg/dL) (+10)</span>
+                      </label>
+                      <label class="flex items-center gap-2.5 cursor-pointer group">
+                        <input type="checkbox" id="myx-resp" value="10" class="checkbox-modern myx-input">
+                        <span class="text-xs text-slate-300 group-hover:text-white transition-colors">Hipoksemia (PaO2 &lt; 60) / Hiperkapnia (+10)</span>
+                      </label>
+                      <label class="flex items-center gap-2.5 cursor-pointer group">
+                        <input type="checkbox" id="myx-effusion" value="10" class="checkbox-modern myx-input">
+                        <span class="text-xs text-slate-300 group-hover:text-white transition-colors">Efusi Perikardial / Low Voltage EKG (+10)</span>
+                      </label>
+                      <label class="flex items-center gap-2.5 cursor-pointer group">
+                        <input type="checkbox" id="myx-precipitant" value="10" class="checkbox-modern myx-input">
+                        <span class="text-xs text-slate-300 group-hover:text-white transition-colors">Faktor Pencetus (Sepsis, MI, Dingin) (+10)</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="pearl-box !border-purple-500 !bg-gradient-to-r !from-purple-500/10 !to-transparent mt-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                      <div>
+                        <span class="flex items-center text-xs font-bold text-purple-400 mb-1.5 uppercase tracking-wider"><i class="fa-solid fa-microscope mr-2 text-sm"></i> Stratifikasi Skor Popoveniuc</span>
+                        <p class="text-[13px] text-slate-300 leading-relaxed">Skor &ge; 60: <strong>Highly suggestive of Myxedema Coma (Diagnostik)</strong>; Skor 25-59: <strong>Risiko Tinggi / Impending Coma</strong>; Skor &lt; 25: <strong>Unlikely</strong>. Mortalitas mencapai 25-60%, intervensi dini sangat krusial.</p>
+                      </div>
+                      <div>
+                        <span class="flex items-center text-xs font-bold text-purple-400 mb-1.5 uppercase tracking-wider"><i class="fa-solid fa-forward-step mr-2 text-sm"></i> Protokol Terapi Darurat</span>
+                        <p class="text-[13px] text-slate-300 leading-relaxed">1) <strong>Hidrokortison 100 mg IV stat</strong>, lalu 100 mg q8h &rarr; 2) <strong>Levothyroxine (LT4)</strong> loading 200-400 mcg IV (atau oral 300-500 mcg via NGT), lanjut 50-100 mcg/hari &rarr; 3) Passive rewarming (hindari active warming cepat karena picu vasodilatasi syok).</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            </section>
+
+            <!-- ================= MODULE 2: ADRENAL & PITUITARY ================= -->
+            <section id="tab-adrenal-pituitary" class="module-section hidden space-y-6 md:space-y-8">
+                <button type="button" onclick="navigateTo('home-module', 'Home Dashboard', 'pill-dash')" class="btn-back">
+                    <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
+                </button>
+
+                <!-- 1. Adrenal Crisis Diagnostic & Dosing Score [NEW] -->
+                <div class="glass-card rounded-2xl p-6 sm:p-7 lg:p-8" id="card-adrenal">
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-5 mb-6 border-b border-slate-800/80 gap-4">
+                    <div>
+                      <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2.5 flex-wrap">
+                        Adrenal Crisis Diagnostic & Dosing Score
+                        <span class="text-[11px] bg-sky-500/10 border border-sky-500/20 text-sky-300 px-2.5 py-0.5 rounded-full font-medium tracking-wide">Acute Adrenal Crisis</span>
+                      </h2>
+                      <p class="text-xs sm:text-sm text-slate-400 mt-1">Skor kecurigaan klinis krisis adrenal akut & panduan cepat hidrokortison darurat.</p>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                      <div class="flex items-center gap-1.5 bg-slate-900/50 p-1 rounded-xl border border-slate-800">
+                        <button type="button" onclick="togglePin('adrenal')" class="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-amber-400 transition" title="Pin ke Favorit Dashboard">
+                          <i class="fa-regular fa-star text-xs star-icon" id="star-adrenal"></i>
+                        </button>
+                        <button type="button" onclick="resetCalculator('adrenal')" class="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition group" title="Reset Parameter">
+                          <i class="fa-solid fa-rotate-left text-xs group-hover:-rotate-90 transition-transform"></i>
+                        </button>
+                        <button type="button" onclick="copyCPPTResume('adrenal')" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 text-xs font-medium transition flex items-center gap-1.5" title="Salin Resume SOAP / CPPT">
+                          <i class="fa-solid fa-clipboard-list text-xs"></i>
+                          <span>Salin CPPT</span>
+                        </button>
+                      </div>
+
+                      <div class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center bg-slate-900/60 border border-slate-800/80 rounded-xl px-4 py-2.5 sm:px-5 sm:py-3 shrink-0 min-w-[150px]">
+                        <div class="text-3xl sm:text-4xl font-extrabold text-sky-400 tracking-tight leading-none" id="res-adrenal">0</div>
+                        <div class="text-[11px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 sm:mt-1.5 text-right" id="res-adrenal-interp">Probabilitas Rendah</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Checklist Kriteria Kecurigaan -->
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-3 bg-slate-900/30 p-4 rounded-xl border border-slate-800/50">
+                      <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Kriteria Hemodinamik & Elektrolit</h3>
+                      <label class="flex items-center justify-between cursor-pointer group">
+                        <span class="text-xs sm:text-sm text-slate-300 group-hover:text-white transition-colors">Hipotensi refrakter cairan / SBP &lt; 90 mmHg / butuh vasopresor (+3)</span>
+                        <input type="checkbox" value="3" class="checkbox-modern adrenal-input">
+                      </label>
+                      <label class="flex items-center justify-between cursor-pointer group">
+                        <span class="text-xs sm:text-sm text-slate-300 group-hover:text-white transition-colors">Kombinasi Hiponatremia (&lt;135) + Hiperkalemia (&gt;5.0) (+3)</span>
+                        <input type="checkbox" value="3" class="checkbox-modern adrenal-input">
+                      </label>
+                      <label class="flex items-center justify-between cursor-pointer group">
+                        <span class="text-xs sm:text-sm text-slate-300 group-hover:text-white transition-colors">Hipoglikemia tanpa sebab lain / GDS &lt; 70 mg/dL (+2)</span>
+                        <input type="checkbox" value="2" class="checkbox-modern adrenal-input">
+                      </label>
+                    </div>
+
+                    <div class="space-y-3 bg-slate-900/30 p-4 rounded-xl border border-slate-800/50">
+                      <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Anamnesis & Faktor Risiko</h3>
+                      <label class="flex items-center justify-between cursor-pointer group">
+                        <span class="text-xs sm:text-sm text-slate-300 group-hover:text-white transition-colors">Riwayat steroid kronis (&gt;3 minggu) / Penyakit Addison / Hipofisis (+3)</span>
+                        <input type="checkbox" value="3" class="checkbox-modern adrenal-input">
+                      </label>
+                      <label class="flex items-center justify-between cursor-pointer group">
+                        <span class="text-xs sm:text-sm text-slate-300 group-hover:text-white transition-colors">Nyeri abdomen akut hebat, mual muntah persisten, demam (+2)</span>
+                        <input type="checkbox" value="2" class="checkbox-modern adrenal-input">
+                      </label>
+                      <label class="flex items-center justify-between cursor-pointer group">
+                        <span class="text-xs sm:text-sm text-slate-300 group-hover:text-white transition-colors">Stresor presipitasi mayor (Sepsis berat, operasi, trauma mayor) (+2)</span>
+                        <input type="checkbox" value="2" class="checkbox-modern adrenal-input">
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Quick Dosing Action Protocol -->
+                  <div class="p-4 rounded-xl bg-sky-950/30 border border-sky-500/30 mt-5">
+                    <h3 class="text-xs font-bold text-sky-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+                      <i class="fa-solid fa-syringe"></i> Protokol Dosis Cepat Krisis Adrenal (Endocrine Society Guideline)
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                      <div class="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800">
+                        <span class="font-bold text-white block">1. Bolus Stat</span>
+                        <span class="text-slate-300">Hidrokortison <strong>100 mg IV bolus segera</strong> (Jangan tunda demi menunggu lab!).</span>
+                      </div>
+                      <div class="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800">
+                        <span class="font-bold text-white block">2. Maintenance Glukokortikoid</span>
+                        <span class="text-slate-300"><strong>200 mg/24 jam</strong> via syringe pump kontinyu ATAU <strong>50 mg IV tiap 6 jam</strong>.</span>
+                      </div>
+                      <div class="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800">
+                        <span class="font-bold text-white block">3. Resusitasi Salin</span>
+                        <span class="text-slate-300"><strong>NaCl 0.9% 1000 mL</strong> pada jam pertama, lalu titrasi cairan sesuai respons hemodinamik.</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pearl-box !border-sky-500 !bg-gradient-to-r !from-sky-500/10 !to-transparent mt-5">
+                    <p class="text-[13px] text-slate-300"><span class="text-sky-400 font-bold uppercase text-[11px] tracking-wider block mb-1">Clinical Pearl: Mineralokortikoid</span> Penggantian mineralokortikoid (Fludrokortison) <strong>TIDAK diperlukan</strong> selama fase akut saat dosis hidrokortison &gt; 50 mg/hari, karena hidrokortison dosis tinggi sudah memiliki efek retensi natrium yang sangat kuat.</p>
+                  </div>
+                </div>
+
+                <!-- 2. Pituitary Apoplexy Score (PAS) [NEW] -->
+                <div class="glass-card rounded-2xl p-6 sm:p-7 lg:p-8" id="card-apoplexy">
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-5 mb-6 border-b border-slate-800/80 gap-4">
+                    <div>
+                      <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2.5 flex-wrap">
+                        Pituitary Apoplexy Score (PAS)
+                        <span class="text-[11px] bg-teal-500/10 border border-teal-500/20 text-teal-300 px-2.5 py-0.5 rounded-full font-medium tracking-wide">Triase Neuro-Endokrin</span>
+                      </h2>
+                      <p class="text-xs sm:text-sm text-slate-400 mt-1">Skor triase darurat infark/perdarahan apopleksi hipofisis (Operasi Cito vs Konservatif).</p>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                      <div class="flex items-center gap-1.5 bg-slate-900/50 p-1 rounded-xl border border-slate-800">
+                        <button type="button" onclick="togglePin('apoplexy')" class="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-amber-400 transition" title="Pin ke Favorit Dashboard">
+                          <i class="fa-regular fa-star text-xs star-icon" id="star-apoplexy"></i>
+                        </button>
+                        <button type="button" onclick="resetCalculator('apoplexy')" class="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition group" title="Reset Parameter">
+                          <i class="fa-solid fa-rotate-left text-xs group-hover:-rotate-90 transition-transform"></i>
+                        </button>
+                        <button type="button" onclick="copyCPPTResume('apoplexy')" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 text-xs font-medium transition flex items-center gap-1.5" title="Salin Resume SOAP / CPPT">
+                          <i class="fa-solid fa-clipboard-list text-xs"></i>
+                          <span>Salin CPPT</span>
+                        </button>
+                      </div>
+
+                      <div class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center bg-slate-900/60 border border-slate-800/80 rounded-xl px-4 py-2.5 sm:px-5 sm:py-3 shrink-0 min-w-[150px]">
+                        <div class="text-3xl sm:text-4xl font-extrabold text-teal-400 tracking-tight leading-none" id="res-pas">0</div>
+                        <div class="text-[11px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 sm:mt-1.5 text-right" id="res-pas-interp">Konservatif</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">1. Tajam Penglihatan (Visual Acuity)</label>
+                      <select id="pas-va" class="input-modern pas-input">
+                        <option value="0">Normal (6/6) (0)</option>
+                        <option value="1">Penurunan Unilateral (1)</option>
+                        <option value="2">Penurunan Bilateral / Buta (2)</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">2. Lapang Pandang (Visual Field)</label>
+                      <select id="pas-vf" class="input-modern pas-input">
+                        <option value="0">Normal (0)</option>
+                        <option value="1">Defek Bitemporal / Parsial Unilateral (1)</option>
+                        <option value="2">Defek Bitemporal Bilateral Parah (2)</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">3. Paresis Okulomotor (CN III, IV, VI)</label>
+                      <select id="pas-oc" class="input-modern pas-input">
+                        <option value="0">Tidak Ada / Absent (0)</option>
+                        <option value="1">Paresis Unilateral (1)</option>
+                        <option value="2">Paresis Bilateral (2)</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label class="block text-xs font-medium text-slate-400 mb-1.5">4. Tingkat Kesadaran (GCS)</label>
+                      <select id="pas-gcs" class="input-modern pas-input">
+                        <option value="0">GCS 15 (Compos Mentis) (0)</option>
+                        <option value="1">GCS 12 - 14 (Somnolen) (1)</option>
+                        <option value="2">GCS &lt; 12 (Stupor / Koma) (2)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="pearl-box !border-teal-500 !bg-gradient-to-r !from-teal-500/10 !to-transparent mt-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                      <div>
+                        <span class="flex items-center text-xs font-bold text-teal-400 mb-1.5 uppercase tracking-wider"><i class="fa-solid fa-brain mr-2 text-sm"></i> Interpretasi Triase PAS</span>
+                        <p class="text-[13px] text-slate-300 leading-relaxed">Skor total 0-8. <strong>Skor &ge; 4</strong> atau perburukan visus/kesadaran progresif: <strong>INDIKASI KONSUL BEDAH SARAF CITO</strong> untuk dekompresi transsfenoid darurat demi menyelamatkan fungsi penglihatan dan nyawa.</p>
+                      </div>
+                      <div>
+                        <span class="flex items-center text-xs font-bold text-teal-400 mb-1.5 uppercase tracking-wider"><i class="fa-solid fa-pills mr-2 text-sm"></i> Manajemen Konservatif (Skor &lt; 4)</span>
+                        <p class="text-[13px] text-slate-300 leading-relaxed">Jika stabil tanpa defek penglihatan berat: Rawat HCU/ICU, berikan <strong>Deksametason 4-8 mg IV tiap 6 jam</strong> (mengurangi edema kiasma optikum), substitusi hormon, evaluasi MRI sella serial dan lapang pandang perimetri tiap 24 jam.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            </section>

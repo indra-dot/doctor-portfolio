@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Guswib — Tools for Clinical Practice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #040814;
+      --card-bg: rgba(15, 23, 42, 0.65);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-border-hover: rgba(0, 242, 254, 0.45);
+      --cbt-border-hover: rgba(139, 92, 246, 0.5);
+      --dompet-border-hover: rgba(45, 212, 191, 0.5);
+      --accent-cyan: #00F2FE;
+      --accent-blue: #4FACFE;
+      --text-pure: #F8FAFC;
+      --text-dim: #94A3B8;
+      --text-muted: #64748B;
+      --radius-pill: 9999px;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      background-color: var(--bg-dark);
+      color: var(--text-pure);
+      font-family: 'Inter', -apple-system, sans-serif;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    /* Ambient Background Glows */
+    .ambient-glow-1 {
+      position: fixed;
+      top: -10%;
+      left: 10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0, 242, 254, 0.08) 0%, rgba(79, 172, 254, 0.02) 50%, transparent 70%);
+      filter: blur(45px);
+      pointer-events: none;
+      z-index: 0;
+      animation: floatAmbient 12s ease-in-out infinite alternate;
+      transform: translate3d(0,0,0);
+      will-change: transform;
+      contain: strict;
+    }
+
+    .ambient-glow-2 {
+      position: fixed;
+      bottom: -10%;
+      right: 5%;
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 70%);
+      filter: blur(50px);
+      pointer-events: none;
+      z-index: 0;
+      animation: floatAmbient 15s ease-in-out infinite alternate-reverse;
+      transform: translate3d(0,0,0);
+      will-change: transform;
+      contain: strict;
+    }
+
+    @keyframes floatAmbient {
+      0% { transform: translate3d(0, 0, 0) scale(1); }
+      100% { transform: translate3d(40px, 40px, 0) scale(1.05); }
+    }
+
+    /* Floating Glassmorphic Pill Navbar */
+    .nav-wrapper {
+      position: sticky;
+      top: 24px;
+      display: flex;
+      justify-content: center;
+      z-index: 99;
+      padding: 0 1rem;
+      transform: translateZ(0);
+    }
+
+    .nav-pill {
+      background: rgba(15, 23, 42, 0.78);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-pill);
+      padding: 0.5rem 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 1.5rem;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+      transform: translateZ(0);
+    }
+
+    .nav-brand {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: #FFFFFF;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: opacity 0.2s;
+    }
+    
+    .nav-brand:hover {
+        opacity: 0.8;
+    }
+
+    /* Animated Dot */
+    .nav-brand-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      animation: pulseDot 2.5s infinite;
+    }
+
+    @keyframes pulseDot {
+      0% { box-shadow: 0 0 0 0 rgba(0, 242, 254, 0.6); }
+      70% { box-shadow: 0 0 0 6px rgba(0, 242, 254, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 242, 254, 0); }
+    }
+
+    .nav-items {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .nav-items a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-items a:hover {
+      color: var(--accent-cyan);
+    }
+
+    .nav-cta {
+      background: linear-gradient(90deg, #00F2FE 0%, #4FACFE 100%);
+      color: #020617 !important;
+      font-weight: 600 !important;
+      padding: 0.375rem 1rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.875rem !important;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .nav-cta::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transform: skewX(-20deg);
+      animation: shimmerBtn 4s infinite;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 20px rgba(0, 242, 254, 0.5);
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      min-height: 75vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 5rem 1.5rem;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .hero-bg-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate3d(-50%, -50%, 0);
+      width: 70vw;
+      max-width: 700px;
+      height: 70vw;
+      max-height: 700px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, rgba(139, 92, 246, 0.05) 40%, rgba(0, 0, 0, 0) 70%);
+      filter: blur(40px);
+      animation: floatGlow 12s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: -1;
+      will-change: transform;
+      contain: strict;
+    }
+
+    @keyframes floatGlow {
+      0% { transform: translate3d(-50%, -50%, 0) scale(1); opacity: 0.7; }
+      50% { transform: translate3d(-48%, -52%, 0) scale(1.1); opacity: 1; }
+      100% { transform: translate3d(-52%, -48%, 0) scale(0.95); opacity: 0.8; }
+    }
+
+    .grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      mask-image: radial-gradient(circle at var(--hero-mouse-x, 50%) var(--hero-mouse-y, 50%), black 0%, transparent 60%);
+      -webkit-mask-image: radial-gradient(circle at var(--hero-mouse-x, 50%) var(--hero-mouse-y, 50%), black 0%, transparent 60%);
+      transition: mask-position 0.3s ease-out, -webkit-mask-position 0.3s ease-out;
+      z-index: -2;
+      opacity: 0.6;
+    }
+
+    /* Abstract Fluid Background Elements */
+    .fluid-bg-container {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      z-index: -1;
+      pointer-events: none;
+      contain: strict;
+    }
+
+    .fluid-shape {
+      position: absolute;
+      filter: blur(35px);
+      opacity: 0.4;
+      border-radius: 50%;
+      mix-blend-mode: screen;
+      will-change: transform;
+      transform: translate3d(0,0,0);
+    }
+
+    .fluid-1 {
+      top: 10%;
+      left: 20%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(0, 242, 254, 0.3) 0%, transparent 70%);
+      animation: fluidMove1 25s ease-in-out infinite alternate;
+    }
+
+    .fluid-2 {
+      top: 30%;
+      right: 15%;
+      width: 500px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, transparent 70%);
+      animation: fluidMove2 30s ease-in-out infinite alternate-reverse;
+    }
+
+    .fluid-3 {
+      bottom: -10%;
+      left: 40%;
+      width: 600px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(45, 212, 191, 0.2) 0%, transparent 70%);
+      animation: fluidMove3 35s ease-in-out infinite alternate;
+    }
+
+    @keyframes fluidMove1 {
+      0% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+      33% { transform: translate3d(100px, 50px, 0) scale(1.1) rotate(45deg); }
+      66% { transform: translate3d(-50px, 150px, 0) scale(0.9) rotate(90deg); }
+      100% { transform: translate3d(0, 0, 0) scale(1) rotate(180deg); }
+    }
+
+    @keyframes fluidMove2 {
+      0% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+      33% { transform: translate3d(-120px, -80px, 0) scale(1.2) rotate(-30deg); }
+      66% { transform: translate3d(80px, -100px, 0) scale(0.8) rotate(-70deg); }
+      100% { transform: translate3d(0, 0, 0) scale(1) rotate(-120deg); }
+    }
+
+    @keyframes fluidMove3 {
+      0% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+      50% { transform: translate3d(150px, -100px, 0) scale(1.15) rotate(60deg); }
+      100% { transform: translate3d(-100px, 50px, 0) scale(0.95) rotate(120deg); }
+    }
+
+    .hero-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      max-width: 860px;
+      margin: 0 auto 1.5rem;
+      background: linear-gradient(180deg, #FFFFFF 20%, #94A3B8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+      z-index: 2;
+      drop-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .hero-desc {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: #CBD5E1;
+      max-width: 680px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.6;
+      font-weight: 300;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+    }
+
+    .btn-gradient {
+      background: linear-gradient(90deg, #00F2FE 0%, #4FACFE 100%);
+      color: #020617;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 0.875rem 2rem;
+      border-radius: var(--radius-pill);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 24px rgba(0, 242, 254, 0.25);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-gradient::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transform: skewX(-20deg);
+      animation: shimmerBtn 4s infinite;
+    }
+
+    @keyframes shimmerBtn {
+      0% { left: -100%; }
+      20% { left: 200%; }
+      100% { left: 200%; }
+    }
+
+    .btn-gradient:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(0, 242, 254, 0.4);
+    }
+    
+    .btn-gradient svg {
+        transition: transform 0.2s;
+    }
+    .btn-gradient:hover svg {
+        transform: translateY(2px);
+    }
+
+    .btn-glass {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #FFFFFF;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.875rem 2rem;
+      border-radius: var(--radius-pill);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+    }
+
+    .btn-glass:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .btn-glass svg {
+        transition: transform 0.2s;
+    }
+    .btn-glass:hover svg {
+        transform: translateX(2px);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-header {
+      margin-bottom: 4rem;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+
+    .tag-cyan { color: var(--accent-cyan); }
+    .tag-teal { color: #2DD4BF; }
+
+    .section-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(1.875rem, 4vw, 2.25rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-desc {
+      color: var(--text-dim);
+      font-size: 1rem;
+      max-width: 42rem;
+      line-height: 1.6;
+    }
+
+    /* Spotlights */
+    .spotlight-box {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      position: relative;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s ease;
+      margin-bottom: 3rem;
+    }
+    
+    @media (min-width: 1024px) {
+        .spotlight-box {
+            grid-template-columns: 2fr 3fr;
+        }
+    }
+
+    .spotlight-cbt:hover {
+      border-color: var(--cbt-border-hover);
+      box-shadow: 0 20px 50px rgba(139, 92, 246, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    
+    .spotlight-dompet:hover {
+      border-color: var(--dompet-border-hover);
+      box-shadow: 0 20px 50px rgba(45, 212, 191, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .spotlight-visual {
+      position: relative;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border-bottom: 1px solid var(--card-border);
+      overflow: hidden;
+    }
+    
+    @media (min-width: 1024px) {
+        .spotlight-visual {
+            border-bottom: none;
+            border-right: 1px solid var(--card-border);
+        }
+    }
+
+    .spotlight-cbt .spotlight-visual {
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(0, 242, 254, 0.05) 100%);
+    }
+    
+    .spotlight-cbt .spotlight-visual::before {
+        content: '';
+        position: absolute;
+        top: 0; right: 0;
+        width: 250px; height: 250px;
+        background: rgba(139, 92, 246, 0.2);
+        border-radius: 50%;
+        filter: blur(60px);
+    }
+
+    .spotlight-dompet .spotlight-visual {
+        background: linear-gradient(135deg, rgba(45, 212, 191, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+    }
+    
+    .spotlight-dompet .spotlight-visual::before {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0;
+        width: 250px; height: 250px;
+        background: rgba(45, 212, 191, 0.2);
+        border-radius: 50%;
+        filter: blur(60px);
+    }
+
+    .spotlight-icon-halo {
+      width: 80px;
+      height: 80px;
+      border-radius: 1.25rem;
+      background: rgba(15, 23, 42, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .spotlight-cbt .spotlight-icon-halo {
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        box-shadow: 0 10px 25px rgba(139, 92, 246, 0.2);
+    }
+    
+    .spotlight-dompet .spotlight-icon-halo {
+        border: 1px solid rgba(45, 212, 191, 0.3);
+        box-shadow: 0 10px 25px rgba(45, 212, 191, 0.2);
+    }
+
+    .spotlight-icon-halo svg {
+        width: 40px;
+        height: 40px;
+    }
+
+    .spotlight-cbt .spotlight-icon-halo svg { color: #A78BFA; }
+    .spotlight-dompet .spotlight-icon-halo svg { color: #2DD4BF; }
+    
+    .spotlight-visual h3 {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 0.25rem;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .spotlight-visual p {
+        font-size: 0.875rem;
+        font-weight: 500;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .spotlight-cbt .spotlight-visual p { color: #C4B5FD; }
+    .spotlight-dompet .spotlight-visual p { color: #5EEAD4; }
+
+    .spotlight-info {
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+    
+    @media (min-width: 640px) {
+        .spotlight-info { padding: 3rem; }
+    }
+
+    .spotlight-pill {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: var(--radius-pill);
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        width: fit-content;
+    }
+    
+    .spotlight-cbt .spotlight-pill {
+        color: #C4B5FD;
+        background: rgba(139, 92, 246, 0.1);
+        border: 1px solid rgba(139, 92, 246, 0.2);
+    }
+    
+    .spotlight-dompet .spotlight-pill {
+        color: #5EEAD4;
+        background: rgba(45, 212, 191, 0.1);
+        border: 1px solid rgba(45, 212, 191, 0.2);
+    }
+
+    .spotlight-info h3 {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: clamp(1.5rem, 3vw, 1.875rem);
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 0.75rem;
+    }
+    
+    .spotlight-info p {
+        font-size: clamp(0.875rem, 1.5vw, 1rem);
+        color: #CBD5E1;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+    }
+    
+    .spotlight-actions {
+        margin-top: auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .btn-spotlight {
+        font-weight: 700;
+        font-size: 0.875rem;
+        padding: 0.625rem 1.5rem;
+        border-radius: var(--radius-pill);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .btn-spotlight::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transform: skewX(-20deg);
+      animation: shimmerBtn 4s infinite;
+    }
+    
+    .btn-spotlight svg {
+        width: 16px; height: 16px;
+        transition: transform 0.2s;
+    }
+    
+    .spotlight-box:hover .btn-spotlight svg {
+        transform: translate(2px, -2px);
+    }
+    
+    .spotlight-cbt .btn-spotlight {
+        background: linear-gradient(90deg, #8B5CF6 0%, #D946EF 100%);
+        color: #fff;
+        box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+    }
+    
+    .spotlight-dompet .btn-spotlight {
+        background: linear-gradient(90deg, #2DD4BF 0%, #10B981 100%);
+        color: #020617;
+        box-shadow: 0 8px 20px rgba(45, 212, 191, 0.3);
+    }
+
+    /* 3D Interactive Tilt Cards Grid */
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      perspective: 1000px;
+    }
+
+    .tilt-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease-out, border-color 0.3s ease, box-shadow 0.3s ease;
+      transform-style: preserve-3d;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .tilt-card:hover {
+      border-color: var(--card-border-hover);
+      box-shadow: 0 15px 40px rgba(0, 242, 254, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .card-spotlight {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 242, 254, 0.1), transparent 40%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .tilt-card:hover .card-spotlight {
+      opacity: 1;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 2px 4px rgba(255,255,255,0.05);
+    }
+    
+    .card-icon-box svg {
+        width: 24px; height: 24px;
+    }
+    
+    .icon-cyan { background: rgba(0, 242, 254, 0.1); border: 1px solid rgba(0, 242, 254, 0.2); color: #00F2FE; }
+    .icon-blue { background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); color: #60A5FA; }
+    .icon-rose { background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.2); color: #FB7185; }
+    .icon-emerald { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); color: #34D399; }
+    .icon-violet { background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2); color: #A78BFA; }
+    .icon-amber { background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); color: #FCD34D; }
+
+    .card-pill {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-pill);
+    }
+    
+    .pill-cyan { color: #00F2FE; background: rgba(0, 242, 254, 0.1); border: 1px solid rgba(0, 242, 254, 0.2); }
+    .pill-blue { color: #60A5FA; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); }
+    .pill-rose { color: #FB7185; background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.2); }
+    .pill-emerald { color: #34D399; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); }
+    .pill-violet { color: #A78BFA; background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2); }
+    .pill-amber { color: #FCD34D; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); }
+
+    .card-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #FFFFFF;
+      transition: color 0.2s;
+    }
+    
+    .tilt-card.card-cyan:hover .card-title { color: #A5F3FC; }
+    .tilt-card.card-blue:hover .card-title { color: #BFDBFE; }
+    .tilt-card.card-rose:hover .card-title { color: #FECDD3; }
+    .tilt-card.card-emerald:hover .card-title { color: #A7F3D0; }
+    .tilt-card.card-violet:hover .card-title { color: #DDD6FE; }
+    .tilt-card.card-amber:hover .card-title { color: #FDE68A; }
+
+    .card-copy {
+      font-size: 0.875rem;
+      color: #CBD5E1;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      flex-grow: 1;
+    }
+
+    .card-footer {
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn-card-launch {
+      font-size: 0.875rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+    
+    .btn-card-launch svg {
+        width: 14px; height: 14px;
+        transition: transform 0.2s;
+    }
+
+    .tilt-card:hover .btn-card-launch {
+      color: #FFFFFF !important;
+    }
+    
+    .tilt-card:hover .btn-card-launch svg {
+        transform: translate(2px, -2px);
+    }
+    
+    .launch-cyan { color: #00F2FE; }
+    .launch-blue { color: #60A5FA; }
+    .launch-rose { color: #FB7185; }
+    .launch-emerald { color: #34D399; }
+    .launch-violet { color: #A78BFA; }
+    .launch-amber { color: #FCD34D; }
+
+    /* Minimalist Fluid Ribbon Divider */
+    .fluid-ribbon-divider {
+      position: relative;
+      padding: 5rem 1.5rem;
+      background: linear-gradient(180deg, transparent 0%, rgba(0, 242, 254, 0.03) 50%, transparent 100%);
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .ribbon-wave {
+      position: absolute;
+      top: 50%;
+      left: -10%;
+      width: 120%;
+      height: 1px;
+      transform: translateY(-50%) rotate(-1deg);
+      background: linear-gradient(90deg, transparent, rgba(0, 242, 254, 0.5), rgba(139, 92, 246, 0.5), transparent);
+      box-shadow: 0 0 40px 10px rgba(0, 242, 254, 0.1);
+      pointer-events: none;
+    }
+
+    .ribbon-quote {
+      position: relative;
+      z-index: 2;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .ribbon-quote h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(1.25rem, 3vw, 1.5rem);
+      font-weight: 700;
+      color: #FFFFFF;
+      opacity: 0.9;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 4rem 1.5rem;
+      background: rgba(2, 6, 23, 0.8);
+      backdrop-filter: blur(12px);
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-inner {
+      max-width: 896px;
+      margin: 0 auto;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+    
+    .footer-brand {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 700;
+        color: #fff;
+        font-size: 1.125rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .disclaimer-box {
+      font-size: 0.75rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      padding: 1.25rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 0.75rem;
+    }
+    
+    .disclaimer-box strong {
+        color: #CBD5E1;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-cyan);
+    }
+
+    /* Mobile & Tablet Performance Optimizations */
+    @media (max-width: 768px) {
+      .nav-pill {
+        gap: 1rem;
+        padding: 0.5rem 1rem;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        background: rgba(15, 23, 42, 0.88);
+      }
+      
+      .hero {
+        padding: 4rem 1rem;
+      }
+      
+      /* Disable continuous background animations on mobile to stop GPU throttling and stutter */
+      .ambient-glow-1,
+      .ambient-glow-2 {
+        animation: none !important;
+        filter: blur(25px) !important;
+        width: 320px;
+        height: 320px;
+        opacity: 0.5;
+        transform: translateZ(0);
+      }
+
+      .hero-bg-glow {
+        animation: none !important;
+        filter: blur(25px) !important;
+        transform: translate3d(-50%, -50%, 0) !important;
+        opacity: 0.6;
+      }
+      
+      .fluid-shape {
+        animation: none !important;
+        filter: blur(20px) !important;
+        mix-blend-mode: normal !important;
+        opacity: 0.2 !important;
+      }
+
+      .fluid-1 { width: 260px; height: 260px; top: 15%; left: 5%; }
+      .fluid-2 { width: 280px; height: 220px; top: 35%; right: 5%; }
+      .fluid-3 { width: 300px; height: 240px; bottom: 0; left: 15%; }
+
+      /* Lighten card blur on mobile for silky-smooth 60/120fps scrolling */
+      .spotlight-box {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        background: rgba(15, 23, 42, 0.88);
+      }
+
+      .tilt-card {
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        background: rgba(15, 23, 42, 0.88);
+      }
+
+      footer {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        background: rgba(2, 6, 23, 0.92);
+      }
+    }
+
+    /* Touch-screen optimizations: disable 3D tilt overhead during swipe & tap */
+    @media (hover: none) {
+      .tilt-card {
+        transform: none !important;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease !important;
+      }
+      .tilt-card:active {
+        transform: scale(0.985) !important;
+      }
+      .card-spotlight {
+        display: none !important;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-items a:not(.nav-cta) {
+        display: none;
+      }
+      .nav-items { gap: 0.5rem; }
+      
+      .hero-actions {
+          flex-direction: column;
+          width: 100%;
+      }
+      .btn-gradient, .btn-glass {
+          width: 100%;
+          justify-content: center;
+      }
+      
+      .spotlight-actions {
+          flex-direction: column;
+          align-items: flex-start;
+      }
+    }
+
+    /* ── About Me Section ──────────────────────────────────── */
+    .about-section {
+      position: relative;
+      z-index: 2;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    .about-card {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .about-card:hover {
+      border-color: rgba(0, 242, 254, 0.25);
+      box-shadow: 0 25px 70px rgba(0, 242, 254, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    @media (min-width: 900px) {
+      .about-card {
+        grid-template-columns: 280px 1fr;
+      }
+    }
+
+    /* Left column — photo + identity */
+    .about-left {
+      background: linear-gradient(160deg, rgba(0, 242, 254, 0.06) 0%, rgba(79, 172, 254, 0.03) 100%);
+      border-bottom: 1px solid var(--card-border);
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-left::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 200px;
+      height: 200px;
+      background: rgba(0, 242, 254, 0.1);
+      border-radius: 50%;
+      filter: blur(50px);
+      pointer-events: none;
+    }
+
+    @media (min-width: 900px) {
+      .about-left {
+        border-bottom: none;
+        border-right: 1px solid var(--card-border);
+        padding: 3rem 2rem;
+      }
+    }
+
+    .about-photo-ring {
+      position: relative;
+      width: 148px;
+      height: 148px;
+      flex-shrink: 0;
+    }
+
+    .about-photo-ring::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00F2FE 0%, #4FACFE 50%, #A78BFA 100%);
+      z-index: 0;
+    }
+
+    .about-photo-ring img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--bg-dark);
+      display: block;
+    }
+
+    .about-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #F8FAFC;
+      line-height: 1.4;
+    }
+
+    .about-role {
+      font-size: 0.8125rem;
+      color: var(--accent-cyan);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .about-location {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      justify-content: center;
+    }
+
+    /* Right column — bio + credentials + contact */
+    .about-right {
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    @media (min-width: 640px) {
+      .about-right { padding: 3rem; }
+    }
+
+    .about-headline {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(1.375rem, 3vw, 1.75rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #FFFFFF 30%, #94A3B8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.25;
+    }
+
+    .about-headline em {
+      background: linear-gradient(90deg, #00F2FE 0%, #4FACFE 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-style: normal;
+    }
+
+    .about-bio {
+      font-size: 0.9375rem;
+      color: #CBD5E1;
+      line-height: 1.75;
+    }
+
+    .about-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .about-block-label {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-cyan);
+      margin-bottom: 0.75rem;
+    }
+
+    .about-credentials {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .about-cred-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .about-cred-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      flex-shrink: 0;
+      margin-top: 0.45em;
+    }
+
+    .about-cred-text {
+      font-size: 0.875rem;
+      color: #CBD5E1;
+      line-height: 1.55;
+    }
+
+    .about-cred-text strong {
+      color: #F8FAFC;
+      font-weight: 600;
+    }
+
+    .about-interest-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.25rem;
+    }
+
+    .interest-chip {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-pill);
+      color: #00F2FE;
+      background: rgba(0, 242, 254, 0.08);
+      border: 1px solid rgba(0, 242, 254, 0.2);
+    }
+
+    .about-contacts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--text-dim);
+      text-decoration: none;
+      padding: 0.375rem 0.875rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      transition: all 0.2s ease;
+    }
+
+    .contact-link:hover {
+      color: var(--accent-cyan);
+      border-color: rgba(0, 242, 254, 0.35);
+      background: rgba(0, 242, 254, 0.06);
+    }
+
+    .contact-link svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 480px) {
+      .about-right { padding: 2rem 1.5rem; }
+    }
+
+    @media (max-width: 768px) {
+      .about-card {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        background: rgba(15, 23, 42, 0.88);
+      }
+    }
+
+    /* Toast Notification */
+    .toast-notification {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(0, 242, 254, 0.4);
+      color: #F8FAFC;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.875rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 242, 254, 0.2);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 1000;
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    .toast-notification.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .toast-notification svg {
+      width: 16px;
+      height: 16px;
+      color: var(--accent-cyan);
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Glows -->
+  <div class="ambient-glow-1"></div>
+  <div class="ambient-glow-2"></div>
+
+  <!-- Floating Glassmorphic Pill Navbar -->
+  <header class="nav-wrapper">
+    <nav class="nav-pill">
+      <a href="#" class="nav-brand">
+        <span class="nav-brand-dot"></span>
+        <span>drguswib</span>
+      </a>
+      <div class="nav-items">
+        <a href="#clinical-tools">Clinical Tools</a>
+        <a href="#utilities">Utilities</a>
+        <a href="#about" class="nav-cta">About Me</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg-glow"></div>
+    <div class="grid-lines"></div>
+    
+    <!-- Abstract Animated Fluids -->
+    <div class="fluid-bg-container">
+        <div class="fluid-shape fluid-1"></div>
+        <div class="fluid-shape fluid-2"></div>
+        <div class="fluid-shape fluid-3"></div>
+    </div>
+
+    <h1 class="hero-title">Built for clarity in<br/>clinical practice.</h1>
+    <p class="hero-desc">
+      Dedicated bedside calculators and software engineered to solve daily workflow friction for modern healthcare professionals.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#clinical-tools" class="btn-gradient">
+        Explore Tools 
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+      </a>
+      <a href="#utilities" class="btn-glass">
+        Personal Utilities 
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+      </a>
+    </div>
+  </section>
+
+  <section id="clinical-tools" class="container">
+    <div class="section-header">
+      <span class="section-tag tag-cyan">Bedside Software</span>
+      <h2 class="section-title">Clinical Tools</h2>
+      <p class="section-desc">
+        Fast, practical calculators and platforms built to assist bedside decision-making and residency training.
+      </p>
+    </div>
+
+    <!-- IPD CBT Pro Spotlight -->
+    <a href="https://ipd-cbt-pro.vercel.app/" target="_blank" rel="noopener noreferrer" class="spotlight-box spotlight-cbt">
+      <div class="spotlight-visual">
+        <div class="spotlight-icon-halo">
+            <!-- SVG Icon replacing emoji -->
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+            </svg>
+        </div>
+        <h3>IPD CBT Pro</h3>
+        <p>Exam Simulation Platform</p>
+      </div>
+      <div class="spotlight-info">
+        <span class="spotlight-pill">Featured Platform</span>
+        <h3>Internal Medicine CBT</h3>
+        <p>
+          A high-yield computer-based exam simulator and interactive question bank specifically engineered for internal medicine residency trainees to master their boards and refine clinical reasoning.
+        </p>
+        <div class="spotlight-actions">
+            <span class="btn-spotlight">
+                Launch Platform
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+            </span>
+            <span style="font-size: 0.75rem; color: #94A3B8; font-weight: 500;">Residency Training</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Small Tools Grid -->
+    <div class="grid-cards">
+
+      <!-- Card: Internize.ai -->
+      <a href="https://github.com/indra-dot/internize.ai" target="_blank" rel="noopener noreferrer" class="tilt-card card-violet">
+        <div class="card-spotlight"></div>
+        <div class="card-top">
+          <div class="card-icon-box icon-violet">
+             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"></path>
+             </svg>
+          </div>
+          <span class="card-pill pill-violet">Chrome Ext • AI Sp.PD</span>
+        </div>
+        <h3 class="card-title">Internize.ai</h3>
+        <p class="card-copy">
+          Asisten AI Klinis Spesialis Penyakit Dalam (Sp.PD) & Penelitian Medis. 100% On-Device Privacy • Zero Egress • Clinical Shorthand Parser • FHIR R4 • HIPAA Safe Harbor.
+        </p>
+        <div class="card-footer">
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Clinical AI • Extension</span>
+          <span class="btn-card-launch launch-violet">Repository <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></span>
+        </div>
+      </a>
+
+      <!-- Card: PindaiSehat -->
+      <a href="https://pindai-sehat.vercel.app/" target="_blank" rel="noopener noreferrer" class="tilt-card card-amber">
+        <div class="card-spotlight"></div>
+        <div class="card-top">
+          <div class="card-icon-box icon-amber">
+             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.75 6.75h.008v.008H6.75V6.75zM6.75 16.5h.008v.008H6.75V16.5zM16.5 6.75h.008v.008H16.5V6.75zM13.5 13.5h3.75m3 0h.75m-3.75 3h.75m1.5 0h1.5m-3.75 3h3.75"></path>
+             </svg>
+          </div>
+          <span class="card-pill pill-amber">Nutrisi & Obat</span>
+        </div>
+        <h3 class="card-title">PindaiSehat</h3>
+        <p class="card-copy">
+          Asisten Nutrisi, Diet & Obat Cerdas. Analisis gizi berbasis AI, rekomendasi pola makan personal, dan panduan keamanan konsumsi obat terpadu.
+        </p>
+        <div class="card-footer">
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Smart Nutrition & Meds</span>
+          <span class="btn-card-launch launch-amber">Launch <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></span>
+        </div>
+      </a>
+
+      <!-- Card 1: adjustr-io -->
+      <a href="https://sites.google.com/view/drguswib/adjustr-io" target="_blank" rel="noopener noreferrer" class="tilt-card card-cyan">
+        <div class="card-spotlight"></div>
+        <div class="card-top">
+          <div class="card-icon-box icon-cyan">
+             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25v-.008zm2.25-4.5h.008v.008H10.5v-.008zm0 2.25h.008v.008H10.5v-.008zm0 2.25h.008v.008H10.5v-.008zm2.25-4.5h.008v.008H12.75v-.008zm0 2.25h.008v.008H12.75v-.008zm0 2.25h.008v.008H12.75v-.008zM19.5 7.125a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v12.75c0 1.243 1.007 2.25 2.25 2.25h10.5a2.25 2.25 0 002.25-2.25V7.125z"></path>
+             </svg>
+          </div>
+          <span class="card-pill pill-cyan">Renal Dosing</span>
+        </div>
+        <h3 class="card-title">adjustr-io</h3>
+        <p class="card-copy">
+          Antibiotic dose calculator adjusted to estimated renal clearance and GFR to minimize toxicity risk.
+        </p>
+        <div class="card-footer">
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Renal Calculator</span>
+          <span class="btn-card-launch launch-cyan">Launch <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></span>
+        </div>
+      </a>
+
+      <!-- Card 2: adjustr-fluid -->
+      <a href="https://sites.google.com/view/drguswib/adjustr-fluid" target="_blank" rel="noopener noreferrer" class="tilt-card card-blue">
+        <div class="card-spotlight"></div>
+        <div class="card-top">
+          <div class="card-icon-box icon-blue">
+             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 2.25c-3.75 6-7.5 9-7.5 12.75a7.5 7.5 0 0015 0c0-3.75-3.75-6.75-7.5-12.75z"></path>
+             </svg>
+          </div>
+          <span class="card-pill pill-blue">Electrolytes</span>
+        </div>
+        <h3 class="card-title">adjustr-fluid</h3>
+        <p class="card-copy">
+          Precision fluid balance and electrolyte correction protocol manager for acute and inpatient care.
+        </p>
+        <div class="card-footer">
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Fluid Protocol</span>
+          <span class="btn-card-launch launch-blue">Launch <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></span>
+        </div>
+      </a>
+
+      <!-- Card 3: Rheumatools -->
+      <a href="https://sites.google.com/view/drguswib/rheumatools" target="_blank" rel="noopener noreferrer" class="tilt-card card-rose">
+        <div class="card-spotlight"></div>
+        <div class="card-top">
+          <div class="card-icon-box icon-rose">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"></path>
+              </svg>
+          </div>
+          <span class="card-pill pill-rose">Rheumatology</span>
+        </div>
+        <h3 class="card-title">Rheumatools</h3>
+        <p class="card-copy">
+          Clinical scoring companion implementing validated criteria (DAS28, SLEDAI, CDAI) for rapid disease activity assessment.
+        </p>
+        <div class="card-footer">
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Scoring Companion</span>
+          <span class="btn-card-launch launch-rose">Launch <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></span>
+        </div>
+      </a>
+
+      <!-- Card 4: Calc-Med -->
+      <a href="https://sites.google.com/view/drguswib/calc-med" target="_blank" rel="noopener noreferrer" class="tilt-card card-emerald">
+        <div class="card-spotlight"></div>
+        <div class="card-top">
+          <div class="card-icon-box icon-emerald">
+             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 3.75h4.5m-4.5 0v4.5m4.5 0v-4.5m-4.5 4.5l-4.125 9.625A1.875 1.875 0 007.35 20.25h9.3a1.875 1.875 0 001.725-2.375L14.25 8.25m-4.5 4.5h4.5"></path>
+             </svg>
+          </div>
+          <span class="card-pill pill-emerald">Vasoactive</span>
+        </div>
+        <h3 class="card-title">Calc-Med</h3>
+        <p class="card-copy">
+          Advanced clinical tool for calculating syringe pump dosages for Norepinephrine (NE), Dobutamine, and other critical care infusions.
+        </p>
+        <div class="card-footer">
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Dosing Calculator</span>
+          <span class="btn-card-launch launch-emerald">Launch <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></span>
+        </div>
+      </a>
+
+      <!-- Card 5: adjusterGEH -->
+      <a href="https://sites.google.com/view/drguswib/adjustr-geh" target="_blank" rel="noopener noreferrer" class="tilt-card card-cyan">
+        <div class="card-spotlight"></div>
+        <div class="card-top">
+          <div class="card-icon-box icon-cyan">
+             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"></path>
+             </svg>
+          </div>
+          <span class="card-pill pill-cyan">Gastroenterology</span>
+        </div>
+        <h3 class="card-title">adjusterGEH</h3>
+        <p class="card-copy">
+          Clinical Decision Support System with 30 evidence-based scoring calculators and guidelines for GI bleeding, hepatology, functional GI, and luminal disorders.
+        </p>
+        <div class="card-footer">
+          <span style="font-size: 0.75rem; color: var(--text-muted);">GI & Hepatology CDSS</span>
+          <span class="btn-card-launch launch-cyan">Launch <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></span>
+        </div>
+      </a>
+
+      <!-- Card 6: adjustrEMD -->
+      <a href="https://sites.google.com/view/drguswib/adjustremd" target="_blank" rel="noopener noreferrer" class="tilt-card card-rose">
+        <div class="card-spotlight"></div>
+        <div class="card-top">
+          <div class="card-icon-box icon-rose">
+             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"></path>
+             </svg>
+          </div>
+          <span class="card-pill pill-rose">Endocrinology</span>
+        </div>
+        <h3 class="card-title">adjustrEMD</h3>
+        <p class="card-copy">
+          Emergency Decision Support System for endocrine and metabolic crises: BWPS, Wayne index, Billewicz score, osmolarity, anion gap, and bridging insulin.
+        </p>
+        <div class="card-footer">
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Endocrine & Metabolic CDSS</span>
+          <span class="btn-card-launch launch-rose">Launch <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></span>
+        </div>
+      </a>
+      <!-- Card 7: adjustrHOM -->
+      <a href="https://sites.google.com/view/drguswib/adjustrhom" target="_blank" rel="noopener noreferrer" class="tilt-card card-rose">
+        <div class="card-spotlight"></div>
+        <div class="card-top">
+          <div class="card-icon-box icon-rose">
+             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 2.25c-3.75 6-7.5 9-7.5 12.75a7.5 7.5 0 0015 0c0-3.75-3.75-6.75-7.5-12.75z"></path>
+             </svg>
+          </div>
+          <span class="card-pill pill-rose">Hematology-Oncology</span>
+        </div>
+        <h3 class="card-title">adjustrHOM</h3>
+        <p class="card-copy">
+          Clinical Decision Support System Hematologi &amp; Onkologi Medik: MASCC/CISNE, TLS, Calvert, BSA, antiemetik, Khorana, 4Ts, ISTH DIC, PLASMIC, Ganzoni, CCI, R-ISS &amp; IPI dengan generator CPPT.
+        </p>
+        <div class="card-footer">
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Heme-Onc CDSS</span>
+          <span class="btn-card-launch launch-rose">Launch <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <aside class="fluid-ribbon-divider">
+    <div class="ribbon-wave"></div>
+    <div class="ribbon-quote">
+      <h3>Built by a clinician who codes.</h3>
+    </div>
+  </aside>
+
+  <!-- Utilities Section -->
+  <section id="utilities" class="container">
+    <div class="section-header">
+      <span class="section-tag tag-teal">Everyday Utility</span>
+      <h2 class="section-title">Personal Software</h2>
+      <p class="section-desc">
+        Simple, privacy-focused utilities designed to solve daily friction and manage personal operations.
+      </p>
+    </div>
+
+    <!-- DompetKu Spotlight -->
+    <a href="https://financial-tracker-nine-kohl.vercel.app/" target="_blank" rel="noopener noreferrer" class="spotlight-box spotlight-dompet">
+      <div class="spotlight-visual">
+        <div class="spotlight-icon-halo">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a2.25 2.25 0 00-2.25-2.25H15a3 3 0 11-6 0H5.25A2.25 2.25 0 003 12m18 0v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 9m18 0V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v3"></path>
+            </svg>
+        </div>
+        <h3>DompetKu</h3>
+        <p>Cashflow & Expense Tracker</p>
+      </div>
+      <div class="spotlight-info">
+        <span class="spotlight-pill">Web Application</span>
+        <h3>DompetKu Tracker</h3>
+        <p>
+          A clean, privacy-first web application engineered for tracking personal cashflow, managing category budgets, and visualizing recurring expenses without bloated features.
+        </p>
+        <div class="spotlight-actions">
+            <span class="btn-spotlight">
+                Launch DompetKu
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+            </span>
+            <span style="font-size: 0.75rem; color: #94A3B8; font-weight: 500;">Free & Privacy-First</span>
+        </div>
+      </div>
+    </a>
+  </section>
+
+  <!-- About Me Section -->
+  <section id="about" class="about-section container">
+    <div class="section-header">
+      <span class="section-tag tag-cyan">Profile & Philosophy</span>
+      <h2 class="section-title">About Me</h2>
+      <p class="section-desc">Clinician, clinical researcher, and healthcare software architect bridging evidence-based medicine and software engineering.</p>
+    </div>
+
+    <div class="about-card">
+      <!-- Left Column: Photo & Short Bio Card -->
+      <div class="about-left">
+        <div class="about-photo-ring">
+          <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAMCAgMCAgMDAgMDAwMDBAcFBAQEBAkGBwUHCgkLCwoJCgoMDREODAwQDAoKDhQPEBESExMTCw4UFhQSFhESExL/2wBDAQMDAwQEBAgFBQgSDAoMEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhL/wAARCAGQAZADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDgyfp09KUHjt+VNPX8KcOlfmJ/oDdiFsn6e1LnI7flSEelKKAuw3Y64/Kgkn0/KkbrRk0Bdig4Hb8qQtn0/Kl7c02gLsUHnt+VOz9Pypg606gLsA2f/wBVLn6flSYxRQF2Ln6flRn6flSUUBdi5+n5UFsen5UlIOetAXY7dn0/KjP0/KkooC7Fz9Pyoz9PypKKAuxc/T8qM/T8qYSadmnYXMLn6flRn6flSUdOtFgvoBbHYflRv+n5UjEDtmmn3pE81tx+7nt+VAbPp+VNxijOKdh8y6Mfn6flRn6flTQcmlzSKbaVxc/T8qM/T8qSigVxc/T8qM/T8qSigd2Ln6flRn6flSUUBdi5+n5UZ+n5U3nNLQF2Ln6flRn6flSUUBdgGz/+qgt24/KjGKMUBdiBsen5U7P0/KkwKKAuwLY//VSKee35UHrQOtAXY4ng9PypmeQePypTn04pKYXYu7nt+VIvfpzntR9KB1/CgE9QPX8KUdKQ9fwpRmkhMPu0mecilY47ZpM+1MBfvYJ7UtNGT7UpPpzQAtNIxTh05pCc0AInf6048DNNHWnE+tACZLdTSjilxik6UAFFFB6UAITilpuCadQAUUhOBzTGlCjLYFBDlbVkmRjrTWYcYyT7Vg6/4xsdEtyzHzpiDtjVq8s1z4o61eSmGykS2ib+4nP5134fL6tXVLQ+Rz3jfK8q92pK8uy3PaZrlLfPnSIgHdmAqt/b9iDtW8tmb0EgzXzpc31xfSbrq4nkYnne5qzp9uPMDknjvXoLJW1qz87reLsnVtTo+75s97u/FFrZqd7gntg5rMk8cR7G8sBT6sK82OoymJVXJC9M81Vur6aQYkBC/Srp5PH7R5mO8UcbNfu4pHW6x8Q7gKVtbkof9gY5rlLnx7fxZZr6bPuaxbplRhubbmqcstrt/wBIkQrjuK9Ojl1GKs0fn+P4xzfE1HJVmvmzetvjBrFmxEEwdT1Mg3VpQ/G7ViQHELZ6jZiuQR9CMIBkJb/YFVtmkyFgpm9sHmt1l+Gb+E56XGefUY6Yhnq+kfGqOQ7NWtdh/vxn+legaL4ksPEECyabOr/7PcV8zLY2bHMUs4we/NbGhaje6BdLPpVwDyCVPcV52LyWm1enoz7nhzxXx9GrGGOtKHV9V+h9KZwacOa47QPiVYalEqagPIuRgMf4Sa66OVZI1dCCGGRjvXzdbDVKTtJH9A5VneDzOl7TDTUvzH0UgbIyaWsD1k7hSA5paKACiiigAoopCT2GaAFpN1LTT1P1oAcDmg800kHocUoyOvSgA20bqXIo4NACbqSl46d6QjFABQvU+4NFKvX8DQUhD1/ClU849KQ9fwpVPb0pIlg1JSt1FGc8UwEBxTgKTbSg5oAByKaRinUhOaAEHWlbrSdaXp1oAXFFFFABSE8getLSY5oAUDFJvB6UtVL69WziLSECnGLk7I58TiIUKbqTdkiWedIkZpmVFXqTxXDeIfGUbyNFpsm9VOGZay/EviB71mjllZImbBToMeprmb29hjgK2yFdj7d2c7vrXu4TK0rSn1Pwfi/xInUnLDYF2it5dSrrN5PdymVhgLxzWM0aW8YeaXc7dFA70rXgaUxvIG8yTPX39ao6lKJbtjtIQfMuO9fQ0qUYRsj8YxOOqV5upUk2yZnDgEKd2fyq9DI8EYyRzyMc1mh44GXccsPvFv6Cop9beMkqFypx/wDrqzH27LN7rEsLNsYLg96zpNevJjhTn2IqCXXJGzvRWI55GadH4gA+UxxsByNqc5pxbMpzcuo57i5uh+9VD+NULrSLmXd5e4DrtPf2zWzFr8MZ/wBItyNxyMrkmp/+Ert7dvltpiD0DKVA/SrXmYOHc42S2urfAaF4sH7xp6GRRkyMHFde3jLTrjcJrHLeq7TRaXWl6lISsEcXP9zk/wBKqM0tLBY5mG+u0wAjuPYdq07TV5Igpmt5URuj46108h02zgC/fIOTllX88VQ1HVoYiROyJCBlV+6f6n+VZzbWpcIRe7JLPXIkUbXHzdQw5rvPA3xC/slzb6hP51q/QdSv0rx+XxNaSswa3SRe2OD+da2lWKatEP7KvFjmIz5FwMZHsa5a9GnXjaaPo8kzzE5TiFXw726H1Dp95Dqlt5+nSxzx/wCwc4+tWd2OtfNOjeKdX8EagHfz7ZtwHltnZIPf2r3Xwr40sPFloslo6rOo/fRE8g+1fLYzLqlCWiuj+kOEePMFnEPZ1HyVF0fU6IHPSikBAXI6GlByOK84/QYyvqFFFFBQGgHIoooAKRhgA0pOBSY5zQAmad1FAOaKAE20oGKRqUjNABjvTScmlzxg9aTPy4wBQAUDr+FJSjr+FA1uB6/hSqO9Iev4UoPb0pITBqP50bqToaYC5JA9aXAH+NJuobpQAtNOO1KPu0lAAOtKetIOtOoAKKKKACjNI1JQA2WZIULO3SvMfGnjuN5/KsxuSPK7geCR1rf+IevR6RpToZNkk3yjjkDufyrwy8umO57bLRyEFSvJx9a9rKsIpv2ktj8a8UOJJ4eh9RovVq7Na91uXUJX8wY3jczn/Oarecs8bw25ZSfmYdzjv/n3rJnt5Y41ZS7yMey8gevWqsXmwzeajTpKo+YkYyPrX09OCR/OlWcm7svIBFNl9jDduBIzk0agQ0aSx7l28sB6d/yNVYZngcG6QxlzyWBAP1q1IhRD94owJGfT/wDXXQ7PY5jEuLtt4IJ3Djr2qu1wkADT/MeynpU8qeZMxTGcdPTH+TVfSbRb2WSe8J8tDnA9P84qdEMls7abUHOzIj65Y7UWta3s9Ps133cklywGCANi5rJOq/aZfJhXaiHA28Afj2qwJ4GJWdg6x/N0wqn+tLmA1YtWnlGND05Aqjl2+UfXNW4td1SMATQ2rY4JU7sVi/2+pURQRNMwwQU4/wD1flVmLW7llx5UMZPQM+fz5p8wG4by5vVZmt7ONRw37sfzNZd9o5uVBhuPKYH+A5U/4fhVcS6hctnzrc8cKG/wNWIL69s8Nc6cLkeokJNLUTKkGiX9uN5K3eDxhv0x1qjcQyxSFbmzXdnOCScn3B/+vXVQ+JrKdkjuLNrd17Y3Y/LBq3FqtkyFhEk7jJbcclT2680rPqV6HCLO1u3zQJC3VMqo/pWlbSF4wZrdUY/ckhIXP9D+ldCL3S7oyJewRHdxllwVP1//AFU1PD2myIz2dxNHvOCAxwT+PSmogm1sJHr63MZtdYC3NkF2Asp3J9O4/UVWkW78H3MN7ps8jWMp+SVDjnrg46GqureHRbPtW8n443MvA9sj/Cm6VqEtqXtb0i4gYYI+8jVnOClo9jtweKq0aqqQlaS2Z7p4D+Jlp4lt47W/ZYL5VAGTxL7j3rtw2MYyAa+UbiB7CRpdHkK7BuMTdceqnv7V6n8L/i+t+IdL8QyDPCx3BPf0avmMxyyULzp7H9CcEeIkcTy4TMHyz2T6M9e3c4/WlpHXYMjkHoRR0rw7n7JGSkrp3FoooplARmmk9adSEUAC0tItLQA3nPNOzSEZpKABu+KOwpR92koAOlAOSeMcUUDr+FA1uB6/hQB6UHr+FOHSkhMaRjrSgc/hSkZpAecUwFwOKKKQHNAAQc8dMUmMU400nNAAOtO47nFNHWnEZoAKCaKQigBKTIAOf5UtQXUoggkkY4CqTn6UrXInK0Wzxb4v332zUpLXcR5S4GOhPU9e1eZvdG2wTcIqjAVQxGa1/FsE2ra5cXEjs4mJILNnOT2/wqhcWlrYQhXRS4HJPJ/E9q+3wVDkpRR/IXGGZPGZrWqdL6D4dVOceYjA/wC0AB7Yq0lzIRlF3Ag7uQQB/n1rmLtjcIzWwZU77hnJqpb3Go2b77cShT14yCPpXpKNj4qpVuzrJ7oDIlU+SBgrIvC/1H8qjS5jhUJCVeA8hS2XUn0H9emKyYNZM2EdGVh27D6en6irL6YbpxJHA5J6FCaTlGOjZCuyreyjzGaLIDNn5u3rz71mvcG2t3WE7SykEZ9a6pfBt9cRAx282Cc/MtQ3nw51YRhvssoz6Lms3Xpp7mnsZtbHKWb8FVZgD94/1q0saTH5S0jA4Crx+v8A9atJPBWpwFlntJVGeTjt61eOgPYW8h8olumM4I+p/wAKn2sXsxqjJLVFK1SOOMBOT328AfjTxd6fFIVlKsQedqg/rWTc3DEOjbkXoMd6bFAiRl5FJxyd3f8ACtUrmbVjsdNGi3/yC4aB2PJeTH4elbcHhy8iIFlM+3qoYbwf+BLnH4ivMP7S8sYjVE9kX+ta2keKtY0/HkGR0ByFwQP06UbMG1ax3jQXER26tYCbj/WBRIp/4EuapzaRZ3W5IkubKaMZVnXcv4MP/rVmweMje4W8eSGcDG7knr03Dn881YPiV7YkzhruJ+A7EZX1IcdPxFO9yE11KV5pepWq51GH7RGeEki+bK/UdfxqklzNaP8AK8sfYRuME/TPFdBb62zsXsJS6Ngsu7Y4/oaZfSw6hL+8keGUDudwx7+n5Urj5bmVHrEzLsuUEh6F14P+faqUtyY5dyJ5sa85Xgg+vH86tXNgFyTscHoQcH9OD/OqnkEMf3hDD2IP50maQbvYspeRygNucKOCCMkZqtdWilxdWLeVKvOFPD47/Wqs1u3mb7Z8sefTP41Lb6nLE6peRlcEAMqdfrUSjfY7aVVxkmuh7z8I/iL/AG5p8emaw4W6iXbCzH74HY+9emrkDBGfrXyVaXn2LUVu7WQB423bgcHPqRX0z4K8SDxR4eguiNtwq4mU9mr5PNMH7GfNFaM/pDw44qWPofVa0vfh+K/zN3NFNXkk06vJP1hBQT2ooxzmgBFGDzS9hSE4paAEOe1LwaKTGOlAASKTGaXAPNIw+tABQvUj2ooXg59qBrcD1/CnDpTT1/ClHSkhMAME+9J0NGTRTAXr0pSMikXpS5oAOgppOacTxTaAAdacTimr3zTsZoAAc0hNLjFNPWgArB8b3hsPDl5Ih2sYioPoTxW9XG/FW5WDwtIr5PmyqoH61rhoc1ZI8bP8Q8PlteontF/5HjUkS3eEOGVdu3I7Dkn/AD61jX6faNRWNQrRRghSxwP/AK5zVtLjNsHLuH2kEY6AdDVFiYtMeeQbZJVJRTzhR6e5r7ylZWR/F+MqOpUlJ9WY2p35jLw2yZkJwH7/AIVlWun3moSusYdz3xzWlawfaCHYsWc/MxH3fQV7N8IvhxBqV7E84Ko55VRgsfb2qsRio0Y7nLSoSqSOY+G/wwudY1CIXcbsp6ZGQcda+kPD3wTSIwg26bAMgspzmux8H/DW30W6Se3jLSEAgKBgH06cnFep6Zpcjy5k2Rx55AXk/U18vicwlUdlsfQYfAxgtTgtL+ENiEXdEuQMEY4B9fetW/8AhvZi1Hl20QlIAO1BgZ9q9Nt7SJFwMtjvjH6VM1kj44Yc5IK5H41xe3m3ueiqUEtjwq4+GmkSRGK+sIV/vMPX1B6Vwnj34PQanAv9g24t5VhO4MeNoPAPqTzX1XNpNtKCIygYja+3H8qwNT8HW3lyuCkZb7rA7Tj3xxiuiFeSd7inRhJWsfnH4p+GOo2GplJUWV84+QYGemPzrD1HwZc2rrazQSecMZUDkkjNfeupfCa0k3yXELXMucpv6AGuBj+ENtDrlxdTJM4YMwQgkZHQA/57V3QzCaSuebUy6Deh8UTabNZs6BcFDlwFwR+NQmAyAEsyZ6buRX1TrvwZtzeTyvFkyDDJ0Ck88e31rznxB8H4bSWQW5YKTwwbAH+NdlPMqb3OOrlko/Czx46VJtBfPIyPmxn6Gp4LOdOFkkUj7qdC30PQ11t34OutNMn2V5JE9QoAPtiq8cM1uyrcwGMLknaCRz7da76eLhNaM86pg6kXqcxJFNFJ+8yjE8jGM/h/hV+GaTyx5qhlXkOSfwweta91cWzqBuWPjBPUfkRWdc+WrY8xCSO3y8fQnFa89zFU2mQSXJ5NvvLAcjofy6H602K9Mi4ywYjoeP8A61MDjOHifr3/AJ4okfzWCgGRQckLxge/pU86LjFpjyhkUtIxG3sV6+1NQSKRw2MdVORTZXgVFW3kXcepJPP0plvMYrnMyZQHO4HiqudEZJ6EdxAYwCqlWA9eteyfs/a+WmutPnYfMuUB7kV5fNsuITJCoMm3JXPGPb39qu+BdT/sfxRaTRSlFEgBHrmuDHxjVoONtj6nhDMXl+cUat9G7P5n1aeDikoQ74Y5M53LnNFfFtWP7ApyvFPuFBoopGggGKU8UUdaAGkntTqaRz3/ACpcmgAJpKOpo7mgAoHX8KKB1oGtwPX8KUdKQ9aXtSQmITmlP3aTGaU9KYAvSjbQvSloAaRzj2o7AelOIptAAOtOpo606gApp606kI5oExK82+Nlz5Oi2qDgtMSOO+K9Jry343SCSDToy3zq5cL69BXblqbxMbHx/HVXkyKu79Lfe0eVW7IHkicqRHAT83dsf/Xz+FQ6rE0wTjMMcSsVBx6nH8qZPII9QOSAjNg/Q1fG2J8XI3WsqY+9zkjA/pX2cYqKuz+QqnvTsWPh94YbU7/zWUPAJV3ZGVz719eeAfClrb2iz7UVI/kKqAu4dMV4/wDCDwzGNDkQo5aZgI8kDjivpjwnoRtbWMn5WIyCw6Hvx6185meJ5pWR7uAw9o3Oh0OzQqnkiTy+h68/4V1NrDtwqkYHGAOlUdMj8mIIu0KDketbEThlBbHPSvGcmeqo2LdtGuQMEkcAntWhHArYyBjGKzY5AvKkE9xnpWjbzjd1GTUXsXy2LEthHKMyRZ7jvWfLpUJ3BIdpI5Owd61o5XcqF27e+TzVhI93D9B0rpp6mbOTuNH3DgEY5yBjFZbeFEvIiXEe4D+73PbrXfyWMUnDk8j61X/sBdzGKRiDwBnFbKPci9jznUfh3BNAy+UmSCNwUHBrg9f+EiT7iscOeTgR8/hX0A+kyIjZYZ6cjNZ76NI7uRtHueg/Wm46aBc+Q/EHwcFrOZJiwjBwVPFcvq/wztTZRRtA/wBoGQz427voK+y7zw1BNLtu15XI3dQxNUJvh/YylmKjJwARip5prZicYdUfAWufB+Z9zRwOuD8pI/pXI3vwy1O1UkW5KdPu4Ffo9L8OrF+JIUbnORwT/wDXqtdfDXTrpPJltlCbSMsgya6oY+rBHLPA0pbo/NK98H6nAg328m3GSP8ACsS70i+tP3jQyLG3HTJr9I7z4EaNMCXjBX0PQVymv/A3Q5NMuI4beLzShKttAI4rqp5rqlJHFVytWdmfnvDKryFZIQWXpnIq44UQ7Soxj5gRgg133jbwSPC2tyfLE6I53A965bU7YiMnGFH3VI5A64yP88V7tOanFSR4rjyNxM20LJhQ2Y2HPrU0EbLcJPD/AMspRgjtRY3CRMIr9BKrnCkHlfx/pVtLJLO9kNu4eN+QRWVSL5Wd2EqKFWEn0Z9U6JN5+k2jMdxaFT+gq4RjpWJ4LuxeeGLGVTk+WFP4VtV8PVVptH9pZXVVXB05p3ul+QUUUVB6QEZo6CignFACbunvR96g89BS0AJnHFITmlI5pKACgdfwooHX8KBrcG604c5zTT1/CnDpSQmAGKKRgD1ozxgUwFAwKD0NAGBRQA3cSKKdTSME+9AAvOfalJxSLyfpTqACikbpSUgY7bxn0rwT4xa2LjxZ5KbjHZIFYE9e/H4170xAQZr5c8cXZ1DxPqBcE5nIBB9//rV7ORQ56zl2R+S+LmOlRyqnRi/il+CMa6YzXsZVgokYKM84710OnLHcztbTosweTMbJ/Djvg9RWPpdss98qykKsWZMnnOBmuu8CaY2r64kcKGRo5FUADHPfNfTV5ctNs/m+nDmmj6T+Eui20VhaeWrFo0H7xhnPvXu9hAPs6g4OD97pXD+CfD8WlWtsiqEYIC20YycfpXoNqwRVUDr1ya+KrT55Nn1lGPLFKxYgtnyGjZQM+hq+qurDEgyDn7tV0lAIPpUq3AJA5yTxxXPLc3SLsPB5ye4yMYq9BJztAPArPiYnr/KrkRwwIHIqLjZs2rBgCcgj0NXg6KvJ+pzWTbyZ25Jx71oxq2M4JOfu11U2ZTVmWA6kctyOtNEmSAAQT904605SSOUYkjk5pPJO7IXH0rbmZDVyUkNuDnOQOQcVBJbBvmC8HOQDih1LcFtvqQOlJHHIoy8pcHphcVqnoTyFSa28vOVyCe55qkoLucH8l/nWvMo2fMOep5rMUKJMyDrn8KzluUopkXk5PLZOPTFKsSjO5mJHb0qWQoCCp6HB5qCR9o+Q5I61LsPlZDPEuOAPauc1qySS3kWVFOQVx/npXQPOTuBzgmsjVAPJkJ6AHtWE9x8raPjH40+F1ga7YJxuLb3GR16evPT8q+frwIRtUnCLwT29M/yr64+M9sbmGQhFMYzjA/l/ntXyfryC3mnGApH3gB79a+nyqtz07M+Vx9Hkqcxz93H+6VQoVs7j2JFXUcSKNu5D90ZqiZGkwVKsA5UZFbZsxb2ELIeWk5DV6kldHJ7yTaPd/hNP5nhCBSQdjkA5612VcV8I4lTwpEUOSZGyD25rtm618Pio/vpH9lcIzc8nw7f8qEopF6mlNcx9OFJnJxSEYpQaAFAxQORmk3UtAAelNpSe1IRigAoHX8KKB1/Cga3A9fwoBPPpQev4Uqnt6UkJgOetJ05pWx2GKM54pgAbPtQSef0o29felIzQAmTSHOOacOKRqAAcHilpq8/hTqAA9KYDxzTs5zTRytADZyRA/spr5V11s6vcspDH7QxYk19Wyx77dx/sH+VfKHiPMOr3sY4H2hl5+pr38g0nNeh+JeMzf1bD+r/Igs7n7P57FgfMIUAHkDv/ACr3P9n7wzLe36Xew43bySOMn1P0rwvSNPbUr63t0B3O4B49a+7/AIY+Erbw74btIYEQOyKXbqd2Oa9DNcR7OnbufiOV0PaT5ux3emwLaQoTjJHOP61pxTZIxiqUbZQDIxjqKs2wQYK5Zn4zXyad3ofUciUbmlE+Oh78VoQLuxuHX2rBm1vTtNdY766jjlPRD1NKPFFrgMJkVT935+SPWtFh6kuhg60EtzqoowF561fhjyucYrltP8T2k+zy3LFuAx4FdRp19E5G6QEHvnimsLK+qEq0TTs4OcYP41rw2JIzGScZPWqdpd2an93KDnvWtDdR9QQSeCa2jTUdzKU29hPsTbeQQPbmoZLSUEhT6ferRFyMfKRj0pDOoTIIBPOCc81fIiVJ9TKEB8wAA4PcdOtWI7MtGeDnHHvUsl/EgO4gt1B6YqjL4it4gx3ooAyfarjFPQUqlkPnsyRg5AzxzWZPZHPXrnIziql/49sIdxedFI65wOvoDWTd/EfRYrcut/E+wnv2HXnpWjw7Zn9ZSNKe2MakrIT7DFVZA/3VA/OuVvfivomEzqEMLMfkAYc59PU1hL8aNOjvBBNIjKSfmxywB7dKxqYWXQ1p4mL6ndSOw7Hp9aguV3xsvY1Jp+p2niLThfaPMk9uDtZh95T6EdQajlIAJ4/rXHKEouzOyMlLY8Y+L3h7bC0kYDrKpBHQA+tfDHi9DaarcRNuwHIb8a/SfxTpaaxpc9vMv30O3HUHFfnr8X9JbS/FV/FKrKwJAz3r1snq2m4s8XOaCUFNHAW7ZiZXUkebjIrqLgrJYQEA/K4+UnsOM1z+nRqdOywOTLwT3rQj3lYA3GHYDB6ivo5M8Fq8GfQXwsUL4ZjA7Oa7Butcr8N7c23hyAN/Fz9a6tuDXxOKf72R/Y/CMHDJ8On/ACoYOtLRRXMfTgcd6QjjihqUdKAEA45oBPelJxQRmgBP4qGo2+9IACcA0AFC9/pSlcdeaQdePSga3A9fwpR0obr+ApR0pIGgOO9IenFKRmmscZHpTEHJo55x2pc4oHf3oAXoOaaSD0pQcrk0NQAid/rSnPahRj8aWgBD0pKcRmmng0ASDlCPUYr5T+Idq9p4rv4mH/LyTjHWvqscLmvm34xR/Z/HdwQBhgr/AI4r1smm413bsfkPi9h1PLKdTtL80dJ8A9Dt9T8dWoulaRYv3mByAVHH9K+0LUCOPbGoTHYdq+Qv2ZQ0vi9HDbcxMvHGK+xIoQ3lqSRWmcSbqJM/Gcnpx9m2WIWXaSSoAHLNXjPxV/aFttBaXSfB5We9AO65UggH0X+RNdX8RJNU1e3bSPDgaNZDtmnOV3DuAfT1/TvWP4U+AOl6fJFLqEUd5cPlnllbue3T3rnwMaUXz1B46pWl7lPQ+dIfEfiXV7ma5+03Us75cs4bJPb8KpXmveNNMm82W6vdqchWyBz6dBX2/Y/D/TLWBYoLSJdoxwP/AK1TX/g+wu0EdxZ2kiEbSpQN/OvTeYU0/hPK/s+rJayPh2x+NHiuwQRPcXIdTuzjPPv7V1mgftLeJLe7TddOyLwodc4+te/a98GfDsivMulQAtkthcZribz4YeG4JNv9mCLaclo+KzqZjQWjiOll9fRqR6V4E+LMusR28s8sjSToN+0cE/8A1+hr2fSfERkj3RksM8fNz9K+adDstK0UKLR3jUHO3H3h716bofiaNYwsbEgcAdq8mriIt3R7VHCzS949it9dZkBkfLeuMU2fWsBvm9ziuItfEQCDAZu3PaorvXxsB5J5zg1zvEHWsOzW1vxYLWNnB3AoeCcYr5k+KvxC1qznlXRJ7nc3UpyMnv8A4D05r1bXdcjkVvPICAYwfTNcRqM2m3kmFtlnck9V4q6WMSeqOetg5PZnzBffE7xw8jw/bL0ockk5JOarR+JPHF/Li3i1Kcbf+eJbk+vFfUkHh7Sl/fahHYWsecndgE/jXWaBc+HIEVLKS3nwf+WcZcD2yoNetTzJWsonkzyyV9ZHy9pPhTx5q0CzHT79nzlQY9n55rbi8HeOxAVGnzog+8GUdfXjmvqhfF+iWIAuZI4AeMyRlB+vFa9lrOlaom6ymhmR+P3TjDflRLGrewQy/TRs+TvBPxD8d/CbXI57pZDYyygXEDKWQr7r2z7dK+u/D3inTPGWmx6jor/LMuZYW+/E2OQRVC/8LaZrAb7TbQybhj7ozVTwr4HTwnfu2kB47eY5MWOCP8+lcVStGod1GlKkjoJ1PmcjkDp618Z/tc+Hks/E6XUSBRcxhjhe9fbFxATMzYxnPFfMX7X+mK2n2VwRtxkZxx2qcFLlxKNMfDnwkj49tXCW8kYA2xv8vHrWlZMtxNboo+eN9u3sfes52+ynlVPmOATnjGK6vwN4budf8W6dZabaTXcs7KWWFS2AOvSvrqzUabkfN4Kj7avCn3aR774ctvsmlWkWMFYxn61qMTnrUs2kXek4jvbaWAqAMOhGKhPOK+HqNuVz+0MqhTjhKcYPRJL7kKucc0tIDmlqD0gpQPQ0lB6UAIwOaWkHSlJxQAeufSm4wD2NLmhqAEBJHX86B1P0ooX7xHqDQNbgev4Uo6Uh6/hTh0pITEAxSnkUhOKUUwE6daQjANOxmkbpQAvamkYpeaQ570AC8E+9KetAxTs4oASkPXNKTinwjewU9zigmc1BNst2Gi32o27vYWsk4QZJUV81/GxJF8XCS4hlhYRhSsi7c4r6uh8SXthrkOnaT+6hsosSLjiRupJrn/2mfBkfibwFba5BZRpe2Q3zFVxle/PpXq5W4wrKTP58474lq5jGWFSSgn+R47+y86yeP7a3IB3ROcqOvFfaaW+0A8YAr4l/ZTcR/Ey2EmciCbkHGeK+3mm4AWtc3/inwWUK+H+YQ2qmTeY1HPPNT3mox6dBulKKo9qGkEcTMRnAzXn3jC4uboSRwKW3L9wsQD6V40Zu9kd3s431IdZ+Kk13czpozW+n2NuD5+pXLYjXHUKP4j69hXC6t8b7W0s7u40W31nxabKMvNcITDbRgcckYHXtzXA+Jvh34q8V6zGNVEg0yBvksbfKqwHPPsfzr2mO/wBC1X4YzeE77QLnRRJbFY5bSIMkbA5DY4PUDr716+Go4e96rPJxVbEO6ox0PF9c/aI1660A6ufDuh2umpdC0aNb/bcb8bs7M78Y/ixio9A+JGr+KNGuNY07Ttbhs7M7LmRSLqJGxnBz8wH+Fc9cfs8eIfEN28h+xIrHKTvIfmGeu0D9K+kvhX4B1P4feAm8O6fBp4F4xlvb65JJmZh2XsAOOa761PBOn5nFhpY9VNVoebeF9cn8VwmTTGt7ll5bym6n0x1B9q9B8J38sz/Z5UaN1OGDDBB/pTdC+EGk+FvES67o9+tveFy01taxnyZgeqsDnIrurPT1uNYe4SHYsmCflxXzlaEI7bH0FOpO51/h7wz/AGhHHlnYMMHHarOv+BnsYHeMMcDORXQ+GWEMSBQo28da6DU5jNanfj5kx61kqSabK55KZ8k+MIrtb3yYEkdmJ4rh/FnipfBdhGk9xHDdTLn5ucevA6/SvprV/C8M109wiky9gRXmfib4ZeHb7V31PX9Mupp1YCOZHyEUeimtcLGN9QrzdzyLwN4R8R/Fg3F9pNuPJtV3tqGqklOAeEiHDdOgx9a4W2+MXijQoL/7f4tudOlt4pDaxWGnIVeZSQqNyMA4HPPevqXw2kGgSyP4f1y8tElb54WVSoHupH8q818Xfs6aJ4k1m71UXVxbzXrtLKlqiGMOc5wp6Z6+nNe/hq+GirSR4OMwuMm7wZ5l8Mv2hPi1441N9MtRpeuyQW5la3vLUL5qjgrvHQ+5ro7X4s6Pf6q9trtpfeAvFED4YxcwyN6FehH1H416R8O/hSPhobqXw4yfbdQjEct7dxqzoo/hAHAB65rRl+A2h+KtTfUfEryajekD5nbv7YxjHbHSpxVTC1L8iNMFDF0/4jNr4f8Aji7uY44dUeFnwAJYDuSUf3lPp7HkV6tbXDSCNyQVAyK4bQ/hbZaRAkVlxsHDfxf99da7vTdHktLdV3bgOOa8GVJQ2PbdT2mpa/10hJzz0r51/a9jC+EIC2wMs2AT9K+kUhKMN2Onavmz9s2Nh4SttoY5lyD7itMHd4iHqY4nTDz9D4mEQvHgh6FpRjA6V9kfss2sXgjwtrurW9guoa0iAR4XPB7k9hmvmT4P+E38X+MLaGPeY4MO/GcAHmv0Y+DHg6DQtAW4jRTBe5VlZcEgdDXvZriGoKnE87JqFm6rW2x5+3jW61GNofFUEd5bXjYf5NpgJ/u+wrhPEehPoWpEROZLeUB4X/vKen416v8AEbw5bafdXtvYKEjZPMRf7vfArg/Ebi78LaZK+fNgZkJPp2FfNylaVj9n4GzWtHEKjJ3jL8DkwO560tL/AA570Uj9iQlFFFBQhUHrS0UAnNABTSc0pJzzQRjpQAlKpxSUL1P0oGtwPX8KcvP4U09fwpVPp1pIGKRmkzS0hIpiFByM0Ui9KWgAppOadRwKAGjrTqRep/SloACM0sT+XNGQMkNSE4601j0IovYyrQ54OPc6mzst/ii7nB4khDD6ECvVPE/hX+3Ph01mVDiWybcP+AmvKNLut9vb3cfWH/R5x6j+E/lXscviFbXSkgUr88AUflXXQqWjc/mLiTBVaOPnSkurPhn9nqF9N+NEVsi7FhSdGUjnIWvtayja4PUg4Br5H8PWbeHv2pWhdRGkskxUY4O6MmvrrSD+6ZOckcYrqzSXNOL8jxMsg405Lsy8qFsqNxxUY0NJ3LbANvT5av2VqZHXIAz1wa6Cw08MACDnGR2ry4wbZ1VDhp9GkibckJyGyDgVl3kN7G42aa8hHQ4Br1+PQxIOVGeasQeG0BBIX15FdUYysc10jw0WuvM5+zWEibuASFH51pad8PNY1f59cu3WNekcf+Ne2x6JDF8xXknNQ3MCRjKgDGce1U423K52eeW3hS00iPy4IckDGSScVH5KwyDGB6V02pSBVJdhgDuec1yqb726wv3QfpXPOnfc1py1Oy8PjYi5GSQCK2L24/dYYgDH61Q0S2cIoQHgenAq/qFkzR8DtnGM4pqDUQk05GL5KSHOe+alGg215Cyyxh93qKrbGilZchh2rU0y7OQrYB7E0qfusVT3lqcZrHwmsb5iyIUyeQvGK5eb4Q3FuwNpe3QBPAyD+tfQMNkJoQzAnPoKdHpEcpJPB9COfzrsUE1qjl9rKD0Z4Xp3wtnypvbu5lGckE4Brs9K8E29qgJjLBfUk16L/YkY5Qjr64pW00quQ2PpT9mo7B7ZyOLk0NIc+UMDHGKhdfKBQ5yK6y5tcEjoKxNRteD0znPPpXLWXY3peZju5XB5NeAfteWxuvAkDou51uBg+mRXvVyvlgnt2yTxXgv7UmoKvgNY2cDdcr1HpmpwbtiIeprXSdCa8j57/Zi8ZWPgTXnfWLYObibaSFBIXnj8zX314d8YWeuWkLacPJgPIjPGPoK+Gfhx8L7nWfD48QCNx5N2+ABw4/8A119KfDa8lS8soZARyBtNVmGJ/wBoZ14HApYZHZeONMafV5pGGUa0z1rxrxhOLWzs9OUAeWC7AdcnpXtXi3U0XxHqCyMVg0+2Qt9SMmvnrWb46rq1xct0dztB7AdKxsnK5+geH+BlVxU6z+GO3qVBwooozmipP2dBSYOetLnNFBQUUUdOtACEZ/CkJzTqOBQA0cUL1P0JoNA6/hQNbit1/AUAY5obr+ApR0pIchPvdaNopaKZIAYoopAMZNABnnFDUtI1ACDrTqQCloARulGMilIzTQME+9AFrSL02d28MmfJuRtb2PY16J4suvsem6Te27b7eQBHYdjivMnXdg9wRivRvDGp6ZrGkyeHvETiGC8j32k7HGyXuoP61SbS0PyXxDy+FOVPFJa7M+ffE90NP+POh6o+BDNdRpuz1Bwp/nX1nobB5tmT1HNfIvx28OX3hHUNOlvBv+wXe5Jh/EpwQf0z+NfUHhHUxcWVpdIx23ESv/30M16OI96lCXY/IsI/fnHu7nptjGgYFCDXR2rJxlOQep6Vxul3uWxt/XHFb4vniX5Y2OB2XOK5YNGlSLOot9pGMkjtVtWVBxWHp98Z4lYhkLD7p4/ya1FuF4JPBwR71rGRzWJZJflHU+3pWLqM20FgcEdjWhNOgDEd+9c9rN0RBJs544p1HZBFXepyfiDVy8nl24JbOPwqfwzbCTLyHqelV7W1SdHmx+8dj1FIly1hIfLOS/HHGK5VzPU0bSeh6jobW0YUysuAchSetaWqX1k0fDopxjqK8og14xcTMQw6ZP61FqOvMoDR5KkcsT0rf2tlaxg6TlK7Z02sII5A8P3QcZHYGslr+SwmQuCy57dc1Do2trcMEuJFK471q60bWTT5C235F3A46EVDXMm0bJ2dmdnoeqefbIy9MfxHn6VsxhXbcc5x168f/rryrQfED26ghyVIGB7V2Vnr7SspY8kcEdK3pVU1qY1KL5tDqgw2jgkmoppFK4ORnpzWUNX8xB843AZ54xUTaruGNwBHIwO1VKpoT7KxJfS4Qjg46c1zl5c5LBlP41cvNQV1bBye1c/d3DsxKnI71x1JHZBWRR1KVSDuJCmvlz9q7UmfRLOxDAGa53bgenHpX0nqE+ATK2BzxXzn8XdIm8U+J9F0+3hFxJcXyfIP7o5/r+lPCtKspPoaVI81O3c9h+AGpaBoPw8s/D2uWRwsCySXBXgsw3c1J4Zsx4h8ftLoMRh0izcs05GFAFa/w/8AD11ZT3Z8UWltDG/yxRKwYbAMAflWR4w8V3GpXf8Awi3gW2FjYSSbb27jGGI7qKVZqpK8mdHtVQh7vUyPiRryS2msX1s2Rqlz5cTDui8Z/IV5CuVUg9T1Ndr8UriK0urLRbHBg0+IZPct71xmMgVmfuXAuA+rZXGT3lqIOtPIpq9aWpPtwAxRRRQAUEZHNFBGaADp0pGpCMUq9M0AIOTS4wfwpOppQMdfQ0DSFfHb0FA6UjdfwFKvP4UkOQUZoJA6c02mSOzRTaAcUAOzSNSHmigBVPXNLTV5/ClJxQAtIcfjS0jDv6UAOxkDjNao0iLxD4Xu7WQlJojvhkU4Kt9aylbv7V1fgO3W+kuLdztEg7Hmqpz5Xc+P41wixGVzVtVqYt14du/HnwzvtH8SxLPq1tGzWN0eTkDgE/p+Na3wi1N7jwZpAuXYzWsIgm/3kO0/yr0f/hGBYaY0MHzfuyAT1zXkHw9RdF1jX9HkWRPst9vQEYHz8n8M12Rqe0TsfzxQpunOzPdtLu9yggg59RjFdPptwfKfcT6EE5/GuB0i8JGQDxxk11On3GAOcdhmuZOzuddRM6dL1YyMsuF54q/BeADg8dxnrXL/AGrYQvB4xxVm2vsL824Ad81oqljnlBGzdXIIIBOTwcjqK53W7/ybOUoeT6VYuL3zOOAeuc9qw9VBlRhu464J5rOVVvYOVJnNP42gsNEuRGyfbbZT+7bjJ/wr5wsdS+LfivxBNqcfi6w0y0jnwth5KFdgPZSOfqTXvviXwTY65mS+YxP0DxuVY+2RXA6j4Y0vw9K0mnxzOXO3LOSf96unDycVqro5q8qdtWddpfjffbJDrJjW9jAVyn3ZMfxDPQe1cr8V/GetX+mtpvgid7S5ZCZruOLeYx6L2B961tN8KJewwNcFmaQZ3Y+4PcV0NhoxtY54YVhd2GAeMjHXNEKfv3MZYmKjZHzN8OfFGreBvE0B1jxpqGpQSyYnt52LJuPf5un4V9VWHjiPxH5djp8hnaYZZozkKvcn04rgIfBWkXeoy/2ppUUkiSF/MljBDDuMdQfb9a9W8AaJpelaaRpdrBbqzYKxjHJ7+pHSt69Fyd0VSxaceV7m39iFvZqEwVUDp1/GrWj6sU2oeefmBFaq2weAru3Y6isFtOWK5JTK7j16Vw1IOJ10pqasdN/amB8zD8T/ADqJtWOBiUZxwSR09Kx2j2RqcqSPUEDNIJVAHQtzz6fSodRl8sS9L4hgvJwkahW5QEjkEdaqXMzso2soJ7mqyRwpKZIhtPGe+T3Jpksu4EdM88VlOTK0RmapJmNw+cYJBzzivPvC+kSa58WxcKP3em2RYE8fMxwD/Ou31OTKlOcHnP0rkvhn4otrfxpr8d08akNHFETwSACT+prSOkWzoowdWShFXZ6Zf2cpnaZp33D7iDvTdN8PrpsF1qN6oRghcH2rXg1DTpFWR5YyF561wfxa+JdtBpsml6TIGlmXaxU9BUq1j0cDk+Jx+JhSjB8t9XY8U1u8bUtdvblskSSsQc9RmqtNQ5yx6t2pxOaR/R2Cw0cPQjSXRWEwBRmmk5ooOodmjNNo+lADs0U360A4oAUnnHagnAwOlIeaKAAdadwevpTR1pe/4UFR3Buv4CgdKG6/gKUdKSCQ3GKB15pxGSKCopkiZFNJweadto2jOaAExRTjzTSMUAHSigA556Uu2gBc5ooAxSZ5oAWruja3LoV6txbgORwVPcVSoIBpNXVjDE4eNam4TWjPUtO+MtmqKL+B89G4zXBz+IbfVviZdXumo8UGoW6owK4+dO/5VitCM8VBHJ9i1K2mB2hJgWPseDV0arpvQ/POI+DcGsHUr0I2klc9p0p327ZGUsDg545ro7GYupHbHHfmuX0ZhKqlDuDAfifrXQW2MehHoelaS7n4rGpc2BOdv3uRjAI7eppyTSKeGGG7iqMMqlQM5wP4jjNJJefZhI7HIHPPP/6qyk9Btmkk4Q5kIAI+tUL/AFS3t13TPwSQMcnPvXOTeITZpJI5bcHJG5ux9vSucjvLvXtSaMAlSeW24AX0OO/+FXSjzK5yV61nY09W1lr6ORbVWQBsls+nfisqw8KXWpTFtpKkjGc4z1roZV07Q7HF2PNmA4Cjlj71m3Hi6R4ysLrbLJkqBwc12QptnOo87uzu/Dnhqxt7fyrqeIXJ+VQZMY/yau22gWmgXhudZnt4415RSevavHG1KZ7pQtwZJWYMi789D3rTuru4u7V/7RuJGXGBnoCOcZrX2craHTTo0r6s9OvNB0zxFJLcaHdx7iwLKrDIzwSB7jNYf/CN6p4buf3cu6Js/Mf4D/n+teU2viS0tpgLPUWsnQ7iC/OB64rq9N+NE9gVt9Qkh1FWGeoyB9aVqsVqgq4aD+BnX2Hii5s72RJxkYDDnGSfX39q3rfWYdRjMsZXPBBPcev0rgtX1vRtVsPtunzeXct/rEDYcfjWN4P1rUYdRkjnI+zYDFzgAj0X0P8AP0rCpdrU56MpQlY9bWcupV8Yzx9DVaeQvkR5Djv2x9KyLC5NzKfmAA+7k84PWtNSRjAOexzmuBvWx6kVdXHeaS+M9Dtz6+9O2/Ll+gGMfyzTRtZlztzjuMH3NOlO1WYcY4NO1yW7anO6vKAJGU8Rglvwr57WZ21S7uoifMed3D9Opr2vxhe/Z9KvZVwGkUqp+vFeOWyBWIA4Bq+h934dYBYnGzxEl7sVYujX9U8vy/tEoBH96qoV5n8y6ZpHPqamJx0pAc+lRZH7jSw9Ol8KSCjOKKCM0zcbRS7aNtA0JSjFJgkcUDrQJjjjvRwKRiAeaG6UALxjNNJB6UoPahqAEpVGT1PQ0lKpxQVHcQ9fwpw6U09acOlJEsRqO1LjNNPp2pgOFJupBx0p2BQAdaRqO/HShqAAGlpB1paACiiigApMc0tFABUM0IdeRn2FTUjDIPagyr01Upyi9noejeDdSM+mxu5XHAPPII4rr7eTzgdhyBnr3ry7wPeosklnPjEmSuf1FekwSokTIRtxjLE9T2raOqP5hz3L5ZfmFSg1ondenQurL5gzH/EP4uKfON9ux2nDLggd6iijDAkHJ3cLngVcyVhBbJUZHTqaxlFpnmXTPP8AxHbzLC6wAhuM/wC0O3NctaWnii38waSIYy33TI55P4V6PfWi31yqFCFLZP8As4rd03T4VUMY+cY5HNbUXy6HDVXNK7PBE8M/EW81Vl1e4t7a2LZMiBnIHqOa6Gx+DTa2VOpeJ79HDH7u2EY/nXs4ghxh0TDHHPSqt/pFlexMETYzDGUOMV6lPEwW6NKTjc4O1/ZlMm240vxTqayQk7G89X/QitO0/Z9uljWLW/Ed/PGrnzF8xU6/7ozXSWaSaScRO5B6nPerUuqfaP8AXXGN2Qetb/WKG5t+9fwtW9DitT/Z2+H6psuI5Zp8fNIJ3yfxzXI6v+zXpTrnwvqWp2Tjji4Lj8mzXsUNvBcAGR0cEclc8/StSyhtYFxDGuSec8nNT9dgvhREk0tz57tv2b9X0uDz7rxNfzyA/cOAuPTgVb0bw/faPdDMk8iryQxz7cV9GGCNox56kKRyfSuL1mxiMrMqHODyB6HgcVw4mvzGcYdxvhuALEksuS4TBLnknrit+OQYCqwyRk+1YlldoluVUKMKCOeT9fepoZHkb/pmw55wwNebbm1OuM+hp5DHcM8cDFRXlwscTAH8OwqBbrc5OCdpPTofes7Vb7ZZuz9A3K4yaqMCK03y2OB+I+olUhtg+SSXYDp7VwcIxz68mrviLU21XWJJCTjO3BGMAVUQfnTeh+/cA5V9TyuEpK0paseaSiipPuwooooADjHNGQDxSN0pCKAAnI/GlxSdSKdQA0jFKTmgc9aCMUAJjiijNFABQOv4UDrQvU596BpA3WnDmmnr+FOHSkhMCcUgHc96WkJ4pgKRnpxQRn8DTeTTqADoKaTmnGm4oAcOlFIue9LQAUUUUAFFFFABRRRQFhEu30+7huI85jYHivXtI1BdUsobiAlcBcgHOR715A67wQQCD2NbnhPXm0qc2902IJTwc/dJ9faqjLWx+a8e8OPHUfrFFe/H8Ueu7xDGMYAPKkrnPrTGvdqsrlgOm3dwB61Usr4tCjZBUjGGPP0qK5Z7ibeOh67l549u9an4W24uzWpaYILWeWM/PEoIB9PQVrWN2vlAdmAIHoKwmHmxg4JC9OxU9D07VJB5touGweNz5B59MVNjPW5vtMHOD8o64Zaz7q2KCSSLILcntUto7SKTIW4G0eh+lS3FsZo9oIOM++al3NklY5PUtVuLJWJORkHcnOPesFvHHmnybeMPKfmzu64P+FdzdeF3voGBddhA6fyrItfhn9nuftI8pnVsqxHY+n41UXdCafQk0fU7qaNVkQodoOF+tddprFcmYY9Oc5qjYaFdRHCImMc4BGfp7VprC8ICyDDE4yB/Kpk2tjaKViae8O3CHvk5zWRIPMfJyScnJH9a0yAOSgz3JOc1Tknjt8lwAVPOOSM1nJuRE0kZF1Ht+RehO7aq4GPrRZ3ItCB6A8knP0qO/nJkCrnJPJz0H49aqiUmZfNwVAztx0960pwYlJLU0ZboLucFeCGAY4wTWHcXLXLSxRNw4Jxu3VbuJdsbzFxGIh8wxmqvheB7prqV1ykn+qyMcV0OKhHUmD9pUXqeP3J26hNuPO85qVetJqsflaxdIwAKSlT9c0inK1ztH9XZZb6pTt2X5D6KQGlqDvCiiigAJxSbqWgigBoOKd1H1puMUuRigA6Y96QnNKOQM0mMUAFBORilHSkzxQAlOXr+BptOXr+BoKiIev4Uo6UN1/AUo6UkJoTdRjNLQeRTEAGKKAMUUABppOadSNQAA9BS0DpRQAUUUUAFFFFABRRRQAVXuFJUirFRzuEQlqFuTKMWmmdT4I8TNPMNOvXXzAn7mRmx0PQ13zagpBhj2GRdochsEe9eZ+F/D9vaaYfEPiCYQW/nrDYxsdvnSk4x9BW5ql5d6TdQTuC9u4CuynAHPf6etd0Kd1qfzbxxSwtLNp/Vtutu5082px6fMvlsS8hCyA/eA7ZrW0mdL5FklbY3IXccnFeZ6ndSPPPdKwEAIKOrHnjqf89qn8M+KJPMnhXkYAC4JAOOnrRPDyS0R8LLErmsenpfxxMU+XcnOBjLD1q/a6jFK2CCD0GB1brXldvrZuLhzFKEcgqFzwxHf2+nSti01eZiv2howqDeBnncDkjA7e1ZezZtGuemQTxo6h2X5uOOOfTFXEuogRnnqAxx+WK4O38Rwy5cDlsNuJxn2q//AG6GQsrphsMAhBOKElHc3U79TsxdxqpyyZA+UE449KotfW1wzKzKGUcAjAzXGnXh5nmFzwrZDHkjPFZVxrRS4Ei7kCSj92T8pP8AezV2T6Eyq26noksyIeChJBPQ8/T35rnNUulHLM2z67g3/wBboa5KTxi7XZVHLpv+QKcjoc/j/gKwx4r/ALQ1W8iXayRqdw3EdBgY9eD+lN0L7IwliVs2dO99HNHL5UqozHgkhS30/wDr01NQVlj+1yKoTgSZXJ/ziuHm16K0lZLiZQXUKmGDc9eB17jj+dU7W8m1mSTckkcZPAIILN/StnSUFzMKdR1HZHbC7fWpUiJb7Mp7HBf/ABHvXaaNarDbqijAA/WuV0K3O6I4UKo44zk11tvNtZAPxrz6k3J6nq0acFoYvjj4WReJ/BUvivwSqy6hp0hTU7ROTxwzfXvXi0bkoDjnuPQ16n+zJ8UZPD/7RPinwtqbh9F1u7dAkpyBJjj8+RT/ANoz4L33wv8AFdxrOiQtL4W1WQvGFGfskh6qfQc8GvocxyhwoQrU1o0fpHAHHEalaeW4mWqfuvv5HlqHd14p9QQzCVQVOTUyk98V844taM/bdOgtFFFIAooooACM03HYUpGaWgBoJHWgnNOpNtACZ4o7GlAxmkoAF560L1P40Dg0L1P40DTA9fwpw6U09fwFKOlJA7i0Un3aWmIQ57UtFBGaACjGaBxQTigAooooAKKKKACiik3CgBaKAc01m7A80AOJpdO02fxFrFlpVgu+e+lEagdgTyfyrPvbvyVHBLE8KP4q+jv2b/g5d2bf8Jd4miMbmBvsFuw5UEffP4cCu7A4R16qgj5Ti7iGhk2WzrTlrZpLq2fK/wC1D44Gi+OPC/hnSZNukeHLmNJip4klBG4mva9NuI9Q06IuRJHKmTkZBB9a+Tf2hYpL3xV4lkXLTRanKwz14c17N8FfHUfiLwbp7M5M6RCOUHsQMf0r6DPsF7CnCUdkfyxlmZTxtarOs7ylqdNrHha+sRJd6HKZgM7rd247/d/wNck2pvYxuI3+yXIjPmQzHyzuGecHqPTBr1KO6JGVbg81ieJNIsdZgC39vFKUPVhwK8OjjHFWlqdOJwfM7rc4O18UJaH94wLMoLFTwfxPQdKvp4tMUbPDMWkQ5UFh83Q8mqeueEN8YEG140Tbsk6lQOgYc/nXFXWhXcDgIs8YK4bDbyME/wD1q7YVKE0eZKnWpnrGneOo5I40dkDgAMe3vj8utakfjOIq4jlUNHG2Fx0A5rwmeaW2k+dblSFJBaM4z36d6fHrHlRqEuSDgFhIh6+lN0aMtilVqrQ9f1DxrHYvFNBL5ZOE8sHIwef6Gsq88eG5lRZSdqMCRHxnufwryy5uiJSguC8QAHyKSSOpqT+3IbMOUguZpWHyhjtBqlQo23ByqvQ7GXxZPLcoYX2xxv5vHy5AzwT6VlzeJ0aWe20wNdXFwhIcNgAHkEmuRkutU8QOsMjJa2jHiGMY49z1Ndn4d0aLT40WGIAhcMx6sfU0qtanSVooqlhnUleTNHQ9KMkyS3jvPcgAlgeFz2Ar0jSLcNtCAkkdzxXNaVbxxYO0ZJBye9dZpzbAu1Qzdq8mtVlN3Z7dOnGEUkdXYFbZVPAwPSrJ1NY1eSThU5J9KyDNsT52ycdfSvO/iR42+waZLZWEn+nXilEUc4z3NZUaMq9VU4K7Yq1dUoOTOI8D+IWX4pza7CwJfWldGx1Ak/wr9WbnTbLxNozWeu20d3aXkAEkcgyCMV+V/wAMvBqHVNCtIXaW4utQiDDP3ssCTX6tWEXlWFuB/CgX9K/X8XRhTwtKlJH51DGVIYqdam7O91bufFPxz/Z4vPhhLNrHhqOW98OSMWOBlrXJ6H1HvXjaSibBQ5B7V+oN3aQX9jLa30Sz29yhWSNxkMDXw7+0H8A7r4c6vJrPhmN5fD1025gBk2pJ6H2r88zXK/Zvnp7H9KeHPiP9dSwOPf7xbS6P/g/n6nku7A6HHrRuz0NRpJ5qZXkA9jSKjDnNfPuLTP2+6ZPmiogCe9OLHPWpSuO3UfRTOe5zTg3rSuKwtFJuHrSgg9KYBRgUvHrSUANPWlXr+BoIpB1PuKCkK3X8BSjpTT1/CnDpSQmxCM0DOe9LRTEGcUUEZoJxQAUHHek3UhOaAFHJ4p2MVFuwaXf6UAOJz0o3ADBPNMz61G0yjr+pqlG5MpJK5LvA700vz0FFslxeuU061ubtycARQs2TXW6T8H/GOtqHg0r7LGx+/cuEx+FXGhUk7RR5uLzrAYRXrVYx9WciZgvUgZqGW8RG2orPI52qo6knpXsmmfsuahdIH1bW0hZv4II92K9J+G37NWh+D9Vj1bVrqbU7qJsxpKAEX3x6120crrykrqyPjc18S8kwlKThU55LZLv6nH/A34Am4mt/EXjmEkcNa2kvQHsWH9K+m12xW5RAAoXCgDAxSEKzAKoVQPlA7CiTiI+1fT4LDLDxstz+auJ+J8bnmLdau7LouiXY/LD496Mtn8T/ABRA2CjXkrlfYnNeZeBPEdx8PPEHlxkmwvGyMnhWr3b9qbThafGPWiuP32JPzArwe901dRgMMhwVbKHHQ+tfU4rCRxOEUZHymExUsPW5on1V4d8QrqNnE+8MroCMHNas8gkI+YHivmL4a+PZdFvZNK1acqFbbE5PFe66ZrX2iJMncD0bNfmWNwUqFVxkfdYfHRrU00a1zwCOx7VmTxRsudmG9SOtW2ug5qJ2DjvXEka810ZMtrG2dyKR9Kyrywj3HbAv1IroJQBVKfnNa6jikc2dMBY7VA/Cqs2jPK6kkEAc4HWumfBQgY5qFLcucKCxPYUXZbVzJtNEgjAIQK3rW3bRxwjGdzdAKs2mkNIR5iMpzXRadodtassjrvfOenSm3oZtWH6bpjvCshXauB1restkIATluhJrPuLskhI2ChevNcH49+JX9lINJ8POs1/cD97Op4hFaYPAYjGVFTpxIr4unQg51HY6D4hfEGHw9btbWZE9+5wsa84z615PatL9va+1h2lurjqOy/Sn2emxwsZrqd7+5flp2OevYVY1W7RogbaPaFXByPvGv1bIuGKeX0+ees2fBZnnksXPlp/Ceofs0RjxR8c9Fs0wy2Qa4YD0Xpmv0tbCQquMBQK+EP8AgnF8PJr3VfEnjO+VxGz/AGS1Zh/dOWxX3tcqDFyKjN6ynXsuhy4WFoX7keRs9Riq1xZWur2strqcEdxbTKUkjkXcGB9RVxIiUGBxikWMK2PevJnaSs9jtpVJU5qUXZo8E1/9jrwVqWo3E+mXeo6T57F/KhIZEJ7AHtXKaj+xJHFGz6P4rJcfdjubYAH8Qa+o54884pkbJjDKPqRXmVcsw9TeJ9tgvELiHCxUY4htLvqfEGvfsoeOtKDSabHZ6nEp/wCWEhUkfQ15/rnw88VeHN39reH9SjC8blgLD8xX6PyaybAbQin2qNdZfUcqLKNx05I5riqZFTeqZ9lgfGfMaVliKcZemn5H5gSzNbHbdxSwMOokUrj86aLpHHy/zr9L9S8H6HrqMms6HYzBhht8Kn9cV534j/ZS8A+IRI1tZS6VcNyHtZCoz9OlcFTIKn2GfaYHxnyuq0sRTlH01/yPhYSjpxmn52jivofxb+xbrGnu0ng3Uo7+IAkRXC4b6ZFeSeIPhJ4z8LMRrPh++RFzmSOMuvHuK8ytl9el8UT9ByzjLJcwinQrr0bSf3M5QSZ+tOVs9aQq0RIlRo2HUMMH8qaTux/SuNxa3Po4VoT1i7ktKAM/hUS5yMVJHkvhvQ0i09Rp6/hTl4BpDSZ7elJDYu6k3/Nz0pjyAYwKjaQ54GRTsBY3CjOQD71Va4RFzINvP1qTTxc6zOINFs7u8lJwFiiJyacYuTskZVa9OlHmnJJeeg8rTWwOrY+teg6D8AvHPiPZu00aZG54e4PIH0Feo+HP2RbK3aOTxhqcl84IJhth5SA+5PJrupZdiKm0T5HMuPcjy6/tK6bXRanzTuLsEhBkkb7qKMk/hXUaB8KvGnioD+yNEuo0Y4E048tf1r7Q8N/C3wt4WjH9i6TZxuP+WhiDN+Z5rqlAVQqqFA4AAr06ORu/vyPzPN/Gl6rA0PRyf6Hyh4c/ZP1Nljk8XaqFP8cFtzj23V6Lof7N/hHSdrXUMt2y9ppCwr2xUjIwy5HvTJYYcjYApr1KWV0YdD81x3iJnuMb56zS7LQ5HTPCWj6LCsWlafb26J0CIBV5rVMfKAPwq9csEJCqDVdST95TXbChGGyPmKuYVq0uapNt+bIYLGNG3FcnsKthCeT0J6U+PB68CplUY9q0UEjlnK4xRs5qa4H+jn1NI5CqARyxwKlvF8tVHQFaTiznk9D88f2wbMQfFaXIO6a1Vq+dLxJIAHVCV747Cvq39uSwWw+Ifhu/c7YtVt5ICfRkZf8AGvl/y5ZkdUU7d5UtjPFfU4NKWHiefe0jmdVs47lvtWnKzOMbwOCDXofwt8bPPGthqcgR4uE3HkiuPjgawuy9qCyfxI360650jzpF1HR3IxyVHGDXlZvldPERutz0sDmE8M7S2PoaG9VwNjA1YSXfx615T4M8Z+aUtdRzHOvAJ716ZBMGVXjIKn3r86xOGnQm4yPssNWjXhzRLboXHHaoHiJbmrKOSOBn6Uu3OSOKxi7HVFWKTWiPlWzg1o20KQRKIlGT3xk0LGcqSP0q7bICdx/hPFTfU0RLaW8hIMuAPXFS3d+lvEzbggHU1Dd3whGGbn0rFCvrd8Imby7ZAXkJ9AM1pQw0sRWjTj1MMVWhSpOpLocv4l8Y2rs8RvRas/yh2OMdqx7LRWgnSC5jgka4O9bgHJkXvzXlvxomTxJb3GoRKtpFaT+SIE/5aDdgNn8K2PhZ4hn1X4cSLcSvLcaddeQkxPOxlzj9K/WckwlPBR5LXbPzfNsVVxnvx2XQ6q91uBbyW1jVIooiQpXvis7WtdiTSZHtyjy4Cqv+0TgVm6tatMzvCfmIwQe+Kp/CXwtdePvjb4U8KQhvKnv1nvD1xEnzY/SvcqYhx1Z5tOHMtD9Zf2UfBa+CPg34fsNmyWW2E8uRgl25JP5167P9zFZvhq3Wys4IY1xHFGqqMdABWlL82SelfH4ibnUcmexCNopIkTmMUyTofanxkbBimSdT6VzMojI+XmoXi3dKmPSkqkO5g6jauz5OcVp6dbm2gGDy3JqeSIMMHBoRmBwRxQ5XQouw4gseWNABB+U4PrS0o681JfMJ5rrxuNRO3nAib51PUMMg1Mfamlc9KhwTLhVlB3TszlNf+F3hbxRuOs6NZSM4wXWIK35ivLvEf7HHhXVS76FcXmmyt91Vl3KD9DXvgXApchQK5a2Bo1Piij6HL+MM5wLXsa8kl0vofF/iX9jTxbpAZ/D15a6ogzhWby2+leX678NPFvhA58Q6LfW6BsGQRllz9RX6RCYj7pI+hp5MNyvl3UUcyFTlXXIPFeZVyOlJ3TsfoeV+MObU7RxEIz/Bn5bGTnqTwKY0qqfmIX610/gr4UeKfiSx/wCEXsG8hTta5mOyNT9f8K+ivh1+yBpWj+XeeOpF1e9258oEiKP8O9eDh8tr1ZWS0P2vP+OsnymFqlVOf8q1fzsfL2j+G9X8TXK2/h7Tbm+djjdGhKj8elew+D/2TPEuuiNvEVzb6XAcFkVd8g/pX1xo3hjTPDtqsGj2VvbRr0WNAAK0xET3wPQV71DI6UNZ3Z+MZ34w4+u3HBwUF33Z414U/ZQ8FaDtbVom1eUdTcNkZ+gr07SfBOg6FGqaNplnbKgwPLiC4/KtdosGgDFetSwtKmrKJ+Y5hxJmmOm5V67d+l3YjliCjCKo+nFZVwhEh4rYK85qvLbrJk9+1dKijxJVJdzLHANFOlUxvg9RTd2faq5URzXCgoGFLjNBzQ0TcjaIN1UH8KPIQnlRUg6DFPjUZ560rDTImsEYfLkH2qv9lMZ74rS6dKRhgEmm4ofOZ8K+bdxq3RecVfubT7RGcEggcVTsxvv3I6Ada1FXdzTtoFz4y/b68Kfbvh/Y6wQRN4e1JHBHUpJw39K+RY4ElYMjFQw3qQcYzzX6RftTeEE8U/B3xRbqgaWO185OP7nNfnPoOmjWIbBI3MUAiK3cjdEVep/Kvcy2a9k0zhraaFS70+K402ZpFYzKD5SxjJcj0A61Pofg/VZLKCSztp8uu6WNlwB9c1x/jH4/xWd2NK+GlmkS2haOS+nUbpcf3R+FcTL8TvF2okvJr99GzclEfatE8VSTs1cPq1acdHb1PVtW8NXNoXkYeVNE2V+npXR+B/Eyzp9mm8wSx8OGJ4ri/g342k8WanN4Y8W3w/tS8j3aTdS4KySDrEx9+1bPi6x1Hwd4ghnubVraVflniHRv9oeorgzDLKWNoc0dGdWX5hVwVVQlse2aVYi+i3Rybe+Ca0zozRrvLqwPOM1zHw88X6frlvDCrqLkgfI/HNekWmn+cyeYfkz+VfmGIp1cPUcJo/Q6FSNampRZgQ2BdvmRiD3xU1zbiGMLECCetdXdLGkRESqCewFZJsmuHygOSetZNnQtDlZdLmupGJbbnpmqHibU4fD/AIZmjssNPfyCIyn0wc8122t6fHpGi3l1eyBGMZWLHdj0/GvGfGWqzCwtIL1Ire0gXOM5JY9zX2vB2DVWt7R9D5HijFuNBwPG/iT4eisLSHbcSTSswZol5UZz1xS/C4ix+Ht8Bld98M5/3a2tV1rTrZFtoGD7iPMduayfh4z33hfxFaWSLcPYXgl2gclMHoK+7lTXt7o+SpSkqNmal1fEPMhO1kbJGenJ5r6F/wCCa/w4/wCEl+J/ibxtextLBpkX2W1dh8vmN97H0Ar5n8Rxm2W4nD5N6m+JR1Gexr9P/wBiL4ax/DT4G6UioUutX/0ufjnLdP0qcwqONC73Lw8PePpCzQJEFx9PapJBlSKjt2JVc56VK3SvmTvbEh+5SuMjimx5AIp5z2qREOOMUoGKD1NFNANKknOKY+VOcVLk8UjDOKkBiMG68UtRudhJxShyRwKpILj6KaXI6igS80WC46gjNG4GnKKB3GbfSlRTk8fwn+VPC59qkij5OT2P8qRXPY5vSNLt9Es4rbTYIraCNAFSNAABitNGLfSjy9pH+6P5U4cCphTjFWRria8q03Kbu2LThSLTx0q7HOmxhGaaeRUwUHrTSMUrDuRFePwqMxkc1YPSmFRjvVBcytSh+UOvXvWdGxPBrcuRkEHpjFY7x7HIHA7UCJAMUjcEe9J345pcGgByr096lAxTF7e1SY+lACVBeSlYu3NT1Tu23kIDkd6AJdNjwCfXnNX8hFNQWyFIvoKl2mTGaA0OW8bW39qaRfW0gzHc27xsvYgqQa/Kz4lWk/gXwb4ls7V2imiu5oQw4OwN0/I1+uOpWAuIcHPIxX5s/tp+B30G61iF42i/tIiaHA4kOecV24OdrowqpcybPhK1hBMYI+ZskmtRLR4lIcF0J4FV4oPs9zCJNwGSp475ru9A0m3v7VvOyWA4qvZOUjsVVQRx/wBjLvG0LyQSwPviljYq8bA5BBHvXv8A4N+Nlr4p0e30D4lvGNTtlAtdWaMYlx0D+/8AOvKLvw28WZLQ7ihxtNZTLiTZKoPPIroh7Si7xOatCFeNmfTy+C7g2Md7p8tmtwrhop7NwyuvqV7GvXvCmu3MERsfFESRPCyoLyI/IxwDyOx5r4g8NeJNX8Otu03UZ4oMkeUWJGPpXV/8LX8SPZXEUV2GjkkD8p6Yx/KuTMMuoZjTtKNpGuBxOJwNVcsrxPtia1eZysByxPB9RWvpugyQorTJkYzxXzp8IP2pZ5ry10/xxpA8gkI1/D0T0JHpmvrQXMIsxcwPHJazx+ZFIrZBBHY1+cZjlWIwFTlktHsfcYHM6eLje+q6HgP7S3jVvB3h2wMGmT3xe4yCgJRMD+LHrXy7FqGo+MvOuNRmlAnZmSJWIVSCOMelfRXx11/UZ9PT+y5IzC0zAqy7s46V4nezW2mTxzQ27W3+jEtGT/GfT6nmv0rhjDKjl0Z9WfEZ7V9ri5R6IxTpNuzOLzEXlIWLt3x1Fcz4M8VTeAPG/wDbUls/9iam3kzxt/dPRq6f7Wbq023ShpLthEi+xPJ/KrPiO2065iS3mTLONnlgfKAOnFexWhJe9HdHn05J+6zrdB8CP4s+JegeH7aSG7sNWvBcQTxckQ5yVz7A4r9f/D2nQ2GkWdtZxCKG0gSGNR/dAxX5pf8ABOD4fXeufEfXNW1MmXS/DcAgtd5+7KzcgfQCv1BtI9kCBRgAV5eYV3O0WbUYcrZMibRzTiM0AYorzDdsQDBpSM+tB4FAOaAuMK80bac3ApoOTxQFwCZ6UFcHmn0UCbKdz8oJHrSRHK5q1MgaMhQc1ShbBKk4oEPkOAahEvPGOtSz8Ifas0XJEpHTmgDVXoKmQZWq0Eu4AZq0p+UUDuOCnv0qSMYJx6H+VMH4U+P7x+h/lQNFGb74A/uj+VR06Tl8/wCyP5U2m7Ei5xUg6Co8cZqVR0FIpMM4qORiDUwAHUZqKdOpzQFxsT7jyKewz1qnDIfNq45+X8KAuQzRhx0rMvbcBCU+92rSeQLx61Qiv7G5vDBJdRJIv8JYDNCVxN2I7LTmKBpScmrH9nkk/Nx2rTVEVPkII7YNRnGfY0CuUE00FuWNLLZLEMjcTWgqjPFTeUChJFA7mBJiNScGqdvatPcFudpNbV3CDxjii3iC44ApoBgtyF2jgGgR+X07VoeUOtNkhBHy0uoioAMV4L+2l8MI/GXwM1vVdMskudX8NxfboCq5YonLr+WT+Fe/GBx2p4to7i2mtrpVeC6jaOVWGQVYYIP4E1cZOLTRE9UfgfPDpXiWzXWNPuUhvZciayPBR88kD0NXfDgezutsxGzHFdH8RfhUvwr+NHi/wtc24D6fqMj2jnjMDEshH4EVjWdvi6wyAYNe5SSsmTzaXNxYBKSUIOTzxVDVPBLXUglgUozoSAO9bOnxBWZTyCfyro7bT7qfa8p2xxKQhFdroKUdTmeI5WeOw6fLYambS7RlYHo3ets2DIoji6N6DpW54/0Gay1Oz1D52Rxhj2qjbzjcShx+FYRo8mjNHW50pIlljNulvp9i0UTzj95ITgJn+tfSXwa8ftp/wzuNAvbv7fe2EpjifPGG6AGvm+w0n+2NYsbLTwZpbpw7tnleefwxW5L4n1vwPrl34e8OeHRcXc0gf7cZGcBgTggDjArnzLLo4ygo22NMJiXhqrknudR8UtZgfVBHJefZ47CH97ETzuzXmscsmvXkUpdvszEhWfuB1qzrXhK7klmv/GVybjU72UNJEjZOOvOK1LDTIkFtZKrLHBC8hHfJPSvQwlD2dKNJLYwxOI56jmt2VtO0xDqnmSHMNsG8vPsKg1JxBcGSXaRBE0hPuelXlcLZTTRZXJZcA+tVV0uTX7zStLtATNq+oRW6jqSCQD/Otpw5WYRd5H6P/sCfDxvC/wAEbXVL2Ly77xJcPeuCOsbEBM/gM19VKAsYC9K5vwP4dh8K+FNG0a1QRx6bZRQYHcooH9K6U/dr5GvPnqNnqRVojaKKKyAG+6KRaU9KjZtvJ6D1oAe/Smr7daz77xBptlEXur23QDt5gyazoNavNZP/ABI4h5XXzpVIFAuZHSbh9KhnvILZczyxoPUtise60HWr2DA1VLdyP4UrJi+GMM8u/wAQapfX+eqBti5/CgG5dDWn8aWiy+Rp6PeXB6JGOPzqzZ/a7oGS+hSBj0RTnH41Y0zRLDRovL0y3jhU9SBkn8atk4zQNX6ldxlCG54rEuI9khI4wa2pyVBx3FZU4yTmgCezk3CtOI/LWRZDjj6Vpx528HFAEpPNSQnk49D/ACqqzlWzntUtu+4k5/hP8qCkymzEOuSfuj+VG/n2pZPnwcryB/EPSoypB6p/30KCSZDyMdKmBFQICAOU/wC+hVkRHjlf++hQAlMnOQal8s+q/wDfQqKdCO6/99CgDMR8XGM8+lX2Py8+lUEjLXxGVwBz8wq+ykjqv/fQoArypvOB0rznxt8N/wC2rv7bayywyjo0bY2mvSxHlsZX/voUTRgRHlf++hTTsJq5514Y8KeILRUjn1eRo1/vc10Wpz6v4dg82ErfqoyyAc101haHvt/76FOurZmbb8mD/tChu5LjY4fSPi5o97OLbUGfT7xWw8cwxtP1rt7XU7e+tt9nMkynujAiuH8X/DKx1xxNJBCk4P8ArEYAn6+tcpYeBdc0WfboN9IuemX/APr0W8yedrQ9fYhz2NEaYOcmqthaXlvpkC6lIkl0FHmsGHJq7EcqMlef9oUjRO6JQcinR9absIOAV/76FPRDu6r/AN9CgZKACeQKf5EZhIUEPmkRc91/76FPCcckf99CkNJH5vf8FMPhufDvxK8K+ObCIC2162axvSo6TRjKk/VT+lfJdnZ/aLk8gHrmv1V/bz8CR+Nf2a9blEaPdeHp4dRhYEEqFcK3/jrGvzV8P6fbSWazSKo2oOc9a+hy9c9O3Y5K+hlR2jQzAK2dx7V2cU+20hgbliuT61Sl0dI5QUK7gMjmpEt2S7lckEbAOte7CCijy5yuxddIv9Gnt5Id5hG4fhXDRWNtdyxNbhkhkGD6qa9DltpJldUIxIm3r3xXBadbSWkc5lYK0DlGAPOSazqwu72LoysmdL4K8ProFpq2s7lLIRFatuyc4yf1xSrPNo7W00yAyXp3u2cnnrWtrCPpnhPQ7Hy9kl2fMlbryT0NZ93KsOssmoRSTQxQFIvTdjpVU42ViWnOVzI1ZlfWZZom35HyFznFP06NjdXVxkNBHEY95PXjJpllZ+fJNKyjZEhO3NXNMjaDS71JABECeSevTP8AOrbSNd1YwwVttIYvypJJA5r039lDw1F48/aI8IacqmSLS9+o3Gf4duCPx6V5H4k1FvsqRWGMEgnAx0NfWf8AwSn8FPrHjPx94vvQrCwiisIHYj7zZZsfgB+deZja9oM2pU25I/RgR4kJHan7iRyKeYzk8r/30KTyz6r/AN9CvlL31PUtYbRTvLPqv/fQo8s+q/8AfQoJG0jIsissihlYEMD3Bp/ln1X/AL6FHln1X/voUAcNbfCrRtN1eXUIlln8xi4t5n3xxn/ZFdhDIUUJGqog4wowKsNET/d/76FM+ztnI2/99CglRith3Dc9aD0NKkZ29V/76FKYzjqv/fQoKImODxSDk8mnNGfVf++hSqpI/g4/2hQBXuF+U454rJlwTya2bhSB1X/voVj3CkE42f8AfQoAfaLhjjpWmq4UcVRs4zwcrz/tCtJUJHVf++hQBWmGOtJCSSdvof5VJcocdV/76FV4d248r91v4h6UAf/Z" alt="dr. Ida Bagus Indra Wibawa Putrawan" width="148" height="148" />
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 4px; align-items: center;">
+          <h3 class="about-name">dr. Ida Bagus Indra Wibawa Putrawan, S.Ked</h3>
+          <span class="about-role">Internal Medicine Resident</span>
+          <div class="about-location">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span>Denpasar, Bali, Indonesia</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Headline, Bio, Credentials, Contact -->
+      <div class="about-right">
+        <div>
+          <h3 class="about-headline"><em>Clinician who codes</em> — building practical clinical decision support systems.</h3>
+        </div>
+
+        <div class="about-bio" style="display: flex; flex-direction: column; gap: 1rem;">
+          <p>
+            I am an Internal Medicine Resident at RSUP Prof. Dr. I.G.N.G. Ngoerah / Udayana University in Denpasar, Bali. My daily clinical practice and research endeavors center around internal medicine care—with special clinical interest in <strong>hematology</strong> and <strong>gastroenterology</strong>.
+          </p>
+          <p>
+            Born from immediate friction encountered at the bedside, across inpatient wards, and in high-acuity emergency rooms, I build clinical decision support systems (CDSS) engineered to help clinicians make evidence-grounded decisions swiftly, accurately, and safely.
+          </p>
+          <p style="color: #94A3B8; font-style: italic; border-left: 2px solid var(--accent-cyan); padding-left: 1rem; margin-top: 0.25rem;">
+            "I believe the most impactful healthcare innovations emerge at the intersection of clinical care precision and code efficiency."
+          </p>
+        </div>
+
+        <div class="about-divider"></div>
+
+        <!-- Credentials & Education -->
+        <div>
+          <div class="about-block-label">Credentials & Clinical Focus</div>
+          <div class="about-credentials">
+            <div class="about-cred-item">
+              <span class="about-cred-dot"></span>
+              <div class="about-cred-text">
+                <strong>Internal Medicine Specialist Residency (PPDS-1)</strong> — Faculty of Medicine, Udayana University / RSUP Prof. Dr. I.G.N.G. Ngoerah, Denpasar <em>(Ongoing)</em>
+              </div>
+            </div>
+            <div class="about-cred-item">
+              <span class="about-cred-dot"></span>
+              <div class="about-cred-text">
+                <strong>Medical Doctor & Bachelor of Medicine (dr., S.Ked)</strong> — Faculty of Medicine, Udayana University (Class of 2019)
+              </div>
+            </div>
+            <div class="about-cred-item">
+              <span class="about-cred-dot"></span>
+              <div class="about-cred-text">
+                <strong>Clinical & Research Interests:</strong>
+                <div class="about-interest-chips">
+                  <span class="interest-chip">Hematology</span>
+                  <span class="interest-chip">Gastroenterology</span>
+                  <span class="interest-chip">Clinical Decision Support (CDSS)</span>
+                  <span class="interest-chip">Critical Care Infusions</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-divider"></div>
+
+        <!-- Contact Links -->
+        <div>
+          <div class="about-block-label">Connect & Collaborate</div>
+          <div class="about-contacts">
+            <div style="display: inline-flex; align-items: center; gap: 4px;">
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=putrawan.2371041010@student.unud.ac.id" target="_blank" rel="noopener noreferrer" onclick="handleEmailClick(event, 'putrawan.2371041010@student.unud.ac.id')" class="contact-link" title="Open Gmail Compose">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                <span>putrawan.2371041010@student.unud.ac.id</span>
+              </a>
+              <button type="button" onclick="copyEmailOnly(event, 'putrawan.2371041010@student.unud.ac.id')" class="contact-link" style="cursor: pointer; padding: 0.375rem 0.6rem; border-left: none; border-top-left-radius: 0; border-bottom-left-radius: 0; margin-left: -5px;" title="Copy email address">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              </button>
+            </div>
+            <a href="https://linkedin.com/in/indrawibawap" target="_blank" rel="noopener noreferrer" class="contact-link" title="LinkedIn Profile">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              <span>LinkedIn</span>
+            </a>
+            <a href="https://github.com/indra-dot" target="_blank" rel="noopener noreferrer" class="contact-link" title="GitHub Profile">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              <span>GitHub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+          <span class="nav-brand-dot"></span> drguswib
+      </div>
+      
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=putrawan.2371041010@student.unud.ac.id" target="_blank" rel="noopener noreferrer" onclick="handleEmailClick(event, 'putrawan.2371041010@student.unud.ac.id')" class="btn-gradient" style="padding: 0.5rem 1.25rem; font-size: 0.8125rem;" title="Open Gmail Compose">
+        <span>Email Me</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+      </a>
+
+      <div class="footer-links">
+        <a href="#clinical-tools">Clinical Tools</a>
+        <a href="#utilities">Utilities</a>
+        <a href="#about">About Me</a>
+      </div>
+      
+      <div class="disclaimer-box">
+        <strong>Clinical Disclaimer:</strong> Clinical calculators and protocols on this site are intended for clinical decision support and educational reference for qualified healthcare professionals. They do not replace autonomous medical judgment or institutional hospital guidelines.
+      </div>
+      
+      <p style="font-size: 0.75rem; color: var(--text-muted);">
+        &copy; 2026 drguswib. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href && href.length > 1) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
+    });
+
+    // Email Click & Clipboard Handlers
+    let toastTimer = null;
+    function showToast(message) {
+      let toast = document.getElementById('copy-toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'copy-toast';
+        toast.className = 'toast-notification';
+        document.body.appendChild(toast);
+      }
+      toast.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg><span>${message}</span>`;
+      toast.classList.add('show');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3200);
+    }
+
+    function handleEmailClick(e, email) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email).catch(() => {});
+      }
+      showToast('Copied email to clipboard & opening Gmail...');
+    }
+
+    function copyEmailOnly(e, email) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email).then(() => {
+          showToast('Email address copied to clipboard!');
+        }).catch(() => {
+          showToast('Email: ' + email);
+        });
+      } else {
+        showToast('Email: ' + email);
+      }
+    }
+
+    // Only enable interactive 3D tilt, hero spotlight mask, and parallax on devices with fine pointer (desktop mouse).
+    // On touchscreens (mobile & tablet), omitting these listeners prevents layout thrashing & scroll stuttering.
+    const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    if (isFinePointer) {
+      // 3D Card Tilt Effect (rAF throttled)
+      const cards = document.querySelectorAll('.tilt-card');
+      cards.forEach(card => {
+        let cardRaf = null;
+        card.addEventListener('mousemove', e => {
+          if (cardRaf) cancelAnimationFrame(cardRaf);
+          cardRaf = requestAnimationFrame(() => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -6;
+            const rotateY = ((x - centerX) / centerX) * 6;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+          });
+        });
+
+        card.addEventListener('mouseleave', () => {
+          if (cardRaf) cancelAnimationFrame(cardRaf);
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
+        });
+      });
+
+      // Hero Interactive Spotlight (rAF throttled)
+      const hero = document.querySelector('.hero');
+      if (hero) {
+        let heroRaf = null;
+        hero.addEventListener('mousemove', e => {
+          if (heroRaf) cancelAnimationFrame(heroRaf);
+          heroRaf = requestAnimationFrame(() => {
+            const rect = hero.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            hero.style.setProperty('--hero-mouse-x', `${x}%`);
+            hero.style.setProperty('--hero-mouse-y', `${y}%`);
+          });
+        });
+      }
+
+      // Parallax effect for ambient glows (rAF throttled + translate3d)
+      let parallaxRaf = null;
+      window.addEventListener('mousemove', e => {
+        if (parallaxRaf) cancelAnimationFrame(parallaxRaf);
+        parallaxRaf = requestAnimationFrame(() => {
+          const xRatio = (e.clientX / window.innerWidth - 0.5) * 16;
+          const yRatio = (e.clientY / window.innerHeight - 0.5) * 12;
+          const glow1 = document.querySelector('.ambient-glow-1');
+          const glow2 = document.querySelector('.ambient-glow-2');
+          if (glow1) glow1.style.transform = `translate3d(${xRatio}px, ${yRatio}px, 0)`;
+          if (glow2) glow2.style.transform = `translate3d(${-xRatio}px, ${-yRatio}px, 0)`;
+        });
+      }, { passive: true });
+    }
+  </script>
+
+</body>
+</html>

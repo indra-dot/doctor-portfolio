@@ -1,0 +1,113 @@
+Relevant matches: 112
+[383] <strong class="text-white font-semibold">Medical Disclaimer:</strong> adjusterGEH CDSS ditujukan untuk dokter, gastroenterolog, dan tenaga medis sebagai alat bantu klinis dan referensi berbasis bukti. Seluruh rekomendasi harus selalu disesuaikan dengan penilaian klinis komprehensif (*clinical judgment*) terhadap kondisi masing-masing pasien.
+[544] <p class="text-xs text-slate-400">Kalkulasi rasio ALT/ALP normal untuk klasifikasi Hepatocellular, Mixed, atau Cholestatic.</p>
+[874] <label for="gbs-bun" class="text-xs font-semibold text-slate-300">Blood Urea Nitrogen (BUN) <span class="text-rose-400">*</span></label>
+[881] <input type="number" id="gbs-bun" step="0.1" placeholder="e.g. 8.5 (mmol/L) / 24 (mg/dL)" required class="glass-input w-full px-3 py-2 rounded-lg text-sm">
+[882] <span id="gbs-bun-hint" class="text-[11px] text-slate-400 mt-1 block">Satuan aktif: mmol/L (Normal ~2.5 - 7.1)</span>
+[1042] <span class="text-sm font-semibold text-white block">A - Albumin &lt; 3.0 g/dL (30 g/L)</span>
+[1043] <span class="text-xs text-slate-400">Hipoalbuminemia bermakna</span>
+[1056] <span class="text-sm font-semibold text-white block">M - Mental Status Altered</span>
+[1306] <option value="1">Ulkus Peptikum, Erosi Gastroduodenal, Esofagitis, Dieulafoy (1 Poin)</option>
+[1316] <option value="2">Darah Segar di Lambung/Esofagus, Bekuan Melekat, atau Pembuluh Darah Terlihat/Menyemprot (2 Poin)</option>
+[1365] <label for="fib4-ast" class="text-xs font-semibold text-slate-300 mb-1 block">AST / SGOT (U/L) <span class="text-rose-400">*</span></label>
+[1366] <input type="number" id="fib4-ast" placeholder="e.g. 64" required class="glass-input w-full px-3 py-2 rounded-lg text-sm">
+[1369] <label for="fib4-alt" class="text-xs font-semibold text-slate-300 mb-1 block">ALT / SGPT (U/L) <span class="text-rose-400">*</span></label>
+[1370] <input type="number" id="fib4-alt" placeholder="e.g. 58" required class="glass-input w-full px-3 py-2 rounded-lg text-sm">
+[1377] <label for="fib4-ast-uln" class="text-xs font-semibold text-slate-300 mb-1 block">Batas Atas Normal AST (ULN, U/L)</label>
+[1378] <input type="number" id="fib4-ast-uln" value="40" class="glass-input w-full px-3 py-2 rounded-lg text-sm">
+[1433] <label for="maddrey-bili" class="text-xs font-semibold text-slate-300">Total Bilirubin Baseline <span class="text-rose-400">*</span></label>
+[1440] <input type="number" id="maddrey-bili" step="0.1" placeholder="e.g. 14.2 (mg/dL) / 240 (µmol/L)" class="glass-input w-full px-3 py-2 rounded-lg text-sm">
+[1479] <label for="lille-alb" class="text-xs font-semibold text-slate-300 mb-1 block">Albumin Hari-0 (g/dL)</label>
+[1487] <label for="lille-bili0" class="text-xs font-semibold text-slate-300 mb-1 block">Total Bilirubin Hari-0 (mg/dL)</label>
+[1488] <input type="number" id="lille-bili0" step="0.1" placeholder="e.g. 15.0" class="glass-input w-full px-3 py-2 rounded-lg text-sm">
+[1491] <label for="lille-bili7" class="text-xs font-semibold text-slate-300 mb-1 block">Total Bilirubin Hari-7 (mg/dL)</label>
+[1492] <input type="number" id="lille-bili7" step="0.1" placeholder="e.g. 11.2" class="glass-input w-full px-3 py-2 rounded-lg text-sm">
+[1546] <label for="clif-bili" class="text-xs font-semibold text-slate-300 mb-1 block">Total Bilirubin (mg/dL) <span class="text-rose-400">*</span></label>
+[1547] <input type="number" id="clif-bili" step="0.1" placeholder="e.g. 8.4" required class="glass-input w-full px-3 py-2 rounded-lg text-sm">
+[1684] <label for="ctp-bili" class="text-xs font-semibold text-slate-300">3. Total Bilirubin (mg/dL) <span class="text-rose-400">*</span></label>
+[1686] <input type="checkbox" id="ctp-pbc-toggle" onchange="toggleCtpBiliHint()" class="mr-1 accent-amber-400 rounded">
+[1695] <p id="ctp-bili-hint" class="text-[11px] text-slate-500 mt-1">Standar non-kolestatik: &lt;2, 2-3, &gt;3 mg/dL.</p>
+[1699] <label for="ctp-alb" class="text-xs font-semibold text-slate-300 mb-1 block">4. Serum Albumin (g/dL) <span class="text-rose-400">*</span></label>
+[1756] <label for="meld-bili" class="text-xs font-semibold text-slate-300 mb-1 block">Total Bilirubin (mg/dL) <span class="text-rose-400">*</span></label>
+[1757] <input type="number" id="meld-bili" step="0.1" placeholder="e.g. 2.4" required class="glass-input w-full px-3 py-2 rounded-lg text-sm">
+[1771] <label for="meld-na" class="text-xs font-semibold text-slate-300 mb-1 block">Serum Natrium (mEq/L) <span class="text-rose-400">*</span></label>
+[1777] <label for="meld-alb" class="text-xs font-semibold text-slate-300 mb-1 block">Serum Albumin (g/dL) <span class="text-rose-400">*</span></label>
+[1846] <label for="saag-serum-alb" class="text-xs font-semibold text-slate-300 mb-1 block">Albumin Serum (g/dL) <span class="text-rose-400">*</span></label>
+[1851] <label for="saag-ascites-alb" class="text-xs font-semibold text-slate-300 mb-1 block">Albumin Cairan Asites (g/dL) <span class="text-rose-400">*</span></label>
+[1866] <label for="saag-protein" class="text-xs font-semibold text-slate-300 mb-1 block">Total Protein Cairan Asites (g/dL) <span class="text-slate-500 font-normal">(Opsional - diferensiasi kardiak &amp; profilaksis primer)</span></label>
+[1867] <input type="number" id="saag-protein" step="0.1" placeholder="e.g. 1.2" class="glass-input w-full px-3 py-2 rounded-lg text-sm">
+[1910] <label for="rfactor-alt" class="text-xs font-semibold text-slate-300 mb-1 block">ALT / SGPT Pasien (U/L) <span class="text-rose-400">*</span></label>
+[1911] <input type="number" id="rfactor-alt" placeholder="e.g. 420" required class="glass-input w-full px-3 py-2 rounded-lg text-sm">
+[1915] <label for="rfactor-alt-uln" class="text-xs font-semibold text-slate-300 mb-1 block">Batas Atas Normal (ULN) ALT (U/L) <span class="text-rose-400">*</span></label>
+[1916] <input type="number" id="rfactor-alt-uln" value="35" required class="glass-input w-full px-3 py-2 rounded-lg text-sm">
+[1921] <label for="rfactor-alp" class="text-xs font-semibold text-slate-300 mb-1 block">ALP Pasien (Alkaline Phosphatase, U/L) <span class="text-rose-400">*</span></label>
+[1922] <input type="number" id="rfactor-alp" placeholder="e.g. 150" required class="glass-input w-full px-3 py-2 rounded-lg text-sm">
+[1926] <label for="rfactor-alp-uln" class="text-xs font-semibold text-slate-300 mb-1 block">Batas Atas Normal (ULN) ALP (U/L) <span class="text-rose-400">*</span></label>
+[1927] <input type="number" id="rfactor-alp-uln" value="120" required class="glass-input w-full px-3 py-2 rounded-lg text-sm">
+[1932] <label for="rfactor-bili" class="text-xs font-semibold text-slate-300 mb-1 block">Total Bilirubin Pasien (mg/dL) <span class="text-slate-500 font-normal">(Opsional - untuk deteksi kriteria Hy's Law)</span></label>
+[1933] <input type="number" id="rfactor-bili" step="0.1" placeholder="e.g. 3.2" class="glass-input w-full px-3 py-2 rounded-lg text-sm">
+[1976] <label for="deritis-ast" class="text-xs font-semibold text-slate-300 mb-1 block">AST / SGOT (U/L) <span class="text-rose-400">*</span></label>
+[1977] <input type="number" id="deritis-ast" placeholder="e.g. 180" required class="glass-input w-full px-3 py-2 rounded-lg text-sm">
+[1981] <label for="deritis-alt" class="text-xs font-semibold text-slate-300 mb-1 block">ALT / SGPT (U/L) <span class="text-rose-400">*</span></label>
+[1982] <input type="number" id="deritis-alt" placeholder="e.g. 75" required class="glass-input w-full px-3 py-2 rounded-lg text-sm">
+[2049] <label for="nfs-ast" class="text-xs font-semibold text-slate-300 mb-1 block">AST / SGOT (U/L) <span class="text-rose-400">*</span></label>
+[2050] <input type="number" id="nfs-ast" placeholder="e.g. 55" required class="glass-input w-full px-3 py-2 rounded-lg text-sm">
+[2054] <label for="nfs-alt" class="text-xs font-semibold text-slate-300 mb-1 block">ALT / SGPT (U/L) <span class="text-rose-400">*</span></label>
+[2055] <input type="number" id="nfs-alt" placeholder="e.g. 62" required class="glass-input w-full px-3 py-2 rounded-lg text-sm">
+[2064] <label for="nfs-alb" class="text-xs font-semibold text-slate-300 mb-1 block">Serum Albumin (g/dL) <span class="text-rose-400">*</span></label>
+[2097] <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 text-xs font-semibold rounded-full border border-emerald-500/30">Biliary Infection</span>
+[2170] <span class="ml-3 text-xs sm:text-sm text-slate-200">Ikterus (Bilirubin &ge; 2.0 mg/dL)</span>
+[2231] <span class="ml-3 text-xs sm:text-sm text-slate-200">Nyeri abdomen khas pankreatitis (epigastrium menjalar ke punggung)</span>
+[2377] <span class="text-xs sm:text-sm font-bold text-white block">B - BUN &gt; 25 mg/dL (&gt; 8.9 mmol/L)</span>
+[2402] <span class="text-[11px] text-slate-400">Usia lanjut berhubungan erat dengan peningkatan mortalitas dan komplikasi sistemik</span>
+[2493] <input type="checkbox" id="ranson-ast" class="mt-1 w-4 h-4 accent-cyan-400 rounded">
+[2495] <span id="ranson-ast-label" class="text-xs sm:text-sm font-semibold text-slate-200 block">Serum AST / SGOT &gt; 250 U/L</span>
+[2526] <input type="checkbox" id="ranson-bun" class="mt-1 w-4 h-4 accent-amber-400 rounded">
+[2528] <span id="ranson-bun-label" class="text-xs sm:text-sm font-semibold text-slate-200 block">Peningkatan BUN &gt; 5 mg/dL (&gt; 1.8 mmol/L)</span>
+[2798] <label class="text-xs font-semibold text-slate-300 mb-1.5 block">4. Massa Abdomen saat Palpasi</label>
+[2953] <label for="fcal-val" class="text-xs font-semibold text-slate-300 mb-1.5 block">Kadar Fecal Calprotectin (µg/g atau mg/kg) <span class="text-rose-400">*</span></label>
+[3002] <option value="hyperplastic-small">Polip Hiperplastik Rektum/Sigmoid &lt; 10 mm</option>
+[3146] <option value="stable">Sirosis Stabil / Rawat Jalan (Target: 30 - 35 kcal/kg, Protein 1.2 - 1.5 g/kg)</option>
+[3147] <option value="malnutrition">Dekompensata / Malnutrisi Berat / Sarkopenia (Target: 35 - 40 kcal/kg, Protein 1.5 g/kg)</option>
+[3148] <option value="obese">Sirosis Obesitas (Dry BMI ≥ 30 kg/m²) (Target hipokalorik 20 - 25 kcal/kg, Protein tinggi ≥1.5 g/kg IBW)</option>
+[3149] <option value="encephalopathy">Ensefalopati Hepatikum (HE) (Target: 30 - 35 kcal/kg, Protein tetap 1.2 g/kg + Suplementasi BCAA)</option>
+[3228] <span class="text-slate-300"><strong>Berhubungan dengan defekasi:</strong> Nyeri mereda atau justru bertambah hebat saat/setelah buang air besar.</span>
+[3232] <span class="text-slate-300"><strong>Berhubungan dengan perubahan frekuensi feses:</strong> Nyeri timbul bersamaan dengan frekuensi BAB lebih sering atau lebih jarang.</span>
+[3236] <span class="text-slate-300"><strong>Berhubungan dengan perubahan bentuk/konsistensi feses:</strong> Feses menjadi keras bergumpal atau lembek/cair saat serangan.</span>
+[3360] <label class="font-semibold text-slate-300 block mb-1.5">Hasil EGD (Esofagogastroduodenoskopi): <span class="text-rose-400">*</span></label>
+[3407] <span class="font-bold text-white">Epigastric Pain</span>
+[3419] <span class="font-bold text-white">Epigastric Burning</span>
+[3504] <p class="text-slate-400 text-xs sm:text-sm mt-1">Kriteria diagnostik objektif modern untuk penegakan definitif Gastroesophageal Reflux Disease (GERD), monitoring asam ambulatori (AET % & refluks episode), dan diferensiasi fenotip Reflux Hypersensitivity (RH) vs Functional Heartburn (FH).</p>
+[3511] <label class="text-xs font-semibold text-slate-300 mb-1.5 block">1. Temuan Esofagogastroduodenoskopi (EGD): <span class="text-rose-400">*</span></label>
+[3516] <option value="la-c">Los Angeles Grade C (Defek menyambung &lt; 75% lingkar)</option>
+[3566] <label class="font-semibold text-slate-300 block mb-1">Post-Reflux Swallow-Induced Peristaltic Wave (PSPW Index):</label>
+[3592] <p class="text-slate-300"><strong>Gyawali CP, Yadlapati R, Fass R, et al.</strong> Updates to the Lyon Consensus 2.0 for the diagnosis of gastro-oesophageal reflux disease. <em>Gut</em>. 2024;73(3):361-371. DOI: 10.1136/gutjnl-2023-330999.</p>
+[3607] <span class="text-slate-300 font-bold">adjusterGEH</span> CDSS v2.2 • Evidence-Based Clinical Decision Support for Gastroenterology & Hepatology
+[3854] const hint = document.getElementById('gbs-bun-hint');
+[4322] const uln = parseFloat(document.getElementById('fib4-ast-uln').value) || 40;
+[4334] const apri = ((ast / uln) / plt) * 100;
+[4630] function toggleCtpBiliHint() {
+[4632] const hint = document.getElementById('ctp-bili-hint');
+[4806] <span class="text-[10px] text-slate-500">Cr, Bili, INR</span>
+[4816] <span class="text-[10px] text-amber-200/60">+Gender &amp; Albumin Interaction</span>
+[4920] const altUln = parseFloat(document.getElementById('rfactor-alt-uln').value);
+[4922] const alpUln = parseFloat(document.getElementById('rfactor-alp-uln').value);
+[4926] if (isNaN(alt) || isNaN(altUln) || isNaN(alp) || isNaN(alpUln)) {
+[4927] res.innerHTML = `<div class="p-4 rounded-xl bg-rose-900/40 text-rose-200 text-sm">Mohon isi nilai ALT, Batas Normal ALT, ALP, dan Batas Normal ALP.</div>`;
+[4932] const altRatio = alt / altUln;
+[4933] const alpRatio = alp / alpUln;
+[4960] ALT ≥ 3x ULN dengan Total Bilirubin ≥ 2x ULN tanpa kolestasis awal (ALP &lt; 2x ULN). Menandakan risiko mortalitas hepar atau kebutuhan transplantasi hati hingga 10 - 50%. Hentikan segera obat yang dicurigai!
+[4965] const resumeText = `[adjusterGEH CDSS] R-Factor for Liver Injury: ${r} (${pattern})\nALT ${alt} (ULN ${altUln}), ALP ${alp} (ULN ${alpUln})${!isNaN(bili) ? ', Bili: ' + bili + ' mg/dL' : ''}.\nKarakteristik: ${causes}`;
+[4975] <span class="text-slate-400 block">ALT / ULN:</span>
+[4976] <span class="text-base font-bold text-white">${altRatio.toFixed(2)}x</span>
+[4979] <span class="text-slate-400 block">ALP / ULN:</span>
+[4980] <span class="text-base font-bold text-white">${alpRatio.toFixed(2)}x</span>
+[5039] <span>AST: <strong class="text-white">${ast} U/L</strong></span>
+[5040] <span>ALT: <strong class="text-white">${alt} U/L</strong></span>
+[5740] severity = 'Esofagitis Refluks Berat (Defek menyambung &lt; 75% lingkar).';
+[6087] <span class="text-[11px] text-emerald-300 block uppercase font-semibold">Target Protein Harian</span>
+[6089] <span class="text-[10px] text-emerald-200 mt-0.5 block">gram protein / hari</span>
+[6355] rxText = '<strong>Lini 1:</strong> Modifikasi diet (makan porsi kecil lebih sering, kurangi makanan berlemak tinggi). Agen Prokinetik (Itopride 50 mg 3x/hari sebelum makan, atau Domperidone 10 mg 3x/hari jangka pendek). <br><strong>Lini 2 (Refrakter):</strong> Agen relaksasi fundus lambung (Buspirone 10 mg 3x/hari ac), atau neuromodulator pusat Mirtazapine (15 mg malam untuk early satiation & nafsu makan).';
+[6357] rxText = '<strong>Lini 1:</strong> Supresi asam lambung dengan PPI dosis standar (Omeprazole 20 mg atau Esomeprazole 20-40 mg 1x/hari 30 menit sebelum makan pagi) selama 4 - 8 minggu. <br><strong>Lini 2 (Respon parsial/refrakter):</strong> Neuromodulator sentral dosis rendah (TCA: Amitriptyline 10 - 25 mg malam sebelum tidur) yang terbukti superior untuk meredakan nyeri viseral.';
+[6444] ? `Bukti endoskopi definitif (${document.getElementById('lyon-egd').selectedOptions[0].text}) merupakan patognomonik kerusakan mukosa berat akibat refluks gastroesofagus.`
+[6468] rationale = `AET normal (< 4.0%), total episode refluks normal, DAN korelasi gejala NEGATIF. Keluhan sensasi terbakar/heartburn TIDAK berhubungan dengan episode refluks lambung, melainkan interaksi Gut-Brain Axis.`;

@@ -1,0 +1,1434 @@
+[
+  {
+    "lineNum": 6,
+    "text": "<title>adjusterGEH - Clinical Decision Support System | Gastroenterology & Hepatology</title>"
+  },
+  {
+    "lineNum": 193,
+    "text": "#toast-notice {"
+  },
+  {
+    "lineNum": 203,
+    "text": "<!-- Toast Notification -->"
+  },
+  {
+    "lineNum": 204,
+    "text": "<div id=\"toast-notice\" class=\"fixed bottom-6 right-6 z-50 flex items-center space-x-3 px-5 py-3 rounded-xl bg-slate-900/95 border border-cyan-500/50 shadow-[0_10px_35px_rgba(0,242,254,0.3)] text-white text-sm font-medium translate-y-24 opacity-0 pointer-events-none\">"
+  },
+  {
+    "lineNum": 206,
+    "text": "<span id=\"toast-message\">Resume klinis berhasil disalin!</span>"
+  },
+  {
+    "lineNum": 230,
+    "text": "<!-- Top Search Bar (Realtime Calculator Discovery) -->"
+  },
+  {
+    "lineNum": 264,
+    "text": "<button type=\"button\" id=\"pill-pancreato\" onclick=\"navigateTo('hub-pancreato', 'Pancreatobiliary Hub', this.id)\" class=\"quick-nav-pill\">"
+  },
+  {
+    "lineNum": 266,
+    "text": "<span>Pancreatobiliary</span>"
+  },
+  {
+    "lineNum": 304,
+    "text": "Sistem pendukung keputusan klinis gastroenterologi & hepatologi berbasis bukti: skor risiko, kriteria diagnostik Rome IV & Lyon Consensus 2.0, nutrisi sirosis ESPEN, dan algoritma tatalaksana ACG, EASL, AGA, BSG, dan USMSTF."
+  },
+  {
+    "lineNum": 337,
+    "text": "<!-- 3. Pancreatobiliary -->"
+  },
+  {
+    "lineNum": 338,
+    "text": "<button type=\"button\" onclick=\"navigateTo('hub-pancreato', 'Pancreatobiliary Hub', 'pill-pancreato')\" class=\"glass-card rounded-xl p-5 flex flex-col items-start text-left cursor-pointer group w-full\">"
+  },
+  {
+    "lineNum": 342,
+    "text": "<h4 class=\"font-bold text-white text-base mb-1 group-hover:text-cyan-400 transition-colors\">3. Pancreatobiliary & Inf</h4>"
+  },
+  {
+    "lineNum": 353,
+    "text": "<p class=\"text-xs text-slate-400 line-clamp-2 mb-3\">Truelove & Witts (ASUC flare), Mayo Score for UC, Harvey-Bradshaw Index (Crohn's), & Fecal Calprotectin.</p>"
+  },
+  {
+    "lineNum": 383,
+    "text": "<strong class=\"text-white font-semibold\">Medical Disclaimer:</strong> adjusterGEH CDSS ditujukan untuk dokter, gastroenterolog, dan tenaga medis sebagai alat bantu klinis dan referensi berbasis bukti. Seluruh rekomendasi harus selalu disesuaikan dengan penilaian klinis komprehensif (*clinical judgment*) terhadap kondisi masing-masing pasien."
+  },
+  {
+    "lineNum": 505,
+    "text": "<p class=\"text-xs text-slate-400\">Model end-stage liver disease: MELD standar, MELD-Na, & MELD 3.0 (gender/albumin bias-free).</p>"
+  },
+  {
+    "lineNum": 519,
+    "text": "<p class=\"text-xs text-slate-400\">Kebutuhan kalori (30-35 kcal/kg) & protein (1.2-1.5 g/kg) dengan penyesuaian dry weight asites & edema.</p>"
+  },
+  {
+    "lineNum": 544,
+    "text": "<p class=\"text-xs text-slate-400\">Kalkulasi rasio ALT/ALP normal untuk klasifikasi Hepatocellular, Mixed, atau Cholestatic.</p>"
+  },
+  {
+    "lineNum": 549,
+    "text": "<button type=\"button\" onclick=\"navigateTo('deritis-module', 'The De Ritis Ratio (AST/ALT)', 'pill-hepa', 'hub-hepa')\" class=\"glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group\">"
+  },
+  {
+    "lineNum": 555,
+    "text": "<p class=\"text-xs text-slate-400\">Rasio AST/ALT untuk membedakan Alcoholic Liver Disease (&gt;2), sirosis (&gt;1), vs MASLD (&lt;1).</p>"
+  },
+  {
+    "lineNum": 616,
+    "text": "<!-- Hub 3: Pancreatobiliary -->"
+  },
+  {
+    "lineNum": 624,
+    "text": "<h3 class=\"text-lg font-bold text-white mb-2 font-['Plus_Jakarta_Sans']\">Pancreatobiliary & Infection Tools</h3>"
+  },
+  {
+    "lineNum": 625,
+    "text": "<p class=\"text-xs text-slate-400 mb-5\">Pilih instrumen kalkulator bilier & infeksi saluran cerna:</p>"
+  },
+  {
+    "lineNum": 638,
+    "text": "<p class=\"text-xs text-slate-400\">Prediksi mortalitas dan keparahan pankreatitis akut cepat di IGD (BUN, Status Mental, SIRS, Usia, Pleura).</p>"
+  },
+  {
+    "lineNum": 652,
+    "text": "<p class=\"text-xs text-slate-400\">Stratifikasi klasik pankreatitis saat admisi dan evaluasi 48 jam (Biliary vs Non-biliary).</p>"
+  },
+  {
+    "lineNum": 733,
+    "text": "<button type=\"button\" onclick=\"navigateTo('calprotectin-module', 'Fecal Calprotectin Interpreter', 'pill-ibd', 'hub-ibd')\" class=\"glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group\">"
+  },
+  {
+    "lineNum": 738,
+    "text": "<h4 class=\"font-bold text-white text-sm mb-1 group-hover:text-cyan-400 transition-colors\">Fecal Calprotectin Interpreter</h4>"
+  },
+  {
+    "lineNum": 781,
+    "text": "<p class=\"text-xs text-slate-400\">Diferensiasi Postprandial Distress (PDS) vs Epigastric Pain (EPS), skrining alarm, & panduan terapi.</p>"
+  },
+  {
+    "lineNum": 874,
+    "text": "<label for=\"gbs-bun\" class=\"text-xs font-semibold text-slate-300\">Blood Urea Nitrogen (BUN) <span class=\"text-rose-400\">*</span></label>"
+  },
+  {
+    "lineNum": 876,
+    "text": "<button type=\"button\" id=\"gbs-bun-unit-mmol\" onclick=\"setGbsBunUnit('mmol')\" class=\"px-1.5 py-0.5 rounded text-cyan-400 font-bold\">mmol/L</button>"
+  },
+  {
+    "lineNum": 878,
+    "text": "<button type=\"button\" id=\"gbs-bun-unit-mg\" onclick=\"setGbsBunUnit('mg')\" class=\"px-1.5 py-0.5 rounded text-slate-400\">mg/dL</button>"
+  },
+  {
+    "lineNum": 881,
+    "text": "<input type=\"number\" id=\"gbs-bun\" step=\"0.1\" placeholder=\"e.g. 8.5 (mmol/L) / 24 (mg/dL)\" required class=\"glass-input w-full px-3 py-2 rounded-lg text-sm\">"
+  },
+  {
+    "lineNum": 882,
+    "text": "<span id=\"gbs-bun-hint\" class=\"text-[11px] text-slate-400 mt-1 block\">Satuan aktif: mmol/L (Normal ~2.5 - 7.1)</span>"
+  },
+  {
+    "lineNum": 933,
+    "text": "<p class=\"text-slate-300\"><strong>Blatchford O, Murray WR, Blatchford M.</strong> A risk score to predict need for treatment for upper-gastrointestinal haemorrhage. <em>Lancet</em>. 2000;356(9238):1318-1321.</p>"
+  },
+  {
+    "lineNum": 934,
+    "text": "<p class=\"text-slate-400 mt-1\"><strong>ACG Clinical Guideline (2021):</strong> Upper Gastrointestinal and Ulcer Bleeding (Laine L et al., <em>Am J Gastroenterol</em>. 2021). GBS &le; 1 mengidentifikasi pasien risiko sangat rendah (&lt;1% butuh hemostasis/transfusi/meninggal) yang aman untuk rawat jalan.</p>"
+  },
+  {
+    "lineNum": 1014,
+    "text": "<p class=\"text-slate-300\"><strong>Oakland K, Jairath V, Uberoi R, et al.</strong> Derivation and validation of a novel risk score for safe discharge after acute lower gastrointestinal bleeding: a modelling study. <em>Lancet</em>. 2017;389(10073):1025-1035.</p>"
+  },
+  {
+    "lineNum": 1042,
+    "text": "<span class=\"text-sm font-semibold text-white block\">A - Albumin &lt; 3.0 g/dL (30 g/L)</span>"
+  },
+  {
+    "lineNum": 1043,
+    "text": "<span class=\"text-xs text-slate-400\">Hipoalbuminemia bermakna</span>"
+  },
+  {
+    "lineNum": 1056,
+    "text": "<span class=\"text-sm font-semibold text-white block\">M - Mental Status Altered</span>"
+  },
+  {
+    "lineNum": 1089,
+    "text": "<p class=\"text-slate-300\"><strong>Saltzman JR, Tabak YP, Hyett BH, et al.</strong> A prospective derivation and validation of AIMS65: a simple risk score predicting mortality in acute UGIB. <em>Gastrointest Endosc</em>. 2011;74(6):1215-1224.</p>"
+  },
+  {
+    "lineNum": 1149,
+    "text": "<p class=\"text-slate-300\"><strong>ASGE & ACG Joint Clinical Guideline (2022):</strong> Management of Anticoagulants and Antiplatelets During Acute Gastrointestinal Bleeding. <em>Am J Gastroenterol</em>. 2022.</p>"
+  },
+  {
+    "lineNum": 1236,
+    "text": "<p class=\"text-slate-300\"><strong>Forrest JA, Finlayson ND, Shearman DJ.</strong> Endoscopy in gastrointestinal bleeding. <em>Lancet</em>. 1974;2(7877):394-397.</p>"
+  },
+  {
+    "lineNum": 1306,
+    "text": "<option value=\"1\">Ulkus Peptikum, Erosi Gastroduodenal, Esofagitis, Dieulafoy (1 Poin)</option>"
+  },
+  {
+    "lineNum": 1316,
+    "text": "<option value=\"2\">Darah Segar di Lambung/Esofagus, Bekuan Melekat, atau Pembuluh Darah Terlihat/Menyemprot (2 Poin)</option>"
+  },
+  {
+    "lineNum": 1335,
+    "text": "<p class=\"text-slate-300\"><strong>Rockall TA, Logan RF, Devlin HB, Northfield TC.</strong> Risk assessment after acute upper gastrointestinal haemorrhage. <em>Gut</em>. 1996;38(3):316-321.</p>"
+  },
+  {
+    "lineNum": 1365,
+    "text": "<label for=\"fib4-ast\" class=\"text-xs font-semibold text-slate-300 mb-1 block\">AST / SGOT (U/L) <span class=\"text-rose-400\">*</span></label>"
+  },
+  {
+    "lineNum": 1366,
+    "text": "<input type=\"number\" id=\"fib4-ast\" placeholder=\"e.g. 64\" required class=\"glass-input w-full px-3 py-2 rounded-lg text-sm\">"
+  },
+  {
+    "lineNum": 1369,
+    "text": "<label for=\"fib4-alt\" class=\"text-xs font-semibold text-slate-300 mb-1 block\">ALT / SGPT (U/L) <span class=\"text-rose-400\">*</span></label>"
+  },
+  {
+    "lineNum": 1370,
+    "text": "<input type=\"number\" id=\"fib4-alt\" placeholder=\"e.g. 58\" required class=\"glass-input w-full px-3 py-2 rounded-lg text-sm\">"
+  },
+  {
+    "lineNum": 1377,
+    "text": "<label for=\"fib4-ast-uln\" class=\"text-xs font-semibold text-slate-300 mb-1 block\">Batas Atas Normal AST (ULN, U/L)</label>"
+  },
+  {
+    "lineNum": 1378,
+    "text": "<input type=\"number\" id=\"fib4-ast-uln\" value=\"40\" class=\"glass-input w-full px-3 py-2 rounded-lg text-sm\">"
+  },
+  {
+    "lineNum": 1433,
+    "text": "<label for=\"maddrey-bili\" class=\"text-xs font-semibold text-slate-300\">Total Bilirubin Baseline <span class=\"text-rose-400\">*</span></label>"
+  },
+  {
+    "lineNum": 1435,
+    "text": "<button type=\"button\" id=\"maddrey-bili-unit-mg\" onclick=\"setMaddreyBiliUnit('mg')\" class=\"px-1.5 py-0.5 rounded text-cyan-400 font-bold\">mg/dL</button>"
+  },
+  {
+    "lineNum": 1437,
+    "text": "<button type=\"button\" id=\"maddrey-bili-unit-umol\" onclick=\"setMaddreyBiliUnit('umol')\" class=\"px-1.5 py-0.5 rounded text-slate-400\">µmol/L</button>"
+  },
+  {
+    "lineNum": 1440,
+    "text": "<input type=\"number\" id=\"maddrey-bili\" step=\"0.1\" placeholder=\"e.g. 14.2 (mg/dL) / 240 (µmol/L)\" class=\"glass-input w-full px-3 py-2 rounded-lg text-sm\">"
+  },
+  {
+    "lineNum": 1479,
+    "text": "<label for=\"lille-alb\" class=\"text-xs font-semibold text-slate-300 mb-1 block\">Albumin Hari-0 (g/dL)</label>"
+  },
+  {
+    "lineNum": 1487,
+    "text": "<label for=\"lille-bili0\" class=\"text-xs font-semibold text-slate-300 mb-1 block\">Total Bilirubin Hari-0 (mg/dL)</label>"
+  },
+  {
+    "lineNum": 1488,
+    "text": "<input type=\"number\" id=\"lille-bili0\" step=\"0.1\" placeholder=\"e.g. 15.0\" class=\"glass-input w-full px-3 py-2 rounded-lg text-sm\">"
+  },
+  {
+    "lineNum": 1491,
+    "text": "<label for=\"lille-bili7\" class=\"text-xs font-semibold text-slate-300 mb-1 block\">Total Bilirubin Hari-7 (mg/dL)</label>"
+  },
+  {
+    "lineNum": 1492,
+    "text": "<input type=\"number\" id=\"lille-bili7\" step=\"0.1\" placeholder=\"e.g. 11.2\" class=\"glass-input w-full px-3 py-2 rounded-lg text-sm\">"
+  },
+  {
+    "lineNum": 1512,
+    "text": "<p class=\"text-slate-300\"><strong>Maddrey WC et al.</strong> <em>Gastroenterology</em> 1978. <strong>Louvet A et al.</strong> <em>Hepatology</em> 2007;45(6):1348-1354.</p>"
+  },
+  {
+    "lineNum": 1546,
+    "text": "<label for=\"clif-bili\" class=\"text-xs font-semibold text-slate-300 mb-1 block\">Total Bilirubin (mg/dL) <span class=\"text-rose-400\">*</span></label>"
+  },
+  {
+    "lineNum": 1547,
+    "text": "<input type=\"number\" id=\"clif-bili\" step=\"0.1\" placeholder=\"e.g. 8.4\" required class=\"glass-input w-full px-3 py-2 rounded-lg text-sm\">"
+  },
+  {
+    "lineNum": 1611,
+    "text": "<p class=\"text-slate-400 text-xs sm:text-sm mt-1\">Stratifikasi risiko varises gastroesofagus berisiko tinggi (*high-risk varices*) untuk menentukan perlunya skrining EGD.</p>"
+  },
+  {
+    "lineNum": 1684,
+    "text": "<label for=\"ctp-bili\" class=\"text-xs font-semibold text-slate-300\">3. Total Bilirubin (mg/dL) <span class=\"text-rose-400\">*</span></label>"
+  },
+  {
+    "lineNum": 1686,
+    "text": "<input type=\"checkbox\" id=\"ctp-pbc-toggle\" onchange=\"toggleCtpBiliHint()\" class=\"mr-1 accent-amber-400 rounded\">"
+  },
+  {
+    "lineNum": 1690,
+    "text": "<select id=\"ctp-bili\" class=\"glass-input w-full px-3 py-2 rounded-lg text-sm\">"
+  },
+  {
+    "lineNum": 1695,
+    "text": "<p id=\"ctp-bili-hint\" class=\"text-[11px] text-slate-500 mt-1\">Standar non-kolestatik: &lt;2, 2-3, &gt;3 mg/dL.</p>"
+  },
+  {
+    "lineNum": 1699,
+    "text": "<label for=\"ctp-alb\" class=\"text-xs font-semibold text-slate-300 mb-1 block\">4. Serum Albumin (g/dL) <span class=\"text-rose-400\">*</span></label>"
+  },
+  {
+    "lineNum": 1750,
+    "text": "<p class=\"text-slate-400 text-xs sm:text-sm mt-1\">Evaluasi mortalitas 90 hari dan prioritas alokasi transplantasi hati: MELD Klasik (2002), MELD-Na (UNOS 2016), dan MELD 3.0 terkini (OPTN 2021) yang mengeliminasi kesenjangan gender dan memasukkan interaksi albumin.</p>"
+  },
+  {
+    "lineNum": 1756,
+    "text": "<label for=\"meld-bili\" class=\"text-xs font-semibold text-slate-300 mb-1 block\">Total Bilirubin (mg/dL) <span class=\"text-rose-400\">*</span></label>"
+  },
+  {
+    "lineNum": 1757,
+    "text": "<input type=\"number\" id=\"meld-bili\" step=\"0.1\" placeholder=\"e.g. 2.4\" required class=\"glass-input w-full px-3 py-2 rounded-lg text-sm\">"
+  },
+  {
+    "lineNum": 1771,
+    "text": "<label for=\"meld-na\" class=\"text-xs font-semibold text-slate-300 mb-1 block\">Serum Natrium (mEq/L) <span class=\"text-rose-400\">*</span></label>"
+  },
+  {
+    "lineNum": 1777,
+    "text": "<label for=\"meld-alb\" class=\"text-xs font-semibold text-slate-300 mb-1 block\">Serum Albumin (g/dL) <span class=\"text-rose-400\">*</span></label>"
+  },
+  {
+    "lineNum": 1820,
+    "text": "<p class=\"text-slate-300\"><strong>Kim WR, Mannalithara A, Heimbach JK, et al.</strong> MELD 3.0: The Model for End-Stage Liver Disease Updated for the Modern Era. <em>Gastroenterology</em>. 2021;161(5):1387-1395.</p>"
+  },
+  {
+    "lineNum": 1846,
+    "text": "<label for=\"saag-serum-alb\" class=\"text-xs font-semibold text-slate-300 mb-1 block\">Albumin Serum (g/dL) <span class=\"text-rose-400\">*</span></label>"
+  },
+  {
+    "lineNum": 1851,
+    "text": "<label for=\"saag-ascites-alb\" class=\"text-xs font-semibold text-slate-300 mb-1 block\">Albumin Cairan Asites (g/dL) <span class=\"text-rose-400\">*</span></label>"
+  },
+  {
+    "lineNum": 1866,
+    "text": "<label for=\"saag-protein\" class=\"text-xs font-semibold text-slate-300 mb-1 block\">Total Protein Cairan Asites (g/dL) <span class=\"text-slate-500 font-normal\">(Opsional - diferensiasi kardiak &amp; profilaksis primer)</span></label>"
+  },
+  {
+    "lineNum": 1867,
+    "text": "<input type=\"number\" id=\"saag-protein\" step=\"0.1\" placeholder=\"e.g. 1.2\" class=\"glass-input w-full px-3 py-2 rounded-lg text-sm\">"
+  },
+  {
+    "lineNum": 1910,
+    "text": "<label for=\"rfactor-alt\" class=\"text-xs font-semibold text-slate-300 mb-1 block\">ALT / SGPT Pasien (U/L) <span class=\"text-rose-400\">*</span></label>"
+  },
+  {
+    "lineNum": 1911,
+    "text": "<input type=\"number\" id=\"rfactor-alt\" placeholder=\"e.g. 420\" required class=\"glass-input w-full px-3 py-2 rounded-lg text-sm\">"
+  },
+  {
+    "lineNum": 1915,
+    "text": "<label for=\"rfactor-alt-uln\" class=\"text-xs font-semibold text-slate-300 mb-1 block\">Batas Atas Normal (ULN) ALT (U/L) <span class=\"text-rose-400\">*</span></label>"
+  },
+  {
+    "lineNum": 1916,
+    "text": "<input type=\"number\" id=\"rfactor-alt-uln\" value=\"35\" required class=\"glass-input w-full px-3 py-2 rounded-lg text-sm\">"
+  },
+  {
+    "lineNum": 1921,
+    "text": "<label for=\"rfactor-alp\" class=\"text-xs font-semibold text-slate-300 mb-1 block\">ALP Pasien (Alkaline Phosphatase, U/L) <span class=\"text-rose-400\">*</span></label>"
+  },
+  {
+    "lineNum": 1922,
+    "text": "<input type=\"number\" id=\"rfactor-alp\" placeholder=\"e.g. 150\" required class=\"glass-input w-full px-3 py-2 rounded-lg text-sm\">"
+  },
+  {
+    "lineNum": 1926,
+    "text": "<label for=\"rfactor-alp-uln\" class=\"text-xs font-semibold text-slate-300 mb-1 block\">Batas Atas Normal (ULN) ALP (U/L) <span class=\"text-rose-400\">*</span></label>"
+  },
+  {
+    "lineNum": 1927,
+    "text": "<input type=\"number\" id=\"rfactor-alp-uln\" value=\"120\" required class=\"glass-input w-full px-3 py-2 rounded-lg text-sm\">"
+  },
+  {
+    "lineNum": 1932,
+    "text": "<label for=\"rfactor-bili\" class=\"text-xs font-semibold text-slate-300 mb-1 block\">Total Bilirubin Pasien (mg/dL) <span class=\"text-slate-500 font-normal\">(Opsional - untuk deteksi kriteria Hy's Law)</span></label>"
+  },
+  {
+    "lineNum": 1933,
+    "text": "<input type=\"number\" id=\"rfactor-bili\" step=\"0.1\" placeholder=\"e.g. 3.2\" class=\"glass-input w-full px-3 py-2 rounded-lg text-sm\">"
+  },
+  {
+    "lineNum": 1958,
+    "text": "<!-- 2.9 The De Ritis Ratio (AST/ALT Ratio) -->"
+  },
+  {
+    "lineNum": 1969,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">The De Ritis Ratio (AST / ALT Ratio)</h2>"
+  },
+  {
+    "lineNum": 1976,
+    "text": "<label for=\"deritis-ast\" class=\"text-xs font-semibold text-slate-300 mb-1 block\">AST / SGOT (U/L) <span class=\"text-rose-400\">*</span></label>"
+  },
+  {
+    "lineNum": 1977,
+    "text": "<input type=\"number\" id=\"deritis-ast\" placeholder=\"e.g. 180\" required class=\"glass-input w-full px-3 py-2 rounded-lg text-sm\">"
+  },
+  {
+    "lineNum": 1981,
+    "text": "<label for=\"deritis-alt\" class=\"text-xs font-semibold text-slate-300 mb-1 block\">ALT / SGPT (U/L) <span class=\"text-rose-400\">*</span></label>"
+  },
+  {
+    "lineNum": 1982,
+    "text": "<input type=\"number\" id=\"deritis-alt\" placeholder=\"e.g. 75\" required class=\"glass-input w-full px-3 py-2 rounded-lg text-sm\">"
+  },
+  {
+    "lineNum": 2049,
+    "text": "<label for=\"nfs-ast\" class=\"text-xs font-semibold text-slate-300 mb-1 block\">AST / SGOT (U/L) <span class=\"text-rose-400\">*</span></label>"
+  },
+  {
+    "lineNum": 2050,
+    "text": "<input type=\"number\" id=\"nfs-ast\" placeholder=\"e.g. 55\" required class=\"glass-input w-full px-3 py-2 rounded-lg text-sm\">"
+  },
+  {
+    "lineNum": 2054,
+    "text": "<label for=\"nfs-alt\" class=\"text-xs font-semibold text-slate-300 mb-1 block\">ALT / SGPT (U/L) <span class=\"text-rose-400\">*</span></label>"
+  },
+  {
+    "lineNum": 2055,
+    "text": "<input type=\"number\" id=\"nfs-alt\" placeholder=\"e.g. 62\" required class=\"glass-input w-full px-3 py-2 rounded-lg text-sm\">"
+  },
+  {
+    "lineNum": 2064,
+    "text": "<label for=\"nfs-alb\" class=\"text-xs font-semibold text-slate-300 mb-1 block\">Serum Albumin (g/dL) <span class=\"text-rose-400\">*</span></label>"
+  },
+  {
+    "lineNum": 2094,
+    "text": "<button type=\"button\" onclick=\"navigateTo('hub-pancreato', 'Pancreatobiliary Hub', 'pill-pancreato')\" class=\"btn-back\">"
+  },
+  {
+    "lineNum": 2095,
+    "text": "<i class=\"fa-solid fa-arrow-left\"></i> Kembali ke Pancreatobiliary"
+  },
+  {
+    "lineNum": 2097,
+    "text": "<span class=\"px-3 py-1 bg-emerald-500/20 text-emerald-300 text-xs font-semibold rounded-full border border-emerald-500/30\">Biliary Infection</span>"
+  },
+  {
+    "lineNum": 2170,
+    "text": "<span class=\"ml-3 text-xs sm:text-sm text-slate-200\">Ikterus (Bilirubin &ge; 2.0 mg/dL)</span>"
+  },
+  {
+    "lineNum": 2202,
+    "text": "<p class=\"text-slate-300\"><strong>Mayumi T et al.</strong> Tokyo Guidelines 2018. <em>J Hepatobiliary Pancreat Sci</em>. 2018;25(1):1-16.</p>"
+  },
+  {
+    "lineNum": 2214,
+    "text": "<button type=\"button\" onclick=\"navigateTo('hub-pancreato', 'Pancreatobiliary Hub', 'pill-pancreato')\" class=\"btn-back\">"
+  },
+  {
+    "lineNum": 2215,
+    "text": "<i class=\"fa-solid fa-arrow-left\"></i> Kembali ke Pancreatobiliary"
+  },
+  {
+    "lineNum": 2231,
+    "text": "<span class=\"ml-3 text-xs sm:text-sm text-slate-200\">Nyeri abdomen khas pankreatitis (epigastrium menjalar ke punggung)</span>"
+  },
+  {
+    "lineNum": 2301,
+    "text": "<button type=\"button\" onclick=\"navigateTo('hub-pancreato', 'Pancreatobiliary Hub', 'pill-pancreato')\" class=\"btn-back\">"
+  },
+  {
+    "lineNum": 2302,
+    "text": "<i class=\"fa-solid fa-arrow-left\"></i> Kembali ke Pancreatobiliary"
+  },
+  {
+    "lineNum": 2347,
+    "text": "<p class=\"text-slate-300\"><strong>Kelly CR et al.</strong> ACG Clinical Guidelines: CDI. <em>Am J Gastroenterol</em>. 2021;116(6):1124-1147.</p>"
+  },
+  {
+    "lineNum": 2359,
+    "text": "<button type=\"button\" onclick=\"navigateTo('hub-pancreato', 'Pancreatobiliary Hub', 'pill-pancreato')\" class=\"btn-back\">"
+  },
+  {
+    "lineNum": 2360,
+    "text": "<i class=\"fa-solid fa-arrow-left\"></i> Kembali ke Pancreatobiliary"
+  },
+  {
+    "lineNum": 2377,
+    "text": "<span class=\"text-xs sm:text-sm font-bold text-white block\">B - BUN &gt; 25 mg/dL (&gt; 8.9 mmol/L)</span>"
+  },
+  {
+    "lineNum": 2402,
+    "text": "<span class=\"text-[11px] text-slate-400\">Usia lanjut berhubungan erat dengan peningkatan mortalitas dan komplikasi sistemik</span>"
+  },
+  {
+    "lineNum": 2440,
+    "text": "<button type=\"button\" onclick=\"navigateTo('hub-pancreato', 'Pancreatobiliary Hub', 'pill-pancreato')\" class=\"btn-back\">"
+  },
+  {
+    "lineNum": 2441,
+    "text": "<i class=\"fa-solid fa-arrow-left\"></i> Kembali ke Pancreatobiliary"
+  },
+  {
+    "lineNum": 2448,
+    "text": "<p class=\"text-slate-400 text-xs sm:text-sm mt-1\">Instrumen prognostik klasik 2 tahap (saat masuk dan evaluasi 48 jam) untuk stratifikasi keparahan dan mortalitas pankreatitis akut non-biliaris (alkoholik) vs biliaris (batu empedu).</p>"
+  },
+  {
+    "lineNum": 2458,
+    "text": "Gallstone Pancreatitis (Biliaris)"
+  },
+  {
+    "lineNum": 2493,
+    "text": "<input type=\"checkbox\" id=\"ranson-ast\" class=\"mt-1 w-4 h-4 accent-cyan-400 rounded\">"
+  },
+  {
+    "lineNum": 2495,
+    "text": "<span id=\"ranson-ast-label\" class=\"text-xs sm:text-sm font-semibold text-slate-200 block\">Serum AST / SGOT &gt; 250 U/L</span>"
+  },
+  {
+    "lineNum": 2526,
+    "text": "<input type=\"checkbox\" id=\"ranson-bun\" class=\"mt-1 w-4 h-4 accent-amber-400 rounded\">"
+  },
+  {
+    "lineNum": 2528,
+    "text": "<span id=\"ranson-bun-label\" class=\"text-xs sm:text-sm font-semibold text-slate-200 block\">Peningkatan BUN &gt; 5 mg/dL (&gt; 1.8 mmol/L)</span>"
+  },
+  {
+    "lineNum": 2798,
+    "text": "<label class=\"text-xs font-semibold text-slate-300 mb-1.5 block\">4. Massa Abdomen saat Palpasi</label>"
+  },
+  {
+    "lineNum": 2859,
+    "text": "<p class=\"text-slate-300\"><strong>Harvey RF, Bradshaw JM.</strong> <em>Lancet</em>. 1980;1(8167):514. <strong>Best WR et al.</strong> <em>Gastroenterology</em>. 1976.</p>"
+  },
+  {
+    "lineNum": 2907,
+    "text": "<h4 class=\"text-sm font-bold text-white\">Defek Menyambung &lt; 75% Lingkar</h4>"
+  },
+  {
+    "lineNum": 2908,
+    "text": "<p class=\"text-xs text-slate-400 mt-1\">Defek mukosa menyambung antara puncak &ge; 2 lipatan mukosa, &lt; 75% lingkar esofagus.</p>"
+  },
+  {
+    "lineNum": 2936,
+    "text": "<!-- 4.5 Fecal Calprotectin -->"
+  },
+  {
+    "lineNum": 2937,
+    "text": "<section id=\"calprotectin-module\" class=\"module-section hidden\">"
+  },
+  {
+    "lineNum": 2947,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">Fecal Calprotectin Interpreter</h2>"
+  },
+  {
+    "lineNum": 2951,
+    "text": "<form id=\"calprotectin-form\" class=\"space-y-4\">"
+  },
+  {
+    "lineNum": 2953,
+    "text": "<label for=\"fcal-val\" class=\"text-xs font-semibold text-slate-300 mb-1.5 block\">Kadar Fecal Calprotectin (µg/g atau mg/kg) <span class=\"text-rose-400\">*</span></label>"
+  },
+  {
+    "lineNum": 2961,
+    "text": "<button type=\"button\" onclick=\"calculateCalprotectin()\" class=\"glass-btn px-6 py-2.5 rounded-lg text-sm font-semibold flex items-center\">"
+  },
+  {
+    "lineNum": 2962,
+    "text": "<i class=\"fa-solid fa-calculator mr-2\"></i> Interpretasikan Hasil Calprotectin"
+  },
+  {
+    "lineNum": 2967,
+    "text": "<div id=\"calprotectin-result-container\" class=\"hidden mt-6\"></div>"
+  },
+  {
+    "lineNum": 2973,
+    "text": "<p class=\"text-slate-300\"><strong>Waugh N et al.</strong> <em>Health Technol Assess</em>. 2013;17(55):1-211. AGA Update 2021.</p>"
+  },
+  {
+    "lineNum": 3002,
+    "text": "<option value=\"hyperplastic-small\">Polip Hiperplastik Rektum/Sigmoid &lt; 10 mm</option>"
+  },
+  {
+    "lineNum": 3030,
+    "text": "<p class=\"text-slate-300\"><strong>Gupta S et al.</strong> USMSTF Recommendations. <em>Gastroenterology</em>. 2020;158(4):1131-1149.</p>"
+  },
+  {
+    "lineNum": 3052,
+    "text": "<p class=\"text-slate-400 text-xs sm:text-sm mt-1\">Estimasi kebutuhan kalori harian (30 - 35 kcal/kg) dan protein (1.2 - 1.5 g/kg) berbasis panduan ESPEN 2019 / EASL, lengkap dengan kalkulasi estimasi dry weight pada asites dan edema perifer.</p>"
+  },
+  {
+    "lineNum": 3146,
+    "text": "<option value=\"stable\">Sirosis Stabil / Rawat Jalan (Target: 30 - 35 kcal/kg, Protein 1.2 - 1.5 g/kg)</option>"
+  },
+  {
+    "lineNum": 3147,
+    "text": "<option value=\"malnutrition\">Dekompensata / Malnutrisi Berat / Sarkopenia (Target: 35 - 40 kcal/kg, Protein 1.5 g/kg)</option>"
+  },
+  {
+    "lineNum": 3148,
+    "text": "<option value=\"obese\">Sirosis Obesitas (Dry BMI ≥ 30 kg/m²) (Target hipokalorik 20 - 25 kcal/kg, Protein tinggi ≥1.5 g/kg IBW)</option>"
+  },
+  {
+    "lineNum": 3149,
+    "text": "<option value=\"encephalopathy\">Ensefalopati Hepatikum (HE) (Target: 30 - 35 kcal/kg, Protein tetap 1.2 g/kg + Suplementasi BCAA)</option>"
+  },
+  {
+    "lineNum": 3153,
+    "text": "<strong>Catatan ESPEN:</strong> Restriksi protein pada sirosis (bahkan pada Ensefalopati Hepatikum) telah dinyatakan <strong>usang dan membahayakan</strong> karena memicu katabolisme protein otot skeletal dan memperburuk hiperamonemia."
+  },
+  {
+    "lineNum": 3228,
+    "text": "<span class=\"text-slate-300\"><strong>Berhubungan dengan defekasi:</strong> Nyeri mereda atau justru bertambah hebat saat/setelah buang air besar.</span>"
+  },
+  {
+    "lineNum": 3232,
+    "text": "<span class=\"text-slate-300\"><strong>Berhubungan dengan perubahan frekuensi feses:</strong> Nyeri timbul bersamaan dengan frekuensi BAB lebih sering atau lebih jarang.</span>"
+  },
+  {
+    "lineNum": 3236,
+    "text": "<span class=\"text-slate-300\"><strong>Berhubungan dengan perubahan bentuk/konsistensi feses:</strong> Feses menjadi keras bergumpal atau lembek/cair saat serangan.</span>"
+  },
+  {
+    "lineNum": 3319,
+    "text": "<p class=\"text-slate-300\"><strong>Lacy BE, Mearin F, Chang L, et al.</strong> Bowel Disorders. <em>Gastroenterology</em>. 2016;150(6):1393-1407.</p>"
+  },
+  {
+    "lineNum": 3320,
+    "text": "<p class=\"text-slate-400 mt-1\"><strong>Lacy BE, Pimentel M, Brenner DM, et al.</strong> ACG Clinical Guideline: Management of Irritable Bowel Syndrome. <em>Am J Gastroenterol</em>. 2021;116(1):17-44.</p>"
+  },
+  {
+    "lineNum": 3342,
+    "text": "<p class=\"text-slate-400 text-xs sm:text-sm mt-1\">Klasifikasi diagnostik dispepsia fungsional Rome IV: membedakan subtipe Postprandial Distress Syndrome (PDS), Epigastric Pain Syndrome (EPS), maupun Overlap, skrining tanda bahaya EGD, dan rekomendasi terapi lini 1 - 3.</p>"
+  },
+  {
+    "lineNum": 3360,
+    "text": "<label class=\"font-semibold text-slate-300 block mb-1.5\">Hasil EGD (Esofagogastroduodenoskopi): <span class=\"text-rose-400\">*</span></label>"
+  },
+  {
+    "lineNum": 3407,
+    "text": "<span class=\"font-bold text-white\">Epigastric Pain</span>"
+  },
+  {
+    "lineNum": 3410,
+    "text": "<p class=\"text-slate-400 mt-1\">Nyeri ulu hati yang mengganggu dan terlokalisir di epigastrium, minimal 1 hari per minggu.</p>"
+  },
+  {
+    "lineNum": 3419,
+    "text": "<span class=\"font-bold text-white\">Epigastric Burning</span>"
+  },
+  {
+    "lineNum": 3459,
+    "text": "<span>Riwayat keluarga kanker lambung/esofagus</span>"
+  },
+  {
+    "lineNum": 3463,
+    "text": "<span>Massa epigastrium teraba atau limfadenopati</span>"
+  },
+  {
+    "lineNum": 3481,
+    "text": "<p class=\"text-slate-300\"><strong>Stanghellini V, Chan FK, Hasler WL, et al.</strong> Gastroduodenal Disorders. <em>Gastroenterology</em>. 2016;150(6):1380-1392.</p>"
+  },
+  {
+    "lineNum": 3482,
+    "text": "<p class=\"text-slate-400 mt-1\"><strong>Moayyedi P, Lacy BE, Andrews CN, et al.</strong> ACG and CAG Clinical Guideline: Management of Dyspepsia. <em>Am J Gastroenterol</em>. 2017;112(7):988-1013.</p>"
+  },
+  {
+    "lineNum": 3504,
+    "text": "<p class=\"text-slate-400 text-xs sm:text-sm mt-1\">Kriteria diagnostik objektif modern untuk penegakan definitif Gastroesophageal Reflux Disease (GERD), monitoring asam ambulatori (AET % & refluks episode), dan diferensiasi fenotip Reflux Hypersensitivity (RH) vs Functional Heartburn (FH).</p>"
+  },
+  {
+    "lineNum": 3511,
+    "text": "<label class=\"text-xs font-semibold text-slate-300 mb-1.5 block\">1. Temuan Esofagogastroduodenoskopi (EGD): <span class=\"text-rose-400\">*</span></label>"
+  },
+  {
+    "lineNum": 3516,
+    "text": "<option value=\"la-c\">Los Angeles Grade C (Defek menyambung &lt; 75% lingkar)</option>"
+  },
+  {
+    "lineNum": 3566,
+    "text": "<label class=\"font-semibold text-slate-300 block mb-1\">Post-Reflux Swallow-Induced Peristaltic Wave (PSPW Index):</label>"
+  },
+  {
+    "lineNum": 3592,
+    "text": "<p class=\"text-slate-300\"><strong>Gyawali CP, Yadlapati R, Fass R, et al.</strong> Updates to the Lyon Consensus 2.0 for the diagnosis of gastro-oesophageal reflux disease. <em>Gut</em>. 2024;73(3):361-371. DOI: 10.1136/gutjnl-2023-330999.</p>"
+  },
+  {
+    "lineNum": 3607,
+    "text": "<span class=\"text-slate-300 font-bold\">adjusterGEH</span> CDSS v2.2 • Evidence-Based Clinical Decision Support for Gastroenterology & Hepatology"
+  },
+  {
+    "lineNum": 3630,
+    "text": "let gbsBunUnit = 'mmol';"
+  },
+  {
+    "lineNum": 3631,
+    "text": "let maddreyBiliUnit = 'mg';"
+  },
+  {
+    "lineNum": 3637,
+    "text": "const toastNotice = document.getElementById('toast-notice');"
+  },
+  {
+    "lineNum": 3638,
+    "text": "const toastMessage = document.getElementById('toast-message');"
+  },
+  {
+    "lineNum": 3640,
+    "text": "function showToast(msg) {"
+  },
+  {
+    "lineNum": 3641,
+    "text": "toastMessage.textContent = msg;"
+  },
+  {
+    "lineNum": 3642,
+    "text": "toastNotice.classList.remove('translate-y-24', 'opacity-0');"
+  },
+  {
+    "lineNum": 3643,
+    "text": "toastNotice.classList.add('translate-y-0', 'opacity-100');"
+  },
+  {
+    "lineNum": 3645,
+    "text": "toastNotice.classList.remove('translate-y-0', 'opacity-100');"
+  },
+  {
+    "lineNum": 3646,
+    "text": "toastNotice.classList.add('translate-y-24', 'opacity-0');"
+  },
+  {
+    "lineNum": 3652,
+    "text": "navigator.clipboard.writeText(text).then(() => showToast(successMsg)).catch(() => fallbackCopy(text, successMsg));"
+  },
+  {
+    "lineNum": 3668,
+    "text": "showToast(successMsg);"
+  },
+  {
+    "lineNum": 3711,
+    "text": "{ id: 'gbs-module', name: 'Glasgow-Blatchford Score (GBS)', category: 'GI Bleeding', color: 'rose', pillId: 'pill-bleed', hubId: 'hub-bleed', desc: 'Stratifikasi risiko UGIB sebelum endoskopi untuk menentukan kelayakan rawat jalan.', keywords: ['gbs', 'ugib', 'upper gi bleeding', 'perdarahan cerna atas', 'melena', 'hematemesis', 'bun', 'hb', 'blatchford'] },"
+  },
+  {
+    "lineNum": 3714,
+    "text": "{ id: 'aims65-module', name: 'AIMS65 Score (UGIB)', category: 'GI Bleeding', color: 'rose', pillId: 'pill-bleed', hubId: 'hub-bleed', desc: 'Skor prediksi mortalitas in-hospital dan risiko ICU pada perdarahan saluran cerna atas.', keywords: ['aims65', 'albumin', 'inr', 'mental status', 'sbp', 'mortalitas'] },"
+  },
+  {
+    "lineNum": 3719,
+    "text": "{ id: 'ctp-module', name: 'Child-Turcotte-Pugh (CTP) Score', category: 'Hepatology', color: 'amber', pillId: 'pill-hepa', hubId: 'hub-hepa', desc: 'Klasifikasi keparahan sirosis (Class A/B/C), survival rate, dan risiko operasi.', keywords: ['child pugh', 'ctp', 'sirosis', 'ensefalopati', 'asites', 'bilirubin', 'albumin', 'inr'] },"
+  },
+  {
+    "lineNum": 3720,
+    "text": "{ id: 'meld-module', name: 'MELD Trio (MELD, MELD-Na, MELD 3.0)', category: 'Hepatology', color: 'cyan', pillId: 'pill-hepa', hubId: 'hub-hepa', desc: 'Model end-stage liver disease: MELD standar, MELD-Na, & MELD 3.0 modern.', keywords: ['meld', 'meld-na', 'meld 3.0', 'transplantasi hati', 'kreatinin', 'natrium', 'mortalitas 90 hari'] },"
+  },
+  {
+    "lineNum": 3721,
+    "text": "{ id: 'espen-nutrition-module', name: 'Liver Disease Nutrition Calculator (ESPEN)', category: 'Hepatology', color: 'amber', pillId: 'pill-hepa', hubId: 'hub-hepa', desc: 'Kebutuhan kalori (30-35 kcal/kg) & protein (1.2-1.5 g/kg) dengan koreksi dry weight asites/edema.', keywords: ['nutrisi', 'espen', 'kalori', 'protein', 'dry weight', 'berat kering', 'asites', 'edema', 'parasentesis', 'bcaa', 'les', 'snack malam', 'sirosis'] },"
+  },
+  {
+    "lineNum": 3722,
+    "text": "{ id: 'saag-module', name: 'SAAG & Absolute PMN', category: 'Hepatology', color: 'emerald', pillId: 'pill-hepa', hubId: 'hub-hepa', desc: 'Gradien hipertensi portal (≥1.1) dan skrining Spontaneous Bacterial Peritonitis (PMN ≥250).', keywords: ['saag', 'sbp', 'peritonitis', 'asites', 'serum ascites albumin gradient', 'pmn', 'parasentesis'] },"
+  },
+  {
+    "lineNum": 3723,
+    "text": "{ id: 'rfactor-module', name: 'R-Factor (DILI Pattern)', category: 'Hepatology', color: 'amber', pillId: 'pill-hepa', hubId: 'hub-hepa', desc: 'Kalkulasi rasio ALT/ALP untuk klasifikasi Hepatocellular, Mixed, atau Cholestatic.', keywords: ['r-factor', 'dili', 'drug induced liver injury', 'alt', 'alp', 'hepatoselular', 'kolestatik'] },"
+  },
+  {
+    "lineNum": 3724,
+    "text": "{ id: 'deritis-module', name: 'The De Ritis Ratio (AST/ALT)', category: 'Hepatology', color: 'amber', pillId: 'pill-hepa', hubId: 'hub-hepa', desc: 'Rasio AST/ALT membedakan Alcoholic Liver Disease (>2), sirosis (>1), vs MASLD (<1).', keywords: ['de ritis', 'ast', 'alt', 'sgot', 'sgpt', 'alkoholik', 'steatohepatitis'] },"
+  },
+  {
+    "lineNum": 3726,
+    "text": "{ id: 'fib4-module', name: 'FIB-4 & APRI Calculator', category: 'Hepatology', color: 'amber', pillId: 'pill-hepa', hubId: 'hub-hepa', desc: 'Estimasi non-invasif derajat fibrosis dan sirosis hepar (MASLD/Hepatitis kronik).', keywords: ['fib-4', 'apri', 'fibrosis', 'trombosit', 'ast', 'alt', 'trombositopenia'] },"
+  },
+  {
+    "lineNum": 3731,
+    "text": "// Pancreatobiliary (5)"
+  },
+  {
+    "lineNum": 3732,
+    "text": "{ id: 'bisap-module', name: 'BISAP Score (Pancreatitis)', category: 'Pancreatobiliary', color: 'emerald', pillId: 'pill-pancreato', hubId: 'hub-pancreato', desc: 'Prediksi mortalitas dan keparahan pankreatitis akut cepat di IGD ≤24 jam.', keywords: ['bisap', 'pankreatitis akut', 'bun', 'sirs', 'pleura', 'mortalitas'] },"
+  },
+  {
+    "lineNum": 3733,
+    "text": "{ id: 'ranson-module', name: \"Ranson's Criteria (0 & 48h)\", category: 'Pancreatobiliary', color: 'emerald', pillId: 'pill-pancreato', hubId: 'hub-pancreato', desc: 'Stratifikasi klasik pankreatitis saat admisi dan evaluasi 48 jam.', keywords: ['ranson', 'pankreatitis', 'biliary', 'kalsium', 'ldh', 'glukosa', 'hematokrit'] },"
+  },
+  {
+    "lineNum": 3734,
+    "text": "{ id: 'tg18-module', name: 'Tokyo Guidelines 2018 (TG18)', category: 'Pancreatobiliary', color: 'emerald', pillId: 'pill-pancreato', hubId: 'hub-pancreato', desc: 'Diagnosis & grading keparahan Kolesistitis Akut dan Kolangitis Akut.', keywords: ['tg18', 'tokyo guidelines', 'kolesistitis', 'kolangitis', 'murphy', 'charcot', 'drainase'] },"
+  },
+  {
+    "lineNum": 3735,
+    "text": "{ id: 'atlanta-module', name: 'Revised Atlanta 2012', category: 'Pancreatobiliary', color: 'emerald', pillId: 'pill-pancreato', hubId: 'hub-pancreato', desc: 'Diagnosis & klasifikasi keparahan Pankreatitis Akut (Mild, Moderately Severe, Severe).', keywords: ['atlanta 2012', 'pankreatitis', 'organ failure', 'nekrosis pankreas'] },"
+  },
+  {
+    "lineNum": 3736,
+    "text": "{ id: 'cdiff-module', name: 'ACG C. diff Severity (2021)', category: 'Pancreatobiliary', color: 'emerald', pillId: 'pill-pancreato', hubId: 'hub-pancreato', desc: 'Klasifikasi infeksi Clostridioides difficile & panduan antibiotik lini pertama.', keywords: ['cdiff', 'clostridioides difficile', 'fidaxomicin', 'vancomycin', 'diare antibiotik'] },"
+  },
+  {
+    "lineNum": 3742,
+    "text": "{ id: 'calprotectin-module', name: 'Fecal Calprotectin Interpreter', category: 'Luminal & IBD', color: 'purple', pillId: 'pill-ibd', hubId: 'hub-ibd', desc: 'Interpretasi biomarker inflamasi usus untuk membedakan IBD vs IBS fungsional.', keywords: ['calprotectin', 'fecal', 'tinja', 'inflamasi', 'ibd', 'ibs', 'biomarker'] },"
+  },
+  {
+    "lineNum": 3745,
+    "text": "{ id: 'rome4-ibs-module', name: 'Rome IV: Irritable Bowel Syndrome (IBS)', category: 'Functional GI', color: 'pink', pillId: 'pill-functional', hubId: 'hub-functional', desc: 'Kriteria Rome IV diagnosis IBS, penentuan subtipe (IBS-C/D/M/U), alarm red flags, & terapi.', keywords: ['rome iv', 'rome 4', 'ibs', 'irritable bowel', 'konstipasi', 'diare', 'bristol', 'fodmap', 'kembung', 'gut-brain'] },"
+  },
+  {
+    "lineNum": 3746,
+    "text": "{ id: 'rome4-dyspepsia-module', name: 'Rome IV: Functional Dyspepsia (EPS vs PDS)', category: 'Functional GI', color: 'pink', pillId: 'pill-functional', hubId: 'hub-functional', desc: 'Kriteria Rome IV dispepsia fungsional: PDS vs EPS, skrining alarm EGD, & tatalaksana.', keywords: ['rome iv', 'dispepsia fungsional', 'dyspepsia', 'pds', 'eps', 'postprandial fullness', 'epigastric pain', 'h pylori', 'prokinetik', 'tca'] },"
+  },
+  {
+    "lineNum": 3850,
+    "text": "function setGbsBunUnit(unit) {"
+  },
+  {
+    "lineNum": 3851,
+    "text": "gbsBunUnit = unit;"
+  },
+  {
+    "lineNum": 3852,
+    "text": "const btnMmol = document.getElementById('gbs-bun-unit-mmol');"
+  },
+  {
+    "lineNum": 3853,
+    "text": "const btnMg = document.getElementById('gbs-bun-unit-mg');"
+  },
+  {
+    "lineNum": 3854,
+    "text": "const hint = document.getElementById('gbs-bun-hint');"
+  },
+  {
+    "lineNum": 3867,
+    "text": "const bunRaw = parseFloat(document.getElementById('gbs-bun').value);"
+  },
+  {
+    "lineNum": 3873,
+    "text": "if (isNaN(bunRaw) || isNaN(hb) || isNaN(sbp) || isNaN(hr)) {"
+  },
+  {
+    "lineNum": 3874,
+    "text": "res.innerHTML = `<div class=\"p-4 rounded-xl bg-rose-900/40 border border-rose-500/50 text-rose-200 text-sm\">Mohon isi semua data numerik (BUN, Hb, TD Sistolik, dan Denyut Nadi).</div>`;"
+  },
+  {
+    "lineNum": 3879,
+    "text": "const bunMmol = (gbsBunUnit === 'mg') ? (bunRaw / 2.801) : bunRaw;"
+  },
+  {
+    "lineNum": 3888,
+    "text": "if (bunMmol >= 25.0) score += 6;"
+  },
+  {
+    "lineNum": 3889,
+    "text": "else if (bunMmol >= 10.0) score += 4;"
+  },
+  {
+    "lineNum": 3890,
+    "text": "else if (bunMmol >= 8.0) score += 3;"
+  },
+  {
+    "lineNum": 3891,
+    "text": "else if (bunMmol >= 6.5) score += 2;"
+  },
+  {
+    "lineNum": 3920,
+    "text": "const resumeText = `[adjusterGEH CDSS] GBS Score: ${score} (${riskCategory})\\nParameter: Sex ${sex}, Hb ${hb} g/dL, BUN ${bunRaw} ${gbsBunUnit}/L, SBP ${sbp} mmHg, HR ${hr} bpm, Melena: ${melena}, Syncope: ${syncope}, Hepatic: ${hepatic}, Cardiac: ${cardiac}.\\nInterpretasi: ${actionAdvice}`;"
+  },
+  {
+    "lineNum": 3988,
+    "text": "? 'Pasien memenuhi kriteria safe discharge (probabilitas 95% aman tanpa komplikasi berat). Dapat dipulangkan untuk evaluasi/kolonoskopi rawat jalan.'"
+  },
+  {
+    "lineNum": 4047,
+    "text": "const resumeText = `[adjusterGEH CDSS] AIMS65 Score: ${score} (${riskCategory})\\nKriteria: Albumin<3.0 (${a}), INR>1.5 (${i}), Mental Status (${m}), SBP<=90 (${s}), Usia>=65 (${age65}).\\nEstimasi: ${mortText}`;"
+  },
+  {
+    "lineNum": 4262,
+    "text": "advice = 'Skor pre-endoskopi tinggi (mortalitas > 11-40%). Resusitasi hemodinamik agresif, PPI IV, dan EGD darurat pasca stabilisasi dalam 12-24 jam.';"
+  },
+  {
+    "lineNum": 4319,
+    "text": "const ast = parseFloat(document.getElementById('fib4-ast').value);"
+  },
+  {
+    "lineNum": 4320,
+    "text": "const alt = parseFloat(document.getElementById('fib4-alt').value);"
+  },
+  {
+    "lineNum": 4322,
+    "text": "const uln = parseFloat(document.getElementById('fib4-ast-uln').value) || 40;"
+  },
+  {
+    "lineNum": 4325,
+    "text": "if (isNaN(age) || isNaN(ast) || isNaN(alt) || isNaN(plt)) {"
+  },
+  {
+    "lineNum": 4326,
+    "text": "res.innerHTML = `<div class=\"p-4 rounded-xl bg-rose-900/40 border border-rose-500/50 text-rose-200 text-sm\">Mohon isi semua data numerik (Usia, AST, ALT, dan Trombosit).</div>`;"
+  },
+  {
+    "lineNum": 4331,
+    "text": "const fib4 = (age * ast) / (plt * Math.sqrt(alt));"
+  },
+  {
+    "lineNum": 4334,
+    "text": "const apri = ((ast / uln) / plt) * 100;"
+  },
+  {
+    "lineNum": 4355,
+    "text": "const resumeText = `[adjusterGEH CDSS] FIB-4: ${fib4Val}, APRI: ${apriVal}\\nParameter: Usia ${age}th, AST ${ast}, ALT ${alt}, Platelet ${plt}k.\\nFIB-4: ${fib4Interp}\\nAPRI: ${apriInterp}`;"
+  },
+  {
+    "lineNum": 4383,
+    "text": "function setMaddreyBiliUnit(unit) {"
+  },
+  {
+    "lineNum": 4384,
+    "text": "maddreyBiliUnit = unit;"
+  },
+  {
+    "lineNum": 4385,
+    "text": "const btnMg = document.getElementById('maddrey-bili-unit-mg');"
+  },
+  {
+    "lineNum": 4386,
+    "text": "const btnUmol = document.getElementById('maddrey-bili-unit-umol');"
+  },
+  {
+    "lineNum": 4399,
+    "text": "const biliRaw = parseFloat(document.getElementById('maddrey-bili').value);"
+  },
+  {
+    "lineNum": 4403,
+    "text": "if (isNaN(ptPtn) || isNaN(ptCtrl) || isNaN(biliRaw)) {"
+  },
+  {
+    "lineNum": 4404,
+    "text": "res.innerHTML = `<div class=\"p-4 rounded-xl bg-rose-900/40 border border-rose-500/50 text-rose-200 text-sm\">Mohon isi PT Pasien, PT Kontrol, dan Kadar Bilirubin.</div>`;"
+  },
+  {
+    "lineNum": 4409,
+    "text": "const biliMg = (maddreyBiliUnit === 'umol') ? (biliRaw / 17.1) : biliRaw;"
+  },
+  {
+    "lineNum": 4410,
+    "text": "const df = 4.6 * (ptPtn - ptCtrl) + biliMg;"
+  },
+  {
+    "lineNum": 4420,
+    "text": "const resumeText = `[adjusterGEH CDSS] Maddrey's dF: ${dfVal} (${statusTitle})\\nPT Pasien: ${ptPtn}s, Kontrol: ${ptCtrl}s, Bilirubin: ${biliRaw} ${maddreyBiliUnit}/dL, HE: ${he}\\nRekomendasi: ${advice}`;"
+  },
+  {
+    "lineNum": 4455,
+    "text": "const bili0 = parseFloat(document.getElementById('lille-bili0').value);"
+  },
+  {
+    "lineNum": 4456,
+    "text": "const bili7 = parseFloat(document.getElementById('lille-bili7').value);"
+  },
+  {
+    "lineNum": 4460,
+    "text": "if (isNaN(age) || isNaN(alb) || isNaN(cr) || isNaN(bili0) || isNaN(bili7) || isNaN(pt)) {"
+  },
+  {
+    "lineNum": 4466,
+    "text": "const bili0_umol = bili0 * 17.1;"
+  },
+  {
+    "lineNum": 4467,
+    "text": "const bili7_umol = bili7 * 17.1;"
+  },
+  {
+    "lineNum": 4471,
+    "text": "const r = 3.19 - (0.101 * age) + (0.147 * alb_gl) + (0.0165 * (bili0_umol - bili7_umol)) - (0.206 * (cr_umol > 115 ? 1 : 0)) - (0.0065 * bili0_umol) - (0.0096 * pt);"
+  },
+  {
+    "lineNum": 4499,
+    "text": "const bili = parseFloat(document.getElementById('clif-bili').value);"
+  },
+  {
+    "lineNum": 4504,
+    "text": "if (isNaN(age) || isNaN(wbc) || isNaN(bili) || isNaN(cr) || isNaN(inr)) {"
+  },
+  {
+    "lineNum": 4517,
+    "text": "if (bili >= 12.0) failures++;"
+  },
+  {
+    "lineNum": 4630,
+    "text": "function toggleCtpBiliHint() {"
+  },
+  {
+    "lineNum": 4632,
+    "text": "const hint = document.getElementById('ctp-bili-hint');"
+  },
+  {
+    "lineNum": 4633,
+    "text": "const select = document.getElementById('ctp-bili');"
+  },
+  {
+    "lineNum": 4650,
+    "text": "const bili = parseInt(document.getElementById('ctp-bili').value, 10);"
+  },
+  {
+    "lineNum": 4655,
+    "text": "const score = he + ascites + bili + alb + inr;"
+  },
+  {
+    "lineNum": 4726,
+    "text": "const biliRaw = parseFloat(document.getElementById('meld-bili').value);"
+  },
+  {
+    "lineNum": 4735,
+    "text": "if (isNaN(biliRaw) || isNaN(crRaw) || isNaN(inrRaw) || isNaN(naRaw) || isNaN(albRaw)) {"
+  },
+  {
+    "lineNum": 4736,
+    "text": "res.innerHTML = `<div class=\"p-4 rounded-xl bg-rose-900/40 text-rose-200 text-sm\">Mohon lengkapi seluruh nilai lab numerik (Bilirubin, Kreatinin, INR, Natrium, Albumin).</div>`;"
+  },
+  {
+    "lineNum": 4743,
+    "text": "const biliAdj = Math.max(1.0, biliRaw);"
+  },
+  {
+    "lineNum": 4746,
+    "text": "const meldRaw = 9.57 * Math.log(crAdj) + 3.78 * Math.log(biliAdj) + 11.20 * Math.log(inrAdj) + 6.43;"
+  },
+  {
+    "lineNum": 4761,
+    "text": "+ (4.56 * Math.log(biliAdj))"
+  },
+  {
+    "lineNum": 4763,
+    "text": "- (0.24 * (137 - naAdj) * Math.log(biliAdj))"
+  },
+  {
+    "lineNum": 4791,
+    "text": "const resumeText = `[adjusterGEH CDSS] MELD Trio Assessment:\\nOriginal MELD: ${meldOrig} | MELD-Na: ${meldNa} | MELD 3.0: ${meld3}\\nEstimasi Mortalitas Waitlist 90-Hari (MELD-Na): ${mort90}\\nPasien: ${sex === 'female' ? 'Wanita' : 'Pria'}, Bili ${biliRaw}, Cr ${crRaw} (Dialisis: ${dialysis}), INR ${inrRaw}, Na ${naRaw}, Albumin ${albRaw} g/dL.`;"
+  },
+  {
+    "lineNum": 4806,
+    "text": "<span class=\"text-[10px] text-slate-500\">Cr, Bili, INR</span>"
+  },
+  {
+    "lineNum": 4816,
+    "text": "<span class=\"text-[10px] text-amber-200/60\">+Gender &amp; Albumin Interaction</span>"
+  },
+  {
+    "lineNum": 4821,
+    "text": "<p><strong class=\"text-white\">Signifikansi Klinis:</strong> MELD-Na memperhitungkan hiponatremia sebagai prediktor independen perburukan ascites dan mortalitas. MELD 3.0 memberikan kompensasi +1.33 poin pada wanita serta penyesuaian interaksi albumin-kreatinin untuk mengurangi disparitas massa otot dan tingkat transplantasi pasien wanita.</p>"
+  },
+  {
+    "lineNum": 4839,
+    "text": "const ascitesProt = parseFloat(document.getElementById('saag-protein').value);"
+  },
+  {
+    "lineNum": 4843,
+    "text": "res.innerHTML = `<div class=\"p-4 rounded-xl bg-rose-900/40 text-rose-200 text-sm\">Mohon isi data numerik wajib (Albumin serum, Albumin asites, Leukosit, dan % PMN).</div>`;"
+  },
+  {
+    "lineNum": 4863,
+    "text": "? 'Indikasi mutlak antibiotik IV segera: Cefotaxime 2g IV q8h atau Ceftriaxone 2g IV q24h selama 5-7 hari. Berikan Albumin IV (1.5 g/kgBB dalam 6 jam pertama, 1.0 g/kgBB hari ke-3) jika Cr > 1.0, BUN > 30, atau Bilirubin > 4.0 mg/dL.'"
+  },
+  {
+    "lineNum": 4870,
+    "text": "protNote = 'Protein asites < 2.5 g/dL: Mendukung etiologi sinusoidal (Sirosis hepatis murni).';"
+  },
+  {
+    "lineNum": 4872,
+    "text": "protNote = 'Protein asites ≥ 2.5 g/dL: Curigai etiologi post-sinusoidal / cardiac ascites (Gagal Jantung, Konstriktif Perikarditis, atau Budd-Chiari dini).';"
+  },
+  {
+    "lineNum": 4876,
+    "text": "protNote += ' Protein < 1.5 g/dL meningkatkan risiko SBP primer (indikasi profilaksis primer Ciprofloxacin / Cotrimoxazole bila disertai disfungsi hati lanjut).';"
+  },
+  {
+    "lineNum": 4880,
+    "text": "const resumeText = `[adjusterGEH CDSS] SAAG & SBP Evaluation:\\nSAAG: ${saag} g/dL (${saagCategory})\\nPMN Absolut: ${pmnAbs} sel/mm³ (${sbpCategory})\\nAlb Serum ${serumAlb}, Alb Asites ${ascitesAlb}, WBC ${wbc}, PMN ${pmnPct}%.${protNote ? '\\nProtein Asites: ' + ascitesProt + ' g/dL (' + protNote + ')' : ''}\\nRekomendasi SBP: ${sbpRx}`;"
+  },
+  {
+    "lineNum": 4919,
+    "text": "const alt = parseFloat(document.getElementById('rfactor-alt').value);"
+  },
+  {
+    "lineNum": 4920,
+    "text": "const altUln = parseFloat(document.getElementById('rfactor-alt-uln').value);"
+  },
+  {
+    "lineNum": 4921,
+    "text": "const alp = parseFloat(document.getElementById('rfactor-alp').value);"
+  },
+  {
+    "lineNum": 4922,
+    "text": "const alpUln = parseFloat(document.getElementById('rfactor-alp-uln').value);"
+  },
+  {
+    "lineNum": 4923,
+    "text": "const bili = parseFloat(document.getElementById('rfactor-bili').value);"
+  },
+  {
+    "lineNum": 4926,
+    "text": "if (isNaN(alt) || isNaN(altUln) || isNaN(alp) || isNaN(alpUln)) {"
+  },
+  {
+    "lineNum": 4927,
+    "text": "res.innerHTML = `<div class=\"p-4 rounded-xl bg-rose-900/40 text-rose-200 text-sm\">Mohon isi nilai ALT, Batas Normal ALT, ALP, dan Batas Normal ALP.</div>`;"
+  },
+  {
+    "lineNum": 4932,
+    "text": "const altRatio = alt / altUln;"
+  },
+  {
+    "lineNum": 4933,
+    "text": "const alpRatio = alp / alpUln;"
+  },
+  {
+    "lineNum": 4934,
+    "text": "const r = parseFloat((altRatio / alpRatio).toFixed(2));"
+  },
+  {
+    "lineNum": 4943,
+    "text": "causes = 'Cedera hepatoseluler mendominasi. DILI: Parasetamol, INH, Rifampisin, Pirazinamid, NSAID, Fenitoin, Valproat. Non-DILI: Viral hepatitis (A/B/C/E), Autoimmune hepatitis, Hepatitis iskemik/shock liver.';"
+  },
+  {
+    "lineNum": 4951,
+    "text": "causes = 'Cedera kolestatik mendominasi. DILI: Amoxicillin-clavulanate (fase kolestatik), Steroid anabolik, Chlorpromazine, Erythromycin, TMP-SMX, Estrogen. Non-DILI: Obstruksi bilier mekanik (batu/keganasan), PBC, PSC.';"
+  },
+  {
+    "lineNum": 4956,
+    "text": "if (!isNaN(bili) && altRatio >= 3.0 && bili >= 2.0 && alpRatio < 2.0) {"
+  },
+  {
+    "lineNum": 4960,
+    "text": "ALT ≥ 3x ULN dengan Total Bilirubin ≥ 2x ULN tanpa kolestasis awal (ALP &lt; 2x ULN). Menandakan risiko mortalitas hepar atau kebutuhan transplantasi hati hingga 10 - 50%. Hentikan segera obat yang dicurigai!"
+  },
+  {
+    "lineNum": 4965,
+    "text": "const resumeText = `[adjusterGEH CDSS] R-Factor for Liver Injury: ${r} (${pattern})\\nALT ${alt} (ULN ${altUln}), ALP ${alp} (ULN ${alpUln})${!isNaN(bili) ? ', Bili: ' + bili + ' mg/dL' : ''}.\\nKarakteristik: ${causes}`;"
+  },
+  {
+    "lineNum": 4975,
+    "text": "<span class=\"text-slate-400 block\">ALT / ULN:</span>"
+  },
+  {
+    "lineNum": 4976,
+    "text": "<span class=\"text-base font-bold text-white\">${altRatio.toFixed(2)}x</span>"
+  },
+  {
+    "lineNum": 4979,
+    "text": "<span class=\"text-slate-400 block\">ALP / ULN:</span>"
+  },
+  {
+    "lineNum": 4980,
+    "text": "<span class=\"text-base font-bold text-white\">${alpRatio.toFixed(2)}x</span>"
+  },
+  {
+    "lineNum": 4997,
+    "text": "const ast = parseFloat(document.getElementById('deritis-ast').value);"
+  },
+  {
+    "lineNum": 4998,
+    "text": "const alt = parseFloat(document.getElementById('deritis-alt').value);"
+  },
+  {
+    "lineNum": 5001,
+    "text": "if (isNaN(ast) || isNaN(alt) || alt <= 0) {"
+  },
+  {
+    "lineNum": 5002,
+    "text": "res.innerHTML = `<div class=\"p-4 rounded-xl bg-rose-900/40 text-rose-200 text-sm\">Mohon isi nilai AST dan ALT yang valid (> 0).</div>`;"
+  },
+  {
+    "lineNum": 5007,
+    "text": "const ratio = parseFloat((ast / alt).toFixed(2));"
+  },
+  {
+    "lineNum": 5015,
+    "text": "rationale = 'Rasio > 2.0 (terutama jika AST < 300-500 U/L) memiliki spesifisitas tinggi (~90%) untuk hepatitis alkoholik. Defisiensi piridoksal-5-fosfat (Vit B6) menekan produksi ALT sitosol, sedangkan etanol merusak mitokondria memicu pelepasan masif AST mitokondrial.';"
+  },
+  {
+    "lineNum": 5019,
+    "text": "rationale = 'Pada penyakit non-alkoholik (seperti MASLD atau Hepatitis C), rasio AST/ALT ≥ 1.0 mengindikasikan penurunan klirens sinusoidal hepar terhadap AST, penanda kuat progresi ke arah fibrosis lanjut atau sirosis.';"
+  },
+  {
+    "lineNum": 5023,
+    "text": "rationale = 'Rasio < 1.0 (ALT lebih tinggi dari AST) merupakan pola klasik steatosis hati (MASLD/NAFLD), hepatitis virus kronik atau akut fase awal tanpa sirosis lanjut.';"
+  },
+  {
+    "lineNum": 5030,
+    "text": "const resumeText = `[adjusterGEH CDSS] The De Ritis Ratio: ${ratio}\\nAST ${ast} U/L, ALT ${alt} U/L.\\nInterpretasi: ${category}\\nAnalisis: ${rationale}`;"
+  },
+  {
+    "lineNum": 5037,
+    "text": "<h3 class=\"text-2xl font-black text-white mt-1\">Rasio AST / ALT: ${ratio}</h3>"
+  },
+  {
+    "lineNum": 5039,
+    "text": "<span>AST: <strong class=\"text-white\">${ast} U/L</strong></span>"
+  },
+  {
+    "lineNum": 5040,
+    "text": "<span>ALT: <strong class=\"text-white\">${alt} U/L</strong></span>"
+  },
+  {
+    "lineNum": 5058,
+    "text": "const ast = parseFloat(document.getElementById('nfs-ast').value);"
+  },
+  {
+    "lineNum": 5059,
+    "text": "const alt = parseFloat(document.getElementById('nfs-alt').value);"
+  },
+  {
+    "lineNum": 5064,
+    "text": "if (isNaN(age) || isNaN(bmi) || isNaN(ast) || isNaN(alt) || isNaN(plt) || isNaN(alb) || alt <= 0) {"
+  },
+  {
+    "lineNum": 5070,
+    "text": "const astAltRatio = ast / alt;"
+  },
+  {
+    "lineNum": 5072,
+    "text": "// NFS Formula: -1.675 + 0.037*Age + 0.094*BMI + 1.13*IFG/DM + 0.99*(AST/ALT) - 0.013*PLT - 0.66*Alb"
+  },
+  {
+    "lineNum": 5073,
+    "text": "const nfsRaw = -1.675 + (0.037 * age) + (0.094 * bmi) + (1.13 * dm) + (0.99 * astAltRatio) - (0.013 * plt) - (0.66 * alb);"
+  },
+  {
+    "lineNum": 5076,
+    "text": "// BARD Score: BMI >= 28 (1), AST/ALT >= 0.8 (2), DM (1) -> 0-4"
+  },
+  {
+    "lineNum": 5079,
+    "text": "if (astAltRatio >= 0.8) bard += 2;"
+  },
+  {
+    "lineNum": 5087,
+    "text": "nfsCategory = 'Low Probability of Advanced Fibrosis (F0 - F2)';"
+  },
+  {
+    "lineNum": 5093,
+    "text": "nfsAdvice = 'Hasil berada dalam zona intermediate/abu-abu. Derajat fibrosis belum dapat disimpulkan pasti. Rekomendasi: Lakukan pemeriksaan elastografi transien (FibroScan/VCTE) atau rujuk ke Sp.PD.';"
+  },
+  {
+    "lineNum": 5095,
+    "text": "nfsCategory = 'High Probability of Advanced Fibrosis (F3 - F4 / Cirrhosis)';"
+  },
+  {
+    "lineNum": 5104,
+    "text": "const resumeText = `[adjusterGEH CDSS] MASLD Fibrosis Assessment:\\nNFS: ${nfs} (${nfsCategory})\\nBARD Score: ${bard}/4 (${bardAdvice})\\nUsia ${age}th, BMI ${bmi}, DM: ${dm ? 'Ya' : 'Tidak'}, AST ${ast}, ALT ${alt}, Plt ${plt}, Albumin ${alb} g/dL.\\nRekomendasi: ${nfsAdvice}`;"
+  },
+  {
+    "lineNum": 5122,
+    "text": "BARD Score Alternatif"
+  },
+  {
+    "lineNum": 5128,
+    "text": "<div>AST/ALT &ge; 0.8: ${astAltRatio >= 0.8 ? '2 poin' : '0 poin'}</div>"
+  },
+  {
+    "lineNum": 5145,
+    "text": "// 3. PANCREATOBILIARY & INFECTION LOGIC"
+  },
+  {
+    "lineNum": 5198,
+    "text": "advice = 'Inflamasi lokal berat / leukositosis tinggi. Antibiotik IV, kolesistektomi dini (&lt; 72 jam), atau drainase bilier.';"
+  },
+  {
+    "lineNum": 5234,
+    "text": "advice = 'Gawat darurat! Dekompresi drainase bilier DARURAT (ERCP emergensi / PTBD), antibiotik broad-spectrum, dan ICU.';"
+  },
+  {
+    "lineNum": 5238,
+    "text": "advice = 'Indikasi drainase bilier dini (ERCP dalam 24-48 jam) dan antibiotik intravena.';"
+  },
+  {
+    "lineNum": 5242,
+    "text": "advice = 'Respon awal antibiotik IV; drainase bilier elektif terencana.';"
+  },
+  {
+    "lineNum": 5274,
+    "text": "res.innerHTML = `<div class=\"p-4 rounded-xl bg-amber-900/30 border border-amber-500/50 text-amber-200 text-sm\">Diagnosis pankreatitis akut belum pasti (memerlukan minimal 2 dari 3 kriteria).</div>`;"
+  },
+  {
+    "lineNum": 5391,
+    "text": "advice = 'Risiko mortalitas moderat (~2%). Pantau hemodinamik, saturasi oksigen, dan produksi urin secara ketat setiap 4-6 jam. Evaluasi serial BUN/Hematokrit dalam 24 jam untuk menilai adekuasi hidrasi intravena.';"
+  },
+  {
+    "lineNum": 5398,
+    "text": "advice = 'Skor BISAP ≥ 3 mengindikasikan risiko tinggi severe acute pancreatitis (SAP), komplikasi nekrosis pankreas, dan gagal organ persisten. Sangat dianjurkan perawatan intensif di HCU/ICU, pemantauan CVP/invasif, dan konsultasi gastroenterologis cito.';"
+  },
+  {
+    "lineNum": 5401,
+    "text": "const resumeText = `[adjusterGEH CDSS] BISAP Score: ${score}/5 (${riskCategory})\\nParameter: BUN>25 (${b ? 'Ya' : 'Tidak'}), Mental Impairment (${i ? 'Ya' : 'Tidak'}), SIRS (${s ? 'Ya' : 'Tidak'}), Usia>60 (${a ? 'Ya' : 'Tidak'}), Efusi Pleura (${p ? 'Ya' : 'Tidak'}).\\nPrediksi Mortalitas: ${mortRate}\\nRekomendasi: ${advice}`;"
+  },
+  {
+    "lineNum": 5437,
+    "text": "const bunLabel = document.getElementById('ranson-bun-label');"
+  },
+  {
+    "lineNum": 5449,
+    "text": "bunLabel.innerText = 'Peningkatan BUN > 5 mg/dL (> 1.8 mmol/L)';"
+  },
+  {
+    "lineNum": 5460,
+    "text": "bunLabel.innerText = 'Peningkatan BUN > 2 mg/dL (> 0.7 mmol/L)';"
+  },
+  {
+    "lineNum": 5474,
+    "text": "if (document.getElementById('ranson-ast').checked) admissionScore++;"
+  },
+  {
+    "lineNum": 5479,
+    "text": "if (document.getElementById('ranson-bun').checked) lateScore++;"
+  },
+  {
+    "lineNum": 5740,
+    "text": "severity = 'Esofagitis Refluks Berat (Defek menyambung &lt; 75% lingkar).';"
+  },
+  {
+    "lineNum": 5770,
+    "text": "function calculateCalprotectin() {"
+  },
+  {
+    "lineNum": 5772,
+    "text": "const res = document.getElementById('calprotectin-result-container');"
+  },
+  {
+    "lineNum": 5775,
+    "text": "res.innerHTML = `<div class=\"p-4 rounded-xl bg-rose-900/40 text-rose-200 text-sm\">Mohon masukkan angka kadar Fecal Calprotectin.</div>`;"
+  },
+  {
+    "lineNum": 5802,
+    "text": "const resumeText = `[adjusterGEH CDSS] Fecal Calprotectin: ${val} µg/g (${status})\\nRekomendasi: ${advice}`;"
+  },
+  {
+    "lineNum": 5807,
+    "text": "<h3 class=\"text-base sm:text-lg font-bold text-white mt-1\">Kadar Calprotectin: ${val} µg/g</h3>"
+  },
+  {
+    "lineNum": 5811,
+    "text": "<i class=\"fa-regular fa-copy mr-1.5\"></i> Salin Resume Calprotectin"
+  },
+  {
+    "lineNum": 5839,
+    "text": "case 'hyperplastic-small':"
+  },
+  {
+    "lineNum": 5841,
+    "text": "riskGroup = 'Low Risk (Hiperplastik Distal)';"
+  },
+  {
+    "lineNum": 5843,
+    "text": "rationale = 'Polip hiperplastik &lt; 10 mm di rektum/sigmoid tidak memiliki potensi keganasan.';"
+  },
+  {
+    "lineNum": 6017,
+    "text": "targetNotes = 'Target standar sirosis kompensata: 30 - 35 kcal/kg dry weight & 1.2 - 1.5 g protein/kg dry weight.';"
+  },
+  {
+    "lineNum": 6024,
+    "text": "targetNotes = 'Hiperkatabolik / Sarkopenia: Target kalori dinaikkan ke 35 - 40 kcal/kg dan protein minimal 1.5 g/kg untuk memulihkan massa otot.';"
+  },
+  {
+    "lineNum": 6030,
+    "text": "targetNotes = 'Sirosis Obesitas: Diet hipokalorik moderat (20 - 25 kcal/kg dry weight) dengan PROTEIN TINGGI (≥1.5 g/kg) untuk mencegah kehilangan massa otot (sarkopenia) saat penurunan berat badan.';"
+  },
+  {
+    "lineNum": 6037,
+    "text": "targetNotes = 'Ensefalopati Hepatikum (HE): Protein TIDAK BOLEH dibatasi (<1.0 g/kg dilarang). Berikan protein nabati & dairy yang lebih ditoleransi, ditambah suplemen oral BCAA untuk menurunkan amonia plasma.';"
+  },
+  {
+    "lineNum": 6049,
+    "text": "TARGET PROTEIN: ${protMin} - ${protMax} g/hari (1.2-1.5 g/kg dry weight)."
+  },
+  {
+    "lineNum": 6052,
+    "text": "RESTRIKSI NATRIUM: 2.0 g Na/hari (~5 g NaCl/garam dapur). Hindari restriksi terlalu ketat.`;"
+  },
+  {
+    "lineNum": 6087,
+    "text": "<span class=\"text-[11px] text-emerald-300 block uppercase font-semibold\">Target Protein Harian</span>"
+  },
+  {
+    "lineNum": 6089,
+    "text": "<span class=\"text-[10px] text-emerald-200 mt-0.5 block\">gram protein / hari</span>"
+  },
+  {
+    "lineNum": 6111,
+    "text": "<span>Pola Makan & Toleransi Protein</span>"
+  },
+  {
+    "lineNum": 6115,
+    "text": "<li><strong>Sumber Protein:</strong> Utamakan protein nabati (tahu, tempe, polong-polongan) dan dairy (susu, yogurt) karena kaya BCAA dan memiliki profil asam amino aromatik rendah.</li>"
+  },
+  {
+    "lineNum": 6116,
+    "text": "<li><strong>Protein Hewani:</strong> Daging putih/unggas dan ikan dapat diberikan jika ditoleransi dengan baik.</li>"
+  },
+  {
+    "lineNum": 6129,
+    "text": "Indikasi kuat pada sirosis dekompensata Child-Pugh B/C, riwayat ensefalopati hepatikum, intoleransi protein hewani, atau sarkopenia lanjut. Membantu detoksifikasi amonia di otot skeletal."
+  },
+  {
+    "lineNum": 6136,
+    "text": "<span>Restriksi Natrium & Mikronutrien</span>"
+  },
+  {
+    "lineNum": 6139,
+    "text": "<li><strong>Restriksi Natrium:</strong> Batasi <strong>2.0 g natrium/hari</strong> (setara 5 g / 1 sdt garam dapur) pada asites/edema. <em>Hindari restriksi terlalu ketat (&lt;1.5 g)</em> karena menurunkan palatabilitas dan memicu hiponatremia/malnutrisi.</li>"
+  },
+  {
+    "lineNum": 6218,
+    "text": "rxAdvice = `Ditemukan tanda bahaya (${alarmList.join(', ')}). <strong>WAJIB segera dilakukan evaluasi kolonoskopi</strong> dan laboratorium (Hb, ferritin, Fecal Calprotectin, serologi celiac) untuk menyingkirkan IBD, keganasan kolorektal, atau infeksi sebelum melabel murni fungsional!`;"
+  },
+  {
+    "lineNum": 6306,
+    "text": "if (alarmFamily) alarms.push('Riwayat keluarga Ca gaster');"
+  },
+  {
+    "lineNum": 6307,
+    "text": "if (alarmMass) alarms.push('Massa epigastrium / limfadenopati');"
+  },
+  {
+    "lineNum": 6332,
+    "text": "statusText = 'Tidak ada dari 4 gejala kardinal (postprandial fullness, early satiation, epigastric pain, epigastric burning) yang dirasakan dalam frekuensi diagnostik.';"
+  },
+  {
+    "lineNum": 6333,
+    "text": "rxText = 'Evaluasi kemungkinan GERD non-erosif, gangguan bilier fungsional, atau sindrom nyeri abdomen lain.';"
+  },
+  {
+    "lineNum": 6336,
+    "text": "subtype = 'Overlap PDS + EPS (Postprandial Distress & Epigastric Pain)';"
+  },
+  {
+    "lineNum": 6340,
+    "text": "subtype = 'Epigastric Pain Syndrome (EPS)';"
+  },
+  {
+    "lineNum": 6346,
+    "text": "rxText = `Ditemukan tanda bahaya (${alarms.join(', ')}). <strong>WAJIB segera dilakukan tindakan Endoskopi (EGD)</strong> untuk menyingkirkan adenokarsinoma gaster, ulkus peptikum berat, atau obstruksi sebelum diterapi sebagai fungsional!`;"
+  },
+  {
+    "lineNum": 6355,
+    "text": "rxText = '<strong>Lini 1:</strong> Modifikasi diet (makan porsi kecil lebih sering, kurangi makanan berlemak tinggi). Agen Prokinetik (Itopride 50 mg 3x/hari sebelum makan, atau Domperidone 10 mg 3x/hari jangka pendek). <br><strong>Lini 2 (Refrakter):</strong> Agen relaksasi fundus lambung (Buspirone 10 mg 3x/hari ac), atau neuromodulator pusat Mirtazapine (15 mg malam untuk early satiation & nafsu makan).';"
+  },
+  {
+    "lineNum": 6357,
+    "text": "rxText = '<strong>Lini 1:</strong> Supresi asam lambung dengan PPI dosis standar (Omeprazole 20 mg atau Esomeprazole 20-40 mg 1x/hari 30 menit sebelum makan pagi) selama 4 - 8 minggu. <br><strong>Lini 2 (Respon parsial/refrakter):</strong> Neuromodulator sentral dosis rendah (TCA: Amitriptyline 10 - 25 mg malam sebelum tidur) yang terbukti superior untuk meredakan nyeri viseral.';"
+  },
+  {
+    "lineNum": 6367,
+    "text": "Gejala Kardinal: Fullness (${fullness}), Early Satiation (${satiation}), Epigastric Pain (${pain}), Epigastric Burning (${burning})."
+  },
+  {
+    "lineNum": 6444,
+    "text": "? `Bukti endoskopi definitif (${document.getElementById('lyon-egd').selectedOptions[0].text}) merupakan patognomonik kerusakan mukosa berat akibat refluks gastroesofagus.`"
+  },
+  {
+    "lineNum": 6468,
+    "text": "rationale = `AET normal (< 4.0%), total episode refluks normal, DAN korelasi gejala NEGATIF. Keluhan sensasi terbakar/heartburn TIDAK berhubungan dengan episode refluks lambung, melainkan interaksi Gut-Brain Axis.`;"
+  },
+  {
+    "lineNum": 6469,
+    "text": "rxAdvice = '<strong>HENTIKAN terapi PPI</strong> untuk menghindari polifarmasi yang tidak efektif. Edukasi bahwa keluhan bukan akibat asam lambung. Berikan neuromodulator sentral (TCA dosis rendah, SSRI), terapi perilaku kognitif (CBT), teknik relaksasi diafragma, dan akupunktur.';"
+  },
+  {
+    "lineNum": 6475,
+    "text": "rxAdvice = 'Tidak diperlukan terapi supresi asam lambung jangka panjang.';"
+  }
+]

@@ -1,0 +1,278 @@
+[
+  {
+    "lineNum": 226,
+    "text": "<h2 id=\"header-title\" class=\"text-xs font-semibold text-slate-200 truncate max-w-[140px] lg:max-w-none\">Home Dashboard</h2>"
+  },
+  {
+    "lineNum": 300,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-extrabold text-white font-['Plus_Jakarta_Sans']\">"
+  },
+  {
+    "lineNum": 310,
+    "text": "<h3 class=\"text-sm font-bold text-white mb-3 flex items-center justify-between\">"
+  },
+  {
+    "lineNum": 400,
+    "text": "<h3 class=\"text-lg font-bold text-white mb-2 font-['Plus_Jakarta_Sans']\">Hemorrhagic & GI Bleed Tools</h3>"
+  },
+  {
+    "lineNum": 477,
+    "text": "<h3 class=\"text-lg font-bold text-white mb-2 font-['Plus_Jakarta_Sans']\">Hepatology & Cirrhosis Tools</h3>"
+  },
+  {
+    "lineNum": 624,
+    "text": "<h3 class=\"text-lg font-bold text-white mb-2 font-['Plus_Jakarta_Sans']\">Pancreatobiliary & Infection Tools</h3>"
+  },
+  {
+    "lineNum": 699,
+    "text": "<h3 class=\"text-lg font-bold text-white mb-2 font-['Plus_Jakarta_Sans']\">Luminal & IBD Tools</h3>"
+  },
+  {
+    "lineNum": 753,
+    "text": "<h3 class=\"text-lg font-bold text-white mb-2 font-['Plus_Jakarta_Sans']\">Functional GI & Motility Tools</h3>"
+  },
+  {
+    "lineNum": 820,
+    "text": "<h3 class=\"text-lg font-bold text-white mb-2 font-['Plus_Jakarta_Sans']\">Endoscopy Surveillance Tools</h3>"
+  },
+  {
+    "lineNum": 852,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">Glasgow-Blatchford Score (GBS)</h2>"
+  },
+  {
+    "lineNum": 953,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">Oakland Score for Acute LGIB</h2>"
+  },
+  {
+    "lineNum": 1033,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">AIMS65 Score (UGIB Mortality)</h2>"
+  },
+  {
+    "lineNum": 1108,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">Antithrombotic Management in GI Bleeding</h2>"
+  },
+  {
+    "lineNum": 1168,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">Forrest Classification of Peptic Ulcer</h2>"
+  },
+  {
+    "lineNum": 1255,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">Rockall Score (Pre & Post-Endoscopy)</h2>"
+  },
+  {
+    "lineNum": 1261,
+    "text": "<h3 class=\"text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center\">"
+  },
+  {
+    "lineNum": 1296,
+    "text": "<h3 class=\"text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center\">"
+  },
+  {
+    "lineNum": 1354,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">FIB-4 & APRI Calculator</h2>"
+  },
+  {
+    "lineNum": 1414,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">Maddrey's dF & Lille Model</h2>"
+  },
+  {
+    "lineNum": 1419,
+    "text": "<h3 class=\"text-sm font-bold text-cyan-400 mb-3 flex items-center\">"
+  },
+  {
+    "lineNum": 1531,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">CLIF-C ACLF & AD Score (EASL)</h2>"
+  },
+  {
+    "lineNum": 1610,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">Baveno VII Consensus Criteria</h2>"
+  },
+  {
+    "lineNum": 1658,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">Child-Turcotte-Pugh (CTP) Score</h2>"
+  },
+  {
+    "lineNum": 1749,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">MELD, MELD-Na, & MELD 3.0 Trio Calculator</h2>"
+  },
+  {
+    "lineNum": 1839,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">SAAG & Absolute PMN (Ascites CDSS)</h2>"
+  },
+  {
+    "lineNum": 1903,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">R-Factor for Liver Injury (DILI Pattern)</h2>"
+  },
+  {
+    "lineNum": 1969,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">The De Ritis Ratio (AST / ALT Ratio)</h2>"
+  },
+  {
+    "lineNum": 2018,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">NAFLD Fibrosis Score (NFS) &amp; BARD Score</h2>"
+  },
+  {
+    "lineNum": 2101,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">Tokyo Guidelines 2018 (TG18)</h2>"
+  },
+  {
+    "lineNum": 2221,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">Revised Atlanta Classification 2012</h2>"
+  },
+  {
+    "lineNum": 2308,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">ACG 2021 C. difficile Severity</h2>"
+  },
+  {
+    "lineNum": 2366,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">BISAP Score (Bedside Index for Severity in Acute Pancreatitis)</h2>"
+  },
+  {
+    "lineNum": 2447,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">Ranson's Criteria (Admission & 48 Jam)</h2>"
+  },
+  {
+    "lineNum": 2578,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">Truelove & Witts Criteria (UC Flare)</h2>"
+  },
+  {
+    "lineNum": 2691,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">Mayo Score & Partial Mayo for UC</h2>"
+  },
+  {
+    "lineNum": 2768,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">Crohn's Disease Activity (HBI & CDAI)</h2>"
+  },
+  {
+    "lineNum": 2878,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">Los Angeles (LA) Classification for GERD</h2>"
+  },
+  {
+    "lineNum": 2947,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">Fecal Calprotectin Interpreter</h2>"
+  },
+  {
+    "lineNum": 2992,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">Post-Polypectomy Surveillance (USMSTF 2020)</h2>"
+  },
+  {
+    "lineNum": 3051,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">Liver Disease Nutrition Calculator (ESPEN)</h2>"
+  },
+  {
+    "lineNum": 3192,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">Rome IV Criteria: Irritable Bowel Syndrome (IBS)</h2>"
+  },
+  {
+    "lineNum": 3341,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">Rome IV Criteria: Functional Dyspepsia (EPS vs PDS)</h2>"
+  },
+  {
+    "lineNum": 3503,
+    "text": "<h2 class=\"text-xl sm:text-2xl font-bold text-white\">Lyon Consensus 2.0: Objective GERD Criteria</h2>"
+  },
+  {
+    "lineNum": 3931,
+    "text": "<h3 class=\"text-lg font-bold text-white mt-1\">Glasgow-Blatchford Score: ${score} poin</h3>"
+  },
+  {
+    "lineNum": 4002,
+    "text": "<h3 class=\"text-lg font-bold text-white mt-1\">Oakland Score: ${score} poin</h3>"
+  },
+  {
+    "lineNum": 4059,
+    "text": "<h3 class=\"text-lg font-bold text-white mt-1\">AIMS65: ${score} Poin</h3>"
+  },
+  {
+    "lineNum": 4277,
+    "text": "<h3 class=\"text-lg font-bold text-white mt-1\">"
+  },
+  {
+    "lineNum": 4431,
+    "text": "<h3 class=\"text-base sm:text-lg font-bold text-white mt-1\">mDF Score: ${dfVal} (Cutoff 32)</h3>"
+  },
+  {
+    "lineNum": 4557,
+    "text": "<h3 class=\"text-lg font-bold text-white mt-1\">Kegagalan Organ: ${failures} Sistem</h3>"
+  },
+  {
+    "lineNum": 4617,
+    "text": "<h3 class=\"text-lg font-bold text-white mt-1\">LSM: ${lsm} kPa | Trombosit: ${plt} x10³/µL</h3>"
+  },
+  {
+    "lineNum": 4693,
+    "text": "<h3 class=\"text-xl font-bold text-white mt-1\">Skor Child-Pugh: ${score} poin</h3>"
+  },
+  {
+    "lineNum": 4800,
+    "text": "<h3 class=\"text-lg font-bold text-white mt-1\">Perbandingan MELD Trio Multi-Model</h3>"
+  },
+  {
+    "lineNum": 4972,
+    "text": "<h3 class=\"text-xl font-bold text-white mt-1\">Nilai R-Factor: ${r}</h3>"
+  },
+  {
+    "lineNum": 5037,
+    "text": "<h3 class=\"text-2xl font-black text-white mt-1\">Rasio AST / ALT: ${ratio}</h3>"
+  },
+  {
+    "lineNum": 5210,
+    "text": "<h3 class=\"text-lg font-bold text-white mt-1\">Status: ${isDxDefinite ? 'Definite Diagnosis' : 'Suspected Diagnosis'}</h3>"
+  },
+  {
+    "lineNum": 5250,
+    "text": "<h3 class=\"text-lg font-bold text-white mt-1\">Trias Charcot: ${charcot ? 'Lengkap (Fever + Jaundice + RUQ pain)' : 'Sebagian'}</h3>"
+  },
+  {
+    "lineNum": 5302,
+    "text": "<h3 class=\"text-lg font-bold text-white mt-1\">Diagnosis Positif (Kriteria Atlanta ${dxCount}/3)</h3>"
+  },
+  {
+    "lineNum": 5349,
+    "text": "<h3 class=\"text-base sm:text-lg font-bold text-white mt-1\">Rekomendasi Terapi Antibiotik (ACG 2021)</h3>"
+  },
+  {
+    "lineNum": 5412,
+    "text": "<h3 class=\"text-lg font-bold text-white mt-1\">Skor BISAP: ${score} Poin (Mortalitas: ${mortRate})</h3>"
+  },
+  {
+    "lineNum": 5526,
+    "text": "<h3 class=\"text-lg font-bold text-white mt-1\">Skor Ranson: ${totalScore} / ${maxScore} (Mortalitas: ${mortalityRate})</h3>"
+  },
+  {
+    "lineNum": 5581,
+    "text": "<h3 class=\"text-base sm:text-lg font-bold text-white mt-1\">Status Flare Kolitis Ulseratif</h3>"
+  },
+  {
+    "lineNum": 5645,
+    "text": "<h3 class=\"text-base sm:text-lg font-bold text-white mt-1\">${interp}</h3>"
+  },
+  {
+    "lineNum": 5703,
+    "text": "<h3 class=\"text-base sm:text-lg font-bold text-white mt-1\">HBI Score: ${score} Poin</h3>"
+  },
+  {
+    "lineNum": 5807,
+    "text": "<h3 class=\"text-base sm:text-lg font-bold text-white mt-1\">Kadar Calprotectin: ${val} µg/g</h3>"
+  },
+  {
+    "lineNum": 5919,
+    "text": "<h3 class=\"text-base sm:text-lg font-bold text-white mt-1\">Jadwal Kolonoskopi Ulang: ${interval}</h3>"
+  },
+  {
+    "lineNum": 6062,
+    "text": "<h3 class=\"text-xl font-extrabold text-white\">Hasil Kebutuhan Nutrisi Sirosis Hepar</h3>"
+  },
+  {
+    "lineNum": 6246,
+    "text": "<h3 class=\"text-lg sm:text-xl font-extrabold text-white mt-1\">${statusTitle}</h3>"
+  },
+  {
+    "lineNum": 6377,
+    "text": "<h3 class=\"text-lg sm:text-xl font-extrabold text-white mt-1\">${subtype}</h3>"
+  },
+  {
+    "lineNum": 6496,
+    "text": "<h3 class=\"text-lg sm:text-xl font-extrabold text-white\">${categoryTitle}</h3>"
+  }
+]

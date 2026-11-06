@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CalcMed Pro - Clinical Infusion & Critical Dosing CDSS</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-main: #040814;
+            --glass-bg: rgba(15, 23, 42, 0.78);
+            --glass-bg-hover: rgba(22, 34, 60, 0.90);
+            --glass-border: rgba(255, 255, 255, 0.09);
+            --glass-border-hover: rgba(0, 242, 254, 0.45);
+            --text-heading: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+            --accent-cyan: #00F2FE;
+            --accent-blue: #38BDF8;
+            --accent-emerald: #10B981;
+            --accent-amber: #F59E0B;
+            --accent-rose: #EF4444;
+            --accent-purple: #C084FC;
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+            --btn-gradient: linear-gradient(135deg, #00F2FE 0%, #2563EB 100%);
+            --radius-pill: 9999px;
+            --radius-lg: 20px;
+            --radius-md: 14px;
+            --radius-sm: 8px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-secondary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Glow Effects matching adjustr-GEH */
+        .ambient-glow-1 {
+            position: fixed; top: -120px; left: 10%; width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(0, 242, 254, 0.10) 0%, transparent 65%);
+            filter: blur(40px); z-index: -1; pointer-events: none;
+            transform: translate3d(0,0,0); contain: strict;
+        }
+        .ambient-glow-2 {
+            position: fixed; bottom: 5%; right: 8%; width: 480px; height: 480px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 65%);
+            filter: blur(40px); z-index: -1; pointer-events: none;
+            transform: translate3d(0,0,0); contain: strict;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.16); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.3); }
+
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .glass-card, .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--glass-shadow);
+            transition: all 0.22s ease;
+            width: 100%;
+            box-sizing: border-box;
+            content-visibility: auto;
+            contain-intrinsic-size: 0 350px;
+        }
+        .glass-card:hover, .card:hover {
+            border-color: var(--glass-border-hover);
+            box-shadow: 0 8px 30px 0 rgba(0, 242, 254, 0.16);
+            transform: translateY(-2px);
+        }
+
+        .glass-input, input, select, textarea {
+            background: rgba(30, 41, 59, 0.65) !important;
+            border: 1px solid var(--glass-border) !important;
+            color: var(--text-heading) !important;
+            border-radius: var(--radius-sm);
+            padding: 0.55rem 0.85rem;
+            width: 100%;
+            transition: all 0.2s ease;
+        }
+        .glass-input:focus, input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-cyan) !important;
+            box-shadow: 0 0 0 3px rgba(0, 242, 254, 0.2) !important;
+        }
+
+        /* Quick Navigation Bar */
+        .quick-nav-bar {
+            background: rgba(4, 8, 20, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky;
+            top: 56px;
+            z-index: 30;
+            padding: 0.5rem 1rem;
+        }
+        .quick-nav-scroll {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .quick-nav-scroll::-webkit-scrollbar { display: none; }
+
+        .quick-nav-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.4rem 0.85rem;
+            border-radius: var(--radius-pill);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            font-size: 0.78rem;
+            font-weight: 500;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .quick-nav-pill:hover {
+            background: rgba(255, 255, 255, 0.09);
+            color: #FFFFFF;
+            border-color: rgba(0, 242, 254, 0.35);
+        }
+        .quick-nav-pill.active {
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.22) 0%, rgba(37, 99, 235, 0.25) 100%);
+            border-color: var(--accent-cyan);
+            color: #FFFFFF;
+            font-weight: 600;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.25);
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.45rem 0.95rem;
+            border-radius: var(--radius-pill);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 1.25rem;
+        }
+        .btn-back:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #FFFFFF;
+            border-color: var(--accent-cyan);
+            transform: translateX(-2px);
+        }
+
+        /* Clinical Pearl Box */
+        .pearl-box {
+            background: linear-gradient(to right, rgba(0, 242, 254, 0.08), rgba(15, 23, 42, 0.4));
+            border-left: 3px solid var(--accent-cyan);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: 1.15rem 1.35rem;
+            margin-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        #toast-notice {
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .ambient-glow-1, .ambient-glow-2 {
+                filter: blur(20px) !important;
+                width: 300px !important;
+                height: 300px !important;
+                opacity: 0.5 !important;
+                transform: translateZ(0);
+            }
+            .glass-card, .card {
+                backdrop-filter: blur(8px) !important;
+                -webkit-backdrop-filter: blur(8px) !important;
+                background: rgba(15, 23, 42, 0.88) !important;
+            }
+        }
+    </style>
+</head>
+<body class="selection:bg-cyan-900 selection:text-cyan-100">
+
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
+
+    <!-- Toast Notification (Matching adjustr-GEH) -->
+    <div id="toast-notice" class="fixed bottom-6 right-6 z-50 flex items-center space-x-3 px-5 py-3 rounded-xl bg-slate-900/95 border border-cyan-500/50 shadow-[0_10px_35px_rgba(0,242,254,0.3)] text-white text-sm font-medium translate-y-24 opacity-0 pointer-events-none">
+        <i class="fa-solid fa-circle-check text-cyan-400 text-lg"></i>
+        <span id="toast-message">Resume klinis CPPT berhasil disalin!</span>
+    </div>
+
+    <!-- Main Container -->
+    <div class="flex flex-col min-h-screen">
+        
+        <!-- Top Sticky Header -->
+        <header class="h-14 glass-panel sticky top-0 z-40 border-t-0 border-x-0 rounded-none flex items-center justify-between px-3 sm:px-6 gap-2">
+            <div class="flex items-center space-x-2 sm:space-x-3 shrink-0">
+                <button type="button" onclick="navigateTo('home-module', 'Home Dashboard', 'pill-dash')" class="flex items-center space-x-2 sm:space-x-2.5 cursor-pointer text-left">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-400/20 to-blue-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-400 shrink-0">
+                        <i class="fa-solid fa-syringe text-base"></i>
+                    </div>
+                    <div>
+                        <span class="text-white font-bold text-sm tracking-tight block leading-tight font-['Plus_Jakarta_Sans']">CalcMed Pro</span>
+                        <span class="text-[10px] text-cyan-400 font-medium block leading-tight">Clinical Infusion & Dosing CDSS</span>
+                    </div>
+                </button>
+                <div class="h-4 w-px bg-white/10 hidden md:block"></div>
+                <div class="hidden md:block">
+                    <h2 id="header-title" class="text-xs font-semibold text-slate-200 truncate max-w-[160px] lg:max-w-none">Home Dashboard</h2>
+                </div>
+            </div>
+
+            <!-- Top Search Bar (Realtime Calculator Discovery) -->
+            <div class="relative flex-1 max-w-xs sm:max-w-md mx-1 sm:mx-4" id="header-search-container">
+                <div class="relative flex items-center">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 text-slate-400 text-xs pointer-events-none"></i>
+                    <input type="text" id="global-search-input" placeholder="Cari obat (e.g. Norepinefrin, Dobutamin, Dopamin, Nikardipin, NTG, Insulin, AGD)..." autocomplete="off" class="w-full pl-8 pr-14 py-1.5 rounded-full bg-slate-900/80 border border-slate-700/70 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all">
+                    <span class="hidden sm:inline-block absolute right-2.5 px-1.5 py-0.5 text-[9px] font-mono text-slate-400 bg-slate-800 rounded border border-slate-700 pointer-events-none">Ctrl K</span>
+                    <button id="search-clear-btn" type="button" onclick="clearGlobalSearch()" class="hidden absolute right-2.5 text-slate-400 hover:text-white text-xs px-1">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <!-- Search Results Dropdown -->
+                <div id="search-results-dropdown" class="hidden absolute top-full left-0 right-0 mt-2 bg-slate-900/95 backdrop-blur-xl border border-cyan-500/30 rounded-xl shadow-[0_12px_40px_rgba(0,0,0,0.85)] z-50 max-h-96 overflow-y-auto p-2"></div>
+            </div>
+
+            <div class="flex items-center space-x-2 shrink-0">
+                <span class="px-2.5 py-0.5 text-[11px] rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 font-medium hidden sm:inline-block">8 Tools</span>
+                <a href="mailto:drguswib@gmail.com" target="_blank" rel="noopener" class="px-2.5 py-1 text-xs rounded-full bg-white/5 hover:bg-cyan-500/20 text-slate-300 hover:text-cyan-300 border border-white/10 transition-colors flex items-center gap-1.5">
+                    <i class="fa-solid fa-envelope text-[11px]"></i>
+                    <span class="hidden md:inline">Feedback</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- Sticky Quick Navigation Bar (Horizontal Scrollable Pills) -->
+        <nav class="quick-nav-bar" aria-label="Quick Category Switcher">
+            <div class="quick-nav-scroll">
+                <button type="button" id="pill-dash" onclick="navigateTo('home-module', 'Home Dashboard', this.id)" class="quick-nav-pill active">
+                    <i class="fa-solid fa-house text-cyan-400 text-xs"></i>
+                    <span>Dashboard</span>
+                </button>
+                <button type="button" id="pill-ne" onclick="navigateTo('calc-ne', 'Norepinephrine (NE)', this.id)" class="quick-nav-pill">
+                    <i class="fa-solid fa-vial text-cyan-400 text-xs"></i>
+                    <span>Norepinephrine</span>
+                </button>
+                <button type="button" id="pill-dobu" onclick="navigateTo('calc-dobu', 'Dobutamin (Inotrope)', this.id)" class="quick-nav-pill">
+                    <i class="fa-solid fa-heart-pulse text-rose-400 text-xs"></i>
+                    <span>Dobutamin</span>
+                </button>
+                <button type="button" id="pill-dopa" onclick="navigateTo('calc-dopa', 'Dopamin', this.id)" class="quick-nav-pill">
+                    <i class="fa-solid fa-pills text-purple-400 text-xs"></i>
+                    <span>Dopamin</span>
+                </button>
+                <button type="button" id="pill-nicardipine" onclick="navigateTo('calc-nicardipine', 'Nikardipin', this.id)" class="quick-nav-pill">
+                    <i class="fa-solid fa-brain text-yellow-400 text-xs"></i>
+                    <span>Nikardipin</span>
+                </button>
+                <button type="button" id="pill-ntg" onclick="navigateTo('calc-ntg', 'Nitrogliserin (NTG)', this.id)" class="quick-nav-pill">
+                    <i class="fa-solid fa-lungs text-emerald-400 text-xs"></i>
+                    <span>Nitrogliserin</span>
+                </button>
+                <button type="button" id="pill-insulin" onclick="navigateTo('calc-insulin', 'Bridging Insulin IV ke SC', this.id)" class="quick-nav-pill">
+                    <i class="fa-solid fa-syringe text-orange-400 text-xs"></i>
+                    <span>Bridging Insulin</span>
+                </button>
+                <button type="button" id="pill-na" onclick="navigateTo('calc-na', 'Koreksi Hipernatremia', this.id)" class="quick-nav-pill">
+                    <i class="fa-solid fa-droplet text-blue-400 text-xs"></i>
+                    <span>Hipernatremia</span>
+                </button>
+                <button type="button" id="pill-abg" onclick="navigateTo('calc-abg', 'Acid-Base Analyzer (AGD)', this.id)" class="quick-nav-pill">
+                    <i class="fa-solid fa-flask text-pink-400 text-xs"></i>
+                    <span>Acid-Base AGD</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 p-4 sm:p-6 lg:p-8 w-full max-w-5xl mx-auto z-10">
+
+            <!-- ======================================================== -->
+            <!-- LEVEL 0: HOME DASHBOARD                                  -->
+            <!-- ======================================================== -->
+            <section id="home-module" class="module-section block">
+                
+                <!-- Welcome Banner -->
+                <div class="glass-card rounded-2xl p-6 sm:p-7 mb-7 relative overflow-hidden border-t-2 border-t-cyan-400/50">
+                    <div class="absolute -right-6 -top-6 opacity-10 pointer-events-none">
+                        <i class="fa-solid fa-syringe text-9xl text-cyan-400"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <span class="px-2.5 py-0.5 bg-cyan-500/20 text-cyan-300 text-xs font-semibold rounded-full border border-cyan-500/30 inline-block mb-2">
+                            Critical Care & Emergency CDSS
+                        </span>
+                        <h2 class="text-xl sm:text-2xl font-extrabold text-white font-['Plus_Jakarta_Sans']">
+                            CalcMed <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">Pro Clinical Toolkit</span>
+                        </h2>
+                        <p class="text-slate-300 max-w-3xl text-xs sm:text-sm mt-1 leading-relaxed">
+                            Sistem pendukung keputusan klinis (CDSS) titrasi obat emergensi, inotropik, vasopresor, vasodilator, serta transisi terapi kritis: Norepinefrin, Dobutamin, Dopamin, Nikardipin, Nitrogliserin (NTG), protokol Bridging Insulin 24 jam ke subkutan, koreksi hipernatremia Adrogué-Madias, dan analisis komprehensif gas darah (AGD).
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 8 Main Tools Grid -->
+                <h3 class="text-sm font-bold text-white mb-3 flex items-center justify-between">
+                    <span>Modul Titrasi Infus & Dosing Kritis</span>
+                    <span class="text-xs text-slate-400 font-normal">Pilih kalkulator untuk membuka alat perhitungan dan tabel titrasi</span>
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    
+                    <!-- 1. Norepinephrine -->
+                    <button type="button" onclick="navigateTo('calc-ne', 'Norepinephrine (NE)', 'pill-ne')" class="glass-card rounded-xl p-5 flex flex-col items-start text-left cursor-pointer group w-full">
+                        <div class="h-11 w-11 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-vial"></i>
+                        </div>
+                        <h4 class="font-bold text-white text-base mb-1 group-hover:text-cyan-400 transition-colors">1. Norepinephrine (NE)</h4>
+                        <p class="text-xs text-slate-400 line-clamp-2 mb-3">Vasopresor lini pertama syok septik. Konsentrasi syringe pump 50 cc & tabel titrasi 0.05–1.0 mcg/kg/menit.</p>
+                        <span class="mt-auto text-xs text-cyan-400 font-semibold flex items-center">Buka Norepinephrine <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i></span>
+                    </button>
+
+                    <!-- 2. Dobutamin -->
+                    <button type="button" onclick="navigateTo('calc-dobu', 'Dobutamin (Inotrope)', 'pill-dobu')" class="glass-card rounded-xl p-5 flex flex-col items-start text-left cursor-pointer group w-full">
+                        <div class="h-11 w-11 rounded-lg bg-rose-500/10 text-rose-400 border border-rose-500/20 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                        </div>
+                        <h4 class="font-bold text-white text-base mb-1 group-hover:text-cyan-400 transition-colors">2. Dobutamin</h4>
+                        <p class="text-xs text-slate-400 line-clamp-2 mb-3">Inotropik murni pilihan syok kardiogenik dengan TDS &ge; 90 mmHg. Tabel titrasi 2–20 mcg/kg/menit.</p>
+                        <span class="mt-auto text-xs text-rose-400 font-semibold flex items-center">Buka Dobutamin <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i></span>
+                    </button>
+
+                    <!-- 3. Dopamin -->
+                    <button type="button" onclick="navigateTo('calc-dopa', 'Dopamin', 'pill-dopa')" class="glass-card rounded-xl p-5 flex flex-col items-start text-left cursor-pointer group w-full">
+                        <div class="h-11 w-11 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-pills"></i>
+                        </div>
+                        <h4 class="font-bold text-white text-base mb-1 group-hover:text-cyan-400 transition-colors">3. Dopamin</h4>
+                        <p class="text-xs text-slate-400 line-clamp-2 mb-3">Inotropik & vasopresor alternatif dengan titrasi bertingkat 5–20 mcg/kg/menit.</p>
+                        <span class="mt-auto text-xs text-purple-400 font-semibold flex items-center">Buka Dopamin <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i></span>
+                    </button>
+
+                    <!-- 4. Nikardipin -->
+                    <button type="button" onclick="navigateTo('calc-nicardipine', 'Nikardipin', 'pill-nicardipine')" class="glass-card rounded-xl p-5 flex flex-col items-start text-left cursor-pointer group w-full">
+                        <div class="h-11 w-11 rounded-lg bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                        <h4 class="font-bold text-white text-base mb-1 group-hover:text-cyan-400 transition-colors">4. Nikardipin</h4>
+                        <p class="text-xs text-slate-400 line-clamp-2 mb-3">CCB vaskuloselektif untuk krisis hipertensi neurologis tanpa menaikkan TIK (0.5–6 mcg/kg/menit).</p>
+                        <span class="mt-auto text-xs text-yellow-400 font-semibold flex items-center">Buka Nikardipin <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i></span>
+                    </button>
+
+                    <!-- 5. Nitrogliserin -->
+                    <button type="button" onclick="navigateTo('calc-ntg', 'Nitrogliserin (NTG)', 'pill-ntg')" class="glass-card rounded-xl p-5 flex flex-col items-start text-left cursor-pointer group w-full">
+                        <div class="h-11 w-11 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-lungs"></i>
+                        </div>
+                        <h4 class="font-bold text-white text-base mb-1 group-hover:text-cyan-400 transition-colors">5. Nitrogliserin (NTG)</h4>
+                        <p class="text-xs text-slate-400 line-clamp-2 mb-3">Venodilator reduksi preload pada ALO dan sindrom koroner akut (dosis tetap 10–100 mcg/menit).</p>
+                        <span class="mt-auto text-xs text-emerald-400 font-semibold flex items-center">Buka Nitrogliserin <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i></span>
+                    </button>
+
+                    <!-- 6. Bridging Insulin -->
+                    <button type="button" onclick="navigateTo('calc-insulin', 'Bridging Insulin IV ke SC', 'pill-insulin')" class="glass-card rounded-xl p-5 flex flex-col items-start text-left cursor-pointer group w-full">
+                        <div class="h-11 w-11 rounded-lg bg-orange-500/10 text-orange-400 border border-orange-500/20 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-syringe"></i>
+                        </div>
+                        <h4 class="font-bold text-white text-base mb-1 group-hover:text-cyan-400 transition-colors">6. Bridging Insulin</h4>
+                        <p class="text-xs text-slate-400 line-clamp-2 mb-3">Konversi titrasi drip insulin IV 24 jam ke regimen basal-bolus 80% dengan panduan overlap 1-2 jam.</p>
+                        <span class="mt-auto text-xs text-orange-400 font-semibold flex items-center">Buka Bridging Insulin <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i></span>
+                    </button>
+
+                    <!-- 7. Hipernatremia -->
+                    <button type="button" onclick="navigateTo('calc-na', 'Koreksi Hipernatremia', 'pill-na')" class="glass-card rounded-xl p-5 flex flex-col items-start text-left cursor-pointer group w-full">
+                        <div class="h-11 w-11 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-droplet"></i>
+                        </div>
+                        <h4 class="font-bold text-white text-base mb-1 group-hover:text-cyan-400 transition-colors">7. Koreksi Hipernatremia</h4>
+                        <p class="text-xs text-slate-400 line-clamp-2 mb-3">Formula Adrogué-Madias & Free Water Deficit (FWD) dengan batas aman penurunan Na maksimal 10 mEq/hari.</p>
+                        <span class="mt-auto text-xs text-blue-400 font-semibold flex items-center">Buka Hipernatremia <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i></span>
+                    </button>
+
+                    <!-- 8. Acid-Base Analyzer -->
+                    <button type="button" onclick="navigateTo('calc-abg', 'Acid-Base Analyzer (AGD)', 'pill-abg')" class="glass-card rounded-xl p-5 flex flex-col items-start text-left cursor-pointer group w-full">
+                        <div class="h-11 w-11 rounded-lg bg-pink-500/10 text-pink-400 border border-pink-500/20 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-flask"></i>
+                        </div>
+                        <h4 class="font-bold text-white text-base mb-1 group-hover:text-cyan-400 transition-colors">8. Acid-Base Analyzer (AGD)</h4>
+                        <p class="text-xs text-slate-400 line-clamp-2 mb-3">Validasi Henderson, formula Winter's, Anion Gap terkoreksi albumin, Delta ratio, dan rasio P/F.</p>
+                        <span class="mt-auto text-xs text-pink-400 font-semibold flex items-center">Buka Acid-Base AGD <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i></span>
+                    </button>
+
+                </div>
+            </section>
+
+            <!-- ================= TOOL 1: NOREPINEPHRINE ================= -->
+            <section id="calc-ne" class="module-section hidden">
+        <button type="button" onclick="navigateTo('home-module', 'Home Dashboard', 'pill-dash')" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
+        </button>
+
+                <h2 class="text-3xl font-bold mb-6 text-white"><span class="text-cyan-400">Norepinephrine</span> (NE)</h2>
+                <div class="glass-panel rounded-2xl p-6 mb-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm text-slate-300 mb-1">Berat Badan (kg)</label>
+                                <input type="number" id="ne-bb" class="w-full glass-input rounded-lg px-4 py-2 calc-trigger" value="50" min="1">
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm text-slate-300 mb-1">Sediaan (mg)</label>
+                                    <input type="number" id="ne-mg" class="w-full glass-input rounded-lg px-4 py-2 calc-trigger" value="8" min="0.1" step="0.1">
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-slate-300 mb-1">Pelarut (cc)</label>
+                                    <input type="number" id="ne-cc" class="w-full glass-input rounded-lg px-4 py-2 calc-trigger" value="50" min="1">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col justify-center items-center bg-slate-800/40 rounded-xl p-6 border border-slate-700">
+                            <p class="text-sm text-slate-400 mb-2">Konsentrasi Larutan</p>
+                            <div class="text-4xl font-bold text-cyan-400 mb-1"><span id="ne-conc">160</span> <span class="text-lg">mcg/cc</span></div>
+                            <p class="text-xs text-slate-500">Syringe pump basis 50 cc</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-panel rounded-2xl p-5 mb-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="font-semibold text-cyan-400 text-sm"><i class="fas fa-clipboard-list mr-2"></i>Copy ke CPPT</h4>
+                        <div class="flex items-center gap-2">
+                            <button onclick="resetNE()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs py-1.5 px-3 rounded-lg border border-slate-700 transition flex items-center gap-1.5" title="Reset parameter ke default">
+                                <i class="fas fa-undo"></i> Reset
+                            </button>
+                            <button onclick="copyCPPT('ne-cppt', this)" class="bg-slate-700 hover:bg-slate-600 text-white text-xs py-1.5 px-3 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                    </div>
+                    <pre id="ne-cppt" class="text-sm text-slate-300 whitespace-pre font-mono bg-slate-900/80 p-4 rounded-xl border border-slate-700 overflow-x-auto"></pre>
+                </div>
+                <div class="pearl-box rounded-xl p-5 shadow-lg mb-8">
+                    <h4 class="font-bold text-cyan-400 mb-2 flex items-center gap-2"><i class="fas fa-gem"></i> Clinical Pearl</h4>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Vasopresor lini pertama untuk <strong>Syok Septik</strong> dan syok kardiogenik refrakter. Target utama MAP &ge; 65 mmHg. Waspadai iskemia akral perifer pada dosis titrasi tinggi.
+                    </p>
+                </div>
+            </section>
+
+            <!-- ================= TOOL 2: DOBUTAMIN ================= -->
+            <section id="calc-dobu" class="module-section hidden">
+        <button type="button" onclick="navigateTo('home-module', 'Home Dashboard', 'pill-dash')" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
+        </button>
+
+                <h2 class="text-3xl font-bold mb-6 text-white"><span class="text-rose-400">Dobutamin</span></h2>
+                <div class="glass-panel rounded-2xl p-6 mb-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm text-slate-300 mb-1">Berat Badan (kg)</label>
+                                <input type="number" id="dobu-bb" class="w-full glass-input rounded-lg px-4 py-2 calc-trigger" value="80" min="1">
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm text-slate-300 mb-1">Sediaan (mg)</label>
+                                    <input type="number" id="dobu-mg" class="w-full glass-input rounded-lg px-4 py-2 calc-trigger" value="500" min="1">
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-slate-300 mb-1">Pelarut (cc)</label>
+                                    <input type="number" id="dobu-cc" class="w-full glass-input rounded-lg px-4 py-2 calc-trigger" value="50" min="1">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col justify-center items-center bg-slate-800/40 rounded-xl p-6 border border-slate-700">
+                            <p class="text-sm text-slate-400 mb-2">Konsentrasi Larutan</p>
+                            <div class="text-4xl font-bold text-rose-400 mb-1"><span id="dobu-conc">10000</span> <span class="text-lg">mcg/cc</span></div>
+                            <p class="text-xs text-slate-500">Rentang titrasi 2 - 20 mcg/kg/menit</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-panel rounded-2xl p-5 mb-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="font-semibold text-rose-400 text-sm"><i class="fas fa-clipboard-list mr-2"></i>Copy ke CPPT</h4>
+                        <div class="flex items-center gap-2">
+                            <button onclick="resetDobu()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs py-1.5 px-3 rounded-lg border border-slate-700 transition flex items-center gap-1.5" title="Reset parameter ke default">
+                                <i class="fas fa-undo"></i> Reset
+                            </button>
+                            <button onclick="copyCPPT('dobu-cppt', this)" class="bg-slate-700 hover:bg-slate-600 text-white text-xs py-1.5 px-3 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                    </div>
+                    <pre id="dobu-cppt" class="text-sm text-slate-300 whitespace-pre font-mono bg-slate-900/80 p-4 rounded-xl border border-slate-700 overflow-x-auto"></pre>
+                </div>
+                <div class="pearl-box !border-rose-400 !bg-rose-400/5 rounded-xl p-5 shadow-lg mb-8">
+                    <h4 class="font-bold text-rose-400 mb-2 flex items-center gap-2"><i class="fas fa-gem"></i> Clinical Pearl</h4>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Inotropik murni pilihan untuk <strong>Syok Kardiogenik</strong> dengan *low output* dan kongesti pulmonal, asalkan TDS &ge; 90 mmHg. Berikan vasopresor terlebih dahulu jika pasien hipotensi berat.
+                    </p>
+                </div>
+            </section>
+
+            <!-- ================= TOOL 3: DOPAMIN ================= -->
+            <section id="calc-dopa" class="module-section hidden">
+        <button type="button" onclick="navigateTo('home-module', 'Home Dashboard', 'pill-dash')" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
+        </button>
+
+                <h2 class="text-3xl font-bold mb-6 text-white"><span class="text-purple-400">Dopamin</span></h2>
+                <div class="glass-panel rounded-2xl p-6 mb-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm text-slate-300 mb-1">Berat Badan (kg)</label>
+                                <input type="number" id="dopa-bb" class="w-full glass-input rounded-lg px-4 py-2 calc-trigger" value="70" min="1">
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm text-slate-300 mb-1">Sediaan (mg)</label>
+                                    <input type="number" id="dopa-mg" class="w-full glass-input rounded-lg px-4 py-2 calc-trigger" value="400" min="1">
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-slate-300 mb-1">Pelarut (cc)</label>
+                                    <input type="number" id="dopa-cc" class="w-full glass-input rounded-lg px-4 py-2 calc-trigger" value="50" min="1">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col justify-center items-center bg-slate-800/40 rounded-xl p-6 border border-slate-700">
+                            <p class="text-sm text-slate-400 mb-2">Konsentrasi Larutan</p>
+                            <div class="text-4xl font-bold text-purple-400 mb-1"><span id="dopa-conc">8000</span> <span class="text-lg">mcg/cc</span></div>
+                            <p class="text-xs text-slate-500">Titrasi klinis 5 - 20 mcg/kg/menit</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-panel rounded-2xl p-5 mb-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="font-semibold text-purple-400 text-sm"><i class="fas fa-clipboard-list mr-2"></i>Copy ke CPPT</h4>
+                        <div class="flex items-center gap-2">
+                            <button onclick="resetDopa()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs py-1.5 px-3 rounded-lg border border-slate-700 transition flex items-center gap-1.5" title="Reset parameter ke default">
+                                <i class="fas fa-undo"></i> Reset
+                            </button>
+                            <button onclick="copyCPPT('dopa-cppt', this)" class="bg-slate-700 hover:bg-slate-600 text-white text-xs py-1.5 px-3 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                    </div>
+                    <pre id="dopa-cppt" class="text-sm text-slate-300 whitespace-pre font-mono bg-slate-900/80 p-4 rounded-xl border border-slate-700 overflow-x-auto"></pre>
+                </div>
+                <div class="pearl-box !border-purple-400 !bg-purple-400/5 rounded-xl p-5 shadow-lg mb-8">
+                    <h4 class="font-bold text-purple-400 mb-2 flex items-center gap-2"><i class="fas fa-gem"></i> Clinical Pearl</h4>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Rentang klinis 5-20 mcg/kg/menit. Dosis &lt; 5 mcg/kg/menit (*renal dose*) tidak terbukti mencegah AKI secara klinis dan memiliki risiko takiaritmia lebih tinggi daripada Norepinephrine.
+                    </p>
+                </div>
+            </section>
+
+            <!-- ================= TOOL 4: NIKARDIPIN ================= -->
+            <section id="calc-nicardipine" class="module-section hidden">
+        <button type="button" onclick="navigateTo('home-module', 'Home Dashboard', 'pill-dash')" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
+        </button>
+
+                <h2 class="text-3xl font-bold mb-6 text-white"><span class="text-yellow-400">Nikardipin</span></h2>
+                <div class="glass-panel rounded-2xl p-6 mb-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm text-slate-300 mb-1">Berat Badan (kg)</label>
+                                <input type="number" id="nica-bb" class="w-full glass-input rounded-lg px-4 py-2 calc-trigger" value="40" min="1">
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm text-slate-300 mb-1">Sediaan (mg)</label>
+                                    <input type="number" id="nica-mg" class="w-full glass-input rounded-lg px-4 py-2 calc-trigger" value="10" min="1">
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-slate-300 mb-1">Pelarut (cc)</label>
+                                    <input type="number" id="nica-cc" class="w-full glass-input rounded-lg px-4 py-2 calc-trigger" value="50" min="1">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col justify-center items-center bg-slate-800/40 rounded-xl p-6 border border-slate-700">
+                            <p class="text-sm text-slate-400 mb-2">Konsentrasi Larutan</p>
+                            <div class="text-4xl font-bold text-yellow-400 mb-1"><span id="nica-conc">200</span> <span class="text-lg">mcg/cc</span></div>
+                            <p class="text-xs text-slate-500">Dosis bertingkat: 0.5 s.d 6 mcg/kg/menit</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-panel rounded-2xl p-5 mb-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="font-semibold text-yellow-400 text-sm"><i class="fas fa-clipboard-list mr-2"></i>Copy ke CPPT</h4>
+                        <div class="flex items-center gap-2">
+                            <button onclick="resetNicardipine()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs py-1.5 px-3 rounded-lg border border-slate-700 transition flex items-center gap-1.5" title="Reset parameter ke default">
+                                <i class="fas fa-undo"></i> Reset
+                            </button>
+                            <button onclick="copyCPPT('nica-cppt', this)" class="bg-slate-700 hover:bg-slate-600 text-white text-xs py-1.5 px-3 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                    </div>
+                    <pre id="nica-cppt" class="text-sm text-slate-300 whitespace-pre font-mono bg-slate-900/80 p-4 rounded-xl border border-slate-700 overflow-x-auto"></pre>
+                </div>
+                <div class="pearl-box !border-yellow-400 !bg-yellow-400/5 rounded-xl p-5 shadow-lg mb-8">
+                    <h4 class="font-bold text-yellow-400 mb-2 flex items-center gap-2"><i class="fas fa-gem"></i> Clinical Pearl</h4>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        CCB Dihidropiridin dengan selektivitas vaskular tinggi. Sangat disukai pada krisis hipertensi neurologis (stroke iskemik/perdarahan intraserebral) karena tidak menaikkan TIK.
+                    </p>
+                </div>
+            </section>
+
+            <!-- ================= TOOL 5: NITROGLISERIN ================= -->
+            <section id="calc-ntg" class="module-section hidden">
+        <button type="button" onclick="navigateTo('home-module', 'Home Dashboard', 'pill-dash')" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
+        </button>
+
+                <h2 class="text-3xl font-bold mb-6 text-white"><span class="text-emerald-400">Nitrogliserin</span> (NTG)</h2>
+                <div class="glass-panel rounded-2xl p-6 mb-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm text-slate-300 mb-1">Sediaan (mg)</label>
+                                    <input type="number" id="ntg-mg" class="w-full glass-input rounded-lg px-4 py-2 calc-trigger" value="10" min="1">
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-slate-300 mb-1">Pelarut (cc)</label>
+                                    <input type="number" id="ntg-cc" class="w-full glass-input rounded-lg px-4 py-2 calc-trigger" value="50" min="1">
+                                </div>
+                            </div>
+                            <p class="text-xs text-slate-400">Dosis NTG tidak bergantung pada berat badan (dosis tetap: mcg/menit).</p>
+                        </div>
+                        <div class="flex flex-col justify-center items-center bg-slate-800/40 rounded-xl p-6 border border-slate-700">
+                            <p class="text-sm text-slate-400 mb-2">Konsentrasi Larutan</p>
+                            <div class="text-4xl font-bold text-emerald-400 mb-1"><span id="ntg-conc">200</span> <span class="text-lg">mcg/cc</span></div>
+                            <p class="text-xs text-slate-500">Titrasi 10 s.d 100 mcg/menit</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-panel rounded-2xl p-5 mb-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="font-semibold text-emerald-400 text-sm"><i class="fas fa-clipboard-list mr-2"></i>Copy ke CPPT</h4>
+                        <div class="flex items-center gap-2">
+                            <button onclick="resetNTG()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs py-1.5 px-3 rounded-lg border border-slate-700 transition flex items-center gap-1.5" title="Reset parameter ke default">
+                                <i class="fas fa-undo"></i> Reset
+                            </button>
+                            <button onclick="copyCPPT('ntg-cppt', this)" class="bg-slate-700 hover:bg-slate-600 text-white text-xs py-1.5 px-3 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                    </div>
+                    <pre id="ntg-cppt" class="text-sm text-slate-300 whitespace-pre font-mono bg-slate-900/80 p-4 rounded-xl border border-slate-700 overflow-x-auto"></pre>
+                </div>
+                <div class="pearl-box !border-emerald-400 !bg-emerald-400/5 rounded-xl p-5 shadow-lg mb-8">
+                    <h4 class="font-bold text-emerald-400 mb-2 flex items-center gap-2"><i class="fas fa-gem"></i> Clinical Pearl</h4>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Venodilator poten: mengurangi *preload* & kongesti paru pada ALO atau sindrom koroner akut. Kontraindikasi bila TDS &lt; 90 mmHg, infark ventrikel kanan, atau pemakaian PDE-5 inhibitor dalam 24-48 jam.
+                    </p>
+                </div>
+            </section>
+
+            <!-- ================= TOOL 6: BRIDGING INSULIN ================= -->
+            <section id="calc-insulin" class="module-section hidden">
+        <button type="button" onclick="navigateTo('home-module', 'Home Dashboard', 'pill-dash')" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
+        </button>
+
+                <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+                    <h2 class="text-3xl font-bold text-white"><span class="text-orange-400">Bridging Insulin</span></h2>
+                    <div class="flex items-center gap-3">
+                        <label class="text-xs text-slate-300 flex items-center gap-2">
+                            <span>Jam Awal:</span>
+                            <select id="ins-start-hour" onchange="renderInsulinTable()" class="glass-input rounded-lg px-2 py-1 text-xs">
+                                <option value="0">00:00</option>
+                                <option value="1">01:00</option>
+                                <option value="2">02:00</option>
+                                <option value="3">03:00</option>
+                                <option value="4">04:00</option>
+                                <option value="5">05:00</option>
+                                <option value="6">06:00</option>
+                                <option value="7">07:00</option>
+                                <option value="8">08:00</option>
+                                <option value="9">09:00</option>
+                                <option value="10">10:00</option>
+                                <option value="11">11:00</option>
+                                <option value="12">12:00</option>
+                                <option value="13">13:00</option>
+                                <option value="14">14:00</option>
+                                <option value="15">15:00</option>
+                                <option value="16">16:00</option>
+                                <option value="17">17:00</option>
+                                <option value="18">18:00</option>
+                                <option value="19">19:00</option>
+                                <option value="20">20:00</option>
+                                <option value="21">21:00</option>
+                                <option value="22">22:00</option>
+                                <option value="23" selected>23:00</option>
+                            </select>
+                        </label>
+                        <button onclick="resetInsulinInputs()" class="text-xs px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
+                            <i class="fas fa-undo mr-1"></i> Reset
+                        </button>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-2xl p-6 mb-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        
+                        <!-- Tabel Input 24 Jam Vertikal -->
+                        <div class="lg:col-span-6 flex flex-col">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="text-sm font-semibold text-white">Input Drip Insulin (24 Jam)</h3>
+                                <span class="text-xs text-slate-400">Satuan: Unit</span>
+                            </div>
+                            <div class="rounded-xl border border-slate-700 overflow-hidden shadow-inner">
+                                <div class="max-h-[380px] overflow-y-auto custom-scrollbar bg-slate-900/40">
+                                    <table class="w-full text-sm text-left border-collapse">
+                                        <thead class="text-xs uppercase bg-[#1e3a5f] text-slate-200 sticky top-0 z-10">
+                                            <tr>
+                                                <th class="px-4 py-2.5 w-28 text-center font-bold tracking-wider border-r border-slate-700/50">Jam</th>
+                                                <th class="px-4 py-2.5 font-bold tracking-wider">Insulin (U)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="insulin-table-body" class="divide-y divide-slate-800">
+                                            <!-- Dynamic table rows -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Panel Hasil Sesuai Format Referensi -->
+                        <div class="lg:col-span-6 flex flex-col justify-between space-y-5">
+                            <div class="bg-slate-800/50 rounded-xl p-6 border border-slate-700/80 space-y-4">
+                                <h3 class="text-base font-bold text-white border-b border-slate-700 pb-3 flex items-center gap-2">
+                                    <i class="fas fa-calculator text-orange-400"></i> Ringkasan Dosis Subkutan
+                                </h3>
+                                
+                                <div class="space-y-3 font-mono text-sm">
+                                    <div class="flex justify-between items-center py-1">
+                                        <span class="text-slate-300">Total drip 24 jam</span>
+                                        <span class="text-lg font-bold text-white">: <span id="ins-total">0</span> U</span>
+                                    </div>
+                                    <div class="flex justify-between items-center py-1 border-t border-slate-700/60">
+                                        <span class="text-slate-300">Total basal-bolus (80%)</span>
+                                        <span class="text-xl font-bold text-orange-400">: <span id="ins-bb-80">0</span> U</span>
+                                    </div>
+                                    <div class="flex justify-between items-center py-1 border-t border-slate-700/60">
+                                        <span class="text-slate-300">Insulin basal (50%)</span>
+                                        <span class="text-xl font-bold text-emerald-400">: <span id="ins-basal-50">0</span> U</span>
+                                    </div>
+                                    <div class="flex justify-between items-center py-1 border-t border-slate-700/60">
+                                        <span class="text-slate-300">Insulin prandial (per x3)</span>
+                                        <span class="text-xl font-bold text-cyan-400">: <span id="ins-prandial-3">0</span> U</span>
+                                    </div>
+                                </div>
+
+                                <div class="text-xs text-slate-400 pt-3 border-t border-slate-700 leading-relaxed italic">
+                                    Protokol: 80% dosis drip 24 jam sebagai TDD basal-bolus subkutan; 50% sebagai basal (1x/hari), 50% sisanya dibagi rata 3x prandial.
+                                </div>
+                                <div class="text-xs font-semibold text-rose-400 bg-rose-500/10 p-3 rounded-lg border border-rose-500/20">
+                                    <i class="fas fa-exclamation-triangle mr-1"></i> Overlap: Berikan basal 1-2 jam sebelum drip insulin IV dihentikan.
+                                </div>
+                            </div>
+
+                            <!-- Quick fill helper -->
+                            <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 flex items-center justify-between text-xs">
+                                <span class="text-slate-400">Set rata-rata drip:</span>
+                                <div class="flex gap-2">
+                                    <button onclick="quickFillInsulin(1)" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300">1 U/jam</button>
+                                    <button onclick="quickFillInsulin(2)" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300">2 U/jam</button>
+                                    <button onclick="quickFillInsulin(3)" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300">3 U/jam</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- CPPT Box -->
+                <div class="glass-panel rounded-2xl p-5 mb-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="font-semibold text-orange-400 text-sm"><i class="fas fa-clipboard-list mr-2"></i>Copy ke CPPT</h4>
+                        <button onclick="copyCPPT('ins-cppt', this)" class="bg-slate-700 hover:bg-slate-600 text-white text-xs py-1.5 px-3 rounded-lg transition-colors">
+                            <i class="fas fa-copy mr-1"></i> Copy
+                        </button>
+                    </div>
+                    <pre id="ins-cppt" class="text-sm text-slate-300 whitespace-pre font-mono bg-slate-900/80 p-4 rounded-xl border border-slate-700 overflow-x-auto"></pre>
+                </div>
+            </section>
+
+            <!-- ================= TOOL 7: HIPERNATREMIA ================= -->
+            <section id="calc-na" class="module-section hidden">
+        <button type="button" onclick="navigateTo('home-module', 'Home Dashboard', 'pill-dash')" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
+        </button>
+
+                <h2 class="text-3xl font-bold mb-6 text-white"><span class="text-blue-400">Koreksi Hipernatremia</span></h2>
+                <div class="glass-panel rounded-2xl p-6 mb-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm text-slate-300 mb-1">Jenis Kelamin</label>
+                                    <select id="na-sex" class="w-full glass-input rounded-lg px-4 py-2 calc-trigger">
+                                        <option value="m">Pria</option>
+                                        <option value="f">Wanita</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-slate-300 mb-1">Usia</label>
+                                    <select id="na-age" class="w-full glass-input rounded-lg px-4 py-2 calc-trigger">
+                                        <option value="young">&lt; 65 tahun</option>
+                                        <option value="old">&ge; 65 tahun</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm text-slate-300 mb-1">Berat Badan (kg)</label>
+                                    <input type="number" id="na-bb" class="w-full glass-input rounded-lg px-4 py-2 calc-trigger" value="60" min="1">
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-slate-300 mb-1">Cairan Infus</label>
+                                    <select id="na-fluid" class="w-full glass-input rounded-lg px-4 py-2 calc-trigger">
+                                        <option value="0">Dextrose 5% (Na: 0 mEq)</option>
+                                        <option value="77">NaCl 0.45% (Na: 77 mEq)</option>
+                                        <option value="130">Ringer Laktat (Na: 130 mEq)</option>
+                                        <option value="154">NaCl 0.9% (Na: 154 mEq)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm text-slate-300 mb-1">Na+ Serum (mEq/L)</label>
+                                    <input type="number" id="na-actual" class="w-full glass-input rounded-lg px-4 py-2 calc-trigger" value="155">
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-slate-300 mb-1">Target Na+ (mEq/L)</label>
+                                    <input type="number" id="na-target" class="w-full glass-input rounded-lg px-4 py-2 calc-trigger" value="145">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col bg-slate-800/40 rounded-xl p-6 border border-slate-700 justify-between">
+                            <div>
+                                <p class="text-xs uppercase text-slate-400 font-semibold tracking-wider">Total Body Water (TBW)</p>
+                                <div class="text-2xl font-bold text-white mt-1"><span id="na-tbw">36.0</span> <span class="text-base font-normal text-slate-400">Liter</span></div>
+                            </div>
+                            <div class="border-t border-slate-700/80 pt-3">
+                                <p class="text-xs uppercase text-blue-300 font-bold">1. Metode Adrogue-Madias (PAPDI)</p>
+                                <p class="text-xs text-slate-400 mt-1">&Delta; Na per 1L infus: <span id="na-adrogue-drop" class="text-white font-semibold">0.00</span> mEq/L</p>
+                                <p class="text-xs text-slate-400">Total cairan dibutuhkan: <span id="na-adrogue-vol" class="text-emerald-400 font-bold text-base">0.00</span> Liter</p>
+                                <p class="text-xs text-slate-400">Kecepatan infus (target 24 jam): <span id="na-infusion-rate" class="text-cyan-400 font-semibold">0</span> mL/jam</p>
+                            </div>
+                            <div class="border-t border-slate-700/80 pt-3">
+                                <p class="text-xs uppercase text-blue-300 font-bold">2. Free Water Deficit (Rough)</p>
+                                <div class="text-xl font-bold text-cyan-400 mt-0.5"><span id="na-fwd">2.32</span> <span class="text-sm font-normal text-slate-300">Liter air murni</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-panel rounded-2xl p-5 mb-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="font-semibold text-blue-400 text-sm"><i class="fas fa-clipboard-list mr-2"></i>Copy ke CPPT</h4>
+                        <div class="flex items-center gap-2">
+                            <button onclick="resetNa()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs py-1.5 px-3 rounded-lg border border-slate-700 transition flex items-center gap-1.5" title="Reset parameter ke default">
+                                <i class="fas fa-undo"></i> Reset
+                            </button>
+                            <button onclick="copyCPPT('na-cppt', this)" class="bg-slate-700 hover:bg-slate-600 text-white text-xs py-1.5 px-3 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                    </div>
+                    <pre id="na-cppt" class="text-sm text-slate-300 whitespace-pre font-mono bg-slate-900/80 p-4 rounded-xl border border-slate-700 overflow-x-auto"></pre>
+                </div>
+                <div class="pearl-box !border-blue-400 !bg-blue-400/5 rounded-xl p-5 shadow-lg mb-8">
+                    <h4 class="font-bold text-blue-400 mb-2 flex items-center gap-2"><i class="fas fa-gem"></i> Clinical Pearl</h4>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Koreksi natrium serum maksimal <strong>10 - 12 mEq/L per 24 jam</strong> (sekitar 0.5 mEq/L/jam) untuk mencegah terjadinya edema serebri akut akibat perpindahan osmotik mendadak ke dalam neuron otak.
+                    </p>
+                </div>
+            </section>
+
+            <!-- ================= TOOL 8: ACID-BASE ANALYZER ================= -->
+            <section id="calc-abg" class="module-section hidden">
+        <button type="button" onclick="navigateTo('home-module', 'Home Dashboard', 'pill-dash')" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
+        </button>
+
+                <h2 class="text-3xl font-bold mb-6 text-white"><span class="text-pink-400">Acid-Base</span> Analyzer</h2>
+                <div class="glass-panel rounded-2xl p-6 mb-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-4">
+                            <h3 class="text-xs uppercase text-slate-400 font-semibold border-b border-slate-700 pb-1">Parameter Utama</h3>
+                            <div class="grid grid-cols-3 gap-3">
+                                <div><label class="block text-xs text-slate-300 mb-1">pH</label><input type="number" id="abg-ph" class="w-full glass-input rounded-lg px-3 py-2 calc-trigger" value="7.25" step="0.01"></div>
+                                <div><label class="block text-xs text-slate-300 mb-1">pCO2</label><input type="number" id="abg-pco2" class="w-full glass-input rounded-lg px-3 py-2 calc-trigger" value="30"></div>
+                                <div><label class="block text-xs text-slate-300 mb-1">HCO3</label><input type="number" id="abg-hco3" class="w-full glass-input rounded-lg px-3 py-2 calc-trigger" value="12"></div>
+                            </div>
+                            <h3 class="text-xs uppercase text-slate-400 font-semibold border-b border-slate-700 pb-1 mt-4">Elektrolit & Oksigenasi</h3>
+                            <div class="grid grid-cols-3 gap-3">
+                                <div><label class="block text-xs text-slate-300 mb-1">Na+</label><input type="number" id="abg-na" class="w-full glass-input rounded-lg px-3 py-2 calc-trigger" value="140"></div>
+                                <div><label class="block text-xs text-slate-300 mb-1">Cl-</label><input type="number" id="abg-cl" class="w-full glass-input rounded-lg px-3 py-2 calc-trigger" value="105"></div>
+                                <div><label class="block text-xs text-slate-300 mb-1">Albumin (g/dL)</label><input type="number" id="abg-alb" class="w-full glass-input rounded-lg px-3 py-2 calc-trigger" value="4.0" step="0.1"></div>
+                                <div><label class="block text-xs text-slate-300 mb-1">PaO2</label><input type="number" id="abg-pao2" class="w-full glass-input rounded-lg px-3 py-2 calc-trigger" value="90"></div>
+                                <div><label class="block text-xs text-slate-300 mb-1">FiO2 (%)</label><input type="number" id="abg-fio2" class="w-full glass-input rounded-lg px-3 py-2 calc-trigger" value="21"></div>
+                                <div><label class="block text-xs text-slate-300 mb-1">BB (kg)</label><input type="number" id="abg-bb" class="w-full glass-input rounded-lg px-3 py-2 calc-trigger" value="60"></div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col bg-slate-800/40 rounded-xl p-5 border border-slate-700 text-xs space-y-2.5">
+                            <div><span class="text-slate-400">1. Validasi Internal Henderson:</span> <div id="abg-res-henderson" class="font-medium mt-0.5"></div></div>
+                            <div class="w-full h-px bg-slate-700/60"></div>
+                            <div><span class="text-slate-400">2. Gangguan Asam-Basa Primer:</span> <div id="abg-res-primer" class="text-pink-400 font-bold text-sm mt-0.5"></div></div>
+                            <div><span class="text-slate-400">3. Respon Kompensasi:</span> <div id="abg-res-komp" class="font-medium text-white mt-0.5"></div><div id="abg-res-winter" class="text-[11px] text-slate-400"></div></div>
+                            <div class="w-full h-px bg-slate-700/60"></div>
+                            <div><span class="text-slate-400">4. Anion Gap (Koreksi Hipoalbumin):</span> <div id="abg-res-ag" class="font-medium text-white mt-0.5"></div></div>
+                            <div><span class="text-slate-400">5. Analisis Delta Ratio:</span> <div id="abg-res-workup" class="font-medium text-white mt-0.5"></div></div>
+                            <div class="w-full h-px bg-slate-700/60"></div>
+                            <div><span class="text-slate-400">6. Status Oksigenasi (P/F Ratio):</span> <div id="abg-res-oxy" class="font-medium text-white mt-0.5"></div></div>
+                            <div><span class="text-slate-400">7. Rekomendasi NaHCO3:</span> <div id="abg-res-bicarb" class="font-medium text-white mt-0.5"></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-panel rounded-2xl p-5 mb-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="font-semibold text-pink-400 text-sm"><i class="fas fa-clipboard-list mr-2"></i>Copy ke CPPT</h4>
+                        <div class="flex items-center gap-2">
+                            <button onclick="resetABG()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs py-1.5 px-3 rounded-lg border border-slate-700 transition flex items-center gap-1.5" title="Reset parameter ke default">
+                                <i class="fas fa-undo"></i> Reset
+                            </button>
+                            <button onclick="copyCPPT('abg-cppt', this)" class="bg-slate-700 hover:bg-slate-600 text-white text-xs py-1.5 px-3 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                    </div>
+                    <pre id="abg-cppt" class="text-sm text-slate-300 whitespace-pre font-mono bg-slate-900/80 p-4 rounded-xl border border-slate-700 overflow-x-auto"></pre>
+                </div>
+            </section>
+
+            <footer class="mt-12 mb-6 p-4 glass-panel rounded-xl text-center">
+                <p class="text-xs text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                    Alat bantu hitung dosis klinis — bukan pengganti penilaian klinis profesional. Selalu verifikasi ulang dosis dan konsentrasi larutan sebelum diberikan.<br>
+                    &copy; 2026 CalcMed Pro | Basis: dr. Gus Bhaskara (BHS) &bull; disempurnakan oleh dr. I Putu Yogi Sastrawan, Sp.PD, dr. Guswib (IWP)
+                </p>
+            </footer>
+
+        </main>
+    </div>
+
+    <!-- SCRIPT ENGINE -->
+    <script>
+    // ==========================================
+    // GLOBAL TOOL REGISTRY & SEARCH ENGINE
+    // ==========================================
+    const CALCULATORS_DB = [
+      { id: 'calc-ne', name: 'Norepinephrine (NE)', category: 'Vasopresor', color: 'cyan', pillId: 'pill-ne', desc: 'Vasopresor lini pertama syok septik. Tabel kecepatan infus syringe pump 50 cc (0.05–1.0 mcg/kg/menit).', keywords: ['norepinephrine', 'ne', 'vasopresor', 'syok septik', 'map', 'levophed'] },
+      { id: 'calc-dobu', name: 'Dobutamin (Inotrope)', category: 'Inotropik', color: 'rose', pillId: 'pill-dobu', desc: 'Inotropik murni pilihan syok kardiogenik low output dengan TDS >= 90 mmHg (2–20 mcg/kg/menit).', keywords: ['dobutamin', 'dobu', 'inotrope', 'syok kardiogenik', 'gagal jantung', 'inotropik'] },
+      { id: 'calc-dopa', name: 'Dopamin', category: 'Inotropik & Vasopresor', color: 'purple', pillId: 'pill-dopa', desc: 'Inotropik dan vasopresor alternatif dengan titrasi bertingkat 5–20 mcg/kg/menit.', keywords: ['dopamin', 'dopa', 'inotropik', 'vasopresor', 'bradikardia'] },
+      { id: 'calc-nicardipine', name: 'Nikardipin', category: 'Antihipertensi IV', color: 'yellow', pillId: 'pill-nicardipine', desc: 'CCB vaskuloselektif untuk krisis hipertensi neurologis tanpa meningkatkan TIK (0.5–6 mcg/kg/menit).', keywords: ['nikardipin', 'nicardipine', 'krisis hipertensi', 'perdarahan intraserebral', 'stroke'] },
+      { id: 'calc-ntg', name: 'Nitrogliserin (NTG)', category: 'Vasodilator', color: 'emerald', pillId: 'pill-ntg', desc: 'Venodilator poten untuk reduksi preload pada ALO dan ACS (dosis tetap 10–100 mcg/menit).', keywords: ['nitrogliserin', 'ntg', 'vasodilator', 'alo', 'edema paru', 'iskemia miokard'] },
+      { id: 'calc-insulin', name: 'Bridging Insulin IV ke SC', category: 'Protokol Transisi', color: 'orange', pillId: 'pill-insulin', desc: 'Titrasi drip insulin 24 jam ke regimen basal-bolus 80% dengan overlap 1-2 jam dan ekspor CPPT.', keywords: ['bridging insulin', 'insulin', 'drip', 'subkutan', 'kda', 'hhs', 'overlap'] },
+      { id: 'calc-na', name: 'Koreksi Hipernatremia', category: 'Elektrolit & Cairan', color: 'blue', pillId: 'pill-na', desc: 'Formula Adrogué-Madias & Free Water Deficit (FWD) dengan batas aman penurunan Na maksimal 10 mEq/hari.', keywords: ['hipernatremia', 'adrogue-madias', 'fwd', 'free water deficit', 'd5w', 'natrium'] },
+      { id: 'calc-abg', name: 'Acid-Base Analyzer (AGD)', category: 'Asam-Basa', color: 'pink', pillId: 'pill-abg', desc: 'Validasi Henderson, Winter formula kompensasi, Anion Gap terkoreksi albumin, Delta ratio, dan rasio P/F.', keywords: ['agd', 'acid base', 'analisis gas darah', 'winter', 'anion gap', 'henderson', 'p/f ratio'] }
+    ];
+
+    function showToast(msg) {
+        const toastEl = document.getElementById('toast-notice');
+        const toastMsg = document.getElementById('toast-message');
+        if (toastEl && toastMsg) {
+            toastMsg.textContent = msg;
+            toastEl.classList.remove('translate-y-24', 'opacity-0', 'pointer-events-none');
+            toastEl.classList.add('translate-y-0', 'opacity-100');
+            setTimeout(() => {
+                toastEl.classList.add('translate-y-24', 'opacity-0', 'pointer-events-none');
+                toastEl.classList.remove('translate-y-0', 'opacity-100');
+            }, 3000);
+        }
+    }
+
+    // Direct Navigation matching adjustr-GEH
+    window.navigateTo = function (targetId, title, activePillId = null) {
+        document.querySelectorAll('.module-section').forEach(sec => {
+            sec.classList.add('hidden');
+            sec.classList.remove('block');
+        });
+
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+            targetSection.classList.remove('hidden');
+            targetSection.classList.add('block');
+        }
+
+        const headerTitle = document.getElementById('header-title');
+        if (headerTitle && title) {
+            headerTitle.textContent = title;
+        }
+
+        document.querySelectorAll('.quick-nav-pill').forEach(pill => pill.classList.remove('active'));
+        if (activePillId) {
+            const el = document.getElementById(activePillId);
+            if (el) el.classList.add('active');
+        }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    function initGlobalSearch() {
+        const searchInput = document.getElementById('global-search-input');
+        const searchDropdown = document.getElementById('search-results-dropdown');
+        const clearBtn = document.getElementById('search-clear-btn');
+
+        if (!searchInput || !searchDropdown) return;
+
+        function renderResults(query) {
+            const clean = query.trim().toLowerCase();
+            if (!clean) {
+                searchDropdown.classList.add('hidden');
+                searchDropdown.innerHTML = '';
+                if (clearBtn) clearBtn.classList.add('hidden');
+                return;
+            }
+
+            if (clearBtn) clearBtn.classList.remove('hidden');
+
+            const matches = CALCULATORS_DB.filter(tool => {
+                return tool.name.toLowerCase().includes(clean) ||
+                       tool.category.toLowerCase().includes(clean) ||
+                       tool.desc.toLowerCase().includes(clean) ||
+                       tool.keywords.some(k => k.toLowerCase().includes(clean));
+            });
+
+            if (matches.length === 0) {
+                searchDropdown.innerHTML = '<div class="p-3 text-xs text-slate-400 text-center">Tidak ditemukan kalkulator untuk "' + query + '".</div>';
+                searchDropdown.classList.remove('hidden');
+                return;
+            }
+
+            let html = '<div class="space-y-1">';
+            matches.forEach(tool => {
+                html += `
+                    <button type="button" onclick="selectSearchResult('${tool.id}', '${tool.name.replace(/'/g, "\\'")}', '${tool.pillId}')" class="w-full p-2.5 rounded-lg bg-slate-800/60 hover:bg-cyan-500/20 border border-slate-700/50 hover:border-cyan-500/50 text-left transition-all group flex items-start space-x-3">
+                        <div class="h-7 w-7 rounded-md bg-${tool.color}-500/20 text-${tool.color}-400 flex items-center justify-center shrink-0 text-xs mt-0.5">
+                            <i class="fa-solid fa-calculator"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-xs font-bold text-white group-hover:text-cyan-400 transition-colors truncate">${tool.name}</span>
+                                <span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-700 text-slate-300 font-medium shrink-0">${tool.category}</span>
+                            </div>
+                            <p class="text-[11px] text-slate-400 line-clamp-1 mt-0.5">${tool.desc}</p>
+                        </div>
+                        <i class="fa-solid fa-arrow-right text-xs text-slate-500 group-hover:text-cyan-400 mt-1 shrink-0"></i>
+                    </button>
+                `;
+            });
+            html += '</div>';
+
+            searchDropdown.innerHTML = html;
+            searchDropdown.classList.remove('hidden');
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            renderResults(e.target.value);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+                e.preventDefault();
+                searchInput.focus();
+                searchInput.select();
+            }
+            if (e.key === 'Escape' && !searchDropdown.classList.contains('hidden')) {
+                searchDropdown.classList.add('hidden');
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            const container = document.getElementById('header-search-container');
+            if (container && !container.contains(e.target)) {
+                searchDropdown.classList.add('hidden');
+            }
+        });
+    }
+
+    window.clearGlobalSearch = function () {
+        const input = document.getElementById('global-search-input');
+        if (input) {
+            input.value = '';
+            input.focus();
+            const dropdown = document.getElementById('search-results-dropdown');
+            if (dropdown) {
+                dropdown.classList.add('hidden');
+                dropdown.innerHTML = '';
+            }
+            const clearBtn = document.getElementById('search-clear-btn');
+            if (clearBtn) clearBtn.classList.add('hidden');
+        }
+    };
+
+    window.selectSearchResult = function (targetId, name, pillId) {
+        const searchDropdown = document.getElementById('search-results-dropdown');
+        if (searchDropdown) searchDropdown.classList.add('hidden');
+        navigateTo(targetId, name, pillId);
+    };
+
+    function copyCPPT(elementId, btnElement) {
+        const el = document.getElementById(elementId);
+        if (!el) return;
+        const textToCopy = el.innerText;
+        
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                showToast('Resume klinis CPPT berhasil disalin!');
+            }).catch(fallbackCopy);
+        } else {
+            fallbackCopy();
+        }
+
+        function fallbackCopy() {
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-9999px";
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showToast('Resume klinis CPPT berhasil disalin!');
+            } catch (err) {
+                console.error('Gagal menyalin:', err);
+            }
+            document.body.removeChild(textArea);
+        }
+    }
+
+    function fmtIndo(num, digits = 1) {
+        if (isNaN(num) || !isFinite(num)) return "0";
+        return Number(num).toFixed(digits).replace('.', ',');
+    }
+
+    // 1. Norepinephrine
+    function calcNE() {
+        const bb = parseFloat(document.getElementById('ne-bb')?.value) || 0;
+        const mg = parseFloat(document.getElementById('ne-mg')?.value) || 0;
+        const cc = parseFloat(document.getElementById('ne-cc')?.value) || 1;
+        
+        const conc = (mg * 1000) / cc; // mcg/cc
+        const concEl = document.getElementById('ne-conc');
+        if (concEl) concEl.innerText = conc > 0 ? conc.toFixed(0) : "0";
+
+        let cppt = `COPY KE CPPT\n`;
+        cppt += `Drip norepinefrin ${mg} mg dalam NaCl 0.9% ${cc} cc (BB: ${bb} kg)\n`;
+        cppt += `Konsentrasi: ${conc.toFixed(0)} mcg/cc\n\n`;
+        
+        const dosesNE = [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0];
+        for (let d of dosesNE) {
+            let r = conc > 0 ? (d * bb * 60) / conc : 0;
+            let dStr = String(d).replace('.', ',').padEnd(4, ' ');
+            let rStr = fmtIndo(r, 1).padStart(5, ' ');
+            cppt += `  ${dStr} mcg/kg/menit   :   ${rStr} ml/jam\n`;
+        }
+        const cpptEl = document.getElementById('ne-cppt');
+        if (cpptEl) cpptEl.innerText = cppt;
+    }
+
+    // 2. Dobutamin
+    function calcDobu() {
+        const bb = parseFloat(document.getElementById('dobu-bb')?.value) || 0;
+        const mg = parseFloat(document.getElementById('dobu-mg')?.value) || 0;
+        const cc = parseFloat(document.getElementById('dobu-cc')?.value) || 1;
+        
+        const conc = (mg * 1000) / cc;
+        const concEl = document.getElementById('dobu-conc');
+        if (concEl) concEl.innerText = conc > 0 ? conc.toFixed(0) : "0";
+
+        let cppt = `COPY KE CPPT\n`;
+        cppt += `Drip dobutamin ${mg} mg dalam NaCl 0.9% ${cc} cc (BB: ${bb} kg)\n`;
+        cppt += `Konsentrasi: ${conc.toFixed(0)} mcg/cc\n\n`;
+
+        for (let d = 2; d <= 20; d++) {
+            let r = conc > 0 ? (d * bb * 60) / conc : 0;
+            let dStr = String(d).padEnd(2, ' ');
+            let rStr = fmtIndo(r, 1).padStart(5, ' ');
+            cppt += `  ${dStr} mcg/kg/menit     :   ${rStr} ml/jam\n`;
+        }
+        const cpptEl = document.getElementById('dobu-cppt');
+        if (cpptEl) cpptEl.innerText = cppt;
+    }
+
+    // 3. Dopamin (5 - 20 mcg/kg/menit)
+    function calcDopa() {
+        const bb = parseFloat(document.getElementById('dopa-bb')?.value) || 0;
+        const mg = parseFloat(document.getElementById('dopa-mg')?.value) || 0;
+        const cc = parseFloat(document.getElementById('dopa-cc')?.value) || 1;
+        
+        const conc = (mg * 1000) / cc;
+        const concEl = document.getElementById('dopa-conc');
+        if (concEl) concEl.innerText = conc > 0 ? conc.toFixed(0) : "0";
+
+        let cppt = `COPY KE CPPT\n`;
+        cppt += `Drip dopamin ${mg} mg dalam NaCl 0.9% ${cc} cc (BB: ${bb} kg)\n`;
+        cppt += `Konsentrasi: ${conc.toFixed(0)} mcg/cc\n\n`;
+
+        for (let d = 5; d <= 20; d++) {
+            let r = conc > 0 ? (d * bb * 60) / conc : 0;
+            let dStr = String(d).padEnd(2, ' ');
+            let rStr = fmtIndo(r, 1).padStart(5, ' ');
+            cppt += `  ${dStr} mcg/kg/menit     :   ${rStr} ml/jam\n`;
+        }
+        const cpptEl = document.getElementById('dopa-cppt');
+        if (cpptEl) cpptEl.innerText = cppt;
+    }
+
+    // 4. Nikardipin (0.5, 1, 1.5, 2, 3, 4, 5, 6 mcg/kg/menit)
+    function calcNica() {
+        const bb = parseFloat(document.getElementById('nica-bb')?.value) || 0;
+        const mg = parseFloat(document.getElementById('nica-mg')?.value) || 0;
+        const cc = parseFloat(document.getElementById('nica-cc')?.value) || 1;
+        
+        const conc = (mg * 1000) / cc;
+        const concEl = document.getElementById('nica-conc');
+        if (concEl) concEl.innerText = conc > 0 ? conc.toFixed(0) : "0";
+
+        let cppt = `COPY KE CPPT\n`;
+        cppt += `Drip nikardipin ${mg} mg dalam NaCl 0.9% ${cc} cc (BB: ${bb} kg)\n`;
+        cppt += `Konsentrasi: ${conc.toFixed(0)} mcg/cc\n\n`;
+
+        const dosesNica = [0.5, 1, 1.5, 2, 3, 4, 5, 6];
+        for (let d of dosesNica) {
+            let r = conc > 0 ? (d * bb * 60) / conc : 0;
+            let dStr = String(d).replace('.', ',').padEnd(3, ' ');
+            let rStr = fmtIndo(r, 1).padStart(5, ' ');
+            cppt += `  ${dStr} mcg/kg/menit   :   ${rStr} ml/jam\n`;
+        }
+        const cpptEl = document.getElementById('nica-cppt');
+        if (cpptEl) cpptEl.innerText = cppt;
+    }
+
+    // 5. Nitrogliserin (10 - 100 mcg/menit)
+    function calcNTG() {
+        const mg = parseFloat(document.getElementById('ntg-mg')?.value) || 0;
+        const cc = parseFloat(document.getElementById('ntg-cc')?.value) || 1;
+        
+        const conc = (mg * 1000) / cc;
+        const concEl = document.getElementById('ntg-conc');
+        if (concEl) concEl.innerText = conc > 0 ? conc.toFixed(0) : "0";
+
+        let cppt = `COPY KE CPPT\n`;
+        cppt += `Drip nitrogliserin (NTG) ${mg} mg dalam NaCl 0.9% ${cc} cc\n`;
+        cppt += `Konsentrasi: ${conc.toFixed(0)} mcg/cc\n\n`;
+
+        for (let d = 10; d <= 100; d += 10) {
+            let r = conc > 0 ? (d * 60) / conc : 0;
+            let dStr = String(d).padEnd(3, ' ');
+            let rStr = fmtIndo(r, 1).padStart(5, ' ');
+            cppt += `  ${dStr} mcg/menit        :   ${rStr} ml/jam\n`;
+        }
+        const cpptEl = document.getElementById('ntg-cppt');
+        if (cpptEl) cpptEl.innerText = cppt;
+    }
+
+    // 6. Bridging Insulin
+    function renderInsulinTable() {
+        const startHourSelect = document.getElementById('ins-start-hour');
+        if (!startHourSelect) return;
+        const startHour = parseInt(startHourSelect.value, 10) || 0;
+        const tbody = document.getElementById('insulin-table-body');
+        if (!tbody) return;
+        
+        const currentVals = [];
+        tbody.querySelectorAll('.ins-hourly-input').forEach(input => {
+            currentVals.push(input.value);
+        });
+
+        let html = '';
+        for (let i = 0; i < 24; i++) {
+            let h = (startHour + i) % 24;
+            let hourStr = `${h.toString().padStart(2, '0')}:00`;
+            let val = currentVals[i] !== undefined ? currentVals[i] : '0';
+            
+            html += `
+                <tr class="hover:bg-slate-800/40 transition-colors">
+                    <td class="px-4 py-2 font-mono text-slate-300 text-center bg-slate-900/30 border-r border-slate-800">${hourStr}</td>
+                    <td class="px-3 py-1.5">
+                        <input type="number" class="ins-hourly-input w-full glass-input rounded-md px-3 py-1 text-sm font-mono text-center calc-trigger" value="${val}" min="0" step="0.5">
+                    </td>
+                </tr>
+            `;
+        }
+        tbody.innerHTML = html;
+
+        tbody.querySelectorAll('.calc-trigger').forEach(inp => {
+            inp.addEventListener('input', calcInsulin);
+        });
+
+        calcInsulin();
+    }
+
+    function resetInsulinInputs() {
+        document.querySelectorAll('.ins-hourly-input').forEach(input => {
+            input.value = "0";
+        });
+        calcInsulin();
+        showToast('Parameter Bridging Insulin direset ke default.');
+    }
+
+    function resetNE() {
+        const bb = document.getElementById('ne-bb');
+        const mg = document.getElementById('ne-mg');
+        const cc = document.getElementById('ne-cc');
+        if (bb) bb.value = "50";
+        if (mg) mg.value = "8";
+        if (cc) cc.value = "50";
+        calcNE();
+        showToast('Parameter Norepinephrine direset ke default.');
+    }
+
+    function resetDobu() {
+        const bb = document.getElementById('dobu-bb');
+        const mg = document.getElementById('dobu-mg');
+        const cc = document.getElementById('dobu-cc');
+        if (bb) bb.value = "80";
+        if (mg) mg.value = "500";
+        if (cc) cc.value = "50";
+        calcDobu();
+        showToast('Parameter Dobutamin direset ke default.');
+    }
+
+    function resetDopa() {
+        const bb = document.getElementById('dopa-bb');
+        const mg = document.getElementById('dopa-mg');
+        const cc = document.getElementById('dopa-cc');
+        if (bb) bb.value = "70";
+        if (mg) mg.value = "400";
+        if (cc) cc.value = "50";
+        calcDopa();
+        showToast('Parameter Dopamin direset ke default.');
+    }
+
+    function resetNicardipine() {
+        const bb = document.getElementById('nica-bb');
+        const mg = document.getElementById('nica-mg');
+        const cc = document.getElementById('nica-cc');
+        if (bb) bb.value = "40";
+        if (mg) mg.value = "10";
+        if (cc) cc.value = "50";
+        calcNicardipine();
+        showToast('Parameter Nikardipin direset ke default.');
+    }
+
+    function resetNTG() {
+        const mg = document.getElementById('ntg-mg');
+        const cc = document.getElementById('ntg-cc');
+        if (mg) mg.value = "10";
+        if (cc) cc.value = "50";
+        calcNTG();
+        showToast('Parameter Nitrogliserin direset ke default.');
+    }
+
+    function resetNa() {
+        const sex = document.getElementById('na-sex');
+        const age = document.getElementById('na-age');
+        const bb = document.getElementById('na-bb');
+        const fluid = document.getElementById('na-fluid');
+        const actual = document.getElementById('na-actual');
+        const target = document.getElementById('na-target');
+        if (sex) sex.value = "m";
+        if (age) age.value = "young";
+        if (bb) bb.value = "60";
+        if (fluid) fluid.value = "0";
+        if (actual) actual.value = "155";
+        if (target) target.value = "145";
+        calcNa();
+        showToast('Parameter Hipernatremia direset ke default.');
+    }
+
+    function resetABG() {
+        const ph = document.getElementById('abg-ph');
+        const pco2 = document.getElementById('abg-pco2');
+        const hco3 = document.getElementById('abg-hco3');
+        const na = document.getElementById('abg-na');
+        const cl = document.getElementById('abg-cl');
+        const alb = document.getElementById('abg-alb');
+        const pao2 = document.getElementById('abg-pao2');
+        const fio2 = document.getElementById('abg-fio2');
+        const bb = document.getElementById('abg-bb');
+        if (ph) ph.value = "7.25";
+        if (pco2) pco2.value = "30";
+        if (hco3) hco3.value = "12";
+        if (na) na.value = "140";
+        if (cl) cl.value = "105";
+        if (alb) alb.value = "4.0";
+        if (pao2) pao2.value = "90";
+        if (fio2) fio2.value = "21";
+        if (bb) bb.value = "60";
+        calcABG();
+        showToast('Parameter Acid-Base Analyzer direset ke default.');
+    }
+
+    function quickFillInsulin(val) {
+        document.querySelectorAll('.ins-hourly-input').forEach(input => {
+            input.value = val;
+        });
+        calcInsulin();
+    }
+
+    function calcInsulin() {
+        let total = 0;
+        document.querySelectorAll('.ins-hourly-input').forEach(input => {
+            total += parseFloat(input.value) || 0;
+        });
+
+        const totalBB = total * 0.8;
+        const basal = totalBB * 0.5;
+        const prandial = basal / 3;
+
+        const totalEl = document.getElementById('ins-total');
+        if (!totalEl) return;
+
+        totalEl.innerText = fmtIndo(total, 1);
+        document.getElementById('ins-bb-80').innerText = fmtIndo(totalBB, 1);
+        document.getElementById('ins-basal-50').innerText = fmtIndo(basal, 1);
+        document.getElementById('ins-prandial-3').innerText = fmtIndo(prandial, 1);
+
+        let cppt = `BRIDGING INSULIN (TRANSISI KE SUBKUTAN)\n\n`;
+        cppt += `Total drip 24 jam       : ${fmtIndo(total, 1)} U\n`;
+        cppt += `Total basal-bolus (80%) : ${fmtIndo(totalBB, 1)} U\n`;
+        cppt += `Insulin basal (50%)     : ${fmtIndo(basal, 1)} U (diberikan 1x/hari SC)\n`;
+        cppt += `Insulin prandial (/x3)  : ${fmtIndo(prandial, 1)} U (tiap makan SC)\n\n`;
+        cppt += `Instruksi Overlap:\n`;
+        cppt += `- Berikan dosis insulin basal subkutan 1 - 2 jam sebelum drip IV dihentikan.\n`;
+        cppt += `- Pastikan pasien toleransi intake oral saat beralih ke regimen subkutan.`;
+
+        const cpptEl = document.getElementById('ins-cppt');
+        if (cpptEl) cpptEl.innerText = cppt;
+    }
+
+    // 7. Koreksi Hipernatremia
+    function calcNa() {
+        const sex = document.getElementById('na-sex')?.value || 'm';
+        const age = document.getElementById('na-age')?.value || 'young';
+        const bb = parseFloat(document.getElementById('na-bb')?.value) || 0;
+        const actualNa = parseFloat(document.getElementById('na-actual')?.value) || 0;
+        const targetNa = parseFloat(document.getElementById('na-target')?.value) || 140;
+
+        const fluidSelect = document.getElementById('na-fluid');
+        if (!fluidSelect) return;
+        const infusNa = parseFloat(fluidSelect.value) || 0;
+        const fluidName = fluidSelect.options[fluidSelect.selectedIndex].text.split('(')[0].trim();
+
+        let factor = 0.6;
+        if (sex === 'm') {
+            factor = (age === 'young') ? 0.6 : 0.5;
+        } else {
+            factor = (age === 'young') ? 0.5 : 0.45;
+        }
+
+        const tbw = bb * factor;
+        let adrogueDrop = 0;
+        let adrogueVol = 0;
+        let hourlyRate = 0;
+
+        if (actualNa > 0 && tbw > 0) {
+            adrogueDrop = (actualNa - infusNa) / (tbw + 1);
+            if (adrogueDrop > 0) {
+                const targetDrop = actualNa - targetNa;
+                adrogueVol = targetDrop / adrogueDrop;
+                hourlyRate = (adrogueVol * 1000) / 24;
+            }
+        }
+
+        let fwd = 0;
+        if (actualNa > targetNa && targetNa > 0) {
+            fwd = tbw * ((actualNa / targetNa) - 1);
+        }
+
+        document.getElementById('na-tbw').innerText = tbw.toFixed(1);
+        document.getElementById('na-adrogue-drop').innerText = adrogueDrop.toFixed(2);
+        document.getElementById('na-adrogue-vol').innerText = Math.max(0, adrogueVol).toFixed(2);
+        document.getElementById('na-infusion-rate').innerText = Math.max(0, Math.round(hourlyRate));
+        document.getElementById('na-fwd').innerText = fwd > 0 ? fwd.toFixed(2) : "0.00";
+
+        let cppt = `KOREKSI HIPERNATREMIA\n`;
+        cppt += `Data Pasien: BB ${bb} kg | TBW: ${tbw.toFixed(1)} L | Na Aktual: ${actualNa} mEq/L -> Target: ${targetNa} mEq/L\n\n`;
+        cppt += `[1] Metode Adrogue-Madias (PAPDI):\n`;
+        cppt += `  - Cairan Infus : ${fluidName} (Na: ${infusNa} mEq/L)\n`;
+        cppt += `  - Estimasi Drop: ${adrogueDrop.toFixed(2)} mEq/L per 1 Liter cairan\n`;
+        cppt += `  - Total Cairan : ${Math.max(0, adrogueVol).toFixed(2)} Liter\n`;
+        cppt += `  - Kecepatan    : ${Math.max(0, Math.round(hourlyRate))} mL/jam (habis dalam 24 jam)\n\n`;
+        cppt += `[2] Free Water Deficit (Air Murni):\n`;
+        cppt += `  - Defisit Cairan: ${Math.max(0, fwd).toFixed(2)} Liter\n\n`;
+        cppt += `Peringatan: Penurunan Na maks 10-12 mEq/L per 24 jam untuk mencegah edema serebri.`;
+
+        const cpptEl = document.getElementById('na-cppt');
+        if (cpptEl) cpptEl.innerText = cppt;
+    }
+
+    // 8. Acid-Base Analyzer
+    function calcABG() {
+        const ph = parseFloat(document.getElementById('abg-ph')?.value) || 0;
+        const pco2 = parseFloat(document.getElementById('abg-pco2')?.value) || 0;
+        const hco3 = parseFloat(document.getElementById('abg-hco3')?.value) || 0;
+        const na = parseFloat(document.getElementById('abg-na')?.value) || 140;
+        const cl = parseFloat(document.getElementById('abg-cl')?.value) || 105;
+        const alb = parseFloat(document.getElementById('abg-alb')?.value) || 4.0;
+        const pao2 = parseFloat(document.getElementById('abg-pao2')?.value) || 90;
+        const fio2 = parseFloat(document.getElementById('abg-fio2')?.value) || 21;
+        const bb = parseFloat(document.getElementById('abg-bb')?.value) || 60;
+
+        if (ph === 0 || pco2 === 0 || hco3 === 0) return;
+
+        // 1. Henderson Equation Validation: [H+] = 24 * (pCO2 / HCO3)
+        const h_calc = 24 * (pco2 / hco3);
+        let h_exact = 40;
+        if (ph >= 7.0 && ph <= 7.8) {
+            h_exact = 40 + ((7.40 - ph) * 100);
+        } else {
+            h_exact = Math.pow(10, (9 - ph));
+        }
+        const diff = Math.abs(h_calc - h_exact) / h_exact * 100;
+        let valStatus = diff <= 15 
+            ? `<span class="text-emerald-400 font-semibold">Valid (&Delta; ${diff.toFixed(1)}%)</span>` 
+            : `<span class="text-rose-400 font-semibold">Tidak Valid (&Delta; ${diff.toFixed(1)}%)</span>`;
+        const henEl = document.getElementById('abg-res-henderson');
+        if (henEl) henEl.innerHTML = `H+ Kalkulasi: ${h_calc.toFixed(1)} | Aktual: ${h_exact.toFixed(1)} &rarr; ${valStatus}`;
+
+        // 2 & 3. Gangguan Primer & Winter's Formula
+        let primer = "Normal / Terkompensasi Sempurna";
+        let komp = "-";
+        let winter = "-";
+
+        if (ph < 7.35) {
+            if (hco3 < 22 && pco2 <= 45) {
+                primer = "Asidosis Metabolik";
+                let expPco2 = (1.5 * hco3) + 8;
+                winter = `Winter's exp pCO2: ${expPco2.toFixed(1)} &plusmn; 2 mmHg`;
+                if (pco2 >= expPco2 - 2 && pco2 <= expPco2 + 2) komp = "Kompensasi Respiratorik Adekuat";
+                else if (pco2 > expPco2 + 2) komp = "Campuran: + Asidosis Respiratorik";
+                else komp = "Campuran: + Alkalosis Respiratorik";
+            } else if (pco2 > 45) {
+                primer = "Asidosis Respiratorik";
+                let expHco3Akut = 24 + 0.1 * (pco2 - 40);
+                let expHco3Kronik = 24 + 0.35 * (pco2 - 40);
+                winter = `Exp HCO3 Akut: ${expHco3Akut.toFixed(1)} | Kronik: ${expHco3Kronik.toFixed(1)}`;
+                if (hco3 > 26) komp = "Kompensasi Metabolik Renal";
+                else komp = "Fase Akut / Belum Ada Kompensasi Ginjal";
+            }
+        } else if (ph > 7.45) {
+            if (hco3 > 26 && pco2 >= 35) {
+                primer = "Alkalosis Metabolik";
+                let expPco2 = (0.7 * hco3) + 21;
+                winter = `Exp pCO2: ${expPco2.toFixed(1)} &plusmn; 2 mmHg`;
+                if (pco2 >= expPco2 - 2 && pco2 <= expPco2 + 2) komp = "Kompensasi Respiratorik Adekuat";
+                else if (pco2 > expPco2 + 2) komp = "Campuran: + Asidosis Respiratorik";
+                else komp = "Campuran: + Alkalosis Respiratorik";
+            } else if (pco2 < 35) {
+                primer = "Alkalosis Respiratorik";
+                let expHco3Akut = 24 - 0.2 * (40 - pco2);
+                let expHco3Kronik = 24 - 0.5 * (40 - pco2);
+                winter = `Exp HCO3 Akut: ${expHco3Akut.toFixed(1)} | Kronik: ${expHco3Kronik.toFixed(1)}`;
+                if (hco3 < 22) komp = "Kompensasi Ginjal";
+                else komp = "Fase Akut";
+            }
+        }
+
+        const primerEl = document.getElementById('abg-res-primer');
+        if (primerEl) primerEl.innerText = primer;
+        const kompEl = document.getElementById('abg-res-komp');
+        if (kompEl) kompEl.innerText = komp;
+        const winterEl = document.getElementById('abg-res-winter');
+        if (winterEl) winterEl.innerHTML = winter;
+
+        // 4. Anion Gap + Koreksi Albumin
+        let ag = na - (cl + hco3);
+        let agCorr = ag + 2.5 * (4.0 - alb);
+        let agStatus = agCorr > 12 ? "High Anion Gap (AGMA)" : "Normal Anion Gap (NAGMA)";
+        const agEl = document.getElementById('abg-res-ag');
+        if (agEl) agEl.innerHTML = `AG Aktual: ${ag.toFixed(1)} | <span class="text-amber-400 font-bold">Koreksi: ${agCorr.toFixed(1)}</span> &rarr; ${agStatus}`;
+
+        // 5. Workup AGMA / Delta Ratio
+        let workupText = "-";
+        if (primer.includes("Asidosis Metabolik") && agCorr > 12) {
+            let deltaAG = agCorr - 12;
+            let deltaHCO3 = 24 - hco3;
+            let deltaRatio = deltaHCO3 !== 0 ? (deltaAG / deltaHCO3) : 1;
+            let dx = "";
+            if (deltaRatio < 0.4) dx = "NAGMA Murni";
+            else if (deltaRatio >= 0.4 && deltaRatio <= 0.8) dx = "Campuran AGMA + NAGMA";
+            else if (deltaRatio > 0.8 && deltaRatio <= 2.0) dx = "AGMA Murni (Pure AGMA)";
+            else dx = "Campuran AGMA + Alkalosis Metabolik Pre-existing";
+
+            workupText = `Delta Ratio: <span class="font-bold text-amber-400">${deltaRatio.toFixed(2)}</span> &rarr; ${dx}`;
+        } else if (primer.includes("Asidosis Metabolik")) {
+            workupText = `<span class="text-amber-400 font-semibold">NAGMA Murni</span>. Evaluasi GI loss (diare) atau Renal loss (RTA).`;
+        } else {
+            workupText = `N/A (Bukan kelainan primer Asidosis Metabolik).`;
+        }
+        const workupEl = document.getElementById('abg-res-workup');
+        if (workupEl) workupEl.innerHTML = workupText;
+
+        // 6. Oksigenasi (PaO2 / FiO2 Ratio)
+        let pfRatio = fio2 > 0 ? (pao2 / (fio2 / 100)) : 0;
+        let pfStatus = "";
+        if (pfRatio > 400) pfStatus = "Normal (>400)";
+        else if (pfRatio > 300) pfStatus = "Oksigenasi suboptimal (300-400)";
+        else if (pfRatio > 200) pfStatus = "Mild ARDS (200-300)";
+        else if (pfRatio > 100) pfStatus = "Moderate ARDS (100-200)";
+        else pfStatus = "Severe ARDS (&le; 100)";
+
+        const oxyEl = document.getElementById('abg-res-oxy');
+        if (oxyEl) oxyEl.innerHTML = `Rasio P/F: <span class="font-bold text-cyan-400">${Math.round(pfRatio)}</span> &rarr; ${pfStatus}`;
+
+        // 7. Indikasi Bikarbonat (NaHCO3)
+        let bicarbText = "Tidak ada indikasi mutlak pemberian koreksi bikarbonat (pH &ge; 7.1).";
+        if (ph < 7.1 && primer.includes("Asidosis Metabolik")) {
+            let doseBicarb = 0.5 * bb * (15 - hco3);
+            if (doseBicarb > 0) {
+                bicarbText = `<span class="text-rose-400 font-bold">Asidemia Berat (pH &lt; 7.1)</span>: Estimasi defisit awal = ${doseBicarb.toFixed(1)} mEq (berikan 1/2 dosis sebagai infus lambat).`;
+            }
+        }
+        const bicarbEl = document.getElementById('abg-res-bicarb');
+        if (bicarbEl) bicarbEl.innerHTML = bicarbText;
+
+        // Output CPPT
+        let cppt = `ANALISIS GAS DARAH (BGA)\n`;
+        cppt += `Parameter: pH ${ph} | pCO2 ${pco2} | HCO3 ${hco3} | PaO2 ${pao2} | FiO2 ${fio2}%\n`;
+        cppt += `Elektrolit: Na ${na} | Cl ${cl} | Albumin ${alb} g/dL\n\n`;
+        cppt += `INTERPRETASI:\n`;
+        cppt += `1. Validasi Henderson : ${valStatus.replace(/<[^>]*>?/gm, '')}\n`;
+        cppt += `2. Gangguan Primer    : ${primer}\n`;
+        cppt += `3. Kompensasi Paru    : ${komp} (${winter.replace(/&plusmn;/g, '±')})\n`;
+        cppt += `4. Anion Gap          : Koreksi ${agCorr.toFixed(1)} (${agStatus})\n`;
+        cppt += `5. Analisis Delta     : ${workupText.replace(/<[^>]*>?/gm, '')}\n`;
+        cppt += `6. Status Oksigenasi  : P/F ${Math.round(pfRatio)} (${pfStatus.replace(/&le;/g, '<=')})\n`;
+        cppt += `7. Koreksi NaHCO3     : ${bicarbText.replace(/<[^>]*>?/gm, '')}`;
+
+        const cpptEl = document.getElementById('abg-cppt');
+        if (cpptEl) cpptEl.innerText = cppt;
+    }
+
+    function calculateAll() {
+        calcNE();
+        calcDobu();
+        calcDopa();
+        calcNica();
+        calcNTG();
+        calcInsulin();
+        calcNa();
+        calcABG();
+    }
+
+    // Initialize calculations & UI bindings
+    document.addEventListener('DOMContentLoaded', () => {
+        initGlobalSearch();
+        renderInsulinTable();
+
+        document.querySelectorAll('.calc-trigger').forEach(input => {
+            input.addEventListener('input', calculateAll);
+        });
+
+        document.getElementById('na-fluid')?.addEventListener('change', calculateAll);
+        document.getElementById('na-sex')?.addEventListener('change', calculateAll);
+        document.getElementById('na-age')?.addEventListener('change', calculateAll);
+
+        calculateAll();
+    });
+    </script>
+</body>
+</html>

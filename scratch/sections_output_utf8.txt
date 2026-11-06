@@ -1,0 +1,968 @@
+
+NOT FOUND: id="calc-fib4"
+
+NOT FOUND: function calculateFib4()
+
+NOT FOUND: id="calc-rfactor"
+
+=================== R-Factor JS ===================
+
+=================== GBS BUN HTML ===================
+id="gbs-bun" step="0.1" placeholder="e.g. 8.5 (mmol/L) / 24 (mg/dL)" required class="glass-input w-full px-3 py-2 rounded-lg text-sm">
+                                <span id="gbs-bun-hint" class="text-[11px] text-slate-400 mt-1 block">Satuan aktif: mmol/L (Normal ~2.5 - 7.1)</span>
+                            </div>
+
+                            <div>
+                                <label for="gbs-hb" class="text-xs font-semibold text-slate-300 mb-1 block">Hemoglobin (g/dL) <span class="text-rose-400">*</span></label>
+                                <input type="number" id="gbs-hb" step="0.1" placeholder="e.g. 10.5" required class="glass-input w-full px-3 py-2 rounded-lg text-sm">
+                            </div>
+
+                            <div>
+                                <label for="gbs-sbp" class="text-xs font-semibold text-slate-300 mb-1 block">Tekanan Darah Sistolik (mmHg) <span class="text-rose-400">*</span></label>
+                                <input type="number" id="gbs-sbp" placeholder="e.g. 110" required class="glass-input w-full px-3 py-2 rounded-lg text-sm">
+                            </div>
+
+                            <div>
+                                <label for="gbs-hr" class="text-xs font-semibold text-slate-300 mb-1 block">Denyut Nadi (bpm) <span class="text-rose-400">*</span></label>
+                                <input type="number" id="gbs-hr" placeholder="e.g. 96" required class="glass-input w-full px-3 py-2 rounded-lg text-sm">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <label class="flex items-center p-3 rounded-lg bg-slate-900/40 border border-slate-800 cursor-pointer hover:bg-slate-800/40 transition-colors">
+                                <input type="checkbox" id="gbs-melena" class="w-4 h-4 accent-cyan-400 rounded">
+                                <span class="ml-3 text-xs sm:text-sm text-slate-200">Ada Melena (+1)</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg bg-slate-900/40 border border-slate-800 cursor-pointer hover:bg-slate-800/40 transition-colors">
+                                <input type="checkbox" id="gbs-syncope" class="w-4 h-4 accent-cyan-400 rounded">
+                                <span class="ml-3 text-xs sm:text-sm text-slate-200">Ada Sinkop (+2)</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg bg-slate-900/40 border border-slate-800 cursor-pointer hover:bg-slate-800/40 transition-colors">
+                                <input type="checkbox" id="gbs-hepatic" class="w-4 h-4 accent-cyan-400 rounded">
+                                <span class="ml-3 text-xs sm:text-sm text-slate-200">Riwayat Penyakit Hati (+2)</span>
+                            </label>
+                            <label class="flex items-center p-3 rounded-lg bg-slate-900/40 border border-slate-800 cursor-pointer hover:bg-slate-800/40 transition-colors">
+                                <input type="checkbox" id="gbs-cardiac" class="w-4 h-4 accent-cyan-400 rounded">
+                                <span class="ml-3 text-xs sm:text-sm text-slate-200">Riwayat Gagal Jantung (+2)</span>
+                            </label>
+                        </div>
+
+                        <div class="pt-2">
+                            <button type="button" onclick="calculateGBS()" class="glass-btn px-6 py-2.5 rounded-lg text-sm font-semibold flex items-center">
+                                <i class="fa-solid fa-calculator mr-2"></i> Hitung Skor GBS
+                            </button>
+                        </div>
+                    </form>
+
+                    <div id="gbs-result-container" class="hidden mt-6"></div>
+
+                    <div class="mt-8 pt-4 border-t border-slate-800 text-xs">
+                        <div class="flex items-center text-cyan-400 font-semibold mb-2">
+                            <i class="fa-solid fa-book-medical mr-2"></i> Evidence & Guidelines Citation
+                        </div>
+                        <p class="text-slate-300"><strong>Blatchford O, Murray WR, Blatchford M.</strong> A risk score to predict need for treatment for upper-gastrointestinal haemorrhage. <em>Lancet</em>. 2000;356(9238):1318-1321.</p>
+                        <p class="text-slate-400 mt-1"><strong>ACG Clinical Guideline (2021):</strong> Upper Gastrointestinal and Ulcer Bleeding (Laine L et al., <em>Am J Gastroenterol</em>. 2021). GBS &le; 1 mengidentifikasi pasien risiko sangat rendah (&lt;1% butuh hemostasis/transfusi/meninggal) yang aman untuk rawat jalan.</p>
+                        <a href="https://pubmed.ncbi.nlm.nih.gov/11052579/" target="_blank" rel="noopener" class="inline-flex items-center text-cyan-400 hover:underline mt-2">
+                            <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> PubMed PMID: 11052579
+                        </a>
+                    </div>
+                </div>
+            
+=================== GBS toggle / JS ===================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>adjusterGEH - Clinical Decision Support System | Gastroenterology & Hepatology</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-main: #050B14;
+            --glass-bg: rgba(15, 23, 42, 0.75);
+            --glass-bg-hover: rgba(22, 34, 60, 0.88);
+            --glass-border: rgba(255, 255, 255, 0.09);
+            --glass-border-hover: rgba(0, 242, 254, 0.45);
+            --text-heading: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+            --accent-cyan: #00F2FE;
+            --accent-blue: #38BDF8;
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+            --btn-gradient: linear-gradient(135deg, #00F2FE 0%, #2563EB 100%);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-secondary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Glow Effects */
+        .ambient-glow-1 {
+            position: fixed; top: -100px; left: 10%; width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(0, 242, 254, 0.09) 0%, transparent 65%);
+            filter: blur(80px); z-index: -1; pointer-events: none;
+        }
+        .ambient-glow-2 {
+            position: fixed; bottom: 5%; right: 8%; width: 450px; height: 450px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 65%);
+            filter: blur(80px); z-index: -1; pointer-events: none;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.16); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.3); }
+
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            transition: all 0.22s ease;
+        }
+        .glass-card:hover {
+            border-color: var(--glass-border-hover);
+            box-shadow: 0 8px 30px 0 rgba(0, 242, 254, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .glass-input {
+            background: rgba(30, 41, 59, 0.65);
+            border: 1px solid var(--glass-border);
+            color: var(--text-heading);
+            transition: all 0.2s ease;
+        }
+        .glass-input:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 0 3px rgba(0, 242, 254, 0.18);
+        }
+
+        .glass-btn {
+            background: var(--btn-gradient);
+            color: #ffffff;
+            border: none;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.35);
+            transition: all 0.2s ease;
+        }
+        .glass-btn:hover {
+            box-shadow: 0 6px 20px rgba(0, 242, 254, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .glass-btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--glass-border);
+            color: var(--text-heading);
+            transition: all 0.2s ease;
+        }
+        .glass-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--accent-cyan);
+        }
+
+        /* Quick Module Horizontal Scroll Bar (RheumaTools Style) */
+        .quick-nav-bar {
+            background: rgba(10, 16, 31, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky;
+            top: 56px;
+            z-index: 30;
+            padding: 0.5rem 1rem;
+        }
+
+        .quick-nav-scroll {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .quick-nav-scroll::-webkit-scrollbar { display: none; }
+
+        .quick-nav-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.4rem 0.85rem;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            font-size: 0.78rem;
+            font-weight: 500;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .quick-nav-pill:hover {
+            background: rgba(255, 255, 255, 0.09);
+            color: #ffffff;
+            border-color: rgba(0, 242, 254, 0.35);
+        }
+        .quick-nav-pill.active {
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.18) 0%, rgba(79, 172, 254, 0.12) 100%);
+            color: var(--accent-cyan);
+            border-color: rgba(0, 242, 254, 0.45);
+            font-weight: 600;
+            box-shadow: 0 0 12px rgba(0, 242, 254, 0.2);
+        }
+
+        /* Back Navigation Button */
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.4rem 0.85rem;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-back:hover {
+            background: rgba(0, 242, 254, 0.12);
+            border-color: rgba(0, 242, 254, 0.4);
+            color: var(--accent-cyan);
+            transform: translateX(-2px);
+        }
+
+        #toast-notice {
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body class="selection:bg-cyan-900 selection:text-cyan-100">
+
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
+
+    <!-- Toast Notification -->
+    <div id="toast-notice" class="fixed bottom-6 right-6 z-50 flex items-center space-x-3 px-5 py-3 rounded-xl bg-slate-900/95 border border-cyan-500/50 shadow-[0_10px_35px_rgba(0,242,254,0.3)] text-white text-sm font-medium translate-y-24 opacity-0 pointer-events-none">
+        <i class="fa-solid fa-circle-check text-cyan-400 text-lg"></i>
+        <span id="toast-message">Resume klinis berhasil disalin!</span>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="flex flex-col min-h-screen">
+        
+        <!-- Top Sticky Header -->
+        <header class="h-14 glass-panel sticky top-0 z-40 border-t-0 border-x-0 rounded-none flex items-center justify-between px-3 sm:px-6 gap-2">
+            <div class="flex items-center space-x-2 sm:space-x-3 shrink-0">
+                <button type="button" onclick="navigateTo('home-module', 'Home Dashboard', 'pill-dash')" class="flex items-center space-x-2 sm:space-x-2.5 cursor-pointer text-left">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-400/20 to-blue-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-400 shrink-0">
+                        <i class="fa-solid fa-staff-snake text-base"></i>
+                    </div>
+                    <div>
+                        <span class="text-white font-bold text-sm tracking-tight block leading-tight font-['Plus_Jakarta_Sans']">adjusterGEH</span>
+                        <span class="text-[10px] text-cyan-400 font-medium block leading-tight">Clinical CDSS</span>
+                    </div>
+                </button>
+                <div class="h-4 w-px bg-white/10 hidden md:block"></div>
+                <div class="hidden md:block">
+                    <h2 id="header-title" class="text-xs font-semibold text-slate-200 truncate max-w-[140px] lg:max-w-none">Home Dashboard</h2>
+                </div>
+            </div>
+
+            <!-- Top Search Bar (Realtime Calculator Discovery) -->
+            <div class="relative flex-1 max-w-xs sm:max-w-md mx-1 sm:mx-4" id="header-search-container">
+                <div class="relative flex items-center">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 text-slate-400 text-xs pointer-events-none"></i>
+                    <input type="text" id="global-search-input" placeholder="Cari kalkulator (e.g. Rome IV, Lyon, ESPEN, MELD)..." autocomplete="off" class="w-full pl-8 pr-14 py-1.5 rounded-full bg-slate-900/80 border border-slate-700/70 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all">
+                    <span class="hidden sm:inline-block absolute right-2.5 px-1.5 py-0.5 text-[9px] font-mono text-slate-400 bg-slate-800 rounded border border-slate-700 pointer-events-none">Ctrl K</span>
+                    <button id="search-clear-btn" type="button" onclick="clearGlobalSearch()" class="hidden absolute right-2.5 text-slate-400 hover:text-white text-xs px-1">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <!-- Search Results Dropdown -->
+                <div id="search-results-dropdown" class="hidden absolute top-full left-0 right-0 mt-2 bg-slate-900/95 backdrop-blur-xl border border-cyan-500/30 rounded-xl shadow-[0_12px_40px_rgba(0,0,0,0.85)] z-50 max-h-96 overflow-y-auto p-2"></div>
+            </div>
+
+            <div class="flex items-center space-x-2 shrink-0">
+                <span class="px-2.5 py-0.5 text-[11px] rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 font-medium">30 Tools</span>
+            </div>
+        </header>
+
+        <!-- Sticky Quick Navigation Bar (Horizontal Scrollable Pills) -->
+        <nav class="quick-nav-bar" aria-label="Quick Category Switcher">
+            <div class="quick-nav-scroll">
+                <button type="button" id="pill-dash" onclick="navigateTo('home-module', 'Home Dashboard', this.id)" class="quick-nav-pill active">
+                    <i class="fa-solid fa-house text-cyan-400 text-xs"></i>
+                    <span>Dashboard</span>
+                </button>
+                <button type="button" id="pill-bleed" onclick="navigateTo('hub-bleed', 'GI Bleed Hub', this.id)" class="quick-nav-pill">
+                    <i class="fa-solid fa-droplet text-rose-400 text-xs"></i>
+                    <span>GI Bleeding</span>
+                </button>
+                <button type="button" id="pill-hepa" onclick="navigateTo('hub-hepa', 'Hepatology Hub', this.id)" class="quick-nav-pill">
+                    <i class="fa-solid fa-flask text-amber-400 text-xs"></i>
+                    <span>Hepatology</span>
+                </button>
+                <button type="button" id="pill-pancreato" onclick="navigateTo('hub-pancreato', 'Pancreatobiliary Hub', this.id)" class="quick-nav-pill">
+                    <i class="fa-solid fa-bacteria text-emerald-400 text-xs"></i>
+                    <span>Pancreatobiliary</span>
+                </button>
+                <button type="button" id="pill-ibd" onclick="navigateTo('hub-ibd', 'Luminal & IBD Hub', this.id)" class="quick-nav-pill">
+                    <i class="fa-solid fa-disease text-purple-400 text-xs"></i>
+                    <span>Luminal & IBD</span>
+                </button>
+                <button type="button" id="pill-functional" onclick="navigateTo('hub-functional', 'Functional GI Hub', this.id)" class="quick-nav-pill">
+                    <i class="fa-solid fa-arrows-split-up-and-left text-pink-400 text-xs"></i>
+                    <span>Functional GI</span>
+                </button>
+                <button type="button" id="pill-endo" onclick="navigateTo('hub-endo', 'Endoscopy Hub', this.id)" class="quick-nav-pill">
+                    <i class="fa-solid fa-microscope text-teal-400 text-xs"></i>
+                    <span>Endoscopy</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content View -->
+        <main class="flex-1 p-4 sm:p-6 lg:p-8 w-full max-w-6xl mx-auto z-10">
+
+            <!-- ======================================================== -->
+            <!-- LEVEL 0: HOME DASHBOARD                                  -->
+            <!-- ======================================================== -->
+            <section id="home-module" class="module-section block">
+                
+                <!-- Welcome Banner -->
+                <div class="glass-card rounded-2xl p-6 sm:p-7 mb-7 relative overflow-hidden border-t-2 border-t-cyan-400/50">
+                    <div class="absolute -right-6 -top-6 opacity-10 pointer-events-none">
+                        <i class="fa-solid fa-notes-medical text-9xl text-cyan-400"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <span class="px-2.5 py-0.5 bg-cyan-500/20 text-cyan-300 text-xs font-semibold rounded-full border border-cyan-500/30 inline-block mb-2">
+                            Evidence-Based Medicine
+                        </span>
+                        <h2 class="text-xl sm:text-2xl font-extrabold text-white font-['Plus_Jakarta_Sans']">
+                            adjusterGEH <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-sky-400">Toolkit</span>
+                        </h2>
+                        <p class="text-slate-300 max-w-3xl text-xs sm:text-sm mt-1 leading-relaxed">
+                            Sistem pendukung keputusan klinis gastroenterologi & hepatologi berbasis bukti: skor risiko, kriteria diagnostik Rome IV & Lyon Consensus 2.0, nutrisi sirosis ESPEN, dan algoritma tatalaksana ACG, EASL, AGA, BSG, dan USMSTF.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 6 Main Category Cards Grid (Level 0 -> Level 1 Hub) -->
+                <h3 class="text-sm font-bold text-white mb-3 flex items-center justify-between">
+                    <span>Kategori Modul Klinis</span>
+                    <span class="text-xs text-slate-400 font-normal">Klik kategori untuk membuka pilihan modul</span>
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    
+                    <!-- 1. GI Bleed -->
+                    <button type="button" onclick="navigateTo('hub-bleed', 'GI Bleeding Hub', 'pill-bleed')" class="glass-card rounded-xl p-5 flex flex-col items-start text-left cursor-pointer group w-full">
+                        <div class="h-11 w-11 rounded-lg bg-rose-500/10 text-rose-400 border border-rose-500/20 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-droplet"></i>
+                        </div>
+                        <h4 class="font-bold text-white text-base mb-1 group-hover:text-cyan-400 transition-colors">1. Hemorrhagic & GI Bleed</h4>
+                        <p class="text-xs text-slate-400 line-clamp-2 mb-3">GBS (UGIB), Oakland (LGIB), Rockall (Pre & Post-Endoscopy), AIMS65, Antithrombotic, & Forrest Classification.</p>
+                        <span class="mt-auto text-xs text-rose-400 font-semibold flex items-center">Buka 6 Kalkulator <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i></span>
+                    </button>
+
+                    <!-- 2. Hepatology -->
+                    <button type="button" onclick="navigateTo('hub-hepa', 'Hepatology Hub', 'pill-hepa')" class="glass-card rounded-xl p-5 flex flex-col items-start text-left cursor-pointer group w-full">
+                        <div class="h-11 w-11 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-flask"></i>
+                        </div>
+                        <h4 class="font-bold text-white text-base mb-1 group-hover:text-cyan-400 transition-colors">2. Hepatology & Cirrhosis</h4>
+                        <p class="text-xs text-slate-400 line-clamp-2 mb-3">Child-Pugh, MELD Trio, ESPEN Nutrition (Dry Weight), SAAG & PMN, FIB-4 & APRI, R-Factor, De Ritis, NFS, Maddrey, CLIF-C, Baveno VII.</p>
+                        <span class="mt-auto text-xs text-amber-400 font-semibold flex items-center">Buka 11 Kalkulator <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i></span>
+                    </button>
+
+                    <!-- 3. Pancreatobiliary -->
+                    <button type="button" onclick="navigateTo('hub-pancreato', 'Pancreatobiliary Hub', 'pill-pancreato')" class="glass-card rounded-xl p-5 flex flex-col items-start text-left cursor-pointer group w-full">
+                        <div class="h-11 w-11 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-bacteria"></i>
+                        </div>
+                        <h4 class="font-bold text-white text-base mb-1 group-hover:text-cyan-400 transition-colors">3. Pancreatobiliary & Inf</h4>
+                        <p class="text-xs text-slate-400 line-clamp-2 mb-3">BISAP Score, Ranson's Criteria (0 & 48 Jam), TG18 (Cholecystitis/Cholangitis), Revised Atlanta 2012, & ACG C. diff.</p>
+                        <span class="mt-auto text-xs text-emerald-400 font-semibold flex items-center">Buka 5 Kalkulator <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i></span>
+                    </button>
+
+                    <!-- 4. Luminal & IBD -->
+                    <button type="button" onclick="navigateTo('hub-ibd', 'Luminal & IBD Hub', 'pill-ibd')" class="glass-card rounded-xl p-5 flex flex-col items-start text-left cursor-pointer group w-full">
+                        <div class="h-11 w-11 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-disease"></i>
+                        </div>
+                        <h4 class="font-bold text-white text-base mb-1 group-hover:text-cyan-400 transition-colors">4. Luminal & IBD</h4>
+                        <p class="text-xs text-slate-400 line-clamp-2 mb-3">Truelove & Witts (ASUC flare), Mayo Score for UC, Harvey-Bradshaw Index (Crohn's), & Fecal Calprotectin.</p>
+                        <span class="mt-auto text-xs text-purple-400 font-semibold flex items-center">Buka 4 Kalkulator <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i></span>
+                    </button>
+
+                    <!-- 5. Functional GI -->
+                    <button type="button" onclick="navigateTo('hub-functional', 'Functional GI Hub', 'pill-functional')" class="glass-card rounded-xl p-5 flex flex-col items-start text-left cursor-pointer group w-full border-pink-500/30">
+                        <div class="h-11 w-11 rounded-lg bg-pink-500/10 text-pink-400 border border-pink-500/20 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-arrows-split-up-and-left"></i>
+                        </div>
+                        <h4 class="font-bold text-white text-base mb-1 group-hover:text-cyan-400 transition-colors">5. Functional GI & Motility</h4>
+                        <p class="text-xs text-slate-400 line-clamp-2 mb-3">Rome IV Criteria (IBS & Subtipe), Rome IV (Dispepsia Fungsional PDS vs EPS), Lyon Consensus 2.0 (Objektif GERD), & LA Class.</p>
+                        <span class="mt-auto text-xs text-pink-400 font-semibold flex items-center">Buka 4 Kalkulator <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i></span>
+                    </button>
+
+                    <!-- 6. Endoscopy -->
+                    <button type="button" onclick="navigateTo('hub-endo', 'Endoscopy Hub', 'pill-endo')" class="glass-card rounded-xl p-5 flex flex-col items-start text-left cursor-pointer group w-full">
+                        <div class="h-11 w-11 rounded-lg bg-teal-500/10 text-teal-400 border border-teal-500/20 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-microscope"></i>
+                        </div>
+                        <h4 class="font-bold text-white text-base mb-1 group-hover:text-cyan-400 transition-colors">6. Endoscopy & Surveillance</h4>
+                        <p class="text-xs text-slate-400 line-clamp-2 mb-3">Post-Polypectomy surveillance interval guidelines berdasarkan rekomendasi USMSTF 2020.</p>
+                        <span class="mt-auto text-xs text-teal-400 font-semibold flex items-center">Buka Kalkulator <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i></span>
+                    </button>
+
+                </div>
+
+                <!-- Medical Disclaimer -->
+                <div class="mt-8 glass-panel p-4 rounded-xl flex items-start border-l-4 border-l-amber-500 bg-slate-900/60">
+                    <i class="fa-solid fa-triangle-exclamation text-amber-400 mt-1 mr-3 text-base"></i>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        <strong class="text-white font-semibold">Medical Disclaimer:</strong> adjusterGEH CDSS ditujukan untuk dokter, gastroenterolog, dan tenaga medis sebagai alat bantu klinis dan referensi berbasis bukti. Seluruh rekomendasi harus selalu disesuaikan dengan penilaian klinis komprehensif (*clinical judgment*) terhadap kondisi masing-masing pasien.
+                    </p>
+                </div>
+            </section>
+
+            <!-- ======================================================== -->
+            <!-- LEVEL 1: CATEGORY HUBS                                   -->
+            <!-- ======================================================== -->
+
+            <!-- Hub 1: GI Bleeding -->
+            <section id="hub-bleed" class="module-section hidden">
+                <div class="flex items-center justify-between mb-5">
+                    <button type="button" onclick="navigateTo('home-module', 'Home Dashboard', 'pill-dash')" class="btn-back">
+                        <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
+                    </button>
+                    <span class="px-2.5 py-0.5 text-xs font-bold rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">6 Modul</span>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2 font-['Plus_Jakarta_Sans']">Hemorrhagic & GI Bleed Tools</h3>
+                <p class="text-xs text-slate-400 mb-5">Pilih instrumen kalkulator perdarahan saluran cerna di bawah ini:</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <button type="button" onclick="navigateTo('gbs-module', 'Glasgow-Blatchford Score', 'pill-bleed', 'hub-bleed')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group">
+                        <div class="h-10 w-10 rounded-lg bg-rose-500/10 text-rose-400 border border-rose-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-arrow-up-right-dots"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm mb-1 group-hover:text-cyan-400 transition-colors">Glasgow-Blatchford Score (GBS)</h4>
+                            <p class="text-xs text-slate-400">Stratifikasi risiko UGIB sebelum endoskopi untuk menentukan kelayakan rawat jalan.</p>
+                        </div>
+                    </button>
+
+                    <button type="button" onclick="navigateTo('oakland-module', 'Oakland Score for LGIB', 'pill-bleed', 'hub-bleed')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group">
+                        <div class="h-10 w-10 rounded-lg bg-rose-500/10 text-rose-400 border border-rose-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-arrow-down-wide-short"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm mb-1 group-hover:text-cyan-400 transition-colors">Oakland Score for LGIB</h4>
+                            <p class="text-xs text-slate-400">Prediksi safe discharge rawat jalan pada perdarahan saluran cerna bawah akut.</p>
+                        </div>
+                    </button>
+
+                    <button type="button" onclick="navigateTo('rockall-module', 'Rockall Score (Pre & Post)', 'pill-bleed', 'hub-bleed')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group border-rose-500/40">
+                        <div class="h-10 w-10 rounded-lg bg-rose-500/10 text-rose-400 border border-rose-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-notes-medical"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center space-x-1.5 mb-1">
+                                <h4 class="font-bold text-white text-sm group-hover:text-cyan-400 transition-colors">Rockall Score</h4>
+                                <span class="px-1.5 py-0.2 bg-cyan-500/20 text-cyan-300 text-[10px] font-bold rounded">Pre & Post</span>
+                            </div>
+                            <p class="text-xs text-slate-400">Stratifikasi risiko mortalitas pre-endoskopi & rebleeding post-endoskopi pada UGIB.</p>
+                        </div>
+                    </button>
+
+                    <button type="button" onclick="navigateTo('aims65-module', 'AIMS65 Score (UGIB)', 'pill-bleed', 'hub-bleed')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group">
+                        <div class="h-10 w-10 rounded-lg bg-rose-500/10 text-rose-400 border border-rose-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-skull"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm mb-1 group-hover:text-cyan-400 transition-colors">AIMS65 Score</h4>
+                            <p class="text-xs text-slate-400">Skor prediksi mortalitas in-hospital dan risiko ICU pada perdarahan saluran cerna atas.</p>
+                        </div>
+                    </button>
+
+                    <button type="button" onclick="navigateTo('antithrombotic-module', 'Antithrombotic Mgmt', 'pill-bleed', 'hub-bleed')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group">
+                        <div class="h-10 w-10 rounded-lg bg-rose-500/10 text-rose-400 border border-rose-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-pills"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm mb-1 group-hover:text-cyan-400 transition-colors">Antithrombotic Management</h4>
+                            <p class="text-xs text-slate-400">Algoritma reversal dan waktu aman memulai kembali antiplatelet/antikoagulan.</p>
+                        </div>
+                    </button>
+
+                    <button type="button" onclick="navigateTo('forrest-module', 'Forrest Classification', 'pill-bleed', 'hub-bleed')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group">
+                        <div class="h-10 w-10 rounded-lg bg-rose-500/10 text-rose-400 border border-rose-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm mb-1 group-hover:text-cyan-400 transition-colors">Forrest Classification</h4>
+                            <p class="text-xs text-slate-400">Klasifikasi stigmata ulkus peptikum pada EGD untuk stratifikasi rebleeding & PPI drip.</p>
+                        </div>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Hub 2: Hepatology -->
+            <section id="hub-hepa" class="module-section hidden">
+                <div class="flex items-center justify-between mb-5">
+                    <button type="button" onclick="navigateTo('home-module', 'Home Dashboard', 'pill-dash')" class="btn-back">
+                        <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
+                    </button>
+                    <span class="px-2.5 py-0.5 text-xs font-bold rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">11 Modul</span>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2 font-['Plus_Jakarta_Sans']">Hepatology & Cirrhosis Tools</h3>
+                <p class="text-xs text-slate-400 mb-5">Pilih instrumen kalkulator penyakit hepar & sirosis di bawah ini:</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Child-Pugh -->
+                    <button type="button" onclick="navigateTo('ctp-module', 'Child-Turcotte-Pugh (CTP)', 'pill-hepa', 'hub-hepa')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group border-amber-500/40">
+                        <div class="h-10 w-10 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-ranking-star"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center space-x-1.5 mb-1">
+                                <h4 class="font-bold text-white text-sm group-hover:text-cyan-400 transition-colors">Child-Pugh Score (CTP)</h4>
+                                <span class="px-1.5 py-0.2 bg-amber-500/20 text-amber-300 text-[10px] font-bold rounded">Class A/B/C</span>
+                            </div>
+                            <p class="text-xs text-slate-400">Klasifikasi keparahan sirosis, survival rate, risiko operasi, & penyesuaian dosis obat.</p>
+                        </div>
+                    </button>
+
+                    <!-- MELD, MELD-Na, MELD 3.0 -->
+                    <button type="button" onclick="navigateTo('meld-module', 'MELD, MELD-Na, & MELD 3.0', 'pill-hepa', 'hub-hepa')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group border-cyan-500/40">
+                        <div class="h-10 w-10 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-calculator"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center space-x-1.5 mb-1">
+                                <h4 class="font-bold text-white text-sm group-hover:text-cyan-400 transition-colors">MELD Trio (Orig, Na, 3.0)</h4>
+                                <span class="px-1.5 py-0.2 bg-cyan-500/20 text-cyan-300 text-[10px] font-bold rounded">3-in-1</span>
+                            </div>
+                            <p class="text-xs text-slate-400">Model end-stage liver disease: MELD standar, MELD-Na, & MELD 3.0 (gender/albumin bias-free).</p>
+                        </div>
+                    </button>
+
+                    <!-- ESPEN Liver Nutrition -->
+                    <button type="button" onclick="navigateTo('espen-nutrition-module', 'Liver Disease Nutrition (ESPEN)', 'pill-hepa', 'hub-hepa')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group border-amber-500/40">
+                        <div class="h-10 w-10 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-wheat-awn"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center space-x-1.5 mb-1">
+                                <h4 class="font-bold text-white text-sm group-hover:text-cyan-400 transition-colors">Liver Nutrition (ESPEN)</h4>
+                                <span class="px-1.5 py-0.2 bg-amber-500/20 text-amber-300 text-[10px] font-bold rounded">Dry Weight</span>
+                            </div>
+                            <p class="text-xs text-slate-400">Kebutuhan kalori (30-35 kcal/kg) & protein (1.2-1.5 g/kg) dengan penyesuaian dry weight asites & edema.</p>
+                        </div>
+                    </button>
+
+                    <!-- SAAG & Absolute PMN -->
+                    <button type="button" onclick="navigateTo('saag-module', 'SAAG & Absolute PMN', 'pill-hepa', 'hub-hepa')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group border-emerald-500/40">
+                        <div class="h-10 w-10 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-vial-circle-check"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center space-x-1.5 mb-1">
+                                <h4 class="font-bold text-white text-sm group-hover:text-cyan-400 transition-colors">SAAG & Absolute PMN</h4>
+                                <span class="px-1.5 py-0.2 bg-emerald-500/20 text-emerald-300 text-[10px] font-bold rounded">SBP Rule</span>
+                            </div>
+                            <p class="text-xs text-slate-400">Evaluasi gradien hipertensi portal (≥1.1) dan skrining Spontaneous Bacterial Peritonitis (PMN ≥250).</p>
+                        </div>
+                    </button>
+
+                    <!-- R-Factor for DILI -->
+                    <button type="button" onclick="navigateTo('rfactor-module', 'R-Factor for Liver Injury', 'pill-hepa', 'hub-hepa')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group">
+                        <div class="h-10 w-10 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-code-compare"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm mb-1 group-hover:text-cyan-400 transition-colors">R-Factor (DILI Pattern)</h4>
+                            <p class="text-xs text-slate-400">Kalkulasi rasio ALT/ALP normal untuk klasifikasi Hepatocellular, Mixed, atau Cholestatic.</p>
+                        </div>
+                    </button>
+
+                    <!-- De Ritis Ratio -->
+                    <button type="button" onclick="navigateTo('deritis-module', 'The De Ritis Ratio (AST/ALT)', 'pill-hepa', 'hub-hepa')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group">
+                        <div class="h-10 w-10 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-divide"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm mb-1 group-hover:text-cyan-400 transition-colors">The De Ritis Ratio</h4>
+                            <p class="text-xs text-slate-400">Rasio AST/ALT untuk membedakan Alcoholic Liver Disease (&gt;2), sirosis (&gt;1), vs MASLD (&lt;1).</p>
+                        </div>
+                    </button>
+
+                    <!-- NAFLD Fibrosis Score & BARD -->
+                    <button type="button" onclick="navigateTo('nfs-module', 'NAFLD Fibrosis Score & BARD', 'pill-hepa', 'hub-hepa')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group">
+                        <div class="h-10 w-10 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-weight-scale"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm mb-1 group-hover:text-cyan-400 transition-colors">NFS & BARD Score</h4>
+                            <p class="text-xs text-slate-400">Skrining non-invasif advanced fibrosis pada MASLD/NAFLD sebelum rujukan FibroScan.</p>
+                        </div>
+                    </button>
+
+                    <!-- FIB-4 & APRI -->
+                    <button type="button" onclick="navigateTo('fib4-module', 'FIB-4 & APRI Calculator', 'pill-hepa', 'hub-hepa')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group">
+                        <div class="h-10 w-10 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm mb-1 group-hover:text-cyan-400 transition-colors">FIB-4 & APRI Calculator</h4>
+                            <p class="text-xs text-slate-400">Estimasi non-invasif derajat fibrosis dan sirosis hepar (MASLD/Hepatitis kronik).</p>
+                        </div>
+                    </button>
+
+                    <!-- Maddrey & Lille -->
+                    <button type="button" onclick="navigateTo('maddrey-module', 'Maddrey dF & Lille Model', 'pill-hepa', 'hub-hepa')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group">
+                        <div class="h-10 w-10 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-wine-bottle"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm mb-1 group-hover:text-cyan-400 transition-colors">Maddrey's dF & Lille Model</h4>
+                            <p class="text-xs text-slate-400">Penentuan hepatitis alkoholik berat dan respon kortikosteroid pada hari ke-7.</p>
+                        </div>
+                    </button>
+
+                    <!-- CLIF-C -->
+                    <button type="button" onclick="navigateTo('easl-module', 'CLIF-C ACLF & AD Score', 'pill-hepa', 'hub-hepa')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group">
+                        <div class="h-10 w-10 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm mb-1 group-hover:text-cyan-400 transition-colors">CLIF-C ACLF & AD Score</h4>
+                            <p class="text-xs text-slate-400">Stratifikasi kegagalan organ dan estimasi mortalitas sirosis dekompensasi (EASL).</p>
+                        </div>
+                    </button>
+
+                    <!-- Baveno VII -->
+                    <button type="button" onclick="navigateTo('baveno-module', 'Baveno VII Criteria', 'pill-hepa', 'hub-hepa')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group">
+                        <div class="h-10 w-10 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm mb-1 group-hover:text-cyan-400 transition-colors">Baveno VII Criteria</h4>
+                            <p class="text-xs text-slate-400">Evaluasi kekakuan hati (FibroScan) dan trombosit untuk menunda skrining EGD varises.</p>
+                        </div>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Hub 3: Pancreatobiliary -->
+            <section id="hub-pancreato" class="module-section hidden">
+                <div class="flex items-center justify-between mb-5">
+                    <button type="button" onclick="navigateTo('home-module', 'Home Dashboard', 'pill-dash')" class="btn-back">
+                        <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
+                    </button>
+                    <span class="px-2.5 py-0.5 text-xs font-bold rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">5 Modul</span>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2 font-['Plus_Jakarta_Sans']">Pancreatobiliary & Infection Tools</h3>
+                <p class="text-xs text-slate-400 mb-5">Pilih instrumen kalkulator bilier & infeksi saluran cerna:</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- BISAP Score -->
+                    <button type="button" onclick="navigateTo('bisap-module', 'BISAP Score (Pancreatitis)', 'pill-pancreato', 'hub-pancreato')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group border-emerald-500/40">
+                        <div class="h-10 w-10 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center space-x-1.5 mb-1">
+                                <h4 class="font-bold text-white text-sm group-hover:text-cyan-400 transition-colors">BISAP Score</h4>
+                                <span class="px-1.5 py-0.2 bg-emerald-500/20 text-emerald-300 text-[10px] font-bold rounded">&le;24 Jam</span>
+                            </div>
+                            <p class="text-xs text-slate-400">Prediksi mortalitas dan keparahan pankreatitis akut cepat di IGD (BUN, Status Mental, SIRS, Usia, Pleura).</p>
+                        </div>
+                    </button>
+
+                    <!-- Ranson Criteria -->
+                    <button type="button" onclick="navigateTo('ranson-module', 'Ranson Criteria (0 & 48h)', 'pill-pancreato', 'hub-pancreato')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group border-emerald-500/40">
+                        <div class="h-10 w-10 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-list-ol"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center space-x-1.5 mb-1">
+                                <h4 class="font-bold text-white text-sm group-hover:text-cyan-400 transition-colors">Ranson's Criteria</h4>
+                                <span class="px-1.5 py-0.2 bg-emerald-500/20 text-emerald-300 text-[10px] font-bold rounded">0 & 48 Jam</span>
+                            </div>
+                            <p class="text-xs text-slate-400">Stratifikasi klasik pankreatitis saat admisi dan evaluasi 48 jam (Biliary vs Non-biliary).</p>
+                        </div>
+                    </button>
+
+                    <!-- TG18 -->
+                    <button type="button" onclick="navigateTo('tg18-module', 'Tokyo Guidelines 2018 (TG18)', 'pill-pancreato', 'hub-pancreato')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group">
+                        <div class="h-10 w-10 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-clipboard-check"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm mb-1 group-hover:text-cyan-400 transition-colors">Tokyo Guidelines 2018</h4>
+                            <p class="text-xs text-slate-400">Diagnosis & grading keparahan Kolesistitis Akut dan Kolangitis Akut.</p>
+                        </div>
+                    </button>
+
+                    <!-- Atlanta 2012 -->
+                    <button type="button" onclick="navigateTo('atlanta-module', 'Revised Atlanta 2012', 'pill-pancreato', 'hub-pancreato')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group">
+                        <div class="h-10 w-10 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-fire"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm mb-1 group-hover:text-cyan-400 transition-colors">Revised Atlanta 2012</h4>
+                            <p class="text-xs text-slate-400">Diagnosis & klasifikasi keparahan Pankreatitis Akut (Mild, Mod, Severe).</p>
+                        </div>
+                    </button>
+
+                    <!-- C. diff -->
+                    <button type="button" onclick="navigateTo('cdiff-module', 'ACG C. diff Severity (2021)', 'pill-pancreato', 'hub-pancreato')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group">
+                        <div class="h-10 w-10 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-capsules"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm mb-1 group-hover:text-cyan-400 transition-colors">ACG C. diff Severity</h4>
+                            <p class="text-xs text-slate-400">Klasifikasi infeksi Clostridioides difficile & panduan antibiotik lini pertama.</p>
+                        </div>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Hub 4: Luminal & IBD -->
+            <section id="hub-ibd" class="module-section hidden">
+                <div class="flex items-center justify-between mb-5">
+                    <button type="button" onclick="navigateTo('home-module', 'Home Dashboard', 'pill-dash')" class="btn-back">
+                        <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
+                    </button>
+                    <span class="px-2.5 py-0.5 text-xs font-bold rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">4 Modul</span>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2 font-['Plus_Jakarta_Sans']">Luminal & IBD Tools</h3>
+                <p class="text-xs text-slate-400 mb-5">Pilih instrumen penyakit usus inflamatorik & luminal di bawah ini:</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <button type="button" onclick="navigateTo('truelove-module', 'Truelove & Witts Criteria', 'pill-ibd', 'hub-ibd')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group">
+                        <div class="h-10 w-10 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-bed-pulse"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm mb-1 group-hover:text-cyan-400 transition-colors">Truelove & Witts Criteria</h4>
+                            <p class="text-xs text-slate-400">Stratifikasi flare Kolitis Ulseratif dan kegawatdaruratan ASUC untuk steroid IV.</p>
+                        </div>
+                    </button>
+
+                    <button type="button" onclick="navigateTo('mayo-module', 'Mayo Score for UC', 'pill-ibd', 'hub-ibd')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group">
+                        <div class="h-10 w-10 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-list-check"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm mb-1 group-hover:text-cyan-400 transition-colors">Mayo Score for UC</h4>
+                            <p class="text-xs text-slate-400">Skor kuantitatif aktivitas penyakit Kolitis Ulseratif (Full Mayo vs Partial Mayo).</p>
+                        </div>
+                    </button>
+
+                    <button type="button" onclick="navigateTo('cdai-module', 'Crohn\'s Disease Activity (HBI/CDAI)', 'pill-ibd', 'hub-ibd')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group">
+                        <div class="h-10 w-10 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-stethoscope"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm mb-1 group-hover:text-cyan-400 transition-colors">Crohn's Disease (HBI / CDAI)</h4>
+                            <p class="text-xs text-slate-400">Evaluasi cepat Harvey-Bradshaw Index (HBI) dan ekuivalensi standar Full CDAI.</p>
+                        </div>
+                    </button>
+
+                    <button type="button" onclick="navigateTo('calprotectin-module', 'Fecal Calprotectin Interpreter', 'pill-ibd', 'hub-ibd')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group">
+                        <div class="h-10 w-10 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-vial"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm mb-1 group-hover:text-cyan-400 transition-colors">Fecal Calprotectin Interpreter</h4>
+                            <p class="text-xs text-slate-400">Interpretasi biomarker inflamasi usus untuk membedakan IBD vs IBS fungsional.</p>
+                        </div>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Hub 5: Functional GI -->
+            <section id="hub-functional" class="module-section hidden">
+                <div class="flex items-center justify-between mb-5">
+                    <button type="button" onclick="navigateTo('home-module', 'Home Dashboard', 'pill-dash')" class="btn-back">
+                        <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
+                    </button>
+                    <span class="px-2.5 py-0.5 text-xs font-bold rounded-full bg-pink-500/20 text-pink-300 border border-pink-500/30">4 Modul</span>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2 font-['Plus_Jakarta_Sans']">Functional GI & Motility Tools</h3>
+                <p class="text-xs text-slate-400 mb-5">Instrumen diagnostik kriteria Rome IV (IBS & Dispepsia Fungsional) dan konsensus diagnosis objektif GERD (Lyon Consensus & LA Class):</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Rome IV IBS -->
+                    <button type="button" onclick="navigateTo('rome4-ibs-module', 'Rome IV: Irritable Bowel Syndrome (IBS)', 'pill-functional', 'hub-functional')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group border-pink-500/30">
+                        <div class="h-10 w-10 rounded-lg bg-pink-500/10 text-pink-400 border border-pink-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-arrows-split-up-and-left"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center space-x-1.5 mb-1">
+                                <h4 class="font-bold text-white text-sm group-hover:text-cyan-400 transition-colors">Rome IV Criteria: IBS</h4>
+                                <span class="px-1.5 py-0.2 bg-pink-500/20 text-pink-300 text-[10px] font-bold rounded">IBS-C/D/M/U</span>
+                            </div>
+                            <p class="text-xs text-slate-400">Diagnosis Irritable Bowel Syndrome, subtipe feses Bristol, alarm red flags, & algoritma terapi.</p>
+                        </div>
+                    </button>
+
+                    <!-- Rome IV Dyspepsia -->
+                    <button type="button" onclick="navigateTo('rome4-dyspepsia-module', 'Rome IV: Functional Dyspepsia (PDS vs EPS)', 'pill-functional', 'hub-functional')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group border-pink-500/30">
+                        <div class="h-10 w-10 rounded-lg bg-pink-500/10 text-pink-400 border border-pink-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-clipboard-question"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center space-x-1.5 mb-1">
+                                <h4 class="font-bold text-white text-sm group-hover:text-cyan-400 transition-colors">Rome IV: Functional Dyspepsia</h4>
+                                <span class="px-1.5 py-0.2 bg-pink-500/20 text-pink-300 text-[10px] font-bold rounded">PDS vs EPS</span>
+                            </div>
+                            <p class="text-xs text-slate-400">Diferensiasi Postprandial Distress (PDS) vs Epigastric Pain (EPS), skrining alarm, & panduan terapi.</p>
+                        </div>
+                    </button>
+
+                    <!-- Lyon Consensus 2.0 -->
+                    <button type="button" onclick="navigateTo('lyon-module', 'Lyon Consensus: Objective GERD Diagnosis', 'pill-functional', 'hub-functional')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group border-cyan-500/30">
+                        <div class="h-10 w-10 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-wave-square"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center space-x-1.5 mb-1">
+                                <h4 class="font-bold text-white text-sm group-hover:text-cyan-400 transition-colors">Lyon Consensus: GERD Criteria</h4>
+                                <span class="px-1.5 py-0.2 bg-cyan-500/20 text-cyan-300 text-[10px] font-bold rounded">Lyon 2.0</span>
+                            </div>
+                            <p class="text-xs text-slate-400">Kriteria diagnostik objektif GERD: EGD, AET %, refluks episode, fenotip RH vs Functional Heartburn.</p>
+                        </div>
+                    </button>
+
+                    <!-- Los Angeles (LA) Classification -->
+                    <button type="button" onclick="navigateTo('la-module', 'Los Angeles Classification (GERD)', 'pill-functional', 'hub-functional')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group">
+                        <div class="h-10 w-10 rounded-lg bg-pink-500/10 text-pink-400 border border-pink-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-water"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm mb-1 group-hover:text-cyan-400 transition-colors">Los Angeles (LA) Class (GERD)</h4>
+                            <p class="text-xs text-slate-400">Derajat esofagitis refluks pada EGD (Grade A-D), durasi terapi PPI, dan panduan surveilans.</p>
+                        </div>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Hub 5: Endoscopy -->
+            <section id="hub-endo" class="module-section hidden">
+                <div class="flex items-center justify-between mb-5">
+                    <button type="button" onclick="navigateTo('home-module', 'Home Dashboard', 'pill-dash')" class="btn-back">
+                        <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
+                    </button>
+                    <span class="px-2.5 py-0.5 text-xs font-bold rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30">1 Modul</span>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2 font-['Plus_Jakarta_Sans']">Endoscopy Surveillance Tools</h3>
+                <p class="text-xs text-slate-400 mb-5">Panduan surveilans kolonoskopi pasca polipektomi:</p>
+
+                <div class="max-w-xl">
+                    <button type="button" onclick="navigateTo('polyp-module', 'Polyp Surveillance (USMSTF)', 'pill-endo', 'hub-endo')" class="glass-card rounded-xl p-5 flex items-start text-left cursor-pointer group w-full">
+                        <div class="h-10 w-10 rounded-lg bg-teal-500/10 text-teal-400 border border-teal-500/20 flex items-center justify-center text-lg mr-4 shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-calendar-days"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm mb-1 group-hover:text-cyan-400 transition-colors">Post-Polypectomy Surveillance (USMSTF)</h4>
+                            <p class="text-xs text-slate-400">Kalkulator interval pengulangan kolonoskopi berdasarkan histologi dan jumlah polip.</p>
+                        </div>
+                    </button>
+                </div>
+            </section>
+
+
+            <!-- ======================================================== -->
+            <!-- LEVEL 2: INDIVIDUAL CALCULATORS                          -->
+            <!-- ======================================================== -->
+
+            <!-- 1.1 GBS -->
+            <section id="gbs-module" class="module-section hidden">
+                <div class="glass-panel rounded-2xl p-5 sm:p-6 mb-6">
+                    <div class="flex items-center justify-between gap-3 mb-4 border-b border-slate-800 pb-3 flex-wrap">
+                        <button type="button" onclick="navigateTo('hub-bleed', 'GI Bleed Hub', 'pill-bleed')" class="btn-back">
+                            <i class="fa-solid fa-arrow-left"></i> Kembali ke GI Bleed
+                        </button>
+                        <span class="px-3 py-1 bg-rose-500/20 text-rose-300 text-xs font-semibold rounded-full border border-rose-500/30">Upper GI Bleed</span>
+                    </div>
+
+                    <div class="mb-4">
+                        <h2 class="text-xl sm:text-2xl font-bold text-white">Glasgow-Blatchford Score (GBS)</h2>
+                        <p class="text-slate-400 text-xs sm:text-sm mt-1">Stratifikasi risiko perdarahan saluran cerna atas (UGIB) sebelum endoskopi untuk menentukan kelayakan rawat jalan.</p>
+                    </div>
+
+                    <form id="gbs-form" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 rounded-xl bg-slate-900/50 border border-slate-700/50">
+                            <div>
+                                <label class="text-xs font-semibold text-slate-300 mb-1.5 block">Jenis Kelamin Pasien <span class="text-rose-400">*</span></label>
+                                <div class="flex space-x-6">
+                                    <label class="flex items-center space-x-2 cursor-pointer text-sm text-white">
+                                        <input type="radio" name="gbs-sex" value="male" class="accent-cyan-400" checked>
+                                        <span>Laki-laki</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2 cursor-pointer text-sm text-white">
+                                        <input type="radio" name="gbs-sex" value="female" class="accent-cyan-400">
+                                        <span>Perempuan</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex items-center justify-between mb-1">
+                                    <label for="gbs-bun" class="text-xs font-semibold text-slate-300">Blood Urea Nitrogen (BUN) <span class="text-rose-400">*</span></label>
+                                    <div class="flex items-center text-[11px] bg-slate-800 rounded px-1.5 py-0.5 border border-slate-700">
+                                        <button type="button" id="gbs-bun-unit-mmol" onclick="setGbsBunUnit('mmol')" class="px-1.5 py-0.5 rounded text-cyan-400 font-bold">mmol/L</button>
+                                        <span class="text-slate-500">|</span>
+                                        <button type="button" id="gbs-bun-unit-mg" onclick="setGbsBunUnit('mg')" class="px-1.5 py-0.5 rounded text-slate-400">mg/dL</button>
+                                    </div>
+                                </div>
+                                <input type="number" id="gbs-bun" step="0.1" placeholder="e.g. 8.5 (mmol/L) / 24 (mg/dL)" required class="glass-input w-full px-3 py-2 rounded-lg text-sm">
+                                <span id="
+NOT FOUND: function calculateGbs()
+
+NOT FOUND: id="calc-tokyo"
+
+NOT FOUND: function calculateTokyo()
+
+NOT FOUND: id="calc-deritis"
+
+=================== De Ritis JS ===================
+
+NOT FOUND: id="calc-nfs"
+
+NOT FOUND: id="calc-meld"
+
+NOT FOUND: id="calc-saag"

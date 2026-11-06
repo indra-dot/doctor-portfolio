@@ -1,0 +1,4765 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>adjustr-io — Panduan Titrasi Dosis Antimikroba Penyesuaian Ginjal</title>
+  <!-- Google Fonts Preconnect & Inter / Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #040814;
+      --card-bg: rgba(15, 23, 42, 0.75);
+      --card-bg-elevated: rgba(30, 41, 59, 0.82);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-border-hover: rgba(0, 242, 254, 0.45);
+      --card-border-active: rgba(0, 242, 254, 0.75);
+      --accent-cyan: #00F2FE;
+      --accent-blue: #4FACFE;
+      --accent-gradient: linear-gradient(135deg, #00F2FE 0%, #4FACFE 100%);
+      --accent-glow: rgba(0, 242, 254, 0.25);
+      --text-pure: #F8FAFC;
+      --text-dim: #94A3B8;
+      --text-muted: #64748B;
+      --danger-red: #EF4444;
+      --danger-bg: rgba(239, 68, 68, 0.14);
+      --danger-border: rgba(239, 68, 68, 0.35);
+      --warning-amber: #F59E0B;
+      --warning-bg: rgba(245, 158, 11, 0.14);
+      --warning-border: rgba(245, 158, 11, 0.35);
+      --success-green: #10B981;
+      --success-bg: rgba(16, 185, 129, 0.14);
+      --success-border: rgba(16, 185, 129, 0.35);
+      --info-blue: #3B82F6;
+      --info-bg: rgba(59, 130, 246, 0.14);
+      --info-border: rgba(59, 130, 246, 0.35);
+      --radius-pill: 9999px;
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      background-color: var(--bg-dark);
+      color: var(--text-pure);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      width: 100%;
+      line-height: 1.5;
+    }
+
+    /* Ambient Background Glows */
+    .ambient-glow-1 {
+      position: fixed;
+      top: -120px;
+      left: 10%;
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, rgba(0, 242, 254, 0.12) 0%, rgba(79, 172, 254, 0.03) 50%, transparent 70%);
+      filter: blur(45px);
+      pointer-events: none;
+      z-index: 0;
+      animation: floatAmbient 14s ease-in-out infinite alternate;
+      transform: translate3d(0,0,0);
+      will-change: transform;
+      contain: strict;
+    }
+
+    .ambient-glow-2 {
+      position: fixed;
+      bottom: 5%;
+      right: 5%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.10) 0%, transparent 70%);
+      filter: blur(50px);
+      pointer-events: none;
+      z-index: 0;
+      animation: floatAmbient 18s ease-in-out infinite alternate-reverse;
+      transform: translate3d(0,0,0);
+      will-change: transform;
+      contain: strict;
+    }
+
+    @keyframes floatAmbient {
+      0% { transform: translate3d(0, 0, 0) scale(1); }
+      100% { transform: translate3d(40px, 25px, 0) scale(1.08); }
+    }
+
+    .app-container {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 1.25rem 1.25rem 4rem;
+    }
+
+    /* Header / Nav */
+    header {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      padding: 1.1rem 1.5rem;
+      margin-bottom: 1.75rem;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon-box {
+      background: var(--accent-gradient);
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+      color: #030712;
+      flex-shrink: 0;
+    }
+
+    .brand-icon-box svg {
+      width: 24px;
+      height: 24px;
+      stroke-width: 2.3;
+    }
+
+    .brand-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-title .brand-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      box-shadow: 0 0 10px var(--accent-cyan);
+      display: inline-block;
+    }
+
+    .brand-subtitle {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn-reset {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-dim);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-reset:hover {
+      background: rgba(51, 65, 85, 0.9);
+      color: var(--text-pure);
+      border-color: var(--card-border-hover);
+    }
+
+    .btn-contact {
+      background: var(--accent-gradient);
+      color: #030712;
+      text-decoration: none;
+      padding: 0.5rem 1.1rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(0, 242, 254, 0.3);
+    }
+
+    .btn-contact:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(0, 242, 254, 0.5);
+    }
+
+    /* Glass Cards */
+    .glass-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .glass-card:hover {
+      border-color: var(--card-border-hover);
+      box-shadow: 0 16px 40px rgba(0, 242, 254, 0.08);
+    }
+
+    .card-header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 0.75rem;
+    }
+
+    .card-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-title svg {
+      color: var(--accent-cyan);
+      width: 18px;
+      height: 18px;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-cyan {
+      background: rgba(0, 242, 254, 0.12);
+      color: var(--accent-cyan);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+    }
+
+    .badge-blue {
+      background: rgba(79, 172, 254, 0.12);
+      color: var(--accent-blue);
+      border: 1px solid rgba(79, 172, 254, 0.3);
+    }
+
+    .badge-amber {
+      background: var(--warning-bg);
+      color: var(--warning-amber);
+      border: 1px solid var(--warning-border);
+    }
+
+    .badge-red {
+      background: var(--danger-bg);
+      color: var(--danger-red);
+      border: 1px solid var(--danger-border);
+    }
+
+    .badge-green {
+      background: var(--success-bg);
+      color: var(--success-green);
+      border: 1px solid var(--success-border);
+    }
+
+    /* Form Grid */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.1rem;
+    }
+
+    @media (max-width: 640px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .form-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .form-label span.unit {
+      color: var(--accent-cyan);
+      font-weight: 600;
+    }
+
+    .gender-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      background: rgba(15, 23, 42, 0.8);
+      padding: 4px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .gender-btn {
+      padding: 0.65rem;
+      border: none;
+      background: transparent;
+      color: var(--text-dim);
+      font-weight: 700;
+      font-size: 0.85rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .gender-btn.active {
+      background: var(--accent-gradient);
+      color: #030712;
+      box-shadow: 0 2px 10px rgba(0, 242, 254, 0.35);
+    }
+
+    .input-field {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      color: #FFFFFF;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: inherit;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .input-field:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 14px rgba(0, 242, 254, 0.25);
+      background: rgba(15, 23, 42, 0.95);
+    }
+
+    .input-field.input-highlight {
+      border-color: rgba(0, 242, 254, 0.4);
+      background: rgba(0, 242, 254, 0.04);
+      color: var(--accent-cyan);
+      font-size: 1.35rem;
+      font-weight: 800;
+    }
+
+    /* Validation Banners */
+    .alert-banner {
+      padding: 0.9rem 1.2rem;
+      border-radius: var(--radius-md);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.85rem;
+      line-height: 1.45;
+      animation: fadeIn 0.25s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .alert-banner svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .alert-danger {
+      background: var(--danger-bg);
+      border: 1px solid var(--danger-border);
+      color: #FECACA;
+    }
+    .alert-danger strong { color: #F87171; }
+
+    .alert-warning {
+      background: var(--warning-bg);
+      border: 1px solid var(--warning-border);
+      color: #FEF3C7;
+    }
+    .alert-warning strong { color: #FBBF24; }
+
+    .alert-info {
+      background: var(--info-bg);
+      border: 1px solid var(--info-border);
+      color: #DBEAFE;
+    }
+    .alert-info strong { color: #60A5FA; }
+
+    /* Weight Selection & Badges Card */
+    .weight-panel {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+
+    @media (max-width: 640px) {
+      .weight-panel {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .weight-badge-card {
+      background: rgba(30, 41, 59, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: var(--radius-md);
+      padding: 0.8rem;
+      text-align: center;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .weight-badge-card.active-weight {
+      border-color: var(--accent-cyan);
+      background: rgba(0, 242, 254, 0.08);
+      box-shadow: 0 0 16px rgba(0, 242, 254, 0.25);
+    }
+
+    .weight-badge-card .w-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+
+    .weight-badge-card .w-val {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+    }
+
+    .weight-badge-card.active-weight .w-val {
+      color: var(--accent-cyan);
+    }
+
+    .weight-badge-card .w-sub {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+      font-weight: 600;
+    }
+
+    .active-tag {
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent-gradient);
+      color: #030712;
+      font-size: 0.58rem;
+      font-weight: 800;
+      padding: 1px 7px;
+      border-radius: var(--radius-pill);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      box-shadow: 0 2px 6px rgba(0, 242, 254, 0.4);
+      white-space: nowrap;
+    }
+
+    /* Renal Primary Clearance Display */
+    .clearance-showcase {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 680px) {
+      .clearance-showcase {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .clearance-primary-card {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.85) 100%);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 242, 254, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .clearance-primary-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--accent-gradient);
+    }
+
+    .metric-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.5rem;
+    }
+
+    .metric-caption {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+    }
+
+    .crcl-huge-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: #FFFFFF;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .crcl-huge-num .unit {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      letter-spacing: normal;
+    }
+
+    .metric-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+      padding-top: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.75rem;
+    }
+
+    .metric-meta-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .metric-meta-item .m-title {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .metric-meta-item .m-val {
+      font-size: 0.85rem;
+      color: var(--text-pure);
+      font-weight: 700;
+    }
+
+    .kdigo-stage-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .kdigo-badge-display {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-pill);
+      font-size: 1.2rem;
+      font-weight: 800;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      margin: 0.5rem 0;
+      width: fit-content;
+    }
+
+    .kdigo-label {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+
+    .kdigo-desc {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      line-height: 1.4;
+      margin-top: 4px;
+    }
+
+    .egfr-ref-note {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 0.75rem;
+      padding-top: 0.6rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* Drug Selector & Search */
+    .drug-search-box {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+
+    .search-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      width: 18px;
+      height: 18px;
+      color: var(--text-muted);
+      pointer-events: none;
+      transition: color 0.2s;
+    }
+
+    .search-input {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-pill);
+      padding: 0.85rem 1rem 0.85rem 2.8rem;
+      color: #FFFFFF;
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: inherit;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 16px rgba(0, 242, 254, 0.25);
+    }
+
+    .search-input:focus ~ .search-icon {
+      color: var(--accent-cyan);
+    }
+
+    .category-filter-bar {
+      display: flex;
+      gap: 0.4rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      scrollbar-width: none;
+    }
+    .category-filter-bar::-webkit-scrollbar { display: none; }
+
+    .cat-chip {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-dim);
+      padding: 0.35rem 0.8rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .cat-chip:hover {
+      background: rgba(51, 65, 85, 0.8);
+      color: var(--text-pure);
+    }
+
+    .cat-chip.active {
+      background: var(--accent-gradient);
+      color: #030712;
+      font-weight: 700;
+      border-color: transparent;
+      box-shadow: 0 2px 10px rgba(0, 242, 254, 0.35);
+    }
+
+    /* Drug Dropdown / Results list */
+    .drug-results-dropdown {
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border-hover);
+      border-radius: var(--radius-lg);
+      max-height: 280px;
+      overflow-y: auto;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+      display: none;
+    }
+
+    .drug-results-dropdown.visible {
+      display: block;
+    }
+
+    .drug-list-item {
+      padding: 0.85rem 1.2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .drug-list-item:last-child {
+      border-bottom: none;
+    }
+
+    .drug-list-item:hover {
+      background: rgba(0, 242, 254, 0.08);
+    }
+
+    .drug-list-item .d-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #FFFFFF;
+    }
+
+    .drug-list-item .d-class {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Selected Drug Detail View */
+    .selected-drug-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border-active);
+      border-radius: var(--radius-xl);
+      padding: 1.6rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55), 0 0 25px rgba(0, 242, 254, 0.12);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .drug-banner-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 1.1rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .drug-title-area h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+    }
+
+    .drug-tags-row {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .btn-close-drug {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-dim);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-close-drug:hover {
+      background: rgba(239, 68, 68, 0.2);
+      color: #F87171;
+      border-color: rgba(239, 68, 68, 0.4);
+    }
+
+    .strategy-selector-box {
+      margin-bottom: 1.25rem;
+    }
+
+    .strategy-selector-box label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .strategy-pills {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .strat-pill {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-pure);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .strat-pill:hover {
+      border-color: var(--accent-cyan);
+    }
+
+    .strat-pill.active {
+      background: var(--accent-gradient);
+      color: #030712;
+      font-weight: 700;
+      border-color: transparent;
+      box-shadow: 0 2px 10px rgba(0, 242, 254, 0.3);
+    }
+
+    /* Single Calculated Dose Box */
+    .calculated-single-dose-box {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.9) 100%);
+      border: 1px solid rgba(0, 242, 254, 0.35);
+      border-radius: var(--radius-lg);
+      padding: 1.1rem 1.4rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .csd-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .csd-icon-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(0, 242, 254, 0.15);
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .csd-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+    }
+
+    .csd-value {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .csd-right {
+      text-align: right;
+    }
+
+    .csd-right .basis-title {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .csd-right .basis-val {
+      font-size: 0.85rem;
+      color: var(--accent-cyan);
+      font-weight: 700;
+    }
+
+    /* Maintenance Dose Callout Card */
+    .maintenance-regimen-card {
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.12) 0%, rgba(79, 172, 254, 0.08) 100%);
+      border: 1px solid rgba(0, 242, 254, 0.4);
+      border-radius: var(--radius-lg);
+      padding: 1.4rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 8px 24px rgba(0, 242, 254, 0.12);
+    }
+
+    .maint-top-row {
+      margin-bottom: 0.25rem;
+    }
+
+    .maint-caption {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 0.2rem;
+    }
+
+    .maint-crcl-label {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .maint-dose-text {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(1.35rem, 5vw, 1.9rem);
+      font-weight: 800;
+      line-height: 1.2;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      word-break: break-word;
+    }
+
+    /* Tier accordion */
+    .tier-accordion {
+      margin-bottom: 1.25rem;
+    }
+
+    .tier-toggle {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-md);
+      padding: 0.65rem 1rem;
+      color: var(--text-dim);
+      font-size: 0.8rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      transition: all 0.2s ease;
+      text-align: left;
+    }
+    .tier-toggle:hover {
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--text-pure);
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+    .tier-toggle.open {
+      border-color: rgba(0, 242, 254, 0.3);
+      color: var(--accent-cyan);
+    }
+    .tier-toggle-icon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      transition: transform 0.25s ease;
+    }
+    .tier-toggle.open .tier-toggle-icon {
+      transform: rotate(180deg);
+    }
+    .tier-table-collapse {
+      margin-top: 0.5rem;
+    }
+    .tier-table-collapse[hidden] {
+      display: none;
+    }
+
+    /* Titration Table */
+    .titration-table-wrap {
+      margin-bottom: 1.25rem;
+      overflow-x: auto;
+    }
+
+    .titration-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+
+    .titration-table th {
+      background: rgba(30, 41, 59, 0.6);
+      color: var(--text-dim);
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 0.6rem 0.9rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .titration-table td {
+      padding: 0.65rem 0.9rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-pure);
+    }
+
+    .titration-table tr.active-bracket {
+      background: rgba(0, 242, 254, 0.12);
+      font-weight: 700;
+    }
+
+    .titration-table tr.active-bracket td:first-child {
+      color: var(--accent-cyan);
+      border-left: 3px solid var(--accent-cyan);
+    }
+
+    /* RRT Cards Grid */
+    .rrt-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    @media (max-width: 640px) {
+      .rrt-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .rrt-box {
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+    }
+
+    .rrt-box .rrt-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent-blue);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 0.4rem;
+    }
+
+    .rrt-box .rrt-text {
+      font-size: 0.83rem;
+      color: var(--text-pure);
+      line-height: 1.45;
+    }
+
+    /* Clinical Pearls Note */
+    .pearls-box {
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.2rem;
+      display: flex;
+      gap: 12px;
+      font-size: 0.83rem;
+      line-height: 1.5;
+    }
+
+    .pearls-box svg {
+      color: var(--warning-amber);
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .pearls-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--warning-amber);
+      margin-bottom: 2px;
+    }
+
+    .pearls-text {
+      color: #FDE68A;
+      font-style: italic;
+    }
+
+    /* Inventory Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 8, 20, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+    }
+
+    .modal-card {
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid var(--card-border-hover);
+      border-radius: var(--radius-xl);
+      max-width: 620px;
+      width: 100%;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8);
+      overflow: hidden;
+      animation: modalSlide 0.25s ease;
+    }
+
+    @keyframes modalSlide {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #FFFFFF;
+    }
+
+    .modal-body {
+      padding: 1.25rem 1.5rem;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .inventory-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+    }
+
+    @media (max-width: 500px) {
+      .inventory-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .inventory-item-btn {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      text-align: left;
+      cursor: pointer;
+      color: var(--text-pure);
+      transition: all 0.2s;
+      content-visibility: auto;
+      contain-intrinsic-size: 0 45px;
+    }
+
+    .inventory-item-btn:hover {
+      background: rgba(0, 242, 254, 0.1);
+      border-color: var(--accent-cyan);
+    }
+
+    .inventory-item-btn .inv-name {
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: block;
+    }
+
+    .inventory-item-btn .inv-class {
+      font-size: 0.68rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2.5rem 1rem 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    footer p {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-feedback-link {
+      color: var(--accent-cyan);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .footer-feedback-link:hover {
+      text-decoration: underline;
+      color: #FFFFFF;
+    }
+
+    .disclaimer-pill {
+      display: inline-block;
+      margin-top: 0.5rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-pill);
+      padding: 0.3rem 0.9rem;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* =============================================
+       MOBILE RESPONSIVE STYLES
+       ============================================= */
+
+    /* Pill nav tab — hide scrollbar universally */
+    .pill-nav {
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .pill-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Drug result table — scrollable on overflow */
+    .drug-results-table,
+    .results-table-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    @media (max-width: 768px) {
+      /* Disable heavy floating glow animations on mobile to prevent GPU stutter */
+      .ambient-glow-1,
+      .ambient-glow-2 {
+        animation: none !important;
+        filter: blur(25px) !important;
+        width: 320px;
+        height: 320px;
+        opacity: 0.5;
+        transform: translateZ(0);
+      }
+
+      /* App container */
+      .app-container {
+        padding: 1rem 0.9rem 3rem;
+      }
+
+      /* Header */
+      header {
+        padding: 0.9rem 1.1rem;
+        gap: 0.75rem;
+        border-radius: var(--radius-lg);
+      }
+      .brand-title {
+        font-size: 1.2rem;
+      }
+      .brand-subtitle {
+        font-size: 0.65rem;
+      }
+      .btn-contact span:last-child {
+        display: none; /* hide label text, keep icon */
+      }
+
+      /* Glass cards */
+      .glass-card {
+        padding: 1.25rem;
+        border-radius: var(--radius-lg);
+      }
+
+      /* All inputs — 16px prevents iOS Safari auto-zoom */
+      .input-field,
+      select.input-field,
+      textarea.input-field {
+        font-size: 1rem !important;
+        min-height: 44px;
+      }
+
+      /* Gender toggle — larger touch targets */
+      .gender-btn {
+        padding: 0.75rem 0.5rem;
+        min-height: 44px;
+      }
+
+      /* Clearance showcase — already has @media 680px, verify gap */
+      .clearance-showcase {
+        gap: 1rem;
+      }
+
+      /* Weight panel on 768 — keep 2 columns, just tighten */
+      .weight-panel {
+        gap: 0.6rem;
+      }
+      .weight-badge-card {
+        padding: 0.65rem;
+      }
+
+      /* Result panels */
+      .clearance-primary-card {
+        padding: 1.25rem;
+      }
+
+      /* Alert banners */
+      .alert-banner {
+        font-size: 0.82rem;
+        padding: 0.8rem 1rem;
+        gap: 10px;
+      }
+
+      /* Modal */
+      .modal-backdrop {
+        padding: 1rem;
+        align-items: flex-end;
+      }
+      .modal-card {
+        max-height: 90vh;
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      }
+
+      /* Footer */
+      footer {
+        padding: 2rem 1rem 1rem;
+        font-size: 0.72rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      /* App container */
+      .app-container {
+        padding: 0.75rem 0.75rem 2.5rem;
+      }
+
+      /* Header — stack vertically */
+      header {
+        padding: 0.85rem 1rem;
+      }
+      .brand-title {
+        font-size: 1.05rem;
+      }
+      .brand-icon-box {
+        width: 38px;
+        height: 38px;
+      }
+      .btn-reset {
+        padding: 0.45rem 0.75rem;
+        font-size: 0.75rem;
+      }
+
+      /* Form labels tighter */
+      .form-label {
+        font-size: 0.7rem;
+      }
+
+      /* Weight panel — 2 col at 480px is fine */
+      .weight-badge-card .w-val {
+        font-size: 1.05rem;
+      }
+
+      /* Alert banners compact */
+      .alert-banner {
+        font-size: 0.78rem;
+        padding: 0.7rem 0.85rem;
+      }
+      .alert-banner svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      /* Pearls box */
+      .pearls-box {
+        font-size: 0.78rem;
+        padding: 0.85rem 1rem;
+      }
+
+      /* Modal body */
+      .modal-header {
+        padding: 1rem 1.1rem;
+      }
+      .modal-body {
+        padding: 1rem 1.1rem;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .app-container {
+        padding: 0.6rem 0.65rem 2rem;
+      }
+      header {
+        padding: 0.75rem 0.85rem;
+      }
+      .brand-title {
+        font-size: 0.95rem;
+      }
+      .brand-subtitle {
+        display: none;
+      }
+      .glass-card {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Ambient background lighting -->
+  <div class="ambient-glow-1"></div>
+  <div class="ambient-glow-2"></div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header>
+      <div class="brand-group">
+        <div class="brand-icon-box">
+          <!-- Activity/Heartbeat SVG -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">
+            ADJUSTR.IO <span class="brand-dot"></span>
+          </div>
+          <div class="brand-subtitle">Panduan Dosis Antimikroba Penyesuaian Ginjal • Stanford 2025 + KDIGO 2024</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="btn-inventory" class="btn-reset" title="Lihat Katalog Lengkap Obat">
+          <!-- BookOpen SVG -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+          </svg>
+          Katalog Obat
+        </button>
+        <button id="btn-reset" class="btn-reset" title="Reset semua input">
+          <!-- RefreshCw SVG -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <polyline points="1 20 1 14 7 14"></polyline>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+          </svg>
+          Reset
+        </button>
+        <a href="mailto:drguswib@gmail.com" class="btn-contact" title="Kirim masukan klinis" target="_blank" rel="noopener">
+          <!-- Mail SVG -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          Kontak
+        </a>
+      </div>
+    </header>
+
+    <!-- Patient Parameters Card -->
+    <section class="glass-card">
+      <div class="card-header-bar">
+        <div class="card-title">
+          <!-- Calculator SVG -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="2" width="16" height="20" rx="2"></rect>
+            <line x1="8" y1="6" x2="16" y2="6"></line>
+            <line x1="16" y1="14" x2="16" y2="18"></line>
+            <path d="M16 10h.01"></path>
+            <path d="M12 10h.01"></path>
+            <path d="M8 10h.01"></path>
+            <path d="M12 14h.01"></path>
+            <path d="M8 14h.01"></path>
+            <path d="M12 18h.01"></path>
+            <path d="M8 18h.01"></path>
+          </svg>
+          Biometrik Pasien &amp; Panel Ginjal
+        </div>
+        <span class="badge-pill badge-cyan">Cockcroft-Gault + CKD-EPI</span>
+      </div>
+
+      <!-- Input Validation Banner (Dynamic) -->
+      <div id="validation-banner" style="display: none;"></div>
+
+      <div class="form-grid">
+        <!-- Gender Toggle -->
+        <div class="form-group">
+          <label class="form-label">Jenis Kelamin</label>
+          <div class="gender-toggle">
+            <button type="button" id="gender-male" class="gender-btn active" data-gender="male">Pria (Male)</button>
+            <button type="button" id="gender-female" class="gender-btn" data-gender="female">Wanita (Female)</button>
+          </div>
+        </div>
+
+        <!-- Age Input -->
+        <div class="form-group">
+          <label class="form-label" for="input-age">Usia <span class="unit">Tahun</span></label>
+          <input type="number" id="input-age" class="input-field" placeholder="Contoh: 50" min="1" max="130" step="1" />
+        </div>
+
+        <!-- Weight (TBW) Input -->
+        <div class="form-group">
+          <label class="form-label" for="input-weight">Berat Badan Aktual (TBW) <span class="unit">kg</span></label>
+          <input type="number" id="input-weight" class="input-field" placeholder="Contoh: 70" min="1" max="350" step="0.1" />
+        </div>
+
+        <!-- Height Input -->
+        <div class="form-group">
+          <label class="form-label" for="input-height">Tinggi Badan <span class="unit">cm</span></label>
+          <input type="number" id="input-height" class="input-field" placeholder="Contoh: 175" min="40" max="250" step="0.5" />
+        </div>
+
+        <!-- Serum Creatinine Input -->
+        <div class="form-group full-width">
+          <label class="form-label" for="input-creatinine">Kreatinin Serum (SCr) <span class="unit">mg/dL</span></label>
+          <input type="number" id="input-creatinine" class="input-field input-highlight" placeholder="Contoh: 1.0" min="0.1" max="35" step="0.01" />
+        </div>
+      </div>
+
+      <!-- Weight Selection Badges Panel -->
+      <div id="weight-panel" class="weight-panel" style="display: none;">
+        <!-- TBW Badge Card -->
+        <div id="card-tbw" class="weight-badge-card">
+          <div class="w-label">TBW (Aktual)</div>
+          <div id="val-tbw" class="w-val">-- kg</div>
+          <div id="val-bmi" class="w-sub">BMI: --</div>
+        </div>
+
+        <!-- IBW Badge Card -->
+        <div id="card-ibw" class="weight-badge-card">
+          <div class="w-label">IBW (Ideal / Devine)</div>
+          <div id="val-ibw" class="w-val">-- kg</div>
+          <div class="w-sub">Massa Tubuh Ideal</div>
+        </div>
+
+        <!-- ABW Badge Card -->
+        <div id="card-abw" class="weight-badge-card">
+          <div class="w-label">ABW (Disesuaikan 40%)</div>
+          <div id="val-abw" class="w-val">-- kg</div>
+          <div class="w-sub">Koreksi Obesitas</div>
+        </div>
+
+        <!-- Active Weight Badge Card -->
+        <div id="card-active-weight" class="weight-badge-card active-weight">
+          <div class="active-tag">Bobot Dosis Aktif</div>
+          <div class="w-label">Digunakan untuk CrCl</div>
+          <div id="val-used-weight" class="w-val">-- kg</div>
+          <div id="val-used-type" class="w-sub">--</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Renal Clearance & KDIGO Staging Panel -->
+    <section id="clearance-section" class="clearance-showcase" style="display: none;">
+      <!-- CrCl Card -->
+      <div class="clearance-primary-card">
+        <div class="metric-top">
+          <span class="metric-caption">Estimasi CrCl (Cockcroft-Gault)</span>
+          <span id="crcl-badge" class="badge-pill badge-green">Terkalkulasi</span>
+        </div>
+        <div class="crcl-huge-num">
+          <span id="val-crcl">--</span>
+          <span class="unit">mL/min</span>
+        </div>
+        <div class="metric-meta-row">
+          <div class="metric-meta-item">
+            <span class="m-title">BSA (Mosteller)</span>
+            <span id="val-bsa" class="m-val">-- m&sup2;</span>
+          </div>
+          <div class="metric-meta-item">
+            <span class="m-title">CrCl (Ternormalisasi BSA)</span>
+            <span id="val-norm-crcl" class="m-val">-- mL/min/1.73m&sup2;</span>
+          </div>
+          <div class="metric-meta-item">
+            <span class="m-title">Bobot Dosis</span>
+            <span id="val-dosing-weight-meta" class="m-val">-- kg</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- KDIGO Stage Card -->
+      <div class="kdigo-stage-card">
+        <div>
+          <div class="metric-caption">Stadium CKD KDIGO (2024)</div>
+          <div id="kdigo-badge" class="kdigo-badge-display">
+            <span id="kdigo-stage-name">G--</span>
+          </div>
+          <div id="kdigo-stage-label" class="kdigo-label">Menunggu parameter pasien...</div>
+          <div id="kdigo-stage-desc" class="kdigo-desc">Masukkan data laboratorium pasien untuk menentukan stadium gangguan ginjal.</div>
+        </div>
+        <div class="egfr-ref-note">
+          eGFR CKD-EPI 2021 (Bebas-Ras): <strong id="val-ckd-epi" style="color: #FFFFFF;">--</strong> mL/min/1.73m&sup2;
+        </div>
+      </div>
+    </section>
+
+    <!-- Severe Renal Failure Warning Banner (CrCl < 15) -->
+    <div id="severe-esrd-banner" class="alert-banner alert-danger" style="display: none;">
+      <!-- AlertTriangle SVG -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+        <line x1="12" y1="9" x2="12" y2="13"></line>
+        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+      </svg>
+      <div>
+        <strong>PERINGATAN GINJAL KRITIS — CrCl &lt; 15 mL/min (KDIGO G5 / Gagal Ginjal Terminal):</strong>
+        Risiko akumulasi toksik sangat tinggi untuk obat yang dieliminasi lewat ginjal. Prioritaskan agen non-nefrotoksik, terapkan batas dosis maksimal (<em>ceiling dose</em>), konsultasikan ke tim Nefrologi, dan konfirmasi jadwal dialisis (IHD/CRRT) sebelum memberikan dosis rumatan (<em>maintenance dose</em>).
+      </div>
+    </div>
+
+    <!-- Antimicrobial Dosing Section -->
+    <section class="glass-card">
+      <div class="card-header-bar">
+        <div class="card-title">
+          <!-- Pill SVG -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.5 20.5l10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"></path>
+            <path d="m8.5 8.5 7 7"></path>
+          </svg>
+          Engine Titrasi Dosis Antimikroba Ginjal
+        </div>
+        <span class="badge-pill badge-blue">36 Obat Terverifikasi</span>
+      </div>
+
+      <!-- Search Box & Categories -->
+      <div class="drug-search-box">
+        <div class="search-input-wrapper">
+          <input type="text" id="drug-search" class="search-input" placeholder="Cari antimikroba (contoh: Meropenem, Vancomycin, Cefepime, Cotrimoxazole)..." autocomplete="off" />
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Category Filter Chips -->
+      <div class="category-filter-bar" id="category-chips">
+        <button type="button" class="cat-chip active" data-cat="all">Semua (36)</button>
+        <button type="button" class="cat-chip" data-cat="penicillin">Penicillin</button>
+        <button type="button" class="cat-chip" data-cat="cephalosporin">Sefalosporin</button>
+        <button type="button" class="cat-chip" data-cat="carbapenem">Karbapenem</button>
+        <button type="button" class="cat-chip" data-cat="fluoroquinolone">Fluorokuinolon</button>
+        <button type="button" class="cat-chip" data-cat="aminoglycoside">Aminoglikosida</button>
+        <button type="button" class="cat-chip" data-cat="glycopeptide">Glikopeptida / Lipo</button>
+        <button type="button" class="cat-chip" data-cat="antiviral">Antivirus</button>
+        <button type="button" class="cat-chip" data-cat="antifungal">Antijamur</button>
+        <button type="button" class="cat-chip" data-cat="other">Lainnya</button>
+      </div>
+
+      <!-- Dropdown Results (Visible on Search / Click) -->
+      <div id="drug-dropdown" class="drug-results-dropdown"></div>
+
+      <!-- Selected Drug Detail Card (Visible when drug selected) -->
+      <div id="selected-drug-card" class="selected-drug-card" style="display: none;">
+        <!-- Drug Banner Header -->
+        <div class="drug-banner-header">
+          <div class="drug-title-area">
+            <h2 id="drug-detail-name">Drug Name</h2>
+            <div class="drug-tags-row">
+              <span id="drug-detail-class" class="badge-pill badge-blue">Class</span>
+              <span id="drug-toxicity-badge" class="badge-pill" style="display: none;">Toxicity</span>
+            </div>
+          </div>
+          <button type="button" id="btn-clear-drug" class="btn-close-drug" title="Tutup detail obat terpilih">
+            <!-- X SVG -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <!-- High-Risk Warning Banners -->
+        <div id="drug-nephro-alert" class="alert-banner alert-danger" style="display: none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <div>
+            <strong>ANTIMIKROBA BERISIKO TINGGI NEFROTOKSIK:</strong>
+            Wajib Therapeutic Drug Monitoring (TDM). Hindari nefrotoksin bersamaan (NSAID, ACEi/ARB, kontras radiologi). Pemantauan kadar palung (<em>pre-dose trough monitoring</em>) sangat dianjurkan.
+          </div>
+        </div>
+
+        <div id="drug-neuro-alert" class="alert-banner alert-warning" style="display: none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <div>
+            <strong>PROTEKSI NEUROTOKSISITAS:</strong>
+            Risiko tinggi ensefalopati berat, mioklonus, dan kejang jika dosis tidak dititrasi pada gangguan ginjal. Sesuaikan interval dan dosis rumatan secara ketat.
+          </div>
+        </div>
+
+        <div id="drug-contraindication-alert" class="alert-banner alert-danger" style="display: none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+          </svg>
+          <div id="drug-contraindication-text"></div>
+        </div>
+
+        <!-- Strategy Selector (For Multi-Strategy Drugs) -->
+        <div id="strategy-selector-container" class="strategy-selector-box" style="display: none;">
+          <label>Pilih Indikasi Klinis / Strategi Regimen</label>
+          <div id="strategy-pills-list" class="strategy-pills"></div>
+        </div>
+
+        <!-- Loading Dose Guidance Banner -->
+        <div id="loading-dose-banner" class="alert-banner alert-info">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <div id="loading-dose-text">
+            <strong>PRINSIP LOADING DOSE:</strong> Pada sepsis akut, Volume of Distribution (Vd) tetap terjaga atau bahkan meningkat. JANGAN PERNAH menurunkan initial loading dose karena gangguan ginjal. Penyesuaian ginjal HANYA berlaku untuk dosis dan interval rumatan (<em>maintenance dose</em>).
+          </div>
+        </div>
+
+        <!-- Calculated Single Dose Box (If weight-based factor exists) -->
+        <div id="single-dose-box" class="calculated-single-dose-box" style="display: none;">
+          <div class="csd-left">
+            <div class="csd-icon-circle">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path>
+                <line x1="16" y1="8" x2="2" y2="22"></line>
+                <line x1="17.5" y1="15" x2="9" y2="15"></line>
+              </svg>
+            </div>
+            <div>
+              <div class="csd-label">Kalkulasi Single Dose</div>
+              <div id="val-calculated-single-dose" class="csd-value">--</div>
+            </div>
+          </div>
+          <div class="csd-right">
+            <div class="csd-title basis-title">Dasar Bobot Tubuh</div>
+            <div id="val-single-dose-basis" class="basis-val">-- kg</div>
+          </div>
+        </div>
+
+        <!-- Matched Renal Maintenance Regimen Card -->
+        <div class="maintenance-regimen-card">
+          <div class="maint-top-row">
+            <span class="maint-caption">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              Dosis Sesuai Klirens Ginjal
+            </span>
+          </div>
+          <span id="active-crcl-indicator" class="maint-crcl-label">Berdasarkan CrCl</span>
+          <div id="val-maintenance-dose" class="maint-dose-text">Menunggu kalkulasi klirens ginjal...</div>
+        </div>
+
+        <!-- Accordion Tier Table -->
+        <div class="tier-accordion">
+          <button class="tier-toggle" onclick="toggleTierTable(this)" aria-expanded="false">
+            <span>Lihat Panduan Dosis Seluruh Tier CrCl</span>
+            <svg class="tier-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="tier-table-collapse" hidden>
+            <div class="titration-table-wrap">
+              <table class="titration-table">
+                <thead>
+                  <tr>
+                    <th>Tier Fungsi Ginjal (CrCl)</th>
+                    <th>Rekomendasi Regimen Rumatan</th>
+                  </tr>
+                </thead>
+                <tbody id="titration-table-body">
+                  <!-- Dynamically populated rows -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Renal Replacement Therapy (IHD / CRRT) Cards -->
+        <div class="rrt-grid">
+          <div class="rrt-box">
+            <div class="rrt-title">
+              <!-- Shield SVG -->
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+              Hemodialisis Intermiten (IHD)
+            </div>
+            <div id="val-rrt-ihd" class="rrt-text">--</div>
+          </div>
+
+          <div class="rrt-box">
+            <div class="rrt-title">
+              <!-- Shield SVG -->
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+              CRRT (CVVH / CVVHD / CVVHDF)
+            </div>
+            <div id="val-rrt-crrt" class="rrt-text">--</div>
+          </div>
+        </div>
+
+        <!-- Clinical Pearls Box -->
+        <div class="pearls-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <div>
+            <div class="pearls-title">Clinical Pearl &amp; Catatan Farmakologi Ahli</div>
+            <div id="val-clinical-note" class="pearls-text">--</div>
+          </div>
+        </div>
+
+        <!-- CPPT Resume Box & Copy Button -->
+        <div class="cppt-resume-card" style="margin-top: 1.25rem; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(0, 242, 254, 0.25); border-radius: 14px; padding: 1.25rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 8px;">
+            <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent-cyan); display: flex; align-items: center; gap: 8px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+              Salin Resume Penyesuaian Dosis (CPPT)
+            </span>
+            <button type="button" id="btn-copy-drug-resume" onclick="copyDrugResume()" class="btn-reset" style="background: rgba(0, 242, 254, 0.15); border: 1px solid rgba(0, 242, 254, 0.4); color: var(--accent-cyan); font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; padding: 0.45rem 0.85rem; border-radius: 8px;" title="Salin resume ke clipboard untuk rekam medis">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Salin CPPT</span>
+            </button>
+          </div>
+          <pre id="drug-cppt-pre" style="font-family: monospace; font-size: 0.75rem; color: #cbd5e1; background: rgba(3, 7, 18, 0.75); padding: 0.85rem; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08); white-space: pre-wrap; word-break: break-word; line-height: 1.5;"></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>
+        <strong>ADJUSTR.IO</strong> disintesis dari <em>Stanford Antimicrobial Dosing Guide (Nov 2025)</em>, <em>Panduan Praktik Klinis KDIGO 2024</em>, <em>Sanford Guide</em>, dan <em>Winter's Clinical Pharmacokinetics</em>.
+      </p>
+      <p>
+        Untuk pertanyaan, laporan bug, atau masukan klinis, hubungi: 
+        <a href="mailto:drguswib@gmail.com" class="footer-feedback-link" target="_blank" rel="noopener">drguswib@gmail.com</a>
+      </p>
+      <div>
+        <span class="disclaimer-pill">Alat Bantu Keputusan Klinis • Khusus Profesional Medis Berlisensi • Bukan Pengganti Pertimbangan Klinis Dokter</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Drug Catalog Modal -->
+  <div id="inventory-modal" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Katalog Lengkap Antimikroba (36 Obat)</h3>
+        <button type="button" id="btn-close-modal" class="btn-close-drug">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="inventory-grid" class="inventory-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Embedded Standalone JavaScript Engine -->
+  <script>
+  (function() {
+    'use strict';
+
+    // 1. EMBEDDED COMPLETE ANTIMICROBIAL DATABASE (36 Agents)
+    const DRUG_DATABASE = {
+  "ampicillin": {
+    "name": "Ampicillin (IV)",
+    "class": "Aminopenicillin",
+    "isMultiStrategy": true,
+    "loadingDose": "No loading dose reduction in renal impairment. For severe sepsis/meningitis, administer standard initial full dose.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": true,
+    "note": "High sodium content (~3 mEq/g). Neurotoxic (seizures, encephalopathy) at high doses in severe renal failure. Meningitis requires aggressive dosing.",
+    "strategies": {
+      "Mild / Uncomplicated": {
+        "standard_dose": "1 - 2 g IV q6h",
+        "adjustments": [
+          {
+            "minCrCl": 50,
+            "label": "CrCl &ge; 50 mL/min",
+            "recommendation": "1 - 2 g IV q6h"
+          },
+          {
+            "minCrCl": 10,
+            "label": "CrCl 10 - 49 mL/min",
+            "recommendation": "1 - 2 g IV q6-12h"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 10 mL/min",
+            "recommendation": "1 - 2 g IV q12-24h"
+          }
+        ],
+        "rrt": {
+          "ihd": "1 - 2 g IV q12-24h; give dose immediately post-HD on dialysis days (moderately dialyzed ~40%).",
+          "crrt": "1 - 2 g IV q12h (CVVH / CVVHD / CVVHDF)."
+        }
+      },
+      "Meningitis / Endovascular": {
+        "standard_dose": "2 g IV q4h",
+        "adjustments": [
+          {
+            "minCrCl": 50,
+            "label": "CrCl &ge; 50 mL/min",
+            "recommendation": "2 g IV q4h"
+          },
+          {
+            "minCrCl": 10,
+            "label": "CrCl 10 - 49 mL/min",
+            "recommendation": "2 g IV q6h"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 10 mL/min",
+            "recommendation": "2 g IV q12h"
+          }
+        ],
+        "rrt": {
+          "ihd": "2 g IV q12h post-HD; redose immediately after dialysis session.",
+          "crrt": "2 g IV q6-8h (high ultrafiltration rates remove drug efficiently)."
+        }
+      }
+    }
+  },
+  "ampicillin-sulbactam": {
+    "name": "Ampicillin-Sulbactam (IV)",
+    "class": "Penicillin + Beta-Lactamase Inhibitor",
+    "isMultiStrategy": false,
+    "standard_dose": "1.5 - 3 g IV q6h",
+    "loadingDose": "In severe sepsis/Acinetobacter infection, administer initial unadjusted loading dose of 3 g IV.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": true,
+    "note": "Dose ratio 2:1 ampicillin:sulbactam. In severe Acinetobacter baumannii infections, high-dose sulbactam component (up to 6-9 g/day sulbactam) is required under ID supervision.",
+    "adjustments": [
+      {
+        "minCrCl": 50,
+        "label": "CrCl &ge; 50 mL/min",
+        "recommendation": "1.5 - 3 g IV q6h"
+      },
+      {
+        "minCrCl": 15,
+        "label": "CrCl 15 - 49 mL/min",
+        "recommendation": "1.5 - 3 g IV q8-12h"
+      },
+      {
+        "minCrCl": 0,
+        "label": "CrCl < 15 mL/min",
+        "recommendation": "1.5 - 3 g IV q12-24h"
+      }
+    ],
+    "rrt": {
+      "ihd": "1.5 - 3 g IV q24h; administer dose post-HD on dialysis days (ampicillin & sulbactam both cleared ~35-45% by HD).",
+      "crrt": "1.5 - 3 g IV q8-12h (or 3 g q8h for high-effluent CVVHDF/Acinetobacter)."
+    }
+  },
+  "penicillin-g": {
+    "name": "Penicillin G (IV)",
+    "class": "Natural Penicillin",
+    "isMultiStrategy": true,
+    "loadingDose": "Administer full unadjusted initial dose (e.g. 4 million units IV) in acute bacteremia/meningitis.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": true,
+    "note": "Significant neurotoxicity risk (hyperreflexia, myoclonus, seizures) when high doses accumulate in renal failure. Contains 1.7 mEq potassium per million units of potassium penicillin G.",
+    "strategies": {
+      "General Bacteremia / Streptococcal": {
+        "standard_dose": "2 - 4 million units IV q4h",
+        "adjustments": [
+          {
+            "minCrCl": 50,
+            "label": "CrCl &ge; 50 mL/min",
+            "recommendation": "2 - 4 million units IV q4h"
+          },
+          {
+            "minCrCl": 10,
+            "label": "CrCl 10 - 49 mL/min",
+            "recommendation": "1.5 - 2 million units IV q4-6h (75% dose)"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 10 mL/min",
+            "recommendation": "1 - 2 million units IV q8-12h (20-50% dose)"
+          }
+        ],
+        "rrt": {
+          "ihd": "1 - 2 million units IV q8-12h; give dose immediately post-HD (dialyzable ~20-50%).",
+          "crrt": "2 million units IV q6h (CVVH / CVVHD / CVVHDF)."
+        }
+      },
+      "Neurosyphilis / Meningitis": {
+        "standard_dose": "3 - 4 million units IV q4h",
+        "adjustments": [
+          {
+            "minCrCl": 50,
+            "label": "CrCl &ge; 50 mL/min",
+            "recommendation": "3 - 4 million units IV q4h (18-24 MU/day)"
+          },
+          {
+            "minCrCl": 10,
+            "label": "CrCl 10 - 49 mL/min",
+            "recommendation": "2 - 3 million units IV q4-6h"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 10 mL/min",
+            "recommendation": "2 million units IV q8h (close neuro monitoring)"
+          }
+        ],
+        "rrt": {
+          "ihd": "2 million units IV q8-12h post-HD on dialysis days.",
+          "crrt": "2 - 3 million units IV q4-6h."
+        }
+      }
+    }
+  },
+  "piperacillin-tazobactam": {
+    "name": "Piperacillin-Tazobactam (IV)",
+    "class": "Antipseudomonal Penicillin + Inhibitor",
+    "isMultiStrategy": false,
+    "standard_dose": "4.5 g IV q6h (or 3.375 g q6h)",
+    "loadingDose": "In severe sepsis/Pseudomonas, give full initial unadjusted loading dose of 4.5 g IV over 30 min before extending infusion.",
+    "isNephrotoxic": true,
+    "isNeurotoxic": true,
+    "note": "Synergistic acute kidney injury risk when combined with Vancomycin. Extended infusion (over 3-4 hours) improves pharmacodynamic target attainment in Pseudomonas sepsis.",
+    "adjustments": [
+      {
+        "minCrCl": 50,
+        "label": "CrCl &ge; 50 mL/min",
+        "recommendation": "4.5 g IV q6h (standard) or 3.375 g IV q6h"
+      },
+      {
+        "minCrCl": 20,
+        "label": "CrCl 20 - 49 mL/min",
+        "recommendation": "3.375 g IV q6h (extended infusion over 3-4h)"
+      },
+      {
+        "minCrCl": 0,
+        "label": "CrCl < 20 mL/min",
+        "recommendation": "2.25 g IV q6h or 3.375 g IV q8h"
+      }
+    ],
+    "rrt": {
+      "ihd": "2.25 g IV q8h; give supplemental 0.75 g post-HD on dialysis days (or 2.25 g IV q12h with full dose post-HD; cleared ~30-40%).",
+      "crrt": "3.375 g IV q6-8h (or 4.5 g IV q8h extended infusion over 4h for CVVHDF)."
+    }
+  },
+  "cefazolin": {
+    "name": "Cefazolin (IV)",
+    "class": "1st Generation Cephalosporin",
+    "isMultiStrategy": false,
+    "standard_dose": "1 - 2 g IV q8h",
+    "loadingDose": "Give full loading dose of 2 g IV regardless of renal function in acute MSSA sepsis/surgical prophylaxis.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": true,
+    "note": "Workhorse for MSSA bacteremia, endocarditis, and surgical prophylaxis. In endocarditis, use 2 g IV standard.",
+    "adjustments": [
+      {
+        "minCrCl": 50,
+        "label": "CrCl &ge; 50 mL/min",
+        "recommendation": "1 - 2 g IV q8h"
+      },
+      {
+        "minCrCl": 35,
+        "label": "CrCl 35 - 49 mL/min",
+        "recommendation": "1 - 2 g IV q12h"
+      },
+      {
+        "minCrCl": 10,
+        "label": "CrCl 10 - 34 mL/min",
+        "recommendation": "1 g IV q12h"
+      },
+      {
+        "minCrCl": 0,
+        "label": "CrCl < 10 mL/min",
+        "recommendation": "500 mg - 1 g IV q24h"
+      }
+    ],
+    "rrt": {
+      "ihd": "1 - 2 g IV post-HD on dialysis days (dosed 3x/week post-dialysis, e.g. 2 g after session or 1 g q48h).",
+      "crrt": "1 - 2 g IV q12h."
+    }
+  },
+  "ceftriaxone": {
+    "name": "Ceftriaxone (IV)",
+    "class": "3rd Generation Cephalosporin",
+    "isMultiStrategy": false,
+    "standard_dose": "1 - 2 g IV q24h (2 g q12h in meningitis)",
+    "loadingDose": "Standard dosing. No loading adjustment necessary.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": false,
+    "note": "Dual elimination (biliary ~40%, renal ~60%). NO renal dosage adjustment required regardless of CrCl or dialysis, except maximum 2 g/day in combined severe hepatic and renal failure.",
+    "adjustments": [
+      {
+        "minCrCl": 50,
+        "label": "CrCl &ge; 50 mL/min",
+        "recommendation": "1 - 2 g IV q24h (2 g q12h for meningitis)"
+      },
+      {
+        "minCrCl": 10,
+        "label": "CrCl 10 - 49 mL/min",
+        "recommendation": "1 - 2 g IV q24h (no adjustment needed)"
+      },
+      {
+        "minCrCl": 0,
+        "label": "CrCl < 10 mL/min",
+        "recommendation": "1 - 2 g IV q24h (max 2 g/day; no adjustment)"
+      }
+    ],
+    "rrt": {
+      "ihd": "1 - 2 g IV q24h (not significantly dialyzed, clearance < 10%; no supplemental dose post-HD needed).",
+      "crrt": "1 - 2 g IV q24h (2 g q12h for severe CNS infections)."
+    }
+  },
+  "ceftazidime": {
+    "name": "Ceftazidime (IV)",
+    "class": "3rd Generation Cephalosporin (Antipseudomonal)",
+    "isMultiStrategy": false,
+    "standard_dose": "2 g IV q8h",
+    "loadingDose": "Administer 2 g IV loading dose in Pseudomonas sepsis before renal interval adjustment.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": true,
+    "note": "Neurotoxic risk in severe renal insufficiency. Rapidly removed by hemodialysis.",
+    "adjustments": [
+      {
+        "minCrCl": 50,
+        "label": "CrCl &ge; 50 mL/min",
+        "recommendation": "2 g IV q8h"
+      },
+      {
+        "minCrCl": 30,
+        "label": "CrCl 30 - 49 mL/min",
+        "recommendation": "1 g IV q8-12h"
+      },
+      {
+        "minCrCl": 15,
+        "label": "CrCl 15 - 29 mL/min",
+        "recommendation": "1 g IV q12-24h"
+      },
+      {
+        "minCrCl": 0,
+        "label": "CrCl < 15 mL/min",
+        "recommendation": "500 mg - 1 g IV q24-48h"
+      }
+    ],
+    "rrt": {
+      "ihd": "1 g IV loading dose, then 1 g IV post-HD on dialysis days (dialyzed ~50%).",
+      "crrt": "1 - 2 g IV q8-12h."
+    }
+  },
+  "cefepime": {
+    "name": "Cefepime (IV)",
+    "class": "4th Generation Cephalosporin",
+    "isMultiStrategy": true,
+    "loadingDose": "Give full loading dose of 2 g IV in severe sepsis before transitioning to renal interval.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": true,
+    "note": "HIGH NEUROTOXICITY RISK: Non-convulsive status epilepticus, encephalopathy, and myoclonus occur frequently if unadjusted in renal failure. Strict dose reduction mandatory.",
+    "strategies": {
+      "Standard / Non-Severe": {
+        "standard_dose": "1 - 2 g IV q8-12h",
+        "adjustments": [
+          {
+            "minCrCl": 50,
+            "label": "CrCl &ge; 50 mL/min",
+            "recommendation": "1 - 2 g IV q8-12h"
+          },
+          {
+            "minCrCl": 30,
+            "label": "CrCl 30 - 49 mL/min",
+            "recommendation": "1 - 2 g IV q12-24h"
+          },
+          {
+            "minCrCl": 11,
+            "label": "CrCl 11 - 29 mL/min",
+            "recommendation": "500 mg - 1 g IV q24h"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl &le; 10 mL/min",
+            "recommendation": "250 - 500 mg IV q24h"
+          }
+        ],
+        "rrt": {
+          "ihd": "1 g IV on day 1, then 500 mg IV q24h with full dose administered immediately post-HD on dialysis days (dialyzable ~65%).",
+          "crrt": "1 - 2 g IV q12h."
+        }
+      },
+      "Severe Sepsis / Febrile Neutropenia": {
+        "standard_dose": "2 g IV q8h",
+        "adjustments": [
+          {
+            "minCrCl": 50,
+            "label": "CrCl &ge; 50 mL/min",
+            "recommendation": "2 g IV q8h"
+          },
+          {
+            "minCrCl": 30,
+            "label": "CrCl 30 - 49 mL/min",
+            "recommendation": "2 g IV q12h"
+          },
+          {
+            "minCrCl": 11,
+            "label": "CrCl 11 - 29 mL/min",
+            "recommendation": "2 g IV q24h"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl &le; 10 mL/min",
+            "recommendation": "1 g IV q24h (monitor EEG/mental status)"
+          }
+        ],
+        "rrt": {
+          "ihd": "1 g IV post-HD on dialysis days (or 1 g q24h post-dialysis).",
+          "crrt": "2 g IV q12h (or 2 g q8h for high-effluent CVVHDF)."
+        }
+      }
+    }
+  },
+  "cefoperazone-sulbactam": {
+    "name": "Cefoperazone-Sulbactam (IV)",
+    "class": "3rd Gen Cephalosporin + Inhibitor",
+    "isMultiStrategy": false,
+    "standard_dose": "1.5 - 3 g IV q12h",
+    "loadingDose": "Standard initial dose 3 g IV.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": false,
+    "note": "Cefoperazone eliminated predominantly via biliary excretion (75%); sulbactam is renally eliminated (75%). Adjust for the sulbactam component in renal failure. May prolong prothrombin time (PT/INR); consider vitamin K supplementation.",
+    "adjustments": [
+      {
+        "minCrCl": 50,
+        "label": "CrCl &ge; 50 mL/min",
+        "recommendation": "1.5 - 3 g IV q12h (no adjustment)"
+      },
+      {
+        "minCrCl": 30,
+        "label": "CrCl 30 - 49 mL/min",
+        "recommendation": "1.5 - 3 g IV q12h (max 4 g/day cefoperazone component)"
+      },
+      {
+        "minCrCl": 15,
+        "label": "CrCl 15 - 29 mL/min",
+        "recommendation": "1.5 g IV q12h (max 2 g/day sulbactam)"
+      },
+      {
+        "minCrCl": 0,
+        "label": "CrCl < 15 mL/min",
+        "recommendation": "1.5 g IV q24h (max 1 g/day sulbactam)"
+      }
+    ],
+    "rrt": {
+      "ihd": "1.5 g IV q24h post-HD on dialysis days (sulbactam cleared by HD; give dose after session).",
+      "crrt": "1.5 - 3 g IV q12h."
+    }
+  },
+  "meropenem": {
+    "name": "Meropenem (IV)",
+    "class": "Carbapenem",
+    "isMultiStrategy": true,
+    "loadingDose": "Administer full initial loading dose (1 - 2 g IV over 30 min) in severe septic shock before interval titration.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": true,
+    "note": "Workhorse carbapenem in ESBL and polymicrobial ICU sepsis. Extended infusion (over 3 hours) optimizes time above MIC (fT > MIC). Dialyzed efficiently by hemodialysis.",
+    "strategies": {
+      "Standard Dose (General Sepsis/Intra-abdominal)": {
+        "standard_dose": "1 g IV q8h",
+        "adjustments": [
+          {
+            "minCrCl": 50,
+            "label": "CrCl &ge; 50 mL/min",
+            "recommendation": "1 g IV q8h (standard or 3h extended infusion)"
+          },
+          {
+            "minCrCl": 26,
+            "label": "CrCl 26 - 49 mL/min",
+            "recommendation": "1 g IV q12h"
+          },
+          {
+            "minCrCl": 10,
+            "label": "CrCl 10 - 25 mL/min",
+            "recommendation": "500 mg IV q12h"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 10 mL/min",
+            "recommendation": "500 mg IV q24h"
+          }
+        ],
+        "rrt": {
+          "ihd": "500 mg IV q24h; give dose immediately post-HD on dialysis days (dialyzable ~50%).",
+          "crrt": "500 mg - 1 g IV q12h (or 1 g q8h extended infusion for high-effluent CVVHDF)."
+        }
+      },
+      "High Dose (Meningitis/CF/Pseudomonas)": {
+        "standard_dose": "2 g IV q8h",
+        "adjustments": [
+          {
+            "minCrCl": 50,
+            "label": "CrCl &ge; 50 mL/min",
+            "recommendation": "2 g IV q8h (3h extended infusion)"
+          },
+          {
+            "minCrCl": 26,
+            "label": "CrCl 26 - 49 mL/min",
+            "recommendation": "2 g IV q12h (or 1 g q8h)"
+          },
+          {
+            "minCrCl": 10,
+            "label": "CrCl 10 - 25 mL/min",
+            "recommendation": "1 g IV q12h"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 10 mL/min",
+            "recommendation": "1 g IV q24h"
+          }
+        ],
+        "rrt": {
+          "ihd": "1 g IV q24h post-HD on dialysis days.",
+          "crrt": "1 g IV q8h (extended 3h infusion) for CVVHDF; 1 g q12h for standard CVVH."
+        }
+      }
+    }
+  },
+  "imipenem-cilastatin": {
+    "name": "Imipenem-Cilastatin (IV)",
+    "class": "Carbapenem",
+    "isMultiStrategy": true,
+    "loadingDose": "Administer full unadjusted initial dose of 500 mg - 1 g IV in acute infection.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": true,
+    "note": "HIGHEST SEIZURE RISK among carbapenems if unadjusted in renal failure or pre-existing CNS lesions. Meropenem is preferred if seizure risk exists.",
+    "strategies": {
+      "General Infection": {
+        "standard_dose": "500 mg IV q6h",
+        "adjustments": [
+          {
+            "minCrCl": 60,
+            "label": "CrCl &ge; 60 mL/min",
+            "recommendation": "500 mg IV q6h (or 1 g q8h)"
+          },
+          {
+            "minCrCl": 30,
+            "label": "CrCl 30 - 59 mL/min",
+            "recommendation": "500 mg IV q8h"
+          },
+          {
+            "minCrCl": 15,
+            "label": "CrCl 15 - 29 mL/min",
+            "recommendation": "250 - 500 mg IV q12h"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 15 mL/min",
+            "recommendation": "250 mg IV q12h"
+          }
+        ],
+        "rrt": {
+          "ihd": "250 - 500 mg IV q12h; administer immediately post-HD on dialysis days (cleared ~50%).",
+          "crrt": "500 mg IV q6-8h."
+        }
+      },
+      "NTM (High Dose)": {
+        "standard_dose": "1 g IV q6-8h",
+        "adjustments": [
+          {
+            "minCrCl": 60,
+            "label": "CrCl &ge; 60 mL/min",
+            "recommendation": "1 g IV q6-8h"
+          },
+          {
+            "minCrCl": 30,
+            "label": "CrCl 30 - 59 mL/min",
+            "recommendation": "500 mg IV q6-8h"
+          },
+          {
+            "minCrCl": 15,
+            "label": "CrCl 15 - 29 mL/min",
+            "recommendation": "500 mg IV q12h"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 15 mL/min",
+            "recommendation": "250 - 500 mg IV q12h"
+          }
+        ],
+        "rrt": {
+          "ihd": "500 mg IV q12h post-HD on dialysis days.",
+          "crrt": "500 mg IV q6-8h."
+        }
+      }
+    }
+  },
+  "ertapenem": {
+    "name": "Ertapenem (IV)",
+    "class": "Carbapenem (Once Daily)",
+    "isMultiStrategy": false,
+    "standard_dose": "1 g IV/IM q24h",
+    "loadingDose": "1 g IV initial dose.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": true,
+    "note": "Convenient once-daily dosing. Lacks activity against Pseudomonas aeruginosa and Acinetobacter. High protein binding (~95%). Neurotoxicity/hallucinations reported in ESRD.",
+    "adjustments": [
+      {
+        "minCrCl": 30,
+        "label": "CrCl &ge; 30 mL/min",
+        "recommendation": "1 g IV q24h"
+      },
+      {
+        "minCrCl": 0,
+        "label": "CrCl < 30 mL/min",
+        "recommendation": "500 mg IV q24h"
+      }
+    ],
+    "rrt": {
+      "ihd": "500 mg IV q24h; if dose is given within 6h prior to HD, administer a 150 mg supplemental dose post-HD. Preferably give dose immediately after HD.",
+      "crrt": "1 g IV q24h."
+    }
+  },
+  "levofloxacin": {
+    "name": "Levofloxacin (IV/PO)",
+    "class": "Fluoroquinolone",
+    "isMultiStrategy": false,
+    "standard_dose": "500 - 750 mg PO/IV q24h",
+    "loadingDose": "Administer standard initial dose (500 - 750 mg) on Day 1; subsequent doses adjusted by renal function.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": true,
+    "note": "Renally eliminated (~80% unchanged). High risk of QTc prolongation, tendon rupture, and CNS toxicity. In severe renal failure, initial 500-750 mg load is essential.",
+    "adjustments": [
+      {
+        "minCrCl": 50,
+        "label": "CrCl &ge; 50 mL/min",
+        "recommendation": "500 - 750 mg PO/IV q24h"
+      },
+      {
+        "minCrCl": 20,
+        "label": "CrCl 20 - 49 mL/min",
+        "recommendation": "500 mg initial, then 250 mg q24h (or 750 mg q48h)"
+      },
+      {
+        "minCrCl": 10,
+        "label": "CrCl 10 - 19 mL/min",
+        "recommendation": "500 mg initial, then 250 mg q48h (or 750 mg initial then 500 mg q48h)"
+      },
+      {
+        "minCrCl": 0,
+        "label": "CrCl < 10 mL/min",
+        "recommendation": "500 mg initial, then 250 mg q48h"
+      }
+    ],
+    "rrt": {
+      "ihd": "500 mg initial load, then 250 mg PO/IV q48h post-HD on dialysis days (minimally dialyzed < 10%).",
+      "crrt": "500 mg initial load, then 250 - 500 mg IV q24h."
+    }
+  },
+  "ciprofloxacin": {
+    "name": "Ciprofloxacin (IV/PO)",
+    "class": "Fluoroquinolone",
+    "isMultiStrategy": false,
+    "standard_dose": "400 mg IV q8-12h or 500 - 750 mg PO q12h",
+    "loadingDose": "Standard initial dose.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": true,
+    "note": "Both hepatic and renal elimination (~50% renal). Oral bioavailability 70%. QTc prolongation and tendonitis warnings apply.",
+    "adjustments": [
+      {
+        "minCrCl": 50,
+        "label": "CrCl &ge; 50 mL/min",
+        "recommendation": "400 mg IV q8-12h or 500 - 750 mg PO q12h"
+      },
+      {
+        "minCrCl": 30,
+        "label": "CrCl 30 - 49 mL/min",
+        "recommendation": "400 mg IV q12h or 500 mg PO q12h"
+      },
+      {
+        "minCrCl": 0,
+        "label": "CrCl < 30 mL/min",
+        "recommendation": "200 - 400 mg IV q18-24h or 250 - 500 mg PO q24h"
+      }
+    ],
+    "rrt": {
+      "ihd": "250 - 500 mg PO q24h or 200 - 400 mg IV q24h; give dose post-HD on dialysis days (dialyzable ~10%).",
+      "crrt": "400 mg IV q12h."
+    }
+  },
+  "moxifloxacin": {
+    "name": "Moxifloxacin (IV/PO)",
+    "class": "Respiratory Fluoroquinolone",
+    "isMultiStrategy": false,
+    "standard_dose": "400 mg PO/IV q24h",
+    "loadingDose": "Standard dose.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": false,
+    "note": "Predominantly hepatic metabolism and biliary excretion (~80%). NO renal dosage adjustment required for any degree of renal impairment or dialysis. Lacks urinary concentration (do NOT use for UTI).",
+    "adjustments": [
+      {
+        "minCrCl": 50,
+        "label": "CrCl &ge; 50 mL/min",
+        "recommendation": "400 mg PO/IV q24h (no adjustment)"
+      },
+      {
+        "minCrCl": 10,
+        "label": "CrCl 10 - 49 mL/min",
+        "recommendation": "400 mg PO/IV q24h (no adjustment)"
+      },
+      {
+        "minCrCl": 0,
+        "label": "CrCl < 10 mL/min",
+        "recommendation": "400 mg PO/IV q24h (no adjustment)"
+      }
+    ],
+    "rrt": {
+      "ihd": "400 mg PO/IV q24h (not removed by HD; no supplemental dose needed).",
+      "crrt": "400 mg PO/IV q24h."
+    }
+  },
+  "gentamicin": {
+    "name": "Gentamicin (IV)",
+    "class": "Aminoglycoside",
+    "isMultiStrategy": true,
+    "dose_factor": 5,
+    "loadingDose": "MANDATORY FULL LOADING DOSE: 5 - 7 mg/kg (extended interval) or 2 mg/kg (traditional) based on Dosing Weight (ABW in obesity). NEVER reduce loading dose for renal failure.",
+    "isNephrotoxic": true,
+    "isNeurotoxic": false,
+    "note": "SEVERE NEPHROTOXICITY & OTOTOXICITY RISK. Therapeutic Drug Monitoring (TDM) mandatory. Avoid concurrent nephrotoxins. Measure random level at 6-14h post-dose (Hartford nomogram) or trough before redosing.",
+    "strategies": {
+      "Extended Interval (Preferred)": {
+        "standard_dose": "5 - 7 mg/kg IV q24h",
+        "dose_factor": 5,
+        "adjustments": [
+          {
+            "minCrCl": 60,
+            "label": "CrCl &ge; 60 mL/min",
+            "recommendation": "5 - 7 mg/kg IV q24h",
+            "dose_factor": 5
+          },
+          {
+            "minCrCl": 40,
+            "label": "CrCl 40 - 59 mL/min",
+            "recommendation": "5 - 7 mg/kg IV q36h (or per Hartford nomogram)",
+            "dose_factor": 5
+          },
+          {
+            "minCrCl": 20,
+            "label": "CrCl 20 - 39 mL/min",
+            "recommendation": "5 - 7 mg/kg IV q48h (monitor serum level)",
+            "dose_factor": 5
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 20 mL/min",
+            "recommendation": "Load 2 - 3 mg/kg, then redose strictly per random drug levels (target trough < 1 mcg/mL)",
+            "dose_factor": 2.5
+          }
+        ],
+        "rrt": {
+          "ihd": "Load 2 mg/kg IV; maintenance 1 - 1.5 mg/kg IV post-HD on dialysis days; redose strictly guided by pre-HD serum concentrations (dialyzable ~50%).",
+          "crrt": "2 - 2.5 mg/kg IV q24-48h guided by continuous TDM."
+        }
+      },
+      "Traditional / Synergy": {
+        "standard_dose": "1 - 1.7 mg/kg IV q8h (synergy: 1 mg/kg q8-12h)",
+        "dose_factor": 1.5,
+        "adjustments": [
+          {
+            "minCrCl": 60,
+            "label": "CrCl &ge; 60 mL/min",
+            "recommendation": "1 - 1.7 mg/kg IV q8h (synergy 1 mg/kg q8h)",
+            "dose_factor": 1.5
+          },
+          {
+            "minCrCl": 40,
+            "label": "CrCl 40 - 59 mL/min",
+            "recommendation": "1 - 1.7 mg/kg IV q12h",
+            "dose_factor": 1.5
+          },
+          {
+            "minCrCl": 20,
+            "label": "CrCl 20 - 39 mL/min",
+            "recommendation": "1 - 1.7 mg/kg IV q24h",
+            "dose_factor": 1.5
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 20 mL/min",
+            "recommendation": "Load 1.5 mg/kg, then redose only when level < 1 mcg/mL",
+            "dose_factor": 1.5
+          }
+        ],
+        "rrt": {
+          "ihd": "1 mg/kg IV post-HD on dialysis days; monitor trough levels before next dose.",
+          "crrt": "1 - 1.5 mg/kg IV q24-48h guided by TDM."
+        }
+      }
+    }
+  },
+  "amikacin": {
+    "name": "Amikacin (IV)",
+    "class": "Aminoglycoside",
+    "isMultiStrategy": false,
+    "standard_dose": "15 mg/kg IV q24h",
+    "dose_factor": 15,
+    "loadingDose": "FULL LOADING DOSE MANDATORY: 15 mg/kg based on Dosing Weight (ABW in obesity) in acute sepsis. Never reduce loading dose.",
+    "isNephrotoxic": true,
+    "isNeurotoxic": false,
+    "note": "POTENT NEPHROTOXIC & OTOTOXIC AGENT. Therapeutic Drug Monitoring mandatory (target peak 20-30 mcg/mL, trough < 5 mcg/mL). Dosed on ABW if BMI >= 30.",
+    "adjustments": [
+      {
+        "minCrCl": 60,
+        "label": "CrCl &ge; 60 mL/min",
+        "recommendation": "15 mg/kg IV q24h",
+        "dose_factor": 15
+      },
+      {
+        "minCrCl": 40,
+        "label": "CrCl 40 - 59 mL/min",
+        "recommendation": "15 mg/kg IV q36h (or 7.5 mg/kg q24h)",
+        "dose_factor": 7.5
+      },
+      {
+        "minCrCl": 20,
+        "label": "CrCl 20 - 39 mL/min",
+        "recommendation": "15 mg/kg IV q48h (or 7.5 mg/kg q48h)",
+        "dose_factor": 7.5
+      },
+      {
+        "minCrCl": 0,
+        "label": "CrCl < 20 mL/min",
+        "recommendation": "Load 7.5 - 10 mg/kg, then redose strictly per serum levels (target trough < 5 mcg/mL)",
+        "dose_factor": 7.5
+      }
+    ],
+    "rrt": {
+      "ihd": "5 - 7.5 mg/kg IV post-HD on dialysis days; redose strictly based on pre-HD serum concentrations (dialyzed ~50%).",
+      "crrt": "7.5 - 10 mg/kg IV q24-48h guided by TDM."
+    }
+  },
+  "vancomycin": {
+    "name": "Vancomycin (IV)",
+    "class": "Glycopeptide",
+    "isMultiStrategy": false,
+    "standard_dose": "15 - 20 mg/kg IV q8-12h (AUC-guided)",
+    "dose_factor": 15,
+    "loadingDose": "MANDATORY LOADING DOSE: 20 - 25 mg/kg (up to 30 mg/kg in critically ill, max 2 g initial infusion) based on ACTUAL BODY WEIGHT (TBW) regardless of renal clearance.",
+    "isNephrotoxic": true,
+    "isNeurotoxic": false,
+    "note": "NEPHROTOXIC: Synergistic nephrotoxicity with piperacillin-tazobactam, aminoglycosides, and NSAIDs. AUC24/MIC target 400-600 mg*h/L (or trough 15-20 mcg/mL in severe sepsis). Dosed using ACTUAL weight for loading.",
+    "adjustments": [
+      {
+        "minCrCl": 90,
+        "label": "CrCl &ge; 90 mL/min",
+        "recommendation": "15 - 20 mg/kg IV q8-12h (target AUC 400-600)",
+        "dose_factor": 15
+      },
+      {
+        "minCrCl": 50,
+        "label": "CrCl 50 - 89 mL/min",
+        "recommendation": "15 mg/kg IV q12h (or 15-20 mg/kg q12-24h)",
+        "dose_factor": 15
+      },
+      {
+        "minCrCl": 15,
+        "label": "CrCl 15 - 49 mL/min",
+        "recommendation": "15 mg/kg IV q24-48h (check trough prior to next dose)",
+        "dose_factor": 15
+      },
+      {
+        "minCrCl": 0,
+        "label": "CrCl < 15 mL/min",
+        "recommendation": "Load 20 - 25 mg/kg, then redose when serum level < 15 mcg/mL",
+        "dose_factor": 20
+      }
+    ],
+    "rrt": {
+      "ihd": "Load 20 - 25 mg/kg, then 500 - 1000 mg (or 7.5 - 10 mg/kg) post-HD guided by pre-HD trough level (target 15-20 mcg/mL; dialyzed ~30% with high-flux filters).",
+      "crrt": "20 - 25 mg/kg loading dose, then 10 - 15 mg/kg IV q24-48h guided by continuous TDM."
+    }
+  },
+  "daptomycin": {
+    "name": "Daptomycin (IV)",
+    "class": "Lipopeptide",
+    "isMultiStrategy": true,
+    "loadingDose": "Standard loading with prescribed dose (6 - 10 mg/kg).",
+    "isNephrotoxic": false,
+    "isNeurotoxic": false,
+    "note": "Inactivated by pulmonary surfactant (DO NOT USE FOR PNEUMONIA). Monitor Creatine Phosphokinase (CPK) weekly (risk of rhabdomyolysis / myopathy). Dosed on Actual Body Weight.",
+    "strategies": {
+      "SSTI (Skin/Soft Tissue)": {
+        "standard_dose": "4 - 6 mg/kg IV q24h",
+        "dose_factor": 4,
+        "adjustments": [
+          {
+            "minCrCl": 30,
+            "label": "CrCl &ge; 30 mL/min",
+            "recommendation": "4 - 6 mg/kg IV q24h",
+            "dose_factor": 4
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 30 mL/min",
+            "recommendation": "4 - 6 mg/kg IV q48h",
+            "dose_factor": 4
+          }
+        ],
+        "rrt": {
+          "ihd": "4 - 6 mg/kg IV q48h; administer dose post-HD on dialysis days (dialyzable ~15-20%).",
+          "crrt": "4 - 6 mg/kg IV q24-48h (monitor CPK closely)."
+        }
+      },
+      "Bacteremia / Endovascular": {
+        "standard_dose": "6 - 8 mg/kg IV q24h",
+        "dose_factor": 6,
+        "adjustments": [
+          {
+            "minCrCl": 30,
+            "label": "CrCl &ge; 30 mL/min",
+            "recommendation": "6 - 8 mg/kg IV q24h",
+            "dose_factor": 6
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 30 mL/min",
+            "recommendation": "6 - 8 mg/kg IV q48h",
+            "dose_factor": 6
+          }
+        ],
+        "rrt": {
+          "ihd": "6 - 8 mg/kg IV q48h post-HD on dialysis days.",
+          "crrt": "6 - 8 mg/kg IV q24h."
+        }
+      },
+      "E. Faecium / High Inoculum": {
+        "standard_dose": "8 - 10 mg/kg IV q24h",
+        "dose_factor": 8,
+        "adjustments": [
+          {
+            "minCrCl": 30,
+            "label": "CrCl &ge; 30 mL/min",
+            "recommendation": "8 - 10 mg/kg IV q24h",
+            "dose_factor": 8
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 30 mL/min",
+            "recommendation": "8 - 10 mg/kg IV q48h",
+            "dose_factor": 8
+          }
+        ],
+        "rrt": {
+          "ihd": "8 - 10 mg/kg IV q48h post-HD on dialysis days.",
+          "crrt": "8 - 10 mg/kg IV q24h."
+        }
+      }
+    }
+  },
+  "linezolid": {
+    "name": "Linezolid (IV/PO)",
+    "class": "Oxazolidinone",
+    "isMultiStrategy": false,
+    "standard_dose": "600 mg PO/IV q12h",
+    "loadingDose": "No loading dose required.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": false,
+    "note": "100% oral bioavailability. Primarily non-renal metabolism (~65% hepatic/tissue). NO dosage adjustment required for renal impairment. Dialyzable ~30% during 3h HD session. Monitor complete blood count (CBC) weekly for myelosuppression/thrombocytopenia if used > 14 days.",
+    "adjustments": [
+      {
+        "minCrCl": 50,
+        "label": "CrCl &ge; 50 mL/min",
+        "recommendation": "600 mg PO/IV q12h (no adjustment)"
+      },
+      {
+        "minCrCl": 10,
+        "label": "CrCl 10 - 49 mL/min",
+        "recommendation": "600 mg PO/IV q12h (no adjustment)"
+      },
+      {
+        "minCrCl": 0,
+        "label": "CrCl < 10 mL/min",
+        "recommendation": "600 mg PO/IV q12h (no adjustment; two metabolites accumulate but clinical significance unclear)"
+      }
+    ],
+    "rrt": {
+      "ihd": "600 mg PO/IV q12h; administer dose post-HD on dialysis days (cleared ~30% by hemodialysis).",
+      "crrt": "600 mg PO/IV q12h."
+    }
+  },
+  "metronidazole": {
+    "name": "Metronidazole (IV/PO)",
+    "class": "Nitroimidazole",
+    "isMultiStrategy": true,
+    "loadingDose": "Administer standard loading dose (1 g or 15 mg/kg) in severe anaerobic sepsis/amebic liver abscess.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": true,
+    "note": "High oral bioavailability (> 90%). Primarily hepatic metabolism (60-80%). In severe renal failure, metabolites accumulate; neurotoxicity (peripheral neuropathy, encephalopathy) may occur with prolonged courses.",
+    "strategies": {
+      "Standard Anaerobic Infection": {
+        "standard_dose": "500 mg PO/IV q8h",
+        "adjustments": [
+          {
+            "minCrCl": 50,
+            "label": "CrCl &ge; 50 mL/min",
+            "recommendation": "500 mg PO/IV q8h (no adjustment)"
+          },
+          {
+            "minCrCl": 10,
+            "label": "CrCl 10 - 49 mL/min",
+            "recommendation": "500 mg PO/IV q8h (no adjustment)"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 10 mL/min",
+            "recommendation": "250 - 500 mg PO/IV q8-12h (or 50% dose)"
+          }
+        ],
+        "rrt": {
+          "ihd": "250 - 500 mg PO/IV q8-12h; give supplemental dose immediately post-HD on dialysis days (dialyzable ~45%).",
+          "crrt": "500 mg PO/IV q8h."
+        }
+      },
+      "CNS / C.diff / Necrotizing": {
+        "standard_dose": "500 mg IV q6-8h",
+        "adjustments": [
+          {
+            "minCrCl": 10,
+            "label": "CrCl &ge; 10 mL/min",
+            "recommendation": "500 mg IV q6-8h"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 10 mL/min",
+            "recommendation": "500 mg IV q12h"
+          }
+        ],
+        "rrt": {
+          "ihd": "500 mg IV q12h post-HD on dialysis days.",
+          "crrt": "500 mg IV q8h."
+        }
+      }
+    }
+  },
+  "cotrimoxazole": {
+    "name": "Cotrimoxazole / TMP-SMX (IV/PO)",
+    "class": "Sulfonamide + Dihydrofolate Reductase Inhibitor",
+    "isMultiStrategy": true,
+    "loadingDose": "Standard initial dose.",
+    "isNephrotoxic": true,
+    "isNeurotoxic": false,
+    "note": "Dosed on Trimethoprim (TMP) component. High risk of severe hyperkalemia and pseudo-elevation of creatinine (TMP inhibits tubular secretion of creatinine without altering true GFR). Maintain vigorous hydration to prevent crystalluria.",
+    "strategies": {
+      "Uncomplicated Cystitis": {
+        "standard_dose": "1 DS tablet (160 mg TMP) PO q12h x 3 days",
+        "adjustments": [
+          {
+            "minCrCl": 30,
+            "label": "CrCl &ge; 30 mL/min",
+            "recommendation": "1 DS tablet (160 mg TMP) PO q12h"
+          },
+          {
+            "minCrCl": 15,
+            "label": "CrCl 15 - 29 mL/min",
+            "recommendation": "1 SS tablet (80 mg TMP) PO q12h or 1 DS q24h"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 15 mL/min",
+            "recommendation": "Avoid / Not recommended; if essential: 1 SS tablet PO q24h"
+          }
+        ],
+        "rrt": {
+          "ihd": "1 SS tablet PO post-HD on dialysis days (TMP cleared ~40-50% by HD).",
+          "crrt": "1 SS tablet PO q12h or 1 DS tablet q24h."
+        }
+      },
+      "SSTI (Skin/Soft Tissue)": {
+        "standard_dose": "1 - 2 DS tablets (160-320 mg TMP) PO q12h",
+        "adjustments": [
+          {
+            "minCrCl": 30,
+            "label": "CrCl &ge; 30 mL/min",
+            "recommendation": "1 - 2 DS tablets PO q12h"
+          },
+          {
+            "minCrCl": 15,
+            "label": "CrCl 15 - 29 mL/min",
+            "recommendation": "1 DS tablet (160 mg TMP) PO q12-24h"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 15 mL/min",
+            "recommendation": "1/2 DS tablet (80 mg TMP) PO q24h with close potassium monitoring"
+          }
+        ],
+        "rrt": {
+          "ihd": "1 DS tablet PO post-HD on dialysis days.",
+          "crrt": "1 DS tablet PO q12-24h."
+        }
+      },
+      "S. Aureus (Bone/Joint)": {
+        "standard_dose": "4 mg/kg (TMP) IV/PO q12h",
+        "dose_factor": 4,
+        "adjustments": [
+          {
+            "minCrCl": 30,
+            "label": "CrCl &ge; 30 mL/min",
+            "recommendation": "4 mg/kg (TMP) IV/PO q12h",
+            "dose_factor": 4
+          },
+          {
+            "minCrCl": 15,
+            "label": "CrCl 15 - 29 mL/min",
+            "recommendation": "2 mg/kg (TMP) IV/PO q12h (or 4 mg/kg q24h)",
+            "dose_factor": 2
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 15 mL/min",
+            "recommendation": "2 mg/kg (TMP) IV/PO q24h (check potassium & CBC)",
+            "dose_factor": 2
+          }
+        ],
+        "rrt": {
+          "ihd": "2 - 4 mg/kg (TMP) post-HD on dialysis days.",
+          "crrt": "2.5 - 5 mg/kg (TMP) IV q12-24h."
+        }
+      },
+      "GNB Bacteremia": {
+        "standard_dose": "5 mg/kg (TMP) IV/PO q12h",
+        "dose_factor": 5,
+        "adjustments": [
+          {
+            "minCrCl": 30,
+            "label": "CrCl &ge; 30 mL/min",
+            "recommendation": "5 mg/kg (TMP) IV/PO q12h",
+            "dose_factor": 5
+          },
+          {
+            "minCrCl": 15,
+            "label": "CrCl 15 - 29 mL/min",
+            "recommendation": "2.5 mg/kg (TMP) IV/PO q12h (or 5 mg/kg q24h)",
+            "dose_factor": 2.5
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 15 mL/min",
+            "recommendation": "2.5 mg/kg (TMP) IV/PO q24h (monitor potassium closely)",
+            "dose_factor": 2.5
+          }
+        ],
+        "rrt": {
+          "ihd": "2.5 mg/kg (TMP) IV/PO post-HD on dialysis days.",
+          "crrt": "2.5 - 5 mg/kg (TMP) IV q12h."
+        }
+      },
+      "Stenotrophomonas": {
+        "standard_dose": "5 mg/kg (TMP) IV q8h",
+        "dose_factor": 5,
+        "adjustments": [
+          {
+            "minCrCl": 30,
+            "label": "CrCl &ge; 30 mL/min",
+            "recommendation": "5 mg/kg (TMP) IV q8h (15 mg/kg/day)",
+            "dose_factor": 5
+          },
+          {
+            "minCrCl": 15,
+            "label": "CrCl 15 - 29 mL/min",
+            "recommendation": "2.5 - 5 mg/kg (TMP) IV q12h",
+            "dose_factor": 2.5
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 15 mL/min",
+            "recommendation": "2.5 mg/kg (TMP) IV q12-24h",
+            "dose_factor": 2.5
+          }
+        ],
+        "rrt": {
+          "ihd": "2.5 - 5 mg/kg (TMP) IV post-HD on dialysis days.",
+          "crrt": "5 mg/kg (TMP) IV q12h."
+        }
+      },
+      "PJP Treatment": {
+        "standard_dose": "15 - 20 mg/kg/day (TMP) divided q6-8h IV",
+        "dose_factor": 15,
+        "adjustments": [
+          {
+            "minCrCl": 30,
+            "label": "CrCl &ge; 30 mL/min",
+            "recommendation": "15 - 20 mg/kg/day (TMP) divided q6-8h IV",
+            "dose_factor": 15
+          },
+          {
+            "minCrCl": 15,
+            "label": "CrCl 15 - 29 mL/min",
+            "recommendation": "7.5 - 10 mg/kg/day (TMP) divided q12h IV",
+            "dose_factor": 7.5
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 15 mL/min",
+            "recommendation": "5 - 7.5 mg/kg/day (TMP) divided q12-24h IV (monitor potassium)",
+            "dose_factor": 5
+          }
+        ],
+        "rrt": {
+          "ihd": "5 - 7.5 mg/kg (TMP) IV post-HD on dialysis days; check serum levels if available.",
+          "crrt": "7.5 - 10 mg/kg/day (TMP) divided q12h."
+        }
+      }
+    }
+  },
+  "clindamycin": {
+    "name": "Clindamycin (IV/PO)",
+    "class": "Lincosamide",
+    "isMultiStrategy": false,
+    "standard_dose": "600 - 900 mg IV q8h or 300 - 450 mg PO q6-8h",
+    "loadingDose": "Standard dosing.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": false,
+    "note": "Hepatic metabolism (> 90%). NO renal dosage adjustment required for any degree of renal failure or dialysis. Not removed by hemodialysis. High risk of Clostridioides difficile colitis.",
+    "adjustments": [
+      {
+        "minCrCl": 50,
+        "label": "CrCl &ge; 50 mL/min",
+        "recommendation": "600 - 900 mg IV q8h or 300 - 450 mg PO q6-8h (no adjustment)"
+      },
+      {
+        "minCrCl": 10,
+        "label": "CrCl 10 - 49 mL/min",
+        "recommendation": "600 - 900 mg IV q8h or 300 - 450 mg PO q6-8h (no adjustment)"
+      },
+      {
+        "minCrCl": 0,
+        "label": "CrCl < 10 mL/min",
+        "recommendation": "600 - 900 mg IV q8h or 300 - 450 mg PO q6-8h (no adjustment)"
+      }
+    ],
+    "rrt": {
+      "ihd": "600 - 900 mg IV q8h (not removed by HD; no supplemental dose needed).",
+      "crrt": "600 - 900 mg IV q8h."
+    }
+  },
+  "nitrofurantoin": {
+    "name": "Nitrofurantoin (PO)",
+    "class": "Nitrofuran",
+    "isMultiStrategy": false,
+    "standard_dose": "100 mg PO q12h (Macrocrystal/Monohydrate) x 5 days",
+    "loadingDose": "Not applicable.",
+    "isNephrotoxic": true,
+    "isNeurotoxic": true,
+    "contraindication": "CONTRAINDICATED in CrCl < 30 mL/min (and cautioned in CrCl 30-60 mL/min). Inadequate urinary drug concentrations result in therapeutic failure; toxic systemic accumulation causes peripheral polyneuropathy, pulmonary fibrosis, and hepatotoxicity.",
+    "note": "ABSOLUTE CONTRAINDICATION in CrCl < 30 mL/min. Indicated ONLY for uncomplicated lower cystitis (lacks tissue penetration; ineffective for pyelonephritis).",
+    "adjustments": [
+      {
+        "minCrCl": 60,
+        "label": "CrCl &ge; 60 mL/min",
+        "recommendation": "100 mg PO q12h x 5 days"
+      },
+      {
+        "minCrCl": 30,
+        "label": "CrCl 30 - 59 mL/min",
+        "recommendation": "100 mg PO q12h (use with caution, avoid if CrCl < 45 or long duration)"
+      },
+      {
+        "minCrCl": 0,
+        "label": "CrCl < 30 mL/min",
+        "recommendation": "CONTRAINDICATED: Ineffective urinary concentration & toxic systemic accumulation causing peripheral neuropathy"
+      }
+    ],
+    "rrt": {
+      "ihd": "CONTRAINDICATED in hemodialysis patients.",
+      "crrt": "CONTRAINDICATED in CRRT patients (ineffective urinary concentration)."
+    }
+  },
+  "acyclovir-iv": {
+    "name": "Acyclovir (IV)",
+    "class": "Antiviral (DNA Polymerase Inhibitor)",
+    "isMultiStrategy": true,
+    "dose_factor": 5,
+    "loadingDose": "Administer full initial loading dose in acute viral encephalitis/disseminated infection before adjusting interval.",
+    "isNephrotoxic": true,
+    "isNeurotoxic": true,
+    "note": "HIGH RISK OF CRYSTAL NEPHROPATHY & NEUROTOXICITY (tremors, hallucinations, delirium, coma). Maintain vigorous IV hydration and slow 1-hour infusion. Dosed on Dosing Weight (IBW or ABW in obesity).",
+    "strategies": {
+      "Prophylaxis: BMT": {
+        "standard_dose": "250 mg/m2 IV q8h or 5 mg/kg IV q8h",
+        "dose_factor": 5,
+        "adjustments": [
+          {
+            "minCrCl": 50,
+            "label": "CrCl &ge; 50 mL/min",
+            "recommendation": "5 mg/kg IV q8h",
+            "dose_factor": 5
+          },
+          {
+            "minCrCl": 25,
+            "label": "CrCl 25 - 49 mL/min",
+            "recommendation": "5 mg/kg IV q12h",
+            "dose_factor": 5
+          },
+          {
+            "minCrCl": 10,
+            "label": "CrCl 10 - 24 mL/min",
+            "recommendation": "5 mg/kg IV q24h",
+            "dose_factor": 5
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 10 mL/min",
+            "recommendation": "2.5 mg/kg IV q24h",
+            "dose_factor": 2.5
+          }
+        ],
+        "rrt": {
+          "ihd": "2.5 mg/kg IV q24h; give dose immediately post-HD on dialysis days (dialyzed ~60%).",
+          "crrt": "5 mg/kg IV q12-24h."
+        }
+      },
+      "Prophylaxis: Heme/Onc": {
+        "standard_dose": "250 mg/m2 IV q12h",
+        "dose_factor": 250,
+        "is_bsa": true,
+        "adjustments": [
+          {
+            "minCrCl": 50,
+            "label": "CrCl &ge; 50 mL/min",
+            "recommendation": "250 mg/m2 IV q12h"
+          },
+          {
+            "minCrCl": 25,
+            "label": "CrCl 25 - 49 mL/min",
+            "recommendation": "250 mg/m2 IV q24h"
+          },
+          {
+            "minCrCl": 10,
+            "label": "CrCl 10 - 24 mL/min",
+            "recommendation": "125 mg/m2 IV q24h"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 10 mL/min",
+            "recommendation": "125 mg/m2 IV q48h"
+          }
+        ],
+        "rrt": {
+          "ihd": "125 mg/m2 IV post-HD on dialysis days.",
+          "crrt": "250 mg/m2 IV q24h."
+        }
+      },
+      "Treatment: General (Mucocutaneous)": {
+        "standard_dose": "5 mg/kg IV q8h",
+        "dose_factor": 5,
+        "adjustments": [
+          {
+            "minCrCl": 50,
+            "label": "CrCl &ge; 50 mL/min",
+            "recommendation": "5 mg/kg IV q8h",
+            "dose_factor": 5
+          },
+          {
+            "minCrCl": 25,
+            "label": "CrCl 25 - 49 mL/min",
+            "recommendation": "5 mg/kg IV q12h",
+            "dose_factor": 5
+          },
+          {
+            "minCrCl": 10,
+            "label": "CrCl 10 - 24 mL/min",
+            "recommendation": "5 mg/kg IV q24h",
+            "dose_factor": 5
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 10 mL/min",
+            "recommendation": "2.5 mg/kg IV q24h",
+            "dose_factor": 2.5
+          }
+        ],
+        "rrt": {
+          "ihd": "2.5 mg/kg IV q24h post-HD on dialysis days.",
+          "crrt": "5 mg/kg IV q12-24h."
+        }
+      },
+      "Treatment: Severe (CNS/VZV/Dissem)": {
+        "standard_dose": "10 mg/kg IV q8h",
+        "dose_factor": 10,
+        "adjustments": [
+          {
+            "minCrCl": 50,
+            "label": "CrCl &ge; 50 mL/min",
+            "recommendation": "10 mg/kg IV q8h",
+            "dose_factor": 10
+          },
+          {
+            "minCrCl": 25,
+            "label": "CrCl 25 - 49 mL/min",
+            "recommendation": "10 mg/kg IV q12h",
+            "dose_factor": 10
+          },
+          {
+            "minCrCl": 10,
+            "label": "CrCl 10 - 24 mL/min",
+            "recommendation": "10 mg/kg IV q24h",
+            "dose_factor": 10
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 10 mL/min",
+            "recommendation": "5 mg/kg IV q24h",
+            "dose_factor": 5
+          }
+        ],
+        "rrt": {
+          "ihd": "5 mg/kg IV q24h post-HD on dialysis days (redose after each HD session).",
+          "crrt": "5 - 7.5 mg/kg IV q12-24h."
+        }
+      }
+    }
+  },
+  "acyclovir-po": {
+    "name": "Acyclovir (Oral)",
+    "class": "Antiviral",
+    "isMultiStrategy": true,
+    "loadingDose": "Standard dosing.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": true,
+    "note": "Low oral bioavailability (15-30%). Maintain adequate fluid intake to avoid renal crystalluria.",
+    "strategies": {
+      "Zoster (High Dose)": {
+        "standard_dose": "800 mg PO 5x/day (q4h while awake)",
+        "adjustments": [
+          {
+            "minCrCl": 25,
+            "label": "CrCl &ge; 25 mL/min",
+            "recommendation": "800 mg PO 5x/day (q4h while awake)"
+          },
+          {
+            "minCrCl": 10,
+            "label": "CrCl 10 - 24 mL/min",
+            "recommendation": "800 mg PO q8h"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 10 mL/min",
+            "recommendation": "800 mg PO q12h"
+          }
+        ],
+        "rrt": {
+          "ihd": "800 mg PO q12h; give supplemental 800 mg dose post-HD on dialysis days.",
+          "crrt": "800 mg PO q8-12h."
+        }
+      },
+      "HSV (Standard)": {
+        "standard_dose": "400 mg PO TID (or 200 mg 5x/day)",
+        "adjustments": [
+          {
+            "minCrCl": 25,
+            "label": "CrCl &ge; 25 mL/min",
+            "recommendation": "400 mg PO TID (q8h) or 200 mg 5x/day"
+          },
+          {
+            "minCrCl": 10,
+            "label": "CrCl 10 - 24 mL/min",
+            "recommendation": "200 - 400 mg PO q12h"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 10 mL/min",
+            "recommendation": "200 mg PO q12h"
+          }
+        ],
+        "rrt": {
+          "ihd": "200 - 400 mg PO q12h post-HD on dialysis days.",
+          "crrt": "200 - 400 mg PO q8-12h."
+        }
+      }
+    }
+  },
+  "valacyclovir": {
+    "name": "Valacyclovir (PO)",
+    "class": "Antiviral (Prodrug of Acyclovir)",
+    "isMultiStrategy": true,
+    "loadingDose": "Standard initial dose.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": true,
+    "note": "Prodrug with 55% oral bioavailability (3-5x higher serum levels than oral acyclovir). NEUROTOXICITY (hallucinations, confusion, coma) occurs readily in unadjusted renal impairment.",
+    "strategies": {
+      "VZV (Zoster)": {
+        "standard_dose": "1 g PO q8h x 7 days",
+        "adjustments": [
+          {
+            "minCrCl": 50,
+            "label": "CrCl &ge; 50 mL/min",
+            "recommendation": "1 g PO q8h"
+          },
+          {
+            "minCrCl": 30,
+            "label": "CrCl 30 - 49 mL/min",
+            "recommendation": "1 g PO q12h"
+          },
+          {
+            "minCrCl": 10,
+            "label": "CrCl 10 - 29 mL/min",
+            "recommendation": "1 g PO q24h"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 10 mL/min",
+            "recommendation": "500 mg PO q24h"
+          }
+        ],
+        "rrt": {
+          "ihd": "500 mg PO q24h; give dose immediately post-HD on dialysis days (dialyzable ~33%).",
+          "crrt": "500 mg PO q12h."
+        }
+      },
+      "Genital Herpes": {
+        "standard_dose": "1 g PO q12h (initial) or 500 mg PO q12h (recurrent)",
+        "adjustments": [
+          {
+            "minCrCl": 30,
+            "label": "CrCl &ge; 30 mL/min",
+            "recommendation": "1 g PO q12h or 500 mg PO q12h"
+          },
+          {
+            "minCrCl": 10,
+            "label": "CrCl 10 - 29 mL/min",
+            "recommendation": "500 mg PO q12-24h"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 10 mL/min",
+            "recommendation": "500 mg PO q24h"
+          }
+        ],
+        "rrt": {
+          "ihd": "500 mg PO q24h post-HD on dialysis days.",
+          "crrt": "500 mg PO q12h."
+        }
+      },
+      "Herpes Labialis": {
+        "standard_dose": "2 g PO q12h x 1 day (2 doses)",
+        "adjustments": [
+          {
+            "minCrCl": 50,
+            "label": "CrCl &ge; 50 mL/min",
+            "recommendation": "2 g PO q12h x 1 day (2 doses total)"
+          },
+          {
+            "minCrCl": 30,
+            "label": "CrCl 30 - 49 mL/min",
+            "recommendation": "1 g PO q12h x 1 day (2 doses total)"
+          },
+          {
+            "minCrCl": 10,
+            "label": "CrCl 10 - 29 mL/min",
+            "recommendation": "500 mg PO q12h x 1 day (2 doses total)"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 10 mL/min",
+            "recommendation": "500 mg PO single dose"
+          }
+        ],
+        "rrt": {
+          "ihd": "500 mg PO single dose post-HD.",
+          "crrt": "500 mg PO q12h."
+        }
+      }
+    }
+  },
+  "valganciclovir": {
+    "name": "Valganciclovir (PO)",
+    "class": "Antiviral (Prodrug of Ganciclovir)",
+    "isMultiStrategy": true,
+    "loadingDose": "Standard dosing.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": false,
+    "note": "Oral prodrug of ganciclovir (60% bioavailability). Severe bone marrow suppression (neutropenia, thrombocytopenia). STRICT RENAL DOSE TITRATION MANDATORY to prevent fatal cytopenias.",
+    "strategies": {
+      "Induction": {
+        "standard_dose": "900 mg PO q12h",
+        "adjustments": [
+          {
+            "minCrCl": 60,
+            "label": "CrCl &ge; 60 mL/min",
+            "recommendation": "900 mg PO q12h"
+          },
+          {
+            "minCrCl": 40,
+            "label": "CrCl 40 - 59 mL/min",
+            "recommendation": "450 mg PO q12h"
+          },
+          {
+            "minCrCl": 25,
+            "label": "CrCl 25 - 39 mL/min",
+            "recommendation": "450 mg PO q24h"
+          },
+          {
+            "minCrCl": 10,
+            "label": "CrCl 10 - 24 mL/min",
+            "recommendation": "450 mg PO q48h"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 10 mL/min",
+            "recommendation": "Not recommended; use IV ganciclovir for precision"
+          }
+        ],
+        "rrt": {
+          "ihd": "Not recommended (use IV ganciclovir for accurate dosing post-HD); if unavoidable: 450 mg PO twice weekly post-HD.",
+          "crrt": "450 mg PO q24h (consult infectious disease specialist)."
+        }
+      },
+      "Maintenance": {
+        "standard_dose": "900 mg PO q24h",
+        "adjustments": [
+          {
+            "minCrCl": 60,
+            "label": "CrCl &ge; 60 mL/min",
+            "recommendation": "900 mg PO q24h"
+          },
+          {
+            "minCrCl": 40,
+            "label": "CrCl 40 - 59 mL/min",
+            "recommendation": "450 mg PO q24h"
+          },
+          {
+            "minCrCl": 25,
+            "label": "CrCl 25 - 39 mL/min",
+            "recommendation": "450 mg PO q48h"
+          },
+          {
+            "minCrCl": 10,
+            "label": "CrCl 10 - 24 mL/min",
+            "recommendation": "450 mg PO twice weekly"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 10 mL/min",
+            "recommendation": "Not recommended; switch to IV ganciclovir"
+          }
+        ],
+        "rrt": {
+          "ihd": "Not recommended; switch to IV ganciclovir post-HD.",
+          "crrt": "450 mg PO q48h or twice weekly."
+        }
+      }
+    }
+  },
+  "ganciclovir": {
+    "name": "Ganciclovir (IV)",
+    "class": "Antiviral",
+    "isMultiStrategy": true,
+    "dose_factor": 5,
+    "loadingDose": "Administer standard initial dose before adjusting interval.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": false,
+    "note": "Renally cleared (> 90%). Severe dose-dependent granulocytopenia and thrombocytopenia. Monitor absolute neutrophil count (ANC) and platelets at least twice weekly.",
+    "strategies": {
+      "Induction": {
+        "standard_dose": "5 mg/kg IV q12h",
+        "dose_factor": 5,
+        "adjustments": [
+          {
+            "minCrCl": 70,
+            "label": "CrCl &ge; 70 mL/min",
+            "recommendation": "5 mg/kg IV q12h",
+            "dose_factor": 5
+          },
+          {
+            "minCrCl": 50,
+            "label": "CrCl 50 - 69 mL/min",
+            "recommendation": "2.5 mg/kg IV q12h",
+            "dose_factor": 2.5
+          },
+          {
+            "minCrCl": 25,
+            "label": "CrCl 25 - 49 mL/min",
+            "recommendation": "2.5 mg/kg IV q24h",
+            "dose_factor": 2.5
+          },
+          {
+            "minCrCl": 10,
+            "label": "CrCl 10 - 24 mL/min",
+            "recommendation": "1.25 mg/kg IV q24h",
+            "dose_factor": 1.25
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 10 mL/min",
+            "recommendation": "1.25 mg/kg IV 3 times per week after HD",
+            "dose_factor": 1.25
+          }
+        ],
+        "rrt": {
+          "ihd": "1.25 mg/kg IV administered post-HD on dialysis days (dialyzed ~50%).",
+          "crrt": "2.5 mg/kg IV q24h."
+        }
+      },
+      "Maintenance": {
+        "standard_dose": "5 mg/kg IV q24h",
+        "dose_factor": 5,
+        "adjustments": [
+          {
+            "minCrCl": 70,
+            "label": "CrCl &ge; 70 mL/min",
+            "recommendation": "5 mg/kg IV q24h",
+            "dose_factor": 5
+          },
+          {
+            "minCrCl": 50,
+            "label": "CrCl 50 - 69 mL/min",
+            "recommendation": "2.5 mg/kg IV q24h",
+            "dose_factor": 2.5
+          },
+          {
+            "minCrCl": 25,
+            "label": "CrCl 25 - 49 mL/min",
+            "recommendation": "1.25 mg/kg IV q24h",
+            "dose_factor": 1.25
+          },
+          {
+            "minCrCl": 10,
+            "label": "CrCl 10 - 24 mL/min",
+            "recommendation": "0.625 mg/kg IV q24h",
+            "dose_factor": 0.625
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 10 mL/min",
+            "recommendation": "0.625 mg/kg IV 3 times per week after HD",
+            "dose_factor": 0.625
+          }
+        ],
+        "rrt": {
+          "ihd": "0.625 mg/kg IV post-HD on dialysis days.",
+          "crrt": "1.25 mg/kg IV q24h."
+        }
+      }
+    }
+  },
+  "oseltamivir": {
+    "name": "Oseltamivir (PO)",
+    "class": "Neuraminidase Inhibitor",
+    "isMultiStrategy": true,
+    "loadingDose": "Administer standard initial 75 mg dose immediately upon presentation of severe influenza.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": false,
+    "note": "Prodrug converted to active metabolite oseltamivir carboxylate, which is eliminated entirely by glomerular filtration and tubular secretion (> 99%). Well tolerated.",
+    "strategies": {
+      "Treatment": {
+        "standard_dose": "75 mg PO BID (q12h) x 5 days",
+        "adjustments": [
+          {
+            "minCrCl": 61,
+            "label": "CrCl &ge; 61 mL/min",
+            "recommendation": "75 mg PO BID (q12h) x 5 days"
+          },
+          {
+            "minCrCl": 31,
+            "label": "CrCl 31 - 60 mL/min",
+            "recommendation": "30 mg PO BID (q12h) x 5 days"
+          },
+          {
+            "minCrCl": 11,
+            "label": "CrCl 11 - 30 mL/min",
+            "recommendation": "30 mg PO once daily (q24h) x 5 days"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl &le; 10 mL/min",
+            "recommendation": "30 mg PO single dose (or 30 mg post-HD every other session)"
+          }
+        ],
+        "rrt": {
+          "ihd": "30 mg PO post every other HD session (after session 1 and 3 in a 3x/week HD regimen).",
+          "crrt": "30 mg PO once daily (q24h)."
+        }
+      },
+      "Prophylaxis": {
+        "standard_dose": "75 mg PO once daily (q24h) x 10 days",
+        "adjustments": [
+          {
+            "minCrCl": 61,
+            "label": "CrCl &ge; 61 mL/min",
+            "recommendation": "75 mg PO once daily (q24h)"
+          },
+          {
+            "minCrCl": 31,
+            "label": "CrCl 31 - 60 mL/min",
+            "recommendation": "30 mg PO once daily (q24h)"
+          },
+          {
+            "minCrCl": 11,
+            "label": "CrCl 11 - 30 mL/min",
+            "recommendation": "30 mg PO every other day (q48h)"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl &le; 10 mL/min",
+            "recommendation": "30 mg PO post every other HD session"
+          }
+        ],
+        "rrt": {
+          "ihd": "30 mg PO post every other HD session on dialysis days.",
+          "crrt": "30 mg PO every other day (q48h)."
+        }
+      }
+    }
+  },
+  "fluconazole": {
+    "name": "Fluconazole (IV/PO)",
+    "class": "Triazole Antifungal",
+    "isMultiStrategy": true,
+    "loadingDose": "FULL LOADING DOSE MANDATORY: 800 mg (or 12 mg/kg) on Day 1 in candidemia/severe sepsis. Renal adjustment applies strictly to Day 2 onward.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": false,
+    "note": "Renally cleared (~80% unchanged in urine). Oral and IV formulations are therapeutically bioequivalent (1:1 conversion). Always administer a 100% loading dose on Day 1.",
+    "strategies": {
+      "Candidemia / Severe": {
+        "standard_dose": "800 mg load, then 400 mg PO/IV q24h",
+        "adjustments": [
+          {
+            "minCrCl": 50,
+            "label": "CrCl &ge; 50 mL/min",
+            "recommendation": "800 mg load, then 400 mg PO/IV q24h (100% dose)"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 50 mL/min",
+            "recommendation": "800 mg load, then 200 mg PO/IV q24h (50% dose)"
+          }
+        ],
+        "rrt": {
+          "ihd": "800 mg load, then 200 mg q24h; give 100% supplemental dose (200-400 mg) post-HD on dialysis days (cleared ~50%).",
+          "crrt": "800 mg load, then 400 - 800 mg IV q24h (high clearance on CVVHDF)."
+        }
+      },
+      "Esophageal / UTI": {
+        "standard_dose": "200 - 400 mg load, then 100 - 200 mg q24h",
+        "adjustments": [
+          {
+            "minCrCl": 50,
+            "label": "CrCl &ge; 50 mL/min",
+            "recommendation": "200 - 400 mg load, then 100 - 200 mg q24h"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 50 mL/min",
+            "recommendation": "200 - 400 mg load, then 50 - 100 mg q24h (50% dose)"
+          }
+        ],
+        "rrt": {
+          "ihd": "100 - 200 mg post-HD on dialysis days.",
+          "crrt": "200 mg PO/IV q24h."
+        }
+      },
+      "C. glabrata (SDD)": {
+        "standard_dose": "800 mg load, then 800 mg PO/IV q24h",
+        "adjustments": [
+          {
+            "minCrCl": 50,
+            "label": "CrCl &ge; 50 mL/min",
+            "recommendation": "800 mg load, then 800 mg PO/IV q24h"
+          },
+          {
+            "minCrCl": 0,
+            "label": "CrCl < 50 mL/min",
+            "recommendation": "800 mg load, then 400 mg PO/IV q24h"
+          }
+        ],
+        "rrt": {
+          "ihd": "800 mg load, then 400 mg post-HD on dialysis days.",
+          "crrt": "800 mg IV q24h."
+        }
+      }
+    }
+  },
+  "voriconazole": {
+    "name": "Voriconazole (IV/PO)",
+    "class": "Triazole Antifungal",
+    "isMultiStrategy": false,
+    "standard_dose": "IV: 6 mg/kg q12h x 2 doses load, then 4 mg/kg q12h; PO: 200 mg q12h",
+    "loadingDose": "Day 1 loading dose: IV 6 mg/kg q12h x 2 doses (or PO 400 mg q12h x 2 doses).",
+    "isNephrotoxic": true,
+    "isNeurotoxic": true,
+    "contraindication": "INTRAVENOUS FORMULATION CAUTION: IV vehicle SBECD (sulfobutylether beta-cyclodextrin) accumulates in CrCl < 50 mL/min and may cause acute tubular necrosis. STRONGLY RECOMMEND SWITCHING TO ORAL VORICONAZOLE (100% bioavailable, no SBECD vehicle).",
+    "note": "Extensively metabolized by hepatic CYP2C19. Therapeutic Drug Monitoring (TDM) recommended (target trough 1.5-5.0 mcg/mL). Visual disturbances and hallucinations reported.",
+    "adjustments": [
+      {
+        "minCrCl": 50,
+        "label": "CrCl &ge; 50 mL/min",
+        "recommendation": "IV: 6 mg/kg q12h load, then 4 mg/kg q12h; PO: 200 mg q12h"
+      },
+      {
+        "minCrCl": 0,
+        "label": "CrCl < 50 mL/min",
+        "recommendation": "SWITCH TO ORAL VORICONAZOLE: 200 mg PO q12h (avoids toxic SBECD vehicle accumulation)"
+      }
+    ],
+    "rrt": {
+      "ihd": "200 mg PO q12h (oral preferred; neither voriconazole nor SBECD is effectively dialyzed; no post-HD supplement needed).",
+      "crrt": "200 mg PO q12h (or IV with caution if enteral route unavailable)."
+    }
+  },
+  "posaconazole": {
+    "name": "Posaconazole (PO/IV)",
+    "class": "Triazole Antifungal",
+    "isMultiStrategy": false,
+    "standard_dose": "Delayed-Release Tablets: 300 mg PO q12h Day 1, then 300 mg PO q24h",
+    "loadingDose": "Day 1: 300 mg PO/IV q12h x 2 doses.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": false,
+    "note": "Delayed-release tablet formulation preferred. Primarily eliminated via hepatic glucuronidation and fecal excretion (~70%). No renal adjustment for oral formulation. IV form contains SBECD vehicle (avoid in CrCl < 50).",
+    "adjustments": [
+      {
+        "minCrCl": 50,
+        "label": "CrCl &ge; 50 mL/min",
+        "recommendation": "300 mg PO (delayed-release) q24h (after 300 mg q12h load Day 1)"
+      },
+      {
+        "minCrCl": 0,
+        "label": "CrCl < 50 mL/min",
+        "recommendation": "300 mg PO (delayed-release) q24h (oral preferred; avoid IV form due to SBECD accumulation)"
+      }
+    ],
+    "rrt": {
+      "ihd": "300 mg PO q24h (not removed by hemodialysis; no supplemental dose needed).",
+      "crrt": "300 mg PO/IV q24h."
+    }
+  },
+  "caspofungin": {
+    "name": "Caspofungin (IV)",
+    "class": "Echinocandin",
+    "isMultiStrategy": false,
+    "standard_dose": "70 mg IV Day 1 load, then 50 mg IV q24h (70 mg if > 80 kg or moderate hepatic impairment)",
+    "loadingDose": "70 mg IV loading dose Day 1 mandatory.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": false,
+    "note": "Hepatic metabolism and spontaneous degradation. NO renal dosage adjustment required for any degree of renal failure or dialysis. Not dialyzable. Adjust only for moderate hepatic impairment (Child-Pugh B: 35 mg daily).",
+    "adjustments": [
+      {
+        "minCrCl": 50,
+        "label": "CrCl &ge; 50 mL/min",
+        "recommendation": "70 mg IV Day 1, then 50 mg IV q24h (no adjustment)"
+      },
+      {
+        "minCrCl": 10,
+        "label": "CrCl 10 - 49 mL/min",
+        "recommendation": "70 mg IV Day 1, then 50 mg IV q24h (no adjustment)"
+      },
+      {
+        "minCrCl": 0,
+        "label": "CrCl < 10 mL/min",
+        "recommendation": "70 mg IV Day 1, then 50 mg IV q24h (no adjustment)"
+      }
+    ],
+    "rrt": {
+      "ihd": "70 mg load, then 50 mg IV q24h (not dialyzed; no post-HD supplement needed).",
+      "crrt": "70 mg load, then 50 - 70 mg IV q24h."
+    }
+  },
+  "micafungin": {
+    "name": "Micafungin (IV)",
+    "class": "Echinocandin",
+    "isMultiStrategy": false,
+    "standard_dose": "100 mg IV q24h (Candidemia) or 150 mg IV q24h (Esophageal Candidiasis)",
+    "loadingDose": "No loading dose required.",
+    "isNephrotoxic": false,
+    "isNeurotoxic": false,
+    "note": "Eliminated via feces and bile through non-CYP hepatic metabolism. NO dosage adjustment required for any degree of renal impairment or dialysis. Highly protein bound (~99%).",
+    "adjustments": [
+      {
+        "minCrCl": 50,
+        "label": "CrCl &ge; 50 mL/min",
+        "recommendation": "100 mg IV q24h (150 mg for esophageal) (no adjustment)"
+      },
+      {
+        "minCrCl": 10,
+        "label": "CrCl 10 - 49 mL/min",
+        "recommendation": "100 mg IV q24h (no adjustment)"
+      },
+      {
+        "minCrCl": 0,
+        "label": "CrCl < 10 mL/min",
+        "recommendation": "100 mg IV q24h (no adjustment)"
+      }
+    ],
+    "rrt": {
+      "ihd": "100 mg IV q24h (not removed by hemodialysis; no supplemental dose needed).",
+      "crrt": "100 - 150 mg IV q24h."
+    }
+  },
+  "amphotericin-b": {
+    "name": "Amphotericin B - Liposomal (IV)",
+    "class": "Polyene Antifungal",
+    "isMultiStrategy": false,
+    "standard_dose": "3 - 5 mg/kg IV q24h (up to 10 mg/kg in mucormycosis)",
+    "dose_factor": 3,
+    "loadingDose": "Standard dosing from Day 1.",
+    "isNephrotoxic": true,
+    "isNeurotoxic": false,
+    "note": "POTENT NEPHROTOXIC AGENT (vasoconstriction of afferent arterioles & distal tubular damage). Liposomal formulation significantly reduces but does not eliminate nephrotoxicity compared to deoxycholate. Pre-hydrate with 500-1000 mL normal saline prior to infusion. Monitor potassium and magnesium daily.",
+    "adjustments": [
+      {
+        "minCrCl": 50,
+        "label": "CrCl &ge; 50 mL/min",
+        "recommendation": "3 - 5 mg/kg IV q24h (ensure NS pre-hydration)",
+        "dose_factor": 3
+      },
+      {
+        "minCrCl": 20,
+        "label": "CrCl 20 - 49 mL/min",
+        "recommendation": "3 - 5 mg/kg IV q24h (monitor renal labs and electrolytes closely)",
+        "dose_factor": 3
+      },
+      {
+        "minCrCl": 0,
+        "label": "CrCl < 20 mL/min",
+        "recommendation": "3 - 5 mg/kg IV q24h (minimal renal elimination; monitor for progressive AKI)",
+        "dose_factor": 3
+      }
+    ],
+    "rrt": {
+      "ihd": "3 - 5 mg/kg IV q24h post-HD on dialysis days (negligible clearance by HD; no supplement needed).",
+      "crrt": "3 - 5 mg/kg IV q24h."
+    }
+  }
+};
+
+    // 2. CLINICAL CALCULATION ENGINE
+    const ClinicalEngine = {
+      // Devine Ideal Body Weight with short stature clamp
+      calculateIBW: function(heightCm, gender) {
+        if (!heightCm || heightCm <= 0) return 0;
+        const heightInches = heightCm / 2.54;
+        const base = (gender === 'female' || gender === 'wanita') ? 45.5 : 50.0;
+        if (heightInches <= 60) return base; // Clamp at baseline for <= 60 inches
+        return base + 2.3 * (heightInches - 60);
+      },
+
+      // Body Mass Index (BMI)
+      calculateBMI: function(weightKg, heightCm) {
+        if (!weightKg || !heightCm || heightCm <= 0 || weightKg <= 0) return 0;
+        const heightM = heightCm / 100;
+        return weightKg / (heightM * heightM);
+      },
+
+      // Clinical Dosing Weight Selection Logic
+      selectWeight: function(tbw, heightCm, gender) {
+        const ibw = this.calculateIBW(heightCm, gender);
+        const bmi = this.calculateBMI(tbw, heightCm);
+        const abw = (tbw > ibw) ? (ibw + 0.4 * (tbw - ibw)) : null;
+
+        if (tbw < ibw) {
+          return {
+            usedWeight: tbw,
+            weightType: 'TBW (Underweight / BB Rendah)',
+            ibw: ibw,
+            bmi: bmi,
+            abw: abw,
+            category: 'Underweight'
+          };
+        } else if (bmi >= 30.0) {
+          return {
+            usedWeight: abw,
+            weightType: 'ABW (Obesitas, BMI &ge; 30)',
+            ibw: ibw,
+            bmi: bmi,
+            abw: abw,
+            category: 'Obesitas (Kelas ' + (bmi >= 40 ? 'III' : bmi >= 35 ? 'II' : 'I') + ')'
+          };
+        } else {
+          return {
+            usedWeight: tbw,
+            weightType: 'TBW (Normal / Overweight)',
+            ibw: ibw,
+            bmi: bmi,
+            abw: abw,
+            category: bmi >= 25 ? 'Overweight' : 'Normal Weight'
+          };
+        }
+      },
+
+      // Cockcroft-Gault Equation for CrCl
+      calculateCrCl: function(age, tbw, heightCm, scr, gender) {
+        if (!age || age < 18 || !tbw || tbw <= 0 || !heightCm || heightCm <= 0 || !scr || scr <= 0) {
+          return null;
+        }
+        const weightInfo = this.selectWeight(tbw, heightCm, gender);
+        const factor = (gender === 'female' || gender === 'wanita') ? 0.85 : 1.0;
+        const crcl = ((140 - age) * weightInfo.usedWeight) / (72 * scr) * factor;
+        const bsa = Math.sqrt((heightCm * tbw) / 3600);
+        const normalizedCrCl = bsa > 0 ? (crcl * 1.73) / bsa : crcl;
+
+        return {
+          crCl: Math.max(0, crcl),
+          normalizedCrCl: Math.max(0, normalizedCrCl),
+          usedWeight: weightInfo.usedWeight,
+          weightType: weightInfo.weightType,
+          ibw: weightInfo.ibw,
+          bmi: weightInfo.bmi,
+          abw: weightInfo.abw,
+          category: weightInfo.category,
+          bsa: bsa
+        };
+      },
+
+      // CKD-EPI 2021 Race-Free Equation for eGFR
+      calculateCKDEPI: function(age, scr, gender) {
+        if (!age || age < 18 || !scr || scr <= 0) return null;
+        const isFemale = (gender === 'female' || gender === 'wanita');
+        const kappa = isFemale ? 0.7 : 0.9;
+        const alpha = isFemale ? -0.241 : -0.302;
+        const genderMult = isFemale ? 1.012 : 1.0;
+        const scrRatio = scr / kappa;
+        const minPart = Math.pow(Math.min(scrRatio, 1), alpha);
+        const maxPart = Math.pow(Math.max(scrRatio, 1), -1.200);
+        const agePart = Math.pow(0.9938, age);
+        const egfr = 142 * minPart * maxPart * agePart * genderMult;
+        return Math.max(0, egfr);
+      },
+
+      // KDIGO eGFR Staging (2024 Guidelines)
+      classifyKDIGO: function(gfr) {
+        if (gfr == null || isNaN(gfr)) {
+          return { stage: 'G--', label: 'Menunggu data', desc: 'Masukkan parameter biometrik & laboratorium pasien', color: '#94A3B8', bg: 'rgba(148, 163, 184, 0.15)' };
+        }
+        if (gfr >= 90) {
+          return { stage: 'G1', label: 'Normal / Tinggi', desc: 'Fungsi ginjal normal atau kondisi hiperfiltrasi', color: '#10B981', bg: 'rgba(16, 185, 129, 0.2)' };
+        }
+        if (gfr >= 60) {
+          return { stage: 'G2', label: 'Penurunan Ringan', desc: 'Penurunan klirens ginjal ringan relatif terhadap normal dewasa muda', color: '#34D399', bg: 'rgba(52, 211, 153, 0.2)' };
+        }
+        if (gfr >= 45) {
+          return { stage: 'G3a', label: 'Penurunan Ringan s.d. Sedang', desc: 'CKD ringan-sedang; penyesuaian dosis diindikasikan untuk obat klirens ginjal tinggi', color: '#FBBF24', bg: 'rgba(251, 191, 36, 0.2)' };
+        }
+        if (gfr >= 30) {
+          return { stage: 'G3b', label: 'Penurunan Sedang s.d. Berat', desc: 'Gangguan klirens ginjal moderat-berat; wajib penyesuaian dosis & pemantauan TDM', color: '#F59E0B', bg: 'rgba(245, 158, 11, 0.2)' };
+        }
+        if (gfr >= 15) {
+          return { stage: 'G4', label: 'Penurunan Berat', desc: 'Penurunan drastis klirens ginjal; risiko tinggi akumulasi toksik obat ekskresi ginjal', color: '#F97316', bg: 'rgba(249, 115, 22, 0.2)' };
+        }
+        return { stage: 'G5', label: 'Gagal Ginjal Terminal (Kidney Failure)', desc: 'Gagal ginjal stadium akhir / ESRD; dialisis diindikasikan atau impending. Terapkan ceiling dose', color: '#EF4444', bg: 'rgba(239, 68, 68, 0.25)' };
+      },
+
+      // Continuous Interval Matching (No gaps, no silent full-dose fallback)
+      matchAdjustment: function(adjustments, crcl) {
+        if (!adjustments || adjustments.length === 0) return null;
+        // Sort descending by minCrCl
+        const sorted = [...adjustments].sort((a, b) => b.minCrCl - a.minCrCl);
+        for (let i = 0; i < sorted.length; i++) {
+          if (crcl >= sorted[i].minCrCl) {
+            return { matched: sorted[i], index: i, total: sorted.length };
+          }
+        }
+        // If CrCl < lowest threshold, assign the most restrictive renal bracket
+        return { matched: sorted[sorted.length - 1], index: sorted.length - 1, total: sorted.length };
+      }
+    };
+
+    // 3. APPLICATION STATE
+    const state = {
+      gender: 'male',
+      age: '',
+      weight: '',
+      height: '',
+      creatinine: '',
+      selectedDrugKey: null,
+      selectedStrategyName: null,
+      selectedCategory: 'all',
+      searchQuery: '',
+      patientResults: null
+    };
+
+    // 4. DOM ELEMENTS
+    const el = {
+      genderMale: document.getElementById('gender-male'),
+      genderFemale: document.getElementById('gender-female'),
+      inputAge: document.getElementById('input-age'),
+      inputWeight: document.getElementById('input-weight'),
+      inputHeight: document.getElementById('input-height'),
+      inputCreatinine: document.getElementById('input-creatinine'),
+      validationBanner: document.getElementById('validation-banner'),
+      weightPanel: document.getElementById('weight-panel'),
+      valTbw: document.getElementById('val-tbw'),
+      valBmi: document.getElementById('val-bmi'),
+      valIbw: document.getElementById('val-ibw'),
+      valAbw: document.getElementById('val-abw'),
+      valUsedWeight: document.getElementById('val-used-weight'),
+      valUsedType: document.getElementById('val-used-type'),
+      cardTbw: document.getElementById('card-tbw'),
+      cardIbw: document.getElementById('card-ibw'),
+      cardAbw: document.getElementById('card-abw'),
+      cardActiveWeight: document.getElementById('card-active-weight'),
+      clearanceSection: document.getElementById('clearance-section'),
+      valCrcl: document.getElementById('val-crcl'),
+      crclBadge: document.getElementById('crcl-badge'),
+      valBsa: document.getElementById('val-bsa'),
+      valNormCrcl: document.getElementById('val-norm-crcl'),
+      valDosingWeightMeta: document.getElementById('val-dosing-weight-meta'),
+      kdigoBadge: document.getElementById('kdigo-badge'),
+      kdigoStageName: document.getElementById('kdigo-stage-name'),
+      kdigoStageLabel: document.getElementById('kdigo-stage-label'),
+      kdigoStageDesc: document.getElementById('kdigo-stage-desc'),
+      valCkdEpi: document.getElementById('val-ckd-epi'),
+      severeEsrdBanner: document.getElementById('severe-esrd-banner'),
+      drugSearch: document.getElementById('drug-search'),
+      categoryChips: document.getElementById('category-chips'),
+      drugDropdown: document.getElementById('drug-dropdown'),
+      selectedDrugCard: document.getElementById('selected-drug-card'),
+      drugDetailName: document.getElementById('drug-detail-name'),
+      drugDetailClass: document.getElementById('drug-detail-class'),
+      drugToxicityBadge: document.getElementById('drug-toxicity-badge'),
+      btnClearDrug: document.getElementById('btn-clear-drug'),
+      drugNephroAlert: document.getElementById('drug-nephro-alert'),
+      drugNeuroAlert: document.getElementById('drug-neuro-alert'),
+      drugContraindicationAlert: document.getElementById('drug-contraindication-alert'),
+      drugContraindicationText: document.getElementById('drug-contraindication-text'),
+      strategySelectorContainer: document.getElementById('strategy-selector-container'),
+      strategyPillsList: document.getElementById('strategy-pills-list'),
+      loadingDoseBanner: document.getElementById('loading-dose-banner'),
+      loadingDoseText: document.getElementById('loading-dose-text'),
+      singleDoseBox: document.getElementById('single-dose-box'),
+      valCalculatedSingleDose: document.getElementById('val-calculated-single-dose'),
+      valSingleDoseBasis: document.getElementById('val-single-dose-basis'),
+      valMaintenanceDose: document.getElementById('val-maintenance-dose'),
+      activeCrclIndicator: document.getElementById('active-crcl-indicator'),
+      titrationTableBody: document.getElementById('titration-table-body'),
+      valRrtIhd: document.getElementById('val-rrt-ihd'),
+      valRrtCrrt: document.getElementById('val-rrt-crrt'),
+      valClinicalNote: document.getElementById('val-clinical-note'),
+      btnReset: document.getElementById('btn-reset'),
+      btnInventory: document.getElementById('btn-inventory'),
+      inventoryModal: document.getElementById('inventory-modal'),
+      btnCloseModal: document.getElementById('btn-close-modal'),
+      inventoryGrid: document.getElementById('inventory-grid')
+    };
+
+    // 5. INPUT VALIDATION & REAL-TIME CALCULATION
+    function recalculate() {
+      const ageStr = el.inputAge.value.trim();
+      const weightStr = el.inputWeight.value.trim();
+      const heightStr = el.inputHeight.value.trim();
+      const scrStr = el.inputCreatinine.value.trim();
+
+      state.age = ageStr;
+      state.weight = weightStr;
+      state.height = heightStr;
+      state.creatinine = scrStr;
+
+      // Check if completely empty
+      if (!ageStr && !weightStr && !heightStr && !scrStr) {
+        el.validationBanner.style.display = 'none';
+        el.weightPanel.style.display = 'none';
+        el.clearanceSection.style.display = 'none';
+        el.severeEsrdBanner.style.display = 'none';
+        state.patientResults = null;
+        renderDrugDosing();
+        return;
+      }
+
+      // Numerical parsing
+      const age = parseFloat(ageStr);
+      const weight = parseFloat(weightStr);
+      const height = parseFloat(heightStr);
+      const scr = parseFloat(scrStr);
+
+      const errors = [];
+      const warnings = [];
+
+      // Validate age
+      if (ageStr) {
+        if (isNaN(age) || age <= 0) {
+          errors.push('Usia harus berupa angka positif.');
+        } else if (age < 18) {
+          warnings.push('<strong>Peringatan Pediatrik:</strong> Persamaan Cockcroft-Gault &amp; CKD-EPI divalidasi untuk dewasa (usia &ge; 18 th). Untuk pasien anak, gunakan rumus Bedside Schwartz.');
+        } else if (age > 120) {
+          warnings.push('Usia > 120 tahun: Harap periksa kembali usia yang dimasukkan.');
+        }
+      }
+
+      // Validate weight
+      if (weightStr) {
+        if (isNaN(weight) || weight <= 0) {
+          errors.push('Berat badan aktual (TBW) harus berupa angka positif lebih dari 0 kg.');
+        } else if (weight < 25 || weight > 350) {
+          warnings.push('Berat badan (' + weight + ' kg) berada di luar rentang tipikal dewasa (25–350 kg).');
+        }
+      }
+
+      // Validate height
+      if (heightStr) {
+        if (isNaN(height) || height <= 0) {
+          errors.push('Tinggi badan harus berupa angka positif lebih dari 0 cm.');
+        } else if (height < 60 || height > 240) {
+          warnings.push('Tinggi badan (' + height + ' cm) berada di luar rentang tipikal dewasa.');
+        }
+      }
+
+      // Validate creatinine
+      if (scrStr) {
+        if (isNaN(scr) || scr <= 0) {
+          errors.push('Kreatinin serum (SCr) harus lebih besar dari 0 mg/dL.');
+        } else if (scr < 0.2) {
+          warnings.push('<strong>Physiological Floor:</strong> Kreatinin serum sangat rendah (&lt; 0.2 mg/dL) umumnya mencerminkan massa otot rendah/kakeksia, yang dapat menghasilkan overestimasi (angka CrCl semu tinggi).');
+        } else if (scr > 20) {
+          warnings.push('Kreatinin serum meningkat nyata (&gt; 20 mg/dL): Gagal ginjal akut berat atau ESRD terminal.');
+        }
+      }
+
+      // Render validation alerts
+      if (errors.length > 0) {
+        el.validationBanner.className = 'alert-banner alert-danger';
+        el.validationBanner.innerHTML = errors.join('<br>');
+        el.validationBanner.style.display = 'flex';
+        el.weightPanel.style.display = 'none';
+        el.clearanceSection.style.display = 'none';
+        el.severeEsrdBanner.style.display = 'none';
+        state.patientResults = null;
+        renderDrugDosing();
+        return;
+      } else if (warnings.length > 0) {
+        el.validationBanner.className = 'alert-banner alert-warning';
+        el.validationBanner.innerHTML = warnings.join('<br>');
+        el.validationBanner.style.display = 'flex';
+      } else {
+        el.validationBanner.style.display = 'none';
+      }
+
+      // If missing any parameter, wait for full input
+      if (!ageStr || !weightStr || !heightStr || !scrStr || isNaN(age) || isNaN(weight) || isNaN(height) || isNaN(scr)) {
+        el.weightPanel.style.display = 'none';
+        el.clearanceSection.style.display = 'none';
+        el.severeEsrdBanner.style.display = 'none';
+        state.patientResults = null;
+        renderDrugDosing();
+        return;
+      }
+
+      // Execute full genuine calculation
+      const res = ClinicalEngine.calculateCrCl(age, weight, height, scr, state.gender);
+      const egfr = ClinicalEngine.calculateCKDEPI(age, scr, state.gender);
+      const kdigo = ClinicalEngine.classifyKDIGO(egfr != null ? egfr : res.crCl);
+
+      state.patientResults = {
+        ...res,
+        egfr: egfr,
+        kdigo: kdigo
+      };
+
+      // Update Weight Badges
+      el.weightPanel.style.display = 'grid';
+      el.valTbw.textContent = weight.toFixed(1) + ' kg';
+      el.valBmi.textContent = 'BMI: ' + res.bmi.toFixed(1) + ' (' + res.category + ')';
+      el.valIbw.textContent = res.ibw.toFixed(1) + ' kg';
+      el.valAbw.textContent = res.abw ? (res.abw.toFixed(1) + ' kg') : 'N/A';
+      el.valUsedWeight.textContent = res.usedWeight.toFixed(1) + ' kg';
+      el.valUsedType.textContent = res.weightType;
+
+      // Update Clearance Showcase
+      el.clearanceSection.style.display = 'grid';
+      el.valCrcl.textContent = res.crCl.toFixed(1);
+      el.valBsa.textContent = res.bsa.toFixed(2) + ' m&sup2;';
+      el.valNormCrcl.textContent = res.normalizedCrCl.toFixed(1);
+      el.valDosingWeightMeta.textContent = res.usedWeight.toFixed(1) + ' kg';
+
+      // KDIGO Showcase
+      el.kdigoBadge.style.background = kdigo.bg;
+      el.kdigoBadge.style.color = kdigo.color;
+      el.kdigoStageName.textContent = kdigo.stage;
+      el.kdigoStageLabel.textContent = kdigo.label;
+      el.kdigoStageLabel.style.color = kdigo.color;
+      el.kdigoStageDesc.textContent = kdigo.desc;
+      el.valCkdEpi.textContent = egfr != null ? egfr.toFixed(1) : 'N/A';
+
+      // Severe ESRD Banner (< 15)
+      if (res.crCl < 15) {
+        el.severeEsrdBanner.style.display = 'flex';
+      } else {
+        el.severeEsrdBanner.style.display = 'none';
+      }
+
+      // Render antimicrobial dosing with new renal parameters
+      renderDrugDosing();
+    }
+
+    // 6. ANTIMICROBIAL DOSING RENDERER
+    function renderDrugDosing() {
+      const drugKey = state.selectedDrugKey;
+      if (!drugKey || !DRUG_DATABASE[drugKey]) {
+        el.selectedDrugCard.style.display = 'none';
+        return;
+      }
+
+      const drug = DRUG_DATABASE[drugKey];
+      el.selectedDrugCard.style.display = 'block';
+
+      // Header info
+      el.drugDetailName.textContent = drug.name;
+      el.drugDetailClass.textContent = drug.class;
+
+      // Toxicity badge
+      if (drug.isNephrotoxic && drug.isNeurotoxic) {
+        el.drugToxicityBadge.style.display = 'inline-flex';
+        el.drugToxicityBadge.className = 'badge-pill badge-red';
+        el.drugToxicityBadge.textContent = 'Nefrotoksik + Neurotoksik';
+      } else if (drug.isNephrotoxic) {
+        el.drugToxicityBadge.style.display = 'inline-flex';
+        el.drugToxicityBadge.className = 'badge-pill badge-red';
+        el.drugToxicityBadge.textContent = 'Agen Nefrotoksik';
+      } else if (drug.isNeurotoxic) {
+        el.drugToxicityBadge.style.display = 'inline-flex';
+        el.drugToxicityBadge.className = 'badge-pill badge-amber';
+        el.drugToxicityBadge.textContent = 'Risiko Neurotoksik';
+      } else {
+        el.drugToxicityBadge.style.display = 'none';
+      }
+
+      // High-risk alerts
+      const crcl = state.patientResults ? state.patientResults.crCl : 100;
+      el.drugNephroAlert.style.display = drug.isNephrotoxic ? 'flex' : 'none';
+      el.drugNeuroAlert.style.display = (drug.isNeurotoxic && crcl < 60) ? 'flex' : 'none';
+
+      // Contraindication alert
+      if (drug.contraindication && crcl < 30) {
+        el.drugContraindicationAlert.style.display = 'flex';
+        el.drugContraindicationText.innerHTML = '<strong>KONTRAINDIKASI MUTLAK:</strong> ' + drug.contraindication;
+      } else if (drug.contraindication && crcl < 60) {
+        el.drugContraindicationAlert.style.display = 'flex';
+        el.drugContraindicationText.innerHTML = '<strong>PERINGATAN KLINIS:</strong> ' + drug.contraindication;
+      } else {
+        el.drugContraindicationAlert.style.display = 'none';
+      }
+
+      // Loading dose note
+      if (drug.loadingDose) {
+        el.loadingDoseBanner.style.display = 'flex';
+        el.loadingDoseText.innerHTML = '<strong>PRINSIP LOADING DOSE:</strong> ' + drug.loadingDose;
+      } else {
+        el.loadingDoseBanner.style.display = 'none';
+      }
+
+      // Strategy handling
+      let activeStrategyData = drug;
+      if (drug.isMultiStrategy && drug.strategies) {
+        el.strategySelectorContainer.style.display = 'block';
+        const strategyNames = Object.keys(drug.strategies);
+        if (!state.selectedStrategyName || !drug.strategies[state.selectedStrategyName]) {
+          state.selectedStrategyName = strategyNames[0];
+        }
+
+        el.strategyPillsList.innerHTML = '';
+        strategyNames.forEach(function(sname) {
+          const pill = document.createElement('button');
+          pill.type = 'button';
+          pill.className = 'strat-pill' + (sname === state.selectedStrategyName ? ' active' : '');
+          pill.textContent = sname;
+          pill.addEventListener('click', function() {
+            state.selectedStrategyName = sname;
+            renderDrugDosing();
+          });
+          el.strategyPillsList.appendChild(pill);
+        });
+
+        activeStrategyData = drug.strategies[state.selectedStrategyName];
+      } else {
+        el.strategySelectorContainer.style.display = 'none';
+      }
+
+      // Calculated Single Dose (if weight-based factor)
+      const doseFactor = activeStrategyData.dose_factor || drug.dose_factor;
+      if (doseFactor && state.patientResults) {
+        el.singleDoseBox.style.display = 'flex';
+        // For vancomycin or actual weight rules:
+        let weightForDose = state.patientResults.usedWeight;
+        let basisLabel = state.patientResults.weightType;
+        if (drug.name.includes('Vancomycin')) {
+          weightForDose = parseFloat(state.weight) || weightForDose;
+          basisLabel = 'Berat Badan Aktual (TBW)';
+        }
+
+        if (activeStrategyData.is_bsa) {
+          const bsaDose = Math.round(doseFactor * state.patientResults.bsa);
+          el.valCalculatedSingleDose.textContent = bsaDose + ' mg';
+          el.valSingleDoseBasis.textContent = doseFactor + ' mg/m&sup2; &times; ' + state.patientResults.bsa.toFixed(2) + ' m&sup2;';
+        } else {
+          const totalMg = doseFactor * weightForDose;
+          if (totalMg >= 1000) {
+            el.valCalculatedSingleDose.textContent = (totalMg / 1000).toFixed(2) + ' g';
+          } else {
+            el.valCalculatedSingleDose.textContent = Math.round(totalMg) + ' mg';
+          }
+          el.valSingleDoseBasis.textContent = doseFactor + ' mg/kg &times; ' + weightForDose.toFixed(1) + ' kg (' + basisLabel + ')';
+        }
+      } else {
+        el.singleDoseBox.style.display = 'none';
+      }
+
+      // Matched Renal Adjusted Regimen
+      const adjustments = activeStrategyData.adjustments || [];
+      if (!state.patientResults) {
+        el.valMaintenanceDose.textContent = activeStrategyData.standard_dose || 'Standard Dose';
+        el.activeCrclIndicator.textContent = 'Masukkan data laboratorium pasien untuk penyesuaian CrCl';
+      } else {
+        const matchResult = ClinicalEngine.matchAdjustment(adjustments, state.patientResults.crCl);
+        if (matchResult && matchResult.matched) {
+          el.valMaintenanceDose.textContent = matchResult.matched.recommendation;
+          el.activeCrclIndicator.textContent = 'Tercocokkan: ' + matchResult.matched.label + ' (CrCl Pasien: ' + state.patientResults.crCl.toFixed(1) + ' mL/min)';
+        } else {
+          el.valMaintenanceDose.textContent = activeStrategyData.standard_dose || 'Standard Dose';
+          el.activeCrclIndicator.textContent = 'CrCl: ' + state.patientResults.crCl.toFixed(1) + ' mL/min';
+        }
+      }
+
+      // Titration Table
+      el.titrationTableBody.innerHTML = '';
+      if (adjustments.length > 0) {
+        const patientCrCl = state.patientResults ? state.patientResults.crCl : null;
+        const matched = patientCrCl != null ? ClinicalEngine.matchAdjustment(adjustments, patientCrCl) : null;
+
+        adjustments.forEach(function(adj) {
+          const row = document.createElement('tr');
+          const isMatched = matched && matched.matched.label === adj.label;
+          if (isMatched) {
+            row.className = 'active-bracket';
+          }
+          const tdLabel = document.createElement('td');
+          tdLabel.innerHTML = (isMatched ? '<strong>✓ ' : '') + adj.label + (isMatched ? '</strong>' : '');
+          const tdRec = document.createElement('td');
+          tdRec.innerHTML = (isMatched ? '<strong>' : '') + adj.recommendation + (isMatched ? '</strong>' : '');
+          row.appendChild(tdLabel);
+          row.appendChild(tdRec);
+          el.titrationTableBody.appendChild(row);
+        });
+      }
+
+      // RRT (IHD / CRRT)
+      const rrtData = activeStrategyData.rrt || drug.rrt;
+      if (rrtData) {
+        el.valRrtIhd.textContent = rrtData.ihd || 'Konsultasikan dengan spesialis nefrologi / farmasi klinis.';
+        el.valRrtCrrt.textContent = rrtData.crrt || 'Konsultasikan dengan farmasi klinis intensive care / ICU.';
+      } else {
+        el.valRrtIhd.textContent = 'Berikan dosis pasca-HD pada hari dialisis; panduan TDM dianjurkan.';
+        el.valRrtCrrt.textContent = 'Dosis standar terapi pengganti ginjal kontinu (CRRT).';
+      }
+
+      // Clinical Pearls
+      el.valClinicalNote.textContent = drug.note || 'Tidak ada catatan farmakologi khusus.';
+
+      // Generate CPPT Text
+      generateDrugCPPT(drug, activeStrategyData);
+    }
+
+    // 7. DRUG SEARCH & FILTERING
+    function toggleTierTable(btn) {
+      const collapse = btn.nextElementSibling;
+      const isOpen = !collapse.hidden;
+      if (isOpen) {
+        collapse.hidden = true;
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      } else {
+        collapse.hidden = false;
+        btn.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    function renderDrugDropdown() {
+      const query = state.searchQuery.toLowerCase().trim();
+      const cat = state.selectedCategory;
+      const drugKeys = Object.keys(DRUG_DATABASE);
+
+      const filtered = drugKeys.filter(function(k) {
+        const d = DRUG_DATABASE[k];
+        const nameMatch = d.name.toLowerCase().includes(query);
+        const classMatch = d.class.toLowerCase().includes(query);
+
+        if (!nameMatch && !classMatch) return false;
+
+        if (cat === 'all') return true;
+        if (cat === 'penicillin') return d.class.toLowerCase().includes('penicillin');
+        if (cat === 'cephalosporin') return d.class.toLowerCase().includes('cephalosporin');
+        if (cat === 'carbapenem') return d.class.toLowerCase().includes('carbapenem');
+        if (cat === 'fluoroquinolone') return d.class.toLowerCase().includes('fluoroquinolone');
+        if (cat === 'aminoglycoside') return d.class.toLowerCase().includes('aminoglycoside');
+        if (cat === 'glycopeptide') return d.class.toLowerCase().includes('glycopeptide') || d.class.toLowerCase().includes('lipopeptide');
+        if (cat === 'antiviral') return d.class.toLowerCase().includes('antiviral');
+        if (cat === 'antifungal') return d.class.toLowerCase().includes('antifungal');
+        if (cat === 'other') {
+          return !d.class.toLowerCase().includes('penicillin') &&
+                 !d.class.toLowerCase().includes('cephalosporin') &&
+                 !d.class.toLowerCase().includes('carbapenem') &&
+                 !d.class.toLowerCase().includes('fluoroquinolone') &&
+                 !d.class.toLowerCase().includes('aminoglycoside') &&
+                 !d.class.toLowerCase().includes('glycopeptide') &&
+                 !d.class.toLowerCase().includes('antiviral') &&
+                 !d.class.toLowerCase().includes('antifungal');
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        el.drugDropdown.innerHTML = '<div style="padding: 1rem; text-align: center; color: var(--text-dim); font-size: 0.85rem;">Tidak ditemukan antimikroba yang cocok.</div>';
+        el.drugDropdown.classList.add('visible');
+        return;
+      }
+
+      el.drugDropdown.innerHTML = '';
+      filtered.forEach(function(k) {
+        const d = DRUG_DATABASE[k];
+        const item = document.createElement('div');
+        item.className = 'drug-list-item';
+        item.innerHTML = '<div><div class="d-name">' + d.name + '</div><div class="d-class">' + d.class + '</div></div>' +
+          '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-cyan);">' +
+          '<polyline points="9 18 15 12 9 6"></polyline></svg>';
+        item.addEventListener('click', function() {
+          selectDrug(k);
+        });
+        el.drugDropdown.appendChild(item);
+      });
+
+      el.drugDropdown.classList.add('visible');
+    }
+
+    function selectDrug(drugKey) {
+      state.selectedDrugKey = drugKey;
+      state.selectedStrategyName = null;
+      el.drugSearch.value = DRUG_DATABASE[drugKey].name;
+      el.drugDropdown.classList.remove('visible');
+      renderDrugDosing();
+      // Scroll to drug card smoothly
+      setTimeout(function() {
+        el.selectedDrugCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+    }
+
+    // 8. INVENTORY MODAL
+    function buildInventoryModal() {
+      el.inventoryGrid.innerHTML = '';
+      const drugKeys = Object.keys(DRUG_DATABASE).sort();
+      drugKeys.forEach(function(k) {
+        const d = DRUG_DATABASE[k];
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'inventory-item-btn';
+        btn.innerHTML = '<span class="inv-name">' + d.name + '</span><span class="inv-class">' + d.class + '</span>';
+        btn.addEventListener('click', function() {
+          selectDrug(k);
+          el.inventoryModal.classList.remove('active');
+        });
+        el.inventoryGrid.appendChild(btn);
+      });
+    }
+
+    // 9. EVENT LISTENERS
+    // Gender buttons
+    el.genderMale.addEventListener('click', function() {
+      state.gender = 'male';
+      el.genderMale.classList.add('active');
+      el.genderFemale.classList.remove('active');
+      recalculate();
+    });
+
+    el.genderFemale.addEventListener('click', function() {
+      state.gender = 'female';
+      el.genderFemale.classList.add('active');
+      el.genderMale.classList.remove('active');
+      recalculate();
+    });
+
+    // Inputs
+    [el.inputAge, el.inputWeight, el.inputHeight, el.inputCreatinine].forEach(function(input) {
+      input.addEventListener('input', recalculate);
+      input.addEventListener('change', recalculate);
+    });
+
+
+    // Helper Toast
+    function showToast(msg) {
+      const toastEl = document.getElementById('toast-notice');
+      const toastMsg = document.getElementById('toast-message');
+      if (toastEl && toastMsg) {
+        toastMsg.textContent = msg;
+        toastEl.style.transform = 'translateY(0)';
+        toastEl.style.opacity = '1';
+        toastEl.style.pointerEvents = 'auto';
+        setTimeout(function() {
+          toastEl.style.transform = 'translateY(100px)';
+          toastEl.style.opacity = '0';
+          toastEl.style.pointerEvents = 'none';
+        }, 3200);
+      }
+    }
+
+    function generateDrugCPPT(drug, activeStrategyData) {
+      const cpptPre = document.getElementById('drug-cppt-pre');
+      if (!cpptPre) return;
+
+      const pRes = state.patientResults;
+      const crclVal = pRes ? pRes.crCl.toFixed(1) + ' mL/min' : '--';
+      const normCrcl = pRes ? pRes.normCrCl.toFixed(1) + ' mL/min/1.73m2' : '--';
+      const ckdEpi = pRes ? pRes.ckdEpi.toFixed(1) + ' mL/min/1.73m2' : '--';
+      const ageVal = state.age || '--';
+      const weightVal = state.weight || '--';
+      const heightVal = state.height || '--';
+      const scrVal = state.serumCreatinine || '--';
+      const genderVal = state.gender === 'male' ? 'Pria' : 'Wanita';
+
+      let text = '[adjustr-io CDSS] PENYESUAIAN DOSIS ANTIMIKROBA\n';
+      text += 'Pasien: ' + genderVal + ', Usia ' + ageVal + ' th, BB ' + weightVal + ' kg, TB ' + heightVal + ' cm | SCr ' + scrVal + ' mg/dL\n';
+      text += 'Klirens Ginjal: CrCl ' + crclVal + ' (Cockcroft-Gault) | eGFR ' + ckdEpi + ' (CKD-EPI 2021)\n';
+      if (pRes) {
+        text += 'Bobot Dosing: ' + pRes.usedWeight.toFixed(1) + ' kg (' + pRes.weightType + ') | BSA: ' + pRes.bsa.toFixed(2) + ' m2\n\n';
+      }
+
+      text += 'OBAT TERPILIH: ' + drug.name + ' (' + drug.class + ')\n';
+      if (state.selectedStrategyName) {
+        text += 'Indikasi / Strategi: ' + state.selectedStrategyName + '\n';
+      }
+      text += '- Dosis Standar (Fungsi Normal): ' + (activeStrategyData.standard_dose || '--') + '\n';
+
+      const singleDoseEl = document.getElementById('val-calculated-single-dose');
+      if (singleDoseEl && singleDoseEl.textContent !== '--' && document.getElementById('single-dose-box').style.display !== 'none') {
+        text += '- Kalkulasi Single Dose: ' + singleDoseEl.textContent + ' (' + document.getElementById('val-single-dose-basis').textContent + ')\n';
+      }
+
+      const maintDose = document.getElementById('val-maintenance-dose')?.textContent || '--';
+      const activeIndicator = document.getElementById('active-crcl-indicator')?.textContent || '';
+      text += '- Rekomendasi Rumatan Ginjal: ' + maintDose + ' [' + activeIndicator + ']\n';
+
+      const rrtIhd = document.getElementById('val-rrt-ihd')?.textContent;
+      const rrtCrrt = document.getElementById('val-rrt-crrt')?.textContent;
+      if (rrtIhd && rrtIhd !== '--') text += '- Hemodialisis (IHD): ' + rrtIhd + '\n';
+      if (rrtCrrt && rrtCrrt !== '--') text += '- CRRT: ' + rrtCrrt + '\n';
+
+      if (drug.note) {
+        text += '- Clinical Pearl: ' + drug.note + '\n';
+      }
+
+      cpptPre.textContent = text;
+    }
+
+    window.copyDrugResume = function() {
+      const cpptPre = document.getElementById('drug-cppt-pre');
+      if (!cpptPre || !cpptPre.textContent) {
+        showToast('Pilih obat terlebih dahulu.');
+        return;
+      }
+      const textToCopy = cpptPre.textContent;
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(textToCopy).then(function() {
+          showToast('Resume penyesuaian dosis obat berhasil disalin!');
+        }).catch(function() {
+          fallbackCopyText(textToCopy);
+        });
+      } else {
+        fallbackCopyText(textToCopy);
+      }
+    };
+
+    function fallbackCopyText(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast('Resume penyesuaian dosis obat berhasil disalin!');
+      } catch (e) {
+        showToast('Gagal menyalin otomatis, silakan salin manual.');
+      }
+      document.body.removeChild(ta);
+    }
+
+    // Reset button
+    el.btnReset.addEventListener('click', function() {
+      el.inputAge.value = '';
+      el.inputWeight.value = '';
+      el.inputHeight.value = '';
+      el.inputCreatinine.value = '';
+      state.gender = 'male';
+      el.genderMale.classList.add('active');
+      el.genderFemale.classList.remove('active');
+      recalculate();
+      // Also reset selected drug
+      state.selectedDrugKey = null;
+      state.selectedStrategyName = null;
+      el.drugSearch.value = '';
+      el.selectedDrugCard.style.display = 'none';
+      showToast('Parameter biometrik dan kalkulator direset ke default.');
+    });
+
+    // Drug search input
+    el.drugSearch.addEventListener('focus', function() {
+      renderDrugDropdown();
+    });
+
+    el.drugSearch.addEventListener('input', function(e) {
+      state.searchQuery = e.target.value;
+      renderDrugDropdown();
+    });
+
+    // Category chips
+    el.categoryChips.addEventListener('click', function(e) {
+      const chip = e.target.closest('.cat-chip');
+      if (!chip) return;
+      document.querySelectorAll('.cat-chip').forEach(function(c) { c.classList.remove('active'); });
+      chip.classList.add('active');
+      state.selectedCategory = chip.getAttribute('data-cat');
+      renderDrugDropdown();
+    });
+
+    // Close dropdown on click outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.drug-search-box') && !e.target.closest('.category-filter-bar') && !e.target.closest('#drug-dropdown')) {
+        el.drugDropdown.classList.remove('visible');
+      }
+    });
+
+    // Clear selected drug
+    el.btnClearDrug.addEventListener('click', function() {
+      state.selectedDrugKey = null;
+      state.selectedStrategyName = null;
+      el.drugSearch.value = '';
+      el.selectedDrugCard.style.display = 'none';
+    });
+
+    // Modal controls
+    el.btnInventory.addEventListener('click', function() {
+      buildInventoryModal();
+      el.inventoryModal.classList.add('active');
+    });
+
+    el.btnCloseModal.addEventListener('click', function() {
+      el.inventoryModal.classList.remove('active');
+    });
+
+    el.inventoryModal.addEventListener('click', function(e) {
+      if (e.target === el.inventoryModal) {
+        el.inventoryModal.classList.remove('active');
+      }
+    });
+
+    // Default select Meropenem on load for immediate clinical exploration
+    setTimeout(function() {
+      selectDrug('meropenem');
+    }, 100);
+
+  })();
+  </script>
+
+  <!-- Toast Notification -->
+  <div id="toast-notice" style="position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: flex; align-items: center; gap: 10px; padding: 0.75rem 1.25rem; border-radius: 12px; background: rgba(15, 23, 42, 0.95); border: 1px solid rgba(0, 242, 254, 0.5); color: #fff; box-shadow: 0 10px 35px rgba(0,242,254,0.3); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); transform: translateY(100px); opacity: 0; pointer-events: none;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00F2FE" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+    <span id="toast-message">Resume penyesuaian dosis obat berhasil disalin!</span>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,1517 @@
+
+    <!-- SCRIPT ENGINE -->
+    <script>
+    // ==========================================
+    // GLOBAL TOOL REGISTRY (18 TOOLS)
+    // ==========================================
+    const CALCULATORS_DB = [
+      // 1. Tiroid & Koma Miksedema
+      { id: 'tab-thyroid', cardId: 'card-bwps', toolId: 'bwps', name: 'Burch-Wartofsky Scale (BWPS)', category: 'Tiroid & Krisis', color: 'rose', pillId: 'pill-thyroid', desc: 'Skor diagnostik badai tiroid (thyroid storm) berdasarkan suhu, SSP, GI, takikardia, gagal jantung, dan AF.', keywords: ['bwps', 'burch-wartofsky', 'badai tiroid', 'thyroid storm', 'tirotoksikosis', 'krisis tiroid', 'ptu'] },
+      { id: 'tab-thyroid', cardId: 'card-wayne', toolId: 'wayne', name: "Wayne's Clinical Index", category: 'Tiroid & Krisis', color: 'cyan', pillId: 'pill-thyroid', desc: 'Evaluasi klinis hipertiroidisme berdasarkan anamnesis gejala dan pemeriksaan tanda fisik tanpa lab.', keywords: ['wayne', 'hipertiroid', 'eutiroid', 'toksik', 'tremor', 'tiroid', 'palpitasi'] },
+      { id: 'tab-thyroid', cardId: 'card-billewicz', toolId: 'billewicz', name: 'Billewicz Diagnostic Score', category: 'Tiroid & Krisis', color: 'indigo', pillId: 'pill-thyroid', desc: 'Skor diagnostik hipotiroidisme klinis berdasarkan gejala konstitusional dan refleks tendo Achilles (Woltman).', keywords: ['billewicz', 'hipotiroid', 'woltman', 'ankle jerk', 'levothyroxine', 'keringat berkurang'] },
+      { id: 'tab-thyroid', cardId: 'card-myxedema', toolId: 'myxedema', name: 'Myxedema Coma Diagnostic Score', category: 'Tiroid & Krisis', color: 'purple', pillId: 'pill-thyroid', desc: 'Kriteria Popoveniuc 2014 untuk deteksi koma miksedema dan panduan hidrokortison sebelum hormon tiroid.', keywords: ['myxedema', 'miksedema', 'koma miksedema', 'popoveniuc', 'hipotiroid berat', 'hipotermia', 'levothyroxine'] },
+      
+      // 2. Adrenal & Pituitari
+      { id: 'tab-adrenal-pituitary', cardId: 'card-adrenal', toolId: 'adrenal', name: 'Adrenal Crisis Diagnostic & Dosing', category: 'Adrenal & Pituitari', color: 'sky', pillId: 'pill-adrenal', desc: 'Kecurigaan krisis adrenal akut (hipotensi refrakter, hiponatremia, hiperkalemia) dan protokol stat hidrokortison.', keywords: ['adrenal', 'krisis adrenal', 'hidrokortison', 'addison', 'hipotensi refrakter', 'hiperkalemia', 'steroid'] },
+      { id: 'tab-adrenal-pituitary', cardId: 'card-apoplexy', toolId: 'apoplexy', name: 'Pituitary Apoplexy Score (PAS)', category: 'Adrenal & Pituitari', color: 'teal', pillId: 'pill-adrenal', desc: 'Triase darurat apopleksi hipofisis (visus, lapang pandang, oftalmoplegia, GCS) untuk dekompresi cito vs konservatif.', keywords: ['pituitary', 'apoplexy', 'pas', 'hipofisis', 'dekompresi cito', 'visus', 'bitemporal', 'deksametason'] },
+      
+      // 3. Emergensi Metabolik, DKA & Glukosa
+      { id: 'tab-emergencies', cardId: 'card-osmo', toolId: 'osmo', name: 'Effective Serum Osmolarity', category: 'Emergensi Metabolik', color: 'amber', pillId: 'pill-emergencies', desc: 'Osmolaritas efektif (tonisitas) untuk stratifikasi krisis hiperglikemia HHS vs DKA dan korelasi kesadaran.', keywords: ['osmolaritas', 'osmo', 'hhs', 'dka', 'hiperglikemia', 'koma', 'tonisitas'] },
+      { id: 'tab-emergencies', cardId: 'card-ag', toolId: 'ag', name: 'Anion Gap & Delta Ratio', category: 'Emergensi Metabolik', color: 'emerald', pillId: 'pill-emergencies', desc: 'Evaluasi asidosis metabolik anion gap, koreksi pseudohiponatremia, dan kalkulasi Delta Ratio (ΔAG/ΔHCO3).', keywords: ['anion gap', 'corrected na', 'delta gap', 'delta ratio', 'cna', 'katz', 'dka', 'asidosis', 'nagma'] },
+      { id: 'tab-emergencies', cardId: 'card-dka-tracker', toolId: 'dka-tracker', name: 'DKA Severity & Resolution Tracker', category: 'Emergensi Metabolik', color: 'rose', pillId: 'pill-emergencies', desc: 'Stratifikasi DKA Ringan/Sedang/Berat dan checklist kriteria resolusi ADA untuk transisi insulin subkutan.', keywords: ['dka tracker', 'ketoasidosis', 'kda', 'resolusi dka', 'ada consensus', 'bikarbonat', 'ph darah', 'kalium'] },
+      { id: 'tab-emergencies', cardId: 'card-hypoglycemia', toolId: 'hypoglycemia', name: 'Koreksi Hipoglikemia Berat', category: 'Emergensi Metabolik', color: 'red', pillId: 'pill-emergencies', desc: 'Protokol bolus Dextrose 40% standar PERKENI dan Rumus 30 serta rumatan glukosa IV.', keywords: ['hipoglikemia', 'd40', 'dekstrosa', 'perkeni', 'rumus 30', 'bolus', 'gula darah rendah'] },
+      { id: 'tab-emergencies', cardId: 'card-insulin-tdd', toolId: 'insulin-tdd', name: 'Insulin Basal-Bolus TDD', category: 'Emergensi Metabolik', color: 'rose', pillId: 'pill-emergencies', desc: 'Distribusi total daily dose (TDD) fisiologis: 50% basal (1x/hari) dan 50% bolus prandial terbagi 3 makan.', keywords: ['tdd', 'insulin', 'basal bolus', 'dosis harian', 'glargine', 'aspart', 'sliding scale'] },
+      
+      // 4. Kardiometabolik & Lipid
+      { id: 'tab-metabolic', cardId: 'card-tyg', toolId: 'tyg', name: 'Triglyceride-Glucose (TyG) Index', category: 'Kardiometabolik', color: 'fuchsia', pillId: 'pill-metabolic', desc: 'Surrogate marker resistensi insulin dan perlemakan hati metabolik (MASLD) dari trigliserida dan glukosa.', keywords: ['tyg', 'triglyceride glucose', 'resistensi insulin', 'masld', 'nafld', 'kardiometabolik'] },
+      { id: 'tab-metabolic', cardId: 'card-homa', toolId: 'homa', name: 'HOMA-IR Assessment', category: 'Kardiometabolik', color: 'violet', pillId: 'pill-metabolic', desc: 'Penentuan kuantitatif resistensi insulin dari kadar insulin puasa dan glukosa puasa (Matthews formula).', keywords: ['homa-ir', 'homa', 'insulin puasa', 'fasting insulin', 'pcos', 'prediabetes'] },
+      { id: 'tab-metabolic', cardId: 'card-friedewald', toolId: 'friedewald', name: 'Friedewald Estimated LDL-C', category: 'Kardiometabolik', color: 'sky', pillId: 'pill-metabolic', desc: 'Estimasi kadar kolesterol LDL dari profil lipid standar dengan guardrail batas aman TG > 400 mg/dL.', keywords: ['friedewald', 'ldl', 'kolesterol', 'profil lipid', 'trigliserida', 'non-hdl'] },
+      { id: 'tab-metabolic', cardId: 'card-aip', toolId: 'aip', name: 'Atherogenic Index of Plasma (AIP)', category: 'Kardiometabolik', color: 'teal', pillId: 'pill-metabolic', desc: 'Log(TG/HDL) biomarker partikel small dense LDL dan stratifikasi risiko aterogenik kardiovaskular independen.', keywords: ['aip', 'atherogenic index', 'sdldl', 'trigliserida', 'hdl', 'kardiometabolik'] },
+      { id: 'tab-metabolic', cardId: 'card-ascvd', toolId: 'ascvd', name: 'ASCVD 10-Yr Risk & Target LDL', category: 'Kardiometabolik', color: 'blue', pillId: 'pill-metabolic', desc: 'Estimasi risiko kardiovaskular aterosklerotik 10 tahun (AHA/ACC) dan stratifikasi target LDL intensif (<55 vs <70).', keywords: ['ascvd', 'aha acc', 'statin', 'target ldl', 'risiko 10 tahun', 'kardiovaskular', 'kolesterol'] },
+      { id: 'tab-metabolic', cardId: 'card-hba1c-eag', toolId: 'hba1c-eag', name: 'Konversi HbA1c ke eAG', category: 'Kardiometabolik', color: 'emerald', pillId: 'pill-metabolic', desc: 'Formula ADAG untuk mengonversi persentase HbA1c ke rerata gula darah harian (mg/dL) untuk edukasi poliklinik.', keywords: ['hba1c', 'eag', 'estimated average glucose', 'edukasi diabetes', 'gula darah rata-rata'] },
+      
+      // 5. Bridging Insulin
+      { id: 'tab-bridging-insulin', cardId: 'card-bridging-insulin', toolId: 'bridging-insulin', name: 'Bridging Insulin IV ke Subkutan', category: 'Protokol Khusus', color: 'orange', pillId: 'pill-bridging-insulin', desc: 'Titrasi drip insulin 24 jam ke regimen subkutan basal-bolus 80% dengan instruksi overlap aman.', keywords: ['bridging', 'bridging insulin', 'drip insulin', 'transisi subkutan', 'kda', 'hhs', 'overlap'] }
+    ];
+
+    // ==========================================
+    // NOTIFICATION TOAST
+    // ==========================================
+    function showToast(msg) {
+        const toastEl = document.getElementById('toast-notice');
+        const toastMsg = document.getElementById('toast-message');
+        if (toastEl && toastMsg) {
+            toastMsg.textContent = msg;
+            toastEl.classList.remove('translate-y-24', 'opacity-0', 'pointer-events-none');
+            toastEl.classList.add('translate-y-0', 'opacity-100');
+            setTimeout(() => {
+                toastEl.classList.add('translate-y-24', 'opacity-0', 'pointer-events-none');
+                toastEl.classList.remove('translate-y-0', 'opacity-100');
+            }, 3000);
+        }
+    }
+
+    // Direct Navigation
+    window.navigateTo = function (targetId, title, activePillId = null) {
+        document.querySelectorAll('.module-section').forEach(sec => {
+            sec.classList.add('hidden');
+            sec.classList.remove('block');
+        });
+
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+            targetSection.classList.remove('hidden');
+            targetSection.classList.add('block');
+        }
+
+        const headerTitle = document.getElementById('header-title');
+        if (headerTitle && title) {
+            headerTitle.textContent = title;
+        }
+
+        document.querySelectorAll('.quick-nav-pill').forEach(pill => pill.classList.remove('active'));
+        if (activePillId) {
+            const el = document.getElementById(activePillId);
+            if (el) el.classList.add('active');
+        }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    // Helper for Real-time listeners
+    function addRealTimeListeners(selector, callback) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.addEventListener('input', callback);
+        if(el.tagName === 'SELECT') {
+            el.addEventListener('change', callback);
+        }
+      });
+    }
+
+    // ==========================================
+    // FAVORITES / QUICK STAR PINS (LocalStorage)
+    // ==========================================
+    function getPins() {
+      try {
+        const stored = localStorage.getItem('adjustr_emd_pins');
+        return stored ? JSON.parse(stored) : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function savePins(pins) {
+      try {
+        localStorage.setItem('adjustr_emd_pins', JSON.stringify(pins));
+      } catch (e) {}
+    }
+
+    window.togglePin = function (toolId) {
+      let pins = getPins();
+      const index = pins.indexOf(toolId);
+      if (index === -1) {
+        pins.push(toolId);
+        showToast('Kalkulator ditambahkan ke Favorit Jaga!');
+      } else {
+        pins.splice(index, 1);
+        showToast('Kalkulator dihapus dari Favorit Jaga.');
+      }
+      savePins(pins);
+      updateStarIcons();
+      renderPinnedFavorites();
+    };
+
+    function updateStarIcons() {
+      const pins = getPins();
+      CALCULATORS_DB.forEach(tool => {
+        const starEl = document.getElementById('star-' + tool.toolId);
+        if (starEl) {
+          if (pins.includes(tool.toolId)) {
+            starEl.className = 'fa-solid fa-star text-xs star-icon text-amber-400';
+          } else {
+            starEl.className = 'fa-regular fa-star text-xs star-icon text-slate-400';
+          }
+        }
+      });
+    }
+
+    function renderPinnedFavorites() {
+      const sectionEl = document.getElementById('pinned-favorites-section');
+      const gridEl = document.getElementById('pinned-favorites-grid');
+      if (!sectionEl || !gridEl) return;
+
+      const pins = getPins();
+      if (pins.length === 0) {
+        sectionEl.classList.add('hidden');
+        gridEl.innerHTML = '';
+        return;
+      }
+
+      sectionEl.classList.remove('hidden');
+      let html = '';
+      pins.forEach(toolId => {
+        const tool = CALCULATORS_DB.find(t => t.toolId === toolId);
+        if (tool) {
+          html += `
+            <div class="p-3.5 rounded-xl bg-slate-900/70 border border-amber-500/30 hover:border-amber-400/60 shadow-lg transition-all flex items-center justify-between group">
+              <div class="flex items-center space-x-3 min-w-0">
+                <div class="w-8 h-8 rounded-lg bg-${tool.color}-500/20 text-${tool.color}-400 flex items-center justify-center shrink-0 text-sm">
+                  <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                </div>
+                <div class="min-w-0">
+                  <button type="button" onclick="navigateTo('${tool.id}', '${tool.name.replace(/'/g, "\\'")}', '${tool.pillId}')" class="text-xs font-bold text-white group-hover:text-amber-300 transition text-left truncate block">
+                    ${tool.name}
+                  </button>
+                  <span class="text-[10px] text-slate-400 block truncate">${tool.category}</span>
+                </div>
+              </div>
+              <button type="button" onclick="togglePin('${tool.toolId}')" class="text-amber-400 hover:text-slate-400 p-1.5 transition text-xs shrink-0" title="Hapus dari Pin">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+          `;
+        }
+      });
+      gridEl.innerHTML = html;
+    }
+
+    // ==========================================
+    // UNIVERSAL RESET PER CALCULATOR
+    // ==========================================
+    window.resetCalculator = function (toolId) {
+      const card = document.getElementById('card-' + toolId);
+      if (card) {
+        // Subtle Flash Animation
+        card.classList.remove('flash-reset-anim');
+        void card.offsetWidth; // trigger reflow
+        card.classList.add('flash-reset-anim');
+        setTimeout(() => card.classList.remove('flash-reset-anim'), 500);
+
+        // Reset Inputs inside card
+        card.querySelectorAll('input[type="number"], input[type="text"]').forEach(input => {
+          if (input.id === 'hypo-target') {
+            input.value = "100";
+          } else {
+            input.value = '';
+          }
+        });
+
+        card.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+          cb.checked = false;
+        });
+
+        card.querySelectorAll('select').forEach(sel => {
+          sel.selectedIndex = 0;
+        });
+
+        // Recalculate specific tool
+        switch (toolId) {
+          case 'bwps': calcBWPS(); break;
+          case 'wayne': calcWayne(); break;
+          case 'billewicz': calcBillewicz(); break;
+          case 'myxedema': calcMyxedema(); break;
+          case 'adrenal': calcAdrenalCrisis(); break;
+          case 'apoplexy': calcPAS(); break;
+          case 'osmo': calcOsmo(); break;
+          case 'ag': calcAG(); break;
+          case 'dka-tracker': calcDKATracker(); break;
+          case 'hypoglycemia': calcHypoglycemia(); break;
+          case 'insulin-tdd': calcInsulin(); break;
+          case 'tyg':
+          case 'homa':
+          case 'friedewald': calcMetabolic(); break;
+          case 'aip': calcAIP(); break;
+          case 'ascvd': calcASCVD(); break;
+          case 'hba1c-eag': calcHbA1cToEAG(); break;
+          case 'bridging-insulin': resetInsulinInputs(); break;
+        }
+
+        showToast('Parameter kalkulator direset ke default.');
+      }
+    };
+
+    // ==========================================
+    // UNIVERSAL COPY RESUME CPPT / SOAP
+    // ==========================================
+    function getNowDateTimeStr() {
+      const now = new Date();
+      const d = String(now.getDate()).padStart(2, '0');
+      const m = String(now.getMonth() + 1).padStart(2, '0');
+      const y = now.getFullYear();
+      const h = String(now.getHours()).padStart(2, '0');
+      const min = String(now.getMinutes()).padStart(2, '0');
+      return `${d}/${m}/${y} - ${h}:${min}`;
+    }
+
+    window.copyCPPTResume = function (toolId) {
+      let cpptText = '';
+      const timeStr = getNowDateTimeStr();
+
+      switch (toolId) {
+        case 'bwps': {
+          const score = document.getElementById('res-bwps')?.textContent || '0';
+          const interp = document.getElementById('res-bwps-interp')?.textContent || '';
+          const temp = document.getElementById('bwps-temp')?.options[document.getElementById('bwps-temp').selectedIndex]?.text;
+          const cns = document.getElementById('bwps-cns')?.options[document.getElementById('bwps-cns').selectedIndex]?.text;
+          const gi = document.getElementById('bwps-gi')?.options[document.getElementById('bwps-gi').selectedIndex]?.text;
+          const hr = document.getElementById('bwps-hr')?.options[document.getElementById('bwps-hr').selectedIndex]?.text;
+          const chf = document.getElementById('bwps-chf')?.options[document.getElementById('bwps-chf').selectedIndex]?.text;
+          const af = document.getElementById('bwps-af')?.checked ? 'Ya (+10)' : 'Tidak';
+          const prec = document.getElementById('bwps-precipitant')?.checked ? 'Ya (+10)' : 'Tidak';
+
+          cpptText = `[CPPT - adjustrEMD Pro]
+Tgl/Jam: ${timeStr}
+Modul: Burch-Wartofsky Point Scale (BWPS) - Thyroid Storm
+- Parameter: Suhu [${temp}], SSP [${cns}], GI/Hepar [${gi}], Nadi [${hr}], CHF [${chf}], AF: ${af}, Pencetus: ${prec}
+- Total Skor: ${score} / 140
+- Kesimpulan: ${interp}
+- Rekomendasi/Plan: Rawat ICU bila skor >= 45. Terapi: 1) Propranolol 60-80 mg p.o. q4h / IV, 2) PTU loading 500-1000 mg p.o. lanjut 200 mg q4h, 3) Lugol (5 tetes q8h, 1 jam post-PTU), 4) Hidrokortison 100 mg IV q8h.`;
+          break;
+        }
+
+        case 'wayne': {
+          const score = document.getElementById('res-wayne')?.textContent || '0';
+          const interp = document.getElementById('res-wayne-interp')?.textContent || '';
+          cpptText = `[CPPT - adjustrEMD Pro]
+Tgl/Jam: ${timeStr}
+Modul: Wayne's Clinical Index - Hipertiroidisme
+- Total Skor: ${score}
+- Kesimpulan: ${interp} (Skor >19 Toksik, 11-19 Equivocal, <11 Eutiroid)
+- Rekomendasi/Plan: Konfirmasi profil hormon tiroid (TSH sensitif & Free T4). Kontrol gejala simpatis dengan beta-blocker bila takikardia bermakna.`;
+          break;
+        }
+
+        case 'billewicz': {
+          const score = document.getElementById('res-billewicz')?.textContent || '0';
+          const interp = document.getElementById('res-billewicz-interp')?.textContent || '';
+          cpptText = `[CPPT - adjustrEMD Pro]
+Tgl/Jam: ${timeStr}
+Modul: Billewicz Diagnostic Score - Hipotiroidisme
+- Total Skor: ${score}
+- Kesimpulan: ${interp} (Skor >= 25 Hipotiroid, -29 s/d +24 Equivocal, <= -30 Eutiroid)
+- Rekomendasi/Plan: Konfirmasi TSH dan FT4. Inisiasi Levothyroxine low and slow (12.5 - 25 mcg/hari pada geriatri/CAD), evaluasi TSH serial 6-8 minggu.`;
+          break;
+        }
+
+        case 'myxedema': {
+          const score = document.getElementById('res-myxedema')?.textContent || '0';
+          const interp = document.getElementById('res-myxedema-interp')?.textContent || '';
+          cpptText = `[CPPT - adjustrEMD Pro]
+Tgl/Jam: ${timeStr}
+Modul: Myxedema Coma Diagnostic Score (Popoveniuc 2014)
+- Total Skor: ${score}
+- Kesimpulan: ${interp} (>=60 Diagnostik Koma Miksedema, 25-59 Risiko Tinggi)
+- CRITICAL GUARDRAIL: Berikan Hidrokortison 100 mg IV stres dosis SEBELUM hormon tiroid untuk mencegah Krisis Adrenal terinduksi peningkatan clearance kortisol!
+- Rekomendasi/Plan: Rawat ICU, Hidrokortison 100 mg IV q8h, Levothyroxine loading 200-400 mcg IV (atau 300-500 mcg oral via NGT), passive external warming.`;
+          break;
+        }
+
+        case 'adrenal': {
+          const score = document.getElementById('res-adrenal')?.textContent || '0';
+          const interp = document.getElementById('res-adrenal-interp')?.textContent || '';
+          cpptText = `[CPPT - adjustrEMD Pro]
+Tgl/Jam: ${timeStr}
+Modul: Adrenal Crisis Diagnostic & Dosing Score
+- Total Skor Kecurigaan: ${score}
+- Kesimpulan: ${interp}
+- Rekomendasi/Plan (STAT):
+  1. Hidrokortison 100 mg IV bolus segera (jangan ditunda!).
+  2. Maintenance Hidrokortison 200 mg/24 jam kontinyu atau 50 mg IV q6h.
+  3. Resusitasi Salin NaCl 0.9% 1000 mL jam pertama.
+  4. Fludrokortison TIDAK diperlukan pada fase akut dosis hidrokortison tinggi (>50 mg/hari).`;
+          break;
+        }
+
+        case 'apoplexy': {
+          const score = document.getElementById('res-pas')?.textContent || '0';
+          const interp = document.getElementById('res-pas-interp')?.textContent || '';
+          cpptText = `[CPPT - adjustrEMD Pro]
+Tgl/Jam: ${timeStr}
+Modul: Pituitary Apoplexy Score (PAS)
+- Total Skor PAS: ${score} / 8
+- Keputusan Triase: ${interp}
+- Rekomendasi/Plan:
+  ${score >= 4 ? 'KONSUL BEDAH SARAF CITO untuk indikasi dekompresi transsfenoid darurat.' : 'Rawat HCU/ICU, Deksametason 4-8 mg IV q6h atau Hidrokortison, evaluasi fungsi endokrin lengkap & MRI sella serial.'}`;
+          break;
+        }
+
+        case 'osmo': {
+          const na = document.getElementById('osmo-na')?.value || '-';
+          const glu = document.getElementById('osmo-glu')?.value || '-';
+          const osmo = document.getElementById('res-osmo')?.textContent || '-';
+          cpptText = `[CPPT - adjustrEMD Pro]
+Tgl/Jam: ${timeStr}
+Modul: Effective Serum Osmolarity (Tonisitas)
+- Parameter: Na terukur = ${na} mEq/L, Glukosa = ${glu} mg/dL
+- Osmolaritas Efektif (2xNa + Glu/18): ${osmo} mOsm/kg
+- Kesimpulan: ${parseFloat(osmo) >= 320 ? 'Hiperosmolaritas Berat (Korelasi kuat dengan penurunan kesadaran/HHS)' : 'Osmolaritas dalam batas terkontrol'}
+- Rekomendasi/Plan: Resusitasi cairan kristaloid isotonik NaCl 0.9% mendahului inisiasi insulin pada HHS.`;
+          break;
+        }
+
+        case 'ag': {
+          const na = document.getElementById('ag-na')?.value || '-';
+          const cl = document.getElementById('ag-cl')?.value || '-';
+          const hco3 = document.getElementById('ag-hco3')?.value || '-';
+          const glu = document.getElementById('ag-glu')?.value || '-';
+          const ag = document.getElementById('res-ag')?.textContent || '-';
+          const cna = document.getElementById('res-cna')?.textContent || '-';
+          const dRatio = document.getElementById('res-delta-ratio')?.textContent || '-';
+          const dInterp = document.getElementById('res-delta-interp')?.textContent || '-';
+
+          cpptText = `[CPPT - adjustrEMD Pro]
+Tgl/Jam: ${timeStr}
+Modul: Anion Gap & Delta Ratio
+- Parameter: Na ${na}, Cl ${cl}, HCO3 ${hco3}, Glu ${glu} mg/dL
+- Hasil: Anion Gap = ${ag} mEq/L, Corrected Na = ${cna} mEq/L
+- Delta Ratio (ΔAG/ΔHCO3): ${dRatio}
+- Interpretasi Asam-Basa: ${dInterp}
+- Rekomendasi/Plan: Identifikasi etiologi HAGMA (DKA, Laktat, Uremia, Toksin). Sesuaikan cairan dengan corrected Na (0.45% NaCl jika cNa normal/tinggi).`;
+          break;
+        }
+
+        case 'dka-tracker': {
+          const ph = document.getElementById('dka-ph')?.value || '-';
+          const hco3 = document.getElementById('dka-hco3')?.value || '-';
+          const glu = document.getElementById('dka-glu')?.value || '-';
+          const sev = document.getElementById('res-dka-severity')?.textContent || '-';
+          const resStatus = document.getElementById('res-dka-res-status')?.textContent || '-';
+          const k = document.getElementById('dka-k')?.value || '-';
+
+          cpptText = `[CPPT - adjustrEMD Pro]
+Tgl/Jam: ${timeStr}
+Modul: DKA Severity & Resolution Tracker (ADA/ISPAD)
+- Parameter: pH ${ph}, HCO3 ${hco3} mEq/L, GDS ${glu} mg/dL, K+ ${k} mEq/L
+- Derajat Keparahan: ${sev}
+- Status Resolusi DKA: ${resStatus}
+${parseFloat(k) < 3.5 ? '⚠️ ALERT: K+ < 3.5 mEq/L! Tunda insulin, lakukan koreksi KCl terlebih dahulu.' : ''}
+- Rekomendasi/Plan: Tambahkan D5%/D10% saat GDS < 200 mg/dL. Bila kriteria resolusi terpenuhi (HCO3 >= 18, pH > 7.30, AG normal) dan intake oral baik, rencanakan bridging ke insulin subkutan.`;
+          break;
+        }
+
+        case 'hypoglycemia': {
+          const gds = document.getElementById('hypo-gds')?.value || '-';
+          const target = document.getElementById('hypo-target')?.value || '100';
+          const flakon = document.getElementById('res-hypo-flakon')?.textContent || '-';
+          const perkeni = document.getElementById('hypo-perkeni-desc')?.textContent || '-';
+          const r30 = document.getElementById('hypo-rumus30-desc')?.textContent || '-';
+
+          cpptText = `[CPPT - adjustrEMD Pro]
+Tgl/Jam: ${timeStr}
+Modul: Koreksi Hipoglikemia Berat (PERKENI & Rumus 30)
+- GDS Aktual: ${gds} mg/dL | Target: ${target} mg/dL
+- Dosis Bolus PERKENI: ${perkeni}
+- Hitungan Rumus 30 Presisi: ${r30} (${flakon} flakon D40%)
+- Maintenance: IVFD Dextrose 10% / D5% 20 tpm
+- Evaluasi: Cek ulang GDS dalam 15 - 30 menit pasca bolus.`;
+          break;
+        }
+
+        case 'insulin-tdd': {
+          const wt = document.getElementById('ins-wt')?.value || '-';
+          const factor = document.getElementById('ins-factor')?.value || '-';
+          const tdd = document.getElementById('res-tdd')?.textContent || '-';
+          const basal = document.getElementById('res-basal')?.innerText || '-';
+          const bolus = document.getElementById('res-bolus')?.innerText || '-';
+
+          cpptText = `[CPPT - adjustrEMD Pro]
+Tgl/Jam: ${timeStr}
+Modul: Insulin Basal-Bolus Total Daily Dose (TDD)
+- Parameter: BB = ${wt} kg, Faktor = ${factor} U/kg
+- Total Daily Dose (TDD): ${tdd} Unit/hari
+- Pembagian Fisiologis:
+  * Basal (50%): ${basal}
+  * Bolus Prandial (50% / 3): ${bolus}
+- Rekomendasi/Plan: Evaluasi glukosa puasa untuk titrasi basal, dan glukosa pre-meal untuk titrasi bolus. Tunda bolus nutrisional bila pasien dipuasakan (NPO).`;
+          break;
+        }
+
+        case 'tyg': {
+          const tg = document.getElementById('tyg-tg')?.value || '-';
+          const glu = document.getElementById('tyg-glu')?.value || '-';
+          const tyg = document.getElementById('res-tyg')?.textContent || '-';
+
+          cpptText = `[CPPT - adjustrEMD Pro]
+Tgl/Jam: ${timeStr}
+Modul: Triglyceride-Glucose (TyG) Index
+- Parameter: TG Puasa = ${tg} mg/dL, Glukosa Puasa = ${glu} mg/dL
+- Nilai TyG Index: ${tyg} (Cutoff: > 4.49 mengindikasikan resistensi insulin)
+- Rekomendasi/Plan: Edukasi modifikasi gaya hidup (diet rendah karbohidrat olahan, aktivitas aerobik rutin) & evaluasi risiko perlemakan hati metabolik (MASLD).`;
+          break;
+        }
+
+        case 'homa': {
+          const ins = document.getElementById('homa-ins')?.value || '-';
+          const glu = document.getElementById('homa-glu')?.value || '-';
+          const homa = document.getElementById('res-homa')?.textContent || '-';
+
+          cpptText = `[CPPT - adjustrEMD Pro]
+Tgl/Jam: ${timeStr}
+Modul: HOMA-IR (Homeostatic Model Assessment of Insulin Resistance)
+- Parameter: Insulin Puasa = ${ins} µU/mL, Glukosa Puasa = ${glu} mg/dL
+- Nilai HOMA-IR: ${homa} (Cutoff: > 2.0 resistensi insulin awal, > 2.5 signifikan)
+- Rekomendasi/Plan: Evaluasi sindrom metabolik / PCOS, pertimbangkan terapi insulin sensitizer sesuai indikasi klinis.`;
+          break;
+        }
+
+        case 'friedewald': {
+          const tc = document.getElementById('lip-tc')?.value || '-';
+          const hdl = document.getElementById('lip-hdl')?.value || '-';
+          const tg = document.getElementById('lip-tg')?.value || '-';
+          const ldl = document.getElementById('res-ldl')?.textContent || '-';
+
+          cpptText = `[CPPT - adjustrEMD Pro]
+Tgl/Jam: ${timeStr}
+Modul: Friedewald Estimated LDL Cholesterol
+- Parameter: TC = ${tc} mg/dL, HDL = ${hdl} mg/dL, TG = ${tg} mg/dL
+- Estimasi LDL-C: ${ldl} mg/dL (Formula: TC - HDL - TG/5)
+- Catatan: Valid jika TG <= 400 mg/dL.`;
+          break;
+        }
+
+        case 'aip': {
+          const tg = document.getElementById('aip-tg')?.value || '-';
+          const hdl = document.getElementById('aip-hdl')?.value || '-';
+          const aip = document.getElementById('res-aip')?.textContent || '-';
+          const interp = document.getElementById('res-aip-interp')?.textContent || '';
+
+          cpptText = `[CPPT - adjustrEMD Pro]
+Tgl/Jam: ${timeStr}
+Modul: Atherogenic Index of Plasma (AIP)
+- Parameter: TG = ${tg} mg/dL, HDL = ${hdl} mg/dL
+- Nilai AIP [log(TG/HDL)]: ${aip}
+- Stratifikasi Risiko: ${interp} (<0.11 Rendah, 0.11-0.21 Sedang, >0.21 Tinggi / Partikel sdLDL dominan)
+- Rekomendasi/Plan: Terapi gaya hidup intensif, optimalisasi target lipid atherogenik.`;
+          break;
+        }
+
+        case 'ascvd': {
+          const score = document.getElementById('res-ascvd-score')?.textContent || '-';
+          const target = document.getElementById('res-ascvd-target')?.textContent || '-';
+          const age = document.getElementById('ascvd-age')?.value || '-';
+          const sbp = document.getElementById('ascvd-sbp')?.value || '-';
+          const tc = document.getElementById('ascvd-tc')?.value || '-';
+          const hdl = document.getElementById('ascvd-hdl')?.value || '-';
+
+          cpptText = `[CPPT - adjustrEMD Pro]
+Tgl/Jam: ${timeStr}
+Modul: ASCVD 10-Year Risk & Target LDL
+- Parameter: Usia ${age} th, SBP ${sbp} mmHg, TC ${tc} mg/dL, HDL ${hdl} mg/dL
+- Estimasi Risiko Kardiovaskular 10 Tahun: ${score}
+- Stratifikasi ${target}
+- Rekomendasi/Plan: Terapi statin intensitas sesuai stratifikasi risiko (High-intensity statin reduksi >= 50% bila risiko tinggi).`;
+          break;
+        }
+
+        case 'hba1c-eag': {
+          const hba1c = document.getElementById('eag-hba1c')?.value || '-';
+          const eagMg = document.getElementById('res-eag-mg')?.textContent || '-';
+          const eagMmol = document.getElementById('res-eag-mmol')?.textContent || '-';
+
+          cpptText = `[CPPT - adjustrEMD Pro]
+Tgl/Jam: ${timeStr}
+Modul: Konversi HbA1c ke Estimated Average Glucose (eAG)
+- HbA1c Pasien: ${hba1c} %
+- Estimasi Rerata Gula Darah Harian: ${eagMg} mg/dL (${eagMmol})
+- Formula ADAG: eAG = 28.7 x HbA1c - 46.7
+- Edukasi Pasien: Telah dijelaskan korelasi HbA1c dengan rerata glukosa harian pasien.`;
+          break;
+        }
+
+        case 'bridging-insulin': {
+          const total = document.getElementById('ins-total')?.innerText || '0';
+          const bb80 = document.getElementById('ins-bb-80')?.innerText || '0';
+          const basal = document.getElementById('ins-basal-50')?.innerText || '0';
+          const prandial = document.getElementById('ins-prandial-3')?.innerText || '0';
+
+          cpptText = `[CPPT - adjustrEMD Pro]
+Tgl/Jam: ${timeStr}
+Modul: Bridging Titrasi Drip Insulin IV 24 Jam ke Regimen Subkutan
+- Total Drip Insulin 24 Jam: ${total} Unit
+- Total Basal-Bolus Subkutan (80%): ${bb80} Unit
+- Dosis Basal (50%): ${basal} Unit (SC 1x/hari)
+- Dosis Prandial (/x3): ${prandial} Unit (SC 3x/hari sebelum makan)
+- Instruksi Overlap Kritis: Berikan dosis insulin basal subkutan pertama 1 - 2 jam SEBELUM drip insulin IV distop total.`;
+          break;
+        }
+      }
+
+      if (cpptText) {
+        copyTextToClipboard(cpptText);
+      }
+    };
+
+    function copyTextToClipboard(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast('Resume klinis CPPT berhasil disalin!');
+        }).catch(() => fallbackCopy(text));
+      } else {
+        fallbackCopy(text);
+      }
+
+      function fallbackCopy(txt) {
+        const textArea = document.createElement("textarea");
+        textArea.value = txt;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-9999px";
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+          document.execCommand('copy');
+          showToast('Resume klinis CPPT berhasil disalin!');
+        } catch (err) {
+          console.error('Gagal menyalin:', err);
+        }
+        document.body.removeChild(textArea);
+      }
+    }
+
+    // ==========================================
+    // 1. BURCH-WARTOFSKY POINT SCALE (BWPS)
+    // ==========================================
+    function calcBWPS() {
+      let score = 0;
+      score += parseInt(document.getElementById('bwps-temp')?.value) || 0;
+      score += parseInt(document.getElementById('bwps-cns')?.value) || 0;
+      score += parseInt(document.getElementById('bwps-gi')?.value) || 0;
+      score += parseInt(document.getElementById('bwps-hr')?.value) || 0;
+      score += parseInt(document.getElementById('bwps-chf')?.value) || 0;
+      if (document.getElementById('bwps-af')?.checked) score += parseInt(document.getElementById('bwps-af').value);
+      if (document.getElementById('bwps-precipitant')?.checked) score += parseInt(document.getElementById('bwps-precipitant').value);
+
+      const resEl = document.getElementById('res-bwps');
+      const interpEl = document.getElementById('res-bwps-interp');
+      if (!resEl || !interpEl) return;
+      
+      resEl.textContent = score;
+
+      if (score >= 45) {
+        interpEl.textContent = "Highly suggestive of Thyroid Storm";
+        interpEl.className = "text-xs uppercase tracking-wider mt-1 text-rose-400 font-bold";
+        resEl.className = "text-3xl sm:text-4xl font-extrabold text-rose-400 tracking-tight leading-none";
+      } else if (score >= 25) {
+        interpEl.textContent = "Impending Thyroid Storm";
+        interpEl.className = "text-xs uppercase tracking-wider mt-1 text-amber-400 font-bold";
+        resEl.className = "text-3xl sm:text-4xl font-extrabold text-amber-400 tracking-tight leading-none";
+      } else {
+        interpEl.textContent = "Thyroid Storm Unlikely";
+        interpEl.className = "text-xs uppercase tracking-wider mt-1 text-emerald-400 font-bold";
+        resEl.className = "text-3xl sm:text-4xl font-extrabold text-emerald-400 tracking-tight leading-none";
+      }
+    }
+    addRealTimeListeners('.bwps-input', calcBWPS);
+
+    // ==========================================
+    // 2. WAYNE'S CLINICAL INDEX
+    // ==========================================
+    function calcWayne() {
+      let score = 0;
+      document.querySelectorAll('.wayne-input[type="checkbox"]:checked').forEach(cb => {
+        score += parseInt(cb.value) || 0;
+      });
+      score += parseInt(document.getElementById('wayne-pulse')?.value) || 0;
+
+      const resEl = document.getElementById('res-wayne');
+      const interpEl = document.getElementById('res-wayne-interp');
+      if (!resEl || !interpEl) return;
+      
+      resEl.textContent = score;
+
+      if (score > 19) {
+        interpEl.textContent = "Toxic (Hyperthyroidism)";
+        interpEl.className = "text-xs uppercase tracking-wider mt-1 text-rose-400 font-bold";
+        resEl.className = "text-3xl sm:text-4xl font-extrabold text-rose-400 tracking-tight leading-none";
+      } else if (score >= 11) {
+        interpEl.textContent = "Equivocal (Meragukan)";
+        interpEl.className = "text-xs uppercase tracking-wider mt-1 text-amber-400 font-bold";
+        resEl.className = "text-3xl sm:text-4xl font-extrabold text-amber-400 tracking-tight leading-none";
+      } else {
+        interpEl.textContent = "Euthyroid";
+        interpEl.className = "text-xs uppercase tracking-wider mt-1 text-cyan-400 font-bold";
+        resEl.className = "text-3xl sm:text-4xl font-extrabold text-cyan-400 tracking-tight leading-none";
+      }
+    }
+    addRealTimeListeners('.wayne-input', calcWayne);
+
+    // ==========================================
+    // 3. BILLEWICZ SCORE
+    // ==========================================
+    function calcBillewicz() {
+      let score = 0;
+      document.querySelectorAll('.billewicz-input').forEach(sel => {
+        score += parseInt(sel.value) || 0;
+      });
+
+      const resEl = document.getElementById('res-billewicz');
+      const interpEl = document.getElementById('res-billewicz-interp');
+      if (!resEl || !interpEl) return;
+      
+      resEl.textContent = (score > 0 ? '+' : '') + score;
+
+      if (score >= 25) {
+        interpEl.textContent = "Hypothyroid";
+        interpEl.className = "text-xs uppercase tracking-wider mt-1 text-rose-400 font-bold";
+        resEl.className = "text-3xl sm:text-4xl font-extrabold text-rose-400 tracking-tight leading-none";
+      } else if (score > -30) {
+        interpEl.textContent = "Equivocal (Meragukan)";
+        interpEl.className = "text-xs uppercase tracking-wider mt-1 text-amber-400 font-bold";
+        resEl.className = "text-3xl sm:text-4xl font-extrabold text-amber-400 tracking-tight leading-none";
+      } else {
+        interpEl.textContent = "Euthyroid";
+        interpEl.className = "text-xs uppercase tracking-wider mt-1 text-indigo-400 font-bold";
+        resEl.className = "text-3xl sm:text-4xl font-extrabold text-indigo-400 tracking-tight leading-none";
+      }
+    }
+    addRealTimeListeners('.billewicz-input', calcBillewicz);
+
+    // ==========================================
+    // 4. MYXEDEMA COMA DIAGNOSTIC SCORE (Popoveniuc 2014)
+    // ==========================================
+    function calcMyxedema() {
+      let score = 0;
+      score += parseInt(document.getElementById('myx-temp')?.value) || 0;
+      score += parseInt(document.getElementById('myx-cns')?.value) || 0;
+      score += parseInt(document.getElementById('myx-gi')?.value) || 0;
+      score += parseInt(document.getElementById('myx-hr')?.value) || 0;
+      score += parseInt(document.getElementById('myx-bp')?.value) || 0;
+      score += parseInt(document.getElementById('myx-na')?.value) || 0;
+
+      if (document.getElementById('myx-glu')?.checked) score += parseInt(document.getElementById('myx-glu').value);
+      if (document.getElementById('myx-resp')?.checked) score += parseInt(document.getElementById('myx-resp').value);
+      if (document.getElementById('myx-effusion')?.checked) score += parseInt(document.getElementById('myx-effusion').value);
+      if (document.getElementById('myx-precipitant')?.checked) score += parseInt(document.getElementById('myx-precipitant').value);
+
+      const resEl = document.getElementById('res-myxedema');
+      const interpEl = document.getElementById('res-myxedema-interp');
+      const guardrail = document.getElementById('guardrail-myxedema');
+      if (!resEl || !interpEl) return;
+
+      resEl.textContent = score;
+
+      if (score >= 60) {
+        interpEl.textContent = "Diagnostik Koma Miksedema";
+        interpEl.className = "text-xs uppercase tracking-wider mt-1 text-purple-400 font-bold";
+        resEl.className = "text-3xl sm:text-4xl font-extrabold text-purple-400 tracking-tight leading-none";
+        if (guardrail) guardrail.classList.remove('hidden');
+      } else if (score >= 25) {
+        interpEl.textContent = "Risiko Tinggi / Impending";
+        interpEl.className = "text-xs uppercase tracking-wider mt-1 text-amber-400 font-bold";
+        resEl.className = "text-3xl sm:text-4xl font-extrabold text-amber-400 tracking-tight leading-none";
+        if (guardrail) guardrail.classList.remove('hidden');
+      } else {
+        interpEl.textContent = "Unlikely (Kecil Kemungkinan)";
+        interpEl.className = "text-xs uppercase tracking-wider mt-1 text-emerald-400 font-bold";
+        resEl.className = "text-3xl sm:text-4xl font-extrabold text-emerald-400 tracking-tight leading-none";
+        if (guardrail) guardrail.classList.add('hidden');
+      }
+    }
+    addRealTimeListeners('.myx-input', calcMyxedema);
+
+    // ==========================================
+    // 5. ADRENAL CRISIS DIAGNOSTIC & DOSING SCORE
+    // ==========================================
+    function calcAdrenalCrisis() {
+      let score = 0;
+      document.querySelectorAll('.adrenal-input:checked').forEach(cb => {
+        score += parseInt(cb.value) || 0;
+      });
+
+      const resEl = document.getElementById('res-adrenal');
+      const interpEl = document.getElementById('res-adrenal-interp');
+      if (!resEl || !interpEl) return;
+
+      resEl.textContent = score;
+
+      if (score >= 6) {
+        interpEl.textContent = "Probabilitas Sangat Tinggi";
+        interpEl.className = "text-xs uppercase tracking-wider mt-1 text-rose-400 font-bold";
+        resEl.className = "text-3xl sm:text-4xl font-extrabold text-rose-400 tracking-tight leading-none";
+      } else if (score >= 3) {
+        interpEl.textContent = "Probabilitas Sedang";
+        interpEl.className = "text-xs uppercase tracking-wider mt-1 text-amber-400 font-bold";
+        resEl.className = "text-3xl sm:text-4xl font-extrabold text-amber-400 tracking-tight leading-none";
+      } else {
+        interpEl.textContent = "Probabilitas Rendah";
+        interpEl.className = "text-xs uppercase tracking-wider mt-1 text-sky-400 font-bold";
+        resEl.className = "text-3xl sm:text-4xl font-extrabold text-sky-400 tracking-tight leading-none";
+      }
+    }
+    addRealTimeListeners('.adrenal-input', calcAdrenalCrisis);
+
+    // ==========================================
+    // 6. PITUITARY APOPLEXY SCORE (PAS)
+    // ==========================================
+    function calcPAS() {
+      let score = 0;
+      score += parseInt(document.getElementById('pas-va')?.value) || 0;
+      score += parseInt(document.getElementById('pas-vf')?.value) || 0;
+      score += parseInt(document.getElementById('pas-oc')?.value) || 0;
+      score += parseInt(document.getElementById('pas-gcs')?.value) || 0;
+
+      const resEl = document.getElementById('res-pas');
+      const interpEl = document.getElementById('res-pas-interp');
+      if (!resEl || !interpEl) return;
+
+      resEl.textContent = score;
+
+      if (score >= 4) {
+        interpEl.textContent = "CITO Konsul Bedah Saraf";
+        interpEl.className = "text-xs uppercase tracking-wider mt-1 text-rose-400 font-bold";
+        resEl.className = "text-3xl sm:text-4xl font-extrabold text-rose-400 tracking-tight leading-none";
+      } else if (score >= 2) {
+        interpEl.textContent = "Observasi Ketat / HCU";
+        interpEl.className = "text-xs uppercase tracking-wider mt-1 text-amber-400 font-bold";
+        resEl.className = "text-3xl sm:text-4xl font-extrabold text-amber-400 tracking-tight leading-none";
+      } else {
+        interpEl.textContent = "Manajemen Konservatif";
+        interpEl.className = "text-xs uppercase tracking-wider mt-1 text-teal-400 font-bold";
+        resEl.className = "text-3xl sm:text-4xl font-extrabold text-teal-400 tracking-tight leading-none";
+      }
+    }
+    addRealTimeListeners('.pas-input', calcPAS);
+
+    // ==========================================
+    // 7. EFFECTIVE SERUM OSMOLARITY
+    // ==========================================
+    function calcOsmo() {
+      const na = parseFloat(document.getElementById('osmo-na')?.value);
+      const glu = parseFloat(document.getElementById('osmo-glu')?.value);
+      const resEl = document.getElementById('res-osmo');
+      if (!resEl) return;
+
+      if (!isNaN(na) && !isNaN(glu)) {
+        const osmo = (2 * na) + (glu / 18);
+        resEl.textContent = osmo.toFixed(1);
+        if(osmo >= 320) {
+          resEl.className = "text-2xl sm:text-3xl font-extrabold text-rose-500 tracking-tight leading-none";
+        } else {
+          resEl.className = "text-2xl sm:text-3xl font-extrabold text-amber-400 tracking-tight leading-none";
+        }
+      } else {
+        resEl.textContent = "-";
+        resEl.className = "text-2xl sm:text-3xl font-extrabold text-amber-400 tracking-tight leading-none";
+      }
+    }
+    addRealTimeListeners('#osmo-na, #osmo-glu', calcOsmo);
+
+    // ==========================================
+    // 8. ANION GAP, CORRECTED NA, DELTA GAP & RATIO
+    // ==========================================
+    function calcAG() {
+      const na = parseFloat(document.getElementById('ag-na')?.value);
+      const cl = parseFloat(document.getElementById('ag-cl')?.value);
+      const hco3 = parseFloat(document.getElementById('ag-hco3')?.value);
+      const glu = parseFloat(document.getElementById('ag-glu')?.value);
+
+      const agEl = document.getElementById('res-ag');
+      const cnaEl = document.getElementById('res-cna');
+      const deltaRatioEl = document.getElementById('res-delta-ratio');
+      const deltaGapEl = document.getElementById('res-delta-gap');
+      const deltaHco3El = document.getElementById('res-delta-hco3');
+      const deltaInterpEl = document.getElementById('res-delta-interp');
+
+      let agVal = NaN;
+
+      if (!isNaN(na) && !isNaN(cl) && !isNaN(hco3) && agEl) {
+        agVal = na - (cl + hco3);
+        agEl.textContent = agVal.toFixed(1);
+      } else if (agEl) {
+        agEl.textContent = "-";
+      }
+
+      if (!isNaN(na) && !isNaN(glu) && glu > 100 && cnaEl) {
+        const cNa = na + 1.6 * ((glu - 100) / 100);
+        cnaEl.textContent = cNa.toFixed(1);
+      } else if (!isNaN(na) && cnaEl) {
+        cnaEl.textContent = na.toFixed(1);
+      } else if (cnaEl) {
+        cnaEl.textContent = "-";
+      }
+
+      // Delta Ratio calculation
+      if (!isNaN(agVal) && !isNaN(hco3) && deltaRatioEl && deltaGapEl && deltaHco3El && deltaInterpEl) {
+        const deltaAG = agVal - 12;
+        const deltaHCO3 = 24 - hco3;
+        deltaGapEl.textContent = (deltaAG > 0 ? '+' : '') + deltaAG.toFixed(1);
+        deltaHco3El.textContent = deltaHCO3.toFixed(1);
+
+        if (deltaHCO3 > 0) {
+          const ratio = deltaAG / deltaHCO3;
+          deltaRatioEl.textContent = ratio.toFixed(2);
+
+          if (ratio < 0.8) {
+            deltaInterpEl.innerHTML = '<span class="text-amber-400 font-bold">Delta Ratio &lt; 0.8:</span> Mixed High Anion Gap Acidosis + <strong>NAGMA (Hyperchloremic Acidosis)</strong>. Sering terjadi pasca resusitasi kristaloid NaCl 0.9% masif.';
+          } else if (ratio <= 2.0) {
+            deltaInterpEl.innerHTML = '<span class="text-emerald-400 font-bold">Delta Ratio 0.8 - 2.0:</span> <strong>Pure High Anion Gap Acidosis (HAGMA murni)</strong>. Tipikal untuk DKA tanpa gangguan asam-basa sekunder.';
+          } else {
+            deltaInterpEl.innerHTML = '<span class="text-purple-400 font-bold">Delta Ratio &gt; 2.0:</span> Mixed High Anion Gap Acidosis + <strong>Alkalosis Metabolik</strong> (akibat muntah hebat) atau retensi bikarbonat kompensasi.';
+          }
+        } else {
+          deltaRatioEl.textContent = "-";
+          deltaInterpEl.textContent = "Kadar bikarbonat normal/tinggi (HCO3 >= 24 mEq/L).";
+        }
+      } else if (deltaRatioEl) {
+        deltaRatioEl.textContent = "-";
+        if (deltaGapEl) deltaGapEl.textContent = "-";
+        if (deltaHco3El) deltaHco3El.textContent = "-";
+      }
+    }
+    addRealTimeListeners('#ag-na, #ag-cl, #ag-hco3, #ag-glu', calcAG);
+
+    // ==========================================
+    // 9. DKA SEVERITY & RESOLUTION TRACKER
+    // ==========================================
+    function calcDKATracker() {
+      const ph = parseFloat(document.getElementById('dka-ph')?.value);
+      const hco3 = parseFloat(document.getElementById('dka-hco3')?.value);
+      const glu = parseFloat(document.getElementById('dka-glu')?.value);
+      const ag = parseFloat(document.getElementById('dka-ag')?.value);
+      const k = parseFloat(document.getElementById('dka-k')?.value);
+      const mental = document.getElementById('dka-mental')?.value || 'alert';
+
+      const sevEl = document.getElementById('res-dka-severity');
+      const resStatusEl = document.getElementById('res-dka-res-status');
+      const resBadgeEl = document.getElementById('dka-resolution-badge');
+      const guardrailK = document.getElementById('guardrail-dka');
+
+      // Kalium Guardrail
+      if (!isNaN(k) && k < 3.5 && guardrailK) {
+        guardrailK.classList.remove('hidden');
+      } else if (guardrailK) {
+        guardrailK.classList.add('hidden');
+      }
+
+      // Severity Stratification
+      if (sevEl) {
+        if (!isNaN(ph) || !isNaN(hco3)) {
+          if (ph < 7.00 || hco3 < 10 || mental === 'stupor') {
+            sevEl.textContent = "DKA Berat (Severe)";
+            sevEl.className = "text-2xl sm:text-3xl font-extrabold text-rose-500 tracking-tight leading-none";
+          } else if (ph < 7.25 || hco3 < 15 || mental === 'drowsy') {
+            sevEl.textContent = "DKA Sedang (Moderate)";
+            sevEl.className = "text-2xl sm:text-3xl font-extrabold text-amber-400 tracking-tight leading-none";
+          } else if (ph <= 7.30 || hco3 <= 18) {
+            sevEl.textContent = "DKA Ringan (Mild)";
+            sevEl.className = "text-2xl sm:text-3xl font-extrabold text-emerald-400 tracking-tight leading-none";
+          } else {
+            sevEl.textContent = "Non-Acidotic";
+            sevEl.className = "text-2xl sm:text-3xl font-extrabold text-cyan-400 tracking-tight leading-none";
+          }
+        } else {
+          sevEl.textContent = "-";
+        }
+      }
+
+      // Resolution Checklist
+      let resolvedCount = 0;
+      const critGluPass = !isNaN(glu) && glu < 200;
+      const critHco3Pass = !isNaN(hco3) && hco3 >= 18;
+      const critPhPass = !isNaN(ph) && ph > 7.30;
+      const critAgPass = !isNaN(ag) && ag <= 12;
+
+      function updateCritBox(boxId, icoId, passed) {
+        const box = document.getElementById(boxId);
+        const ico = document.getElementById(icoId);
+        if (!box || !ico) return;
+        if (passed) {
+          box.className = "p-2.5 rounded-lg bg-emerald-950/40 border border-emerald-500/40 text-emerald-300 font-semibold";
+          ico.innerHTML = '<i class="fa-solid fa-check text-emerald-400"></i>';
+        } else {
+          box.className = "p-2.5 rounded-lg bg-slate-950/60 border border-slate-800 text-slate-400";
+          ico.innerHTML = '<i class="fa-solid fa-clock"></i>';
+        }
+      }
+
+      updateCritBox('crit-glu', 'ico-crit-glu', critGluPass);
+      updateCritBox('crit-hco3', 'ico-crit-hco3', critHco3Pass);
+      updateCritBox('crit-ph', 'ico-crit-ph', critPhPass);
+      updateCritBox('crit-ag', 'ico-crit-ag', critAgPass);
+
+      if (critHco3Pass) resolvedCount++;
+      if (critPhPass) resolvedCount++;
+      if (critAgPass) resolvedCount++;
+
+      const isResolved = critGluPass && (resolvedCount >= 2);
+
+      if (resStatusEl && resBadgeEl) {
+        if (isResolved) {
+          resStatusEl.textContent = "Resolusi Tercapai (Siap SC)";
+          resStatusEl.className = "text-[11px] sm:text-xs text-emerald-400 uppercase tracking-wider font-semibold mt-1 sm:mt-1.5 text-right";
+          resBadgeEl.textContent = "Resolusi Terpenuhi (Siap Bridging)";
+          resBadgeEl.className = "px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
+        } else {
+          resStatusEl.textContent = "Belum Resolusi (Lanjut IV)";
+          resStatusEl.className = "text-[11px] sm:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1 sm:mt-1.5 text-right";
+          resBadgeEl.textContent = "Belum Terpenuhi (Lanjut Drip IV)";
+          resBadgeEl.className = "px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-400 border border-slate-700";
+        }
+      }
+    }
+    addRealTimeListeners('.dka-input', calcDKATracker);
+
+    // ==========================================
+    // 10. KOREKSI HIPOGLIKEMIA BERAT (PERKENI & Rumus 30)
+    // ==========================================
+    function calcHypoglycemia() {
+      const gds = parseFloat(document.getElementById('hypo-gds')?.value);
+      const target = parseFloat(document.getElementById('hypo-target')?.value) || 100;
+      const conscious = document.getElementById('hypo-conscious')?.value || 'unconscious';
+
+      const resFlakonEl = document.getElementById('res-hypo-flakon');
+      const resInterpEl = document.getElementById('res-hypo-interp');
+      const perkeniDescEl = document.getElementById('hypo-perkeni-desc');
+      const rumus30DescEl = document.getElementById('hypo-rumus30-desc');
+      const guardrailHypo = document.getElementById('guardrail-hypo');
+
+      // Guardrail if unconscious
+      if (conscious === 'unconscious' && guardrailHypo) {
+        guardrailHypo.classList.remove('hidden');
+      } else if (guardrailHypo) {
+        guardrailHypo.classList.add('hidden');
+      }
+
+      if (!isNaN(gds)) {
+        let perkeniFlakon = 0;
+        let perkeniText = '';
+
+        if (gds < 50) {
+          perkeniFlakon = 2;
+          perkeniText = "Bolus D40% 50 cc (2 flakon) IV stat";
+        } else if (gds < 70) {
+          perkeniFlakon = 1;
+          perkeniText = "Bolus D40% 25 cc (1 flakon) IV stat";
+        } else {
+          perkeniFlakon = 0;
+          perkeniText = "Tidak perlu bolus D40% (GDS >= 70 mg/dL)";
+        }
+
+        const delta = Math.max(0, target - gds);
+        const r30Flakon = (delta / 30);
+        const gramDextrose = r30Flakon * 10;
+
+        if (resFlakonEl) {
+          resFlakonEl.textContent = perkeniFlakon > 0 ? perkeniFlakon : (r30Flakon > 0 ? r30Flakon.toFixed(1) : '0');
+        }
+        if (resInterpEl) {
+          resInterpEl.textContent = perkeniFlakon > 0 ? `${perkeniFlakon * 25} cc D40% IV` : "GDS Tercapai";
+        }
+        if (perkeniDescEl) perkeniDescEl.textContent = perkeniText;
+        if (rumus30DescEl) {
+          rumus30DescEl.textContent = `${r30Flakon.toFixed(1)} Flakon (~ ${gramDextrose.toFixed(0)} gram Dekstrosa murni)`;
+        }
+      } else {
+        if (resFlakonEl) resFlakonEl.textContent = "-";
+        if (resInterpEl) resInterpEl.textContent = "Flakon D40%";
+        if (perkeniDescEl) perkeniDescEl.textContent = "-";
+        if (rumus30DescEl) rumus30DescEl.textContent = "-";
+      }
+    }
+    addRealTimeListeners('.hypo-input', calcHypoglycemia);
+
+    // ==========================================
+    // 11. INSULIN BASAL-BOLUS TDD
+    // ==========================================
+    function calcInsulin() {
+      const wt = parseFloat(document.getElementById('ins-wt')?.value);
+      const factor = parseFloat(document.getElementById('ins-factor')?.value);
+
+      const tddEl = document.getElementById('res-tdd');
+      const basalEl = document.getElementById('res-basal');
+      const bolusEl = document.getElementById('res-bolus');
+
+      if (!isNaN(wt) && !isNaN(factor) && tddEl && basalEl && bolusEl) {
+        const tdd = wt * factor;
+        const basal = tdd * 0.5;
+        const bolus = (tdd * 0.5) / 3;
+
+        tddEl.textContent = Math.round(tdd);
+        basalEl.innerHTML = `${Math.round(basal)} <span class="text-sm font-medium text-slate-400 ml-1">U Qd</span>`;
+        bolusEl.innerHTML = `${Math.round(bolus)} <span class="text-sm font-medium text-slate-400 ml-1">U TID</span>`;
+      } else if (tddEl && basalEl && bolusEl) {
+        tddEl.textContent = "-";
+        basalEl.innerHTML = `- <span class="text-sm font-medium text-slate-400 ml-1">U Qd</span>`;
+        bolusEl.innerHTML = `- <span class="text-sm font-medium text-slate-400 ml-1">U TID</span>`;
+      }
+    }
+    addRealTimeListeners('#ins-wt, #ins-factor', calcInsulin);
+
+    // ==========================================
+    // 12, 13, 14. METABOLIC: TYG, HOMA-IR, FRIEDEWALD
+    // ==========================================
+    function calcMetabolic() {
+      // TyG
+      const tgTyg = parseFloat(document.getElementById('tyg-tg')?.value);
+      const gluTyg = parseFloat(document.getElementById('tyg-glu')?.value);
+      const tygEl = document.getElementById('res-tyg');
+      if (tygEl) {
+        if (!isNaN(tgTyg) && !isNaN(gluTyg)) {
+          const tyg = Math.log(tgTyg * gluTyg) / 2;
+          tygEl.textContent = tyg.toFixed(2);
+        } else {
+          tygEl.textContent = "-";
+        }
+      }
+
+      // HOMA-IR
+      const insHoma = parseFloat(document.getElementById('homa-ins')?.value);
+      const gluHoma = parseFloat(document.getElementById('homa-glu')?.value);
+      const homaEl = document.getElementById('res-homa');
+      if (homaEl) {
+        if (!isNaN(insHoma) && !isNaN(gluHoma)) {
+          const homa = (insHoma * gluHoma) / 405;
+          homaEl.textContent = homa.toFixed(2);
+        } else {
+          homaEl.textContent = "-";
+        }
+      }
+
+      // Friedewald
+      const tc = parseFloat(document.getElementById('lip-tc')?.value);
+      const hdl = parseFloat(document.getElementById('lip-hdl')?.value);
+      const tgLip = parseFloat(document.getElementById('lip-tg')?.value);
+      
+      const resLdl = document.getElementById('res-ldl');
+      const ldlWarn = document.getElementById('ldl-warning');
+
+      if (!isNaN(tc) && !isNaN(hdl) && !isNaN(tgLip) && resLdl) {
+        if (tgLip > 400) {
+          resLdl.textContent = "N/A";
+          resLdl.className = "text-2xl sm:text-3xl font-extrabold text-slate-600 tracking-tight leading-none";
+          if (ldlWarn) ldlWarn.classList.remove('hidden');
+        } else {
+          const ldl = tc - hdl - (tgLip / 5);
+          if (ldl < 0) {
+            resLdl.textContent = "< 0";
+            resLdl.className = "text-2xl sm:text-3xl font-extrabold text-amber-400 tracking-tight leading-none";
+            if (ldlWarn) {
+              ldlWarn.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-base mr-2.5"></i> Hasil LDL negatif (< 0 mg/dL). Rumus Friedewald tidak valid untuk sampel ini.';
+              ldlWarn.classList.remove('hidden');
+            }
+          } else {
+            resLdl.textContent = ldl.toFixed(1);
+            resLdl.className = "text-2xl sm:text-3xl font-extrabold text-sky-400 tracking-tight leading-none";
+            if (ldlWarn) ldlWarn.classList.add('hidden');
+          }
+        }
+      } else if (resLdl) {
+        resLdl.textContent = "-";
+        resLdl.className = "text-2xl sm:text-3xl font-extrabold text-sky-400 tracking-tight leading-none";
+        if (ldlWarn) ldlWarn.classList.add('hidden');
+      }
+    }
+    addRealTimeListeners('#tyg-tg, #tyg-glu, #homa-ins, #homa-glu, #lip-tc, #lip-hdl, #lip-tg', calcMetabolic);
+
+    // ==========================================
+    // 15. ATHEROGENIC INDEX OF PLASMA (AIP)
+    // ==========================================
+    function calcAIP() {
+      const tg = parseFloat(document.getElementById('aip-tg')?.value);
+      const hdl = parseFloat(document.getElementById('aip-hdl')?.value);
+      const resEl = document.getElementById('res-aip');
+      const interpEl = document.getElementById('res-aip-interp');
+      if (!resEl || !interpEl) return;
+
+      if (!isNaN(tg) && !isNaN(hdl) && tg > 0 && hdl > 0) {
+        const tg_mmol = tg / 88.57;
+        const hdl_mmol = hdl / 38.67;
+        const aip = Math.log10(tg_mmol / hdl_mmol);
+        resEl.textContent = aip.toFixed(3);
+
+        if (aip > 0.21) {
+          interpEl.textContent = "Risiko Tinggi (High sdLDL)";
+          interpEl.className = "text-[10px] text-rose-400 mt-0.5 uppercase font-semibold";
+          resEl.className = "text-2xl sm:text-3xl font-extrabold text-rose-400 tracking-tight leading-none";
+        } else if (aip >= 0.11) {
+          interpEl.textContent = "Risiko Sedang";
+          interpEl.className = "text-[10px] text-amber-400 mt-0.5 uppercase font-semibold";
+          resEl.className = "text-2xl sm:text-3xl font-extrabold text-amber-400 tracking-tight leading-none";
+        } else {
+          interpEl.textContent = "Risiko Rendah";
+          interpEl.className = "text-[10px] text-emerald-400 mt-0.5 uppercase font-semibold";
+          resEl.className = "text-2xl sm:text-3xl font-extrabold text-teal-400 tracking-tight leading-none";
+        }
+      } else {
+        resEl.textContent = "-";
+        interpEl.textContent = "Risiko Rendah";
+        resEl.className = "text-2xl sm:text-3xl font-extrabold text-teal-400 tracking-tight leading-none";
+      }
+    }
+    addRealTimeListeners('#aip-tg, #aip-hdl', calcAIP);
+
+    // ==========================================
+    // 16. ASCVD 10-YEAR RISK ESTIMATOR
+    // ==========================================
+    function calcASCVD() {
+      const age = parseFloat(document.getElementById('ascvd-age')?.value);
+      const gender = document.getElementById('ascvd-gender')?.value || 'male';
+      const sbp = parseFloat(document.getElementById('ascvd-sbp')?.value);
+      const htn = document.getElementById('ascvd-htn')?.value === 'yes';
+      const tc = parseFloat(document.getElementById('ascvd-tc')?.value);
+      const hdl = parseFloat(document.getElementById('ascvd-hdl')?.value);
+      const dm = document.getElementById('ascvd-dm')?.value === 'yes';
+      const smoke = document.getElementById('ascvd-smoke')?.value === 'yes';
+
+      const resScoreEl = document.getElementById('res-ascvd-score');
+      const resTargetEl = document.getElementById('res-ascvd-target');
+      if (!resScoreEl || !resTargetEl) return;
+
+      if (!isNaN(age) && !isNaN(sbp) && !isNaN(tc) && !isNaN(hdl)) {
+        // Pooled Cohort Equations simplified estimation
+        let estRisk = 0;
+        if (gender === 'male') {
+          estRisk = (age * 0.4) + (tc * 0.05) - (hdl * 0.08) + (sbp * (htn ? 0.08 : 0.04)) + (dm ? 8.0 : 0) + (smoke ? 7.5 : 0) - 22;
+        } else {
+          estRisk = (age * 0.35) + (tc * 0.04) - (hdl * 0.07) + (sbp * (htn ? 0.07 : 0.035)) + (dm ? 7.0 : 0) + (smoke ? 6.5 : 0) - 20;
+        }
+        estRisk = Math.max(1.0, Math.min(65.0, estRisk));
+
+        resScoreEl.textContent = estRisk.toFixed(1) + " %";
+
+        if (estRisk >= 20.0 || dm) {
+          resScoreEl.className = "text-3xl sm:text-4xl font-extrabold text-rose-400 tracking-tight leading-none";
+          resTargetEl.innerHTML = 'Target LDL: <strong class="text-rose-300">&lt; 55 - 70 mg/dL</strong>';
+        } else if (estRisk >= 7.5) {
+          resScoreEl.className = "text-3xl sm:text-4xl font-extrabold text-amber-400 tracking-tight leading-none";
+          resTargetEl.innerHTML = 'Target LDL: <strong class="text-amber-300">&lt; 70 - 100 mg/dL</strong>';
+        } else {
+          resScoreEl.className = "text-3xl sm:text-4xl font-extrabold text-blue-400 tracking-tight leading-none";
+          resTargetEl.innerHTML = 'Target LDL: <strong class="text-blue-300">&lt; 100 - 115 mg/dL</strong>';
+        }
+      } else {
+        resScoreEl.textContent = "- %";
+        resTargetEl.textContent = "Target LDL: -";
+      }
+    }
+    addRealTimeListeners('.ascvd-input', calcASCVD);
+
+    // ==========================================
+    // 17. KONVERSI HBA1C KE EAG
+    // ==========================================
+    function calcHbA1cToEAG() {
+      const hba1c = parseFloat(document.getElementById('eag-hba1c')?.value);
+      const resMg = document.getElementById('res-eag-mg');
+      const resMmol = document.getElementById('res-eag-mmol');
+      if (!resMg || !resMmol) return;
+
+      if (!isNaN(hba1c) && hba1c > 3.0) {
+        const eagMg = 28.7 * hba1c - 46.7;
+        const eagMmol = 1.59 * hba1c - 2.59;
+        resMg.textContent = Math.round(eagMg) + " mg/dL";
+        resMmol.textContent = eagMmol.toFixed(1) + " mmol/L";
+      } else {
+        resMg.textContent = "-";
+        resMmol.textContent = "- mmol/L";
+      }
+    }
+    addRealTimeListeners('#eag-hba1c', calcHbA1cToEAG);
+
+    // ==========================================
+    // 18. BRIDGING INSULIN TRANSITION
+    // ==========================================
+    function fmtIndo(num, digits = 1) {
+      if (isNaN(num) || !isFinite(num)) return "0";
+      return Number(num).toFixed(digits).replace('.', ',');
+    }
+
+    function renderInsulinTable() {
+      const startHourSelect = document.getElementById('ins-start-hour');
+      if (!startHourSelect) return;
+      const startHour = parseInt(startHourSelect.value, 10) || 0;
+      const tbody = document.getElementById('insulin-table-body');
+      if (!tbody) return;
+      
+      const currentVals = [];
+      tbody.querySelectorAll('.ins-hourly-input').forEach(input => {
+        currentVals.push(input.value);
+      });
+
+      let html = '';
+      for (let i = 0; i < 24; i++) {
+        let h = (startHour + i) % 24;
+        let hourStr = `${h.toString().padStart(2, '0')}:00`;
+        let val = currentVals[i] !== undefined ? currentVals[i] : '0';
+        
+        html += `
+          <tr class="hover:bg-slate-900/60 transition-colors">
+            <td class="px-4 py-2 font-mono text-slate-300 text-center bg-slate-950/40 border-r border-slate-800">${hourStr}</td>
+            <td class="px-3 py-1.5">
+              <input type="number" class="ins-hourly-input input-modern !py-1 text-center font-mono" value="${val}" min="0" step="0.5">
+            </td>
+          </tr>
+        `;
+      }
+      tbody.innerHTML = html;
+
+      tbody.querySelectorAll('.ins-hourly-input').forEach(inp => {
+        inp.addEventListener('input', calcBridgingInsulin);
+      });
+
+      calcBridgingInsulin();
+    }
+
+    function resetInsulinInputs() {
+      document.querySelectorAll('.ins-hourly-input').forEach(input => {
+        input.value = "0";
+      });
+      calcBridgingInsulin();
+    }
+
+    function quickFillInsulin(val) {
+      document.querySelectorAll('.ins-hourly-input').forEach(input => {
+        input.value = val;
+      });
+      calcBridgingInsulin();
+    }
+
+    function calcBridgingInsulin() {
+      let total = 0;
+      document.querySelectorAll('.ins-hourly-input').forEach(input => {
+        total += parseFloat(input.value) || 0;
+      });
+
+      const totalBB = total * 0.8;
+      const basal = totalBB * 0.5;
+      const prandial = basal / 3;
+
+      const totalEl = document.getElementById('ins-total');
+      if (!totalEl) return;
+
+      totalEl.innerText = fmtIndo(total, 1);
+      document.getElementById('ins-bb-80').innerText = fmtIndo(totalBB, 1);
+      document.getElementById('ins-basal-50').innerText = fmtIndo(basal, 1);
+      document.getElementById('ins-prandial-3').innerText = fmtIndo(prandial, 1);
+
+      let cppt = `BRIDGING INSULIN (TRANSISI KE SUBKUTAN)\n\n`;
+      cppt += `Total drip 24 jam       : ${fmtIndo(total, 1)} U\n`;
+      cppt += `Total basal-bolus (80%) : ${fmtIndo(totalBB, 1)} U\n`;
+      cppt += `Insulin basal (50%)     : ${fmtIndo(basal, 1)} U (diberikan 1x/hari SC)\n`;
+      cppt += `Insulin prandial (/x3)  : ${fmtIndo(prandial, 1)} U (tiap makan SC)\n\n`;
+      cppt += `Instruksi Overlap:\n`;
+      cppt += `- Berikan dosis insulin basal subkutan 1 - 2 jam sebelum drip IV dihentikan.\n`;
+      cppt += `- Pastikan pasien toleransi intake oral saat beralih ke regimen subkutan.`;
+
+      const cpptEl = document.getElementById('ins-cppt');
+      if (cpptEl) cpptEl.innerText = cppt;
+    }
+
+    // ==========================================
+    // UNIT CONVERTER MODAL ENGINE
+    // ==========================================
+    window.openUnitConverterModal = function () {
+      const modal = document.getElementById('unit-converter-modal');
+      if (modal) modal.classList.remove('hidden');
+    };
+
+    window.closeUnitConverterModal = function () {
+      const modal = document.getElementById('unit-converter-modal');
+      if (modal) modal.classList.add('hidden');
+    };
+
+    window.convertGlu = function (fromUnit) {
+      const mgInput = document.getElementById('uc-glu-mg');
+      const mmolInput = document.getElementById('uc-glu-mmol');
+      if (!mgInput || !mmolInput) return;
+
+      if (fromUnit === 'mg') {
+        const val = parseFloat(mgInput.value);
+        mmolInput.value = !isNaN(val) ? (val / 18).toFixed(2) : '';
+      } else {
+        const val = parseFloat(mmolInput.value);
+        mgInput.value = !isNaN(val) ? Math.round(val * 18) : '';
+      }
+    };
+
+    window.convertChol = function (fromUnit) {
+      const mgInput = document.getElementById('uc-chol-mg');
+      const mmolInput = document.getElementById('uc-chol-mmol');
+      if (!mgInput || !mmolInput) return;
+
+      if (fromUnit === 'mg') {
+        const val = parseFloat(mgInput.value);
+        mmolInput.value = !isNaN(val) ? (val / 38.67).toFixed(2) : '';
+      } else {
+        const val = parseFloat(mmolInput.value);
+        mgInput.value = !isNaN(val) ? Math.round(val * 38.67) : '';
+      }
+    };
+
+    window.convertTG = function (fromUnit) {
+      const mgInput = document.getElementById('uc-tg-mg');
+      const mmolInput = document.getElementById('uc-tg-mmol');
+      if (!mgInput || !mmolInput) return;
+
+      if (fromUnit === 'mg') {
+        const val = parseFloat(mgInput.value);
+        mmolInput.value = !isNaN(val) ? (val / 88.57).toFixed(2) : '';
+      } else {
+        const val = parseFloat(mmolInput.value);
+        mgInput.value = !isNaN(val) ? Math.round(val * 88.57) : '';
+      }
+    };
+
+    window.convertFT4 = function (fromUnit) {
+      const ngInput = document.getElementById('uc-ft4-ng');
+      const pmolInput = document.getElementById('uc-ft4-pmol');
+      if (!ngInput || !pmolInput) return;
+
+      if (fromUnit === 'ng') {
+        const val = parseFloat(ngInput.value);
+        pmolInput.value = !isNaN(val) ? (val * 12.87).toFixed(1) : '';
+      } else {
+        const val = parseFloat(pmolInput.value);
+        ngInput.value = !isNaN(val) ? (val / 12.87).toFixed(2) : '';
+      }
+    };
+
+    // Close modal on outside click
+    document.addEventListener('click', (e) => {
+      const modal = document.getElementById('unit-converter-modal');
+      if (modal && e.target === modal) {
+        closeUnitConverterModal();
+      }
+    });
+
+    // ==========================================
+    // GLOBAL SEARCH ENGINE
+    // ==========================================
+    function initGlobalSearch() {
+        const searchInput = document.getElementById('global-search-input');
+        const searchDropdown = document.getElementById('search-results-dropdown');
+        const clearBtn = document.getElementById('search-clear-btn');
+
+        if (!searchInput || !searchDropdown) return;
+
+        function renderResults(query) {
+            const clean = query.trim().toLowerCase();
+            if (!clean) {
+                searchDropdown.classList.add('hidden');
+                searchDropdown.innerHTML = '';
+                if (clearBtn) clearBtn.classList.add('hidden');
+                return;
+            }
+
+            if (clearBtn) clearBtn.classList.remove('hidden');
+
+            const matches = CALCULATORS_DB.filter(tool => {
+                return tool.name.toLowerCase().includes(clean) ||
+                       tool.category.toLowerCase().includes(clean) ||
+                       tool.desc.toLowerCase().includes(clean) ||
+                       tool.keywords.some(k => k.toLowerCase().includes(clean));
+            });
+
+            if (matches.length === 0) {
+                searchDropdown.innerHTML = '<div class="p-3 text-xs text-slate-400 text-center">Tidak ditemukan kalkulator untuk "' + query + '".</div>';
+                searchDropdown.classList.remove('hidden');
+                return;
+            }
+
+            let html = '<div class="space-y-1">';
+            matches.forEach(tool => {
+                html += `
+                    <button type="button" onclick="selectSearchResult('${tool.id}', '${tool.name.replace(/'/g, "\\'")}', '${tool.pillId}', '${tool.cardId}')" class="w-full p-2.5 rounded-lg bg-slate-800/60 hover:bg-emerald-500/20 border border-slate-700/50 hover:border-emerald-500/50 text-left transition-all group flex items-start space-x-3">
+                        <div class="h-7 w-7 rounded-md bg-${tool.color}-500/20 text-${tool.color}-400 flex items-center justify-center shrink-0 text-xs mt-0.5">
+                            <i class="fa-solid fa-calculator"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-xs font-bold text-white group-hover:text-emerald-400 transition-colors truncate">${tool.name}</span>
+                                <span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-700 text-slate-300 font-medium shrink-0">${tool.category}</span>
+                            </div>
+                            <p class="text-[11px] text-slate-400 line-clamp-1 mt-0.5">${tool.desc}</p>
+                        </div>
+                        <i class="fa-solid fa-arrow-right text-xs text-slate-500 group-hover:text-emerald-400 mt-1 shrink-0"></i>
+                    </button>
+                `;
+            });
+            html += '</div>';
+
+            searchDropdown.innerHTML = html;
+            searchDropdown.classList.remove('hidden');
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            renderResults(e.target.value);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+                e.preventDefault();
+                searchInput.focus();
+                searchInput.select();
+            }
+            if (e.key === 'Escape') {
+                if (!searchDropdown.classList.contains('hidden')) {
+                  searchDropdown.classList.add('hidden');
+                }
+                closeUnitConverterModal();
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            const container = document.getElementById('header-search-container');
+            if (container && !container.contains(e.target)) {
+                searchDropdown.classList.add('hidden');
+            }
+        });
+    }
+
+    window.clearGlobalSearch = function () {
+        const input = document.getElementById('global-search-input');
+        if (input) {
+            input.value = '';
+            input.focus();
+            const dropdown = document.getElementById('search-results-dropdown');
+            if (dropdown) {
+                dropdown.classList.add('hidden');
+                dropdown.innerHTML = '';
+            }
+            const clearBtn = document.getElementById('search-clear-btn');
+            if (clearBtn) clearBtn.classList.add('hidden');
+        }
+    };
+
+    window.selectSearchResult = function (targetId, name, pillId, cardId) {
+        const searchDropdown = document.getElementById('search-results-dropdown');
+        if (searchDropdown) searchDropdown.classList.add('hidden');
+        navigateTo(targetId, name, pillId);
+        if (cardId) {
+          setTimeout(() => {
+            const cardEl = document.getElementById(cardId);
+            if (cardEl) {
+              cardEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              cardEl.classList.remove('flash-reset-anim');
+              void cardEl.offsetWidth;
+              cardEl.classList.add('flash-reset-anim');
+            }
+          }, 200);
+        }
+    };
+
+    // ==========================================
+    // INIT ALL ON DOM LOAD
+    // ==========================================
+    document.addEventListener('DOMContentLoaded', () => {
+      initGlobalSearch();
+      renderPinnedFavorites();
+      updateStarIcons();
+      calcBWPS();
+      calcWayne();
+      calcBillewicz();
+      calcMyxedema();
+      calcAdrenalCrisis();
+      calcPAS();
+      calcOsmo();
+      calcAG();
+      calcDKATracker();
+      calcHypoglycemia();
+      calcInsulin();
+      calcMetabolic();
+      calcAIP();
+      calcASCVD();
+      calcHbA1cToEAG();
+      renderInsulinTable();
+    });
+    </script>
+</body>
+</html>
