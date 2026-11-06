@@ -9,6 +9,7 @@ const endoTest = require('./calc/endocrinology-metabolic.test');
 const critTest = require('./calc/critical-care-pulm.test');
 const rheumaTest = require('./calc/rheumatology.test');
 const antiTest = require('./calc/antimicrobial.test');
+const parserTest = require('./calc/clinical-parser.test');
 const { execSync } = require('child_process');
 
 async function main() {
@@ -36,7 +37,8 @@ async function main() {
     { name: 'Endocrinology & Metabolic', fn: endoTest.runTests },
     { name: 'Critical Care & Pulmonology', fn: critTest.runTests },
     { name: 'Rheumatology Scoring', fn: rheumaTest.runTests },
-    { name: 'Antimicrobial Dosing (Adjustr-IO)', fn: antiTest.runTests }
+    { name: 'Antimicrobial Dosing (Adjustr-IO)', fn: antiTest.runTests },
+    { name: 'SIMETRISS / CPPT Clinical Parser', fn: parserTest.runTests }
   ];
 
   for (const suite of suites) {

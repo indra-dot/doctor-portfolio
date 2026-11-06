@@ -28,6 +28,7 @@ function getInternaHubEnv() {
     window._PATIENT_CTX = typeof ctx !== 'undefined' ? ctx : {};
     window._RHEUMA_CALC = typeof RheumaCalc !== 'undefined' ? RheumaCalc : null;
     window._CLINICAL_ENGINE = typeof ClinicalEngine !== 'undefined' ? ClinicalEngine : null;
+    window.parseClinical = typeof parseClinical !== 'undefined' ? parseClinical : null;
   `;
   rawHtml = rawHtml.replace(/<\/script>\s*<\/body>/i, `${hook}\n</script>\n</body>`);
 
