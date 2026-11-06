@@ -1,0 +1,457 @@
+<div class="app-container">
+    <!-- Header -->
+    <header>
+      <div class="brand-group">
+        <div class="brand-icon-box">
+          <!-- Activity/Heartbeat SVG -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">
+            ADJUSTR.IO <span class="brand-dot"></span>
+          </div>
+          <div class="brand-subtitle">Panduan Dosis Antimikroba Penyesuaian Ginjal • Stanford 2025 + KDIGO 2024</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="btn-inventory" class="btn-reset" title="Lihat Katalog Lengkap Obat">
+          <!-- BookOpen SVG -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+          </svg>
+          Katalog Obat
+        </button>
+        <button id="btn-reset" class="btn-reset" title="Reset semua input">
+          <!-- RefreshCw SVG -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <polyline points="1 20 1 14 7 14"></polyline>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+          </svg>
+          Reset
+        </button>
+        <a href="mailto:drguswib@gmail.com" class="btn-contact" title="Kirim masukan klinis" target="_blank" rel="noopener">
+          <!-- Mail SVG -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          Kontak
+        </a>
+      </div>
+    </header>
+
+    <!-- Patient Parameters Card -->
+    <section class="glass-card">
+      <div class="card-header-bar">
+        <div class="card-title">
+          <!-- Calculator SVG -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="2" width="16" height="20" rx="2"></rect>
+            <line x1="8" y1="6" x2="16" y2="6"></line>
+            <line x1="16" y1="14" x2="16" y2="18"></line>
+            <path d="M16 10h.01"></path>
+            <path d="M12 10h.01"></path>
+            <path d="M8 10h.01"></path>
+            <path d="M12 14h.01"></path>
+            <path d="M8 14h.01"></path>
+            <path d="M12 18h.01"></path>
+            <path d="M8 18h.01"></path>
+          </svg>
+          Biometrik Pasien &amp; Panel Ginjal
+        </div>
+        <span class="badge-pill badge-cyan">Cockcroft-Gault + CKD-EPI</span>
+      </div>
+
+      <!-- Input Validation Banner (Dynamic) -->
+      <div id="validation-banner" style="display: none;"></div>
+
+      <div class="form-grid">
+        <!-- Gender Toggle -->
+        <div class="form-group">
+          <label class="form-label">Jenis Kelamin</label>
+          <div class="gender-toggle">
+            <button type="button" id="gender-male" class="gender-btn active" data-gender="male">Pria (Male)</button>
+            <button type="button" id="gender-female" class="gender-btn" data-gender="female">Wanita (Female)</button>
+          </div>
+        </div>
+
+        <!-- Age Input -->
+        <div class="form-group">
+          <label class="form-label" for="input-age">Usia <span class="unit">Tahun</span></label>
+          <input type="number" id="input-age" class="input-field" placeholder="Contoh: 50" min="1" max="130" step="1" />
+        </div>
+
+        <!-- Weight (TBW) Input -->
+        <div class="form-group">
+          <label class="form-label" for="input-weight">Berat Badan Aktual (TBW) <span class="unit">kg</span></label>
+          <input type="number" id="input-weight" class="input-field" placeholder="Contoh: 70" min="1" max="350" step="0.1" />
+        </div>
+
+        <!-- Height Input -->
+        <div class="form-group">
+          <label class="form-label" for="input-height">Tinggi Badan <span class="unit">cm</span></label>
+          <input type="number" id="input-height" class="input-field" placeholder="Contoh: 175" min="40" max="250" step="0.5" />
+        </div>
+
+        <!-- Serum Creatinine Input -->
+        <div class="form-group full-width">
+          <label class="form-label" for="input-creatinine">Kreatinin Serum (SCr) <span class="unit">mg/dL</span></label>
+          <input type="number" id="input-creatinine" class="input-field input-highlight" placeholder="Contoh: 1.0" min="0.1" max="35" step="0.01" />
+        </div>
+      </div>
+
+      <!-- Weight Selection Badges Panel -->
+      <div id="weight-panel" class="weight-panel" style="display: none;">
+        <!-- TBW Badge Card -->
+        <div id="card-tbw" class="weight-badge-card">
+          <div class="w-label">TBW (Aktual)</div>
+          <div id="val-tbw" class="w-val">-- kg</div>
+          <div id="val-bmi" class="w-sub">BMI: --</div>
+        </div>
+
+        <!-- IBW Badge Card -->
+        <div id="card-ibw" class="weight-badge-card">
+          <div class="w-label">IBW (Ideal / Devine)</div>
+          <div id="val-ibw" class="w-val">-- kg</div>
+          <div class="w-sub">Massa Tubuh Ideal</div>
+        </div>
+
+        <!-- ABW Badge Card -->
+        <div id="card-abw" class="weight-badge-card">
+          <div class="w-label">ABW (Disesuaikan 40%)</div>
+          <div id="val-abw" class="w-val">-- kg</div>
+          <div class="w-sub">Koreksi Obesitas</div>
+        </div>
+
+        <!-- Active Weight Badge Card -->
+        <div id="card-active-weight" class="weight-badge-card active-weight">
+          <div class="active-tag">Bobot Dosis Aktif</div>
+          <div class="w-label">Digunakan untuk CrCl</div>
+          <div id="val-used-weight" class="w-val">-- kg</div>
+          <div id="val-used-type" class="w-sub">--</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Renal Clearance & KDIGO Staging Panel -->
+    <section id="clearance-section" class="clearance-showcase" style="display: none;">
+      <!-- CrCl Card -->
+      <div class="clearance-primary-card">
+        <div class="metric-top">
+          <span class="metric-caption">Estimasi CrCl (Cockcroft-Gault)</span>
+          <span id="crcl-badge" class="badge-pill badge-green">Terkalkulasi</span>
+        </div>
+        <div class="crcl-huge-num">
+          <span id="val-crcl">--</span>
+          <span class="unit">mL/min</span>
+        </div>
+        <div class="metric-meta-row">
+          <div class="metric-meta-item">
+            <span class="m-title">BSA (Mosteller)</span>
+            <span id="val-bsa" class="m-val">-- m&sup2;</span>
+          </div>
+          <div class="metric-meta-item">
+            <span class="m-title">CrCl (Ternormalisasi BSA)</span>
+            <span id="val-norm-crcl" class="m-val">-- mL/min/1.73m&sup2;</span>
+          </div>
+          <div class="metric-meta-item">
+            <span class="m-title">Bobot Dosis</span>
+            <span id="val-dosing-weight-meta" class="m-val">-- kg</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- KDIGO Stage Card -->
+      <div class="kdigo-stage-card">
+        <div>
+          <div class="metric-caption">Stadium CKD KDIGO (2024)</div>
+          <div id="kdigo-badge" class="kdigo-badge-display">
+            <span id="kdigo-stage-name">G--</span>
+          </div>
+          <div id="kdigo-stage-label" class="kdigo-label">Menunggu parameter pasien...</div>
+          <div id="kdigo-stage-desc" class="kdigo-desc">Masukkan data laboratorium pasien untuk menentukan stadium gangguan ginjal.</div>
+        </div>
+        <div class="egfr-ref-note">
+          eGFR CKD-EPI 2021 (Bebas-Ras): <strong id="val-ckd-epi" style="color: #FFFFFF;">--</strong> mL/min/1.73m&sup2;
+        </div>
+      </div>
+    </section>
+
+    <!-- Severe Renal Failure Warning Banner (CrCl < 15) -->
+    <div id="severe-esrd-banner" class="alert-banner alert-danger" style="display: none;">
+      <!-- AlertTriangle SVG -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+        <line x1="12" y1="9" x2="12" y2="13"></line>
+        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+      </svg>
+      <div>
+        <strong>PERINGATAN GINJAL KRITIS — CrCl &lt; 15 mL/min (KDIGO G5 / Gagal Ginjal Terminal):</strong>
+        Risiko akumulasi toksik sangat tinggi untuk obat yang dieliminasi lewat ginjal. Prioritaskan agen non-nefrotoksik, terapkan batas dosis maksimal (<em>ceiling dose</em>), konsultasikan ke tim Nefrologi, dan konfirmasi jadwal dialisis (IHD/CRRT) sebelum memberikan dosis rumatan (<em>maintenance dose</em>).
+      </div>
+    </div>
+
+    <!-- Antimicrobial Dosing Section -->
+    <section class="glass-card">
+      <div class="card-header-bar">
+        <div class="card-title">
+          <!-- Pill SVG -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.5 20.5l10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"></path>
+            <path d="m8.5 8.5 7 7"></path>
+          </svg>
+          Engine Titrasi Dosis Antimikroba Ginjal
+        </div>
+        <span class="badge-pill badge-blue">36 Obat Terverifikasi</span>
+      </div>
+
+      <!-- Search Box & Categories -->
+      <div class="drug-search-box">
+        <div class="search-input-wrapper">
+          <input type="text" id="drug-search" class="search-input" placeholder="Cari antimikroba (contoh: Meropenem, Vancomycin, Cefepime, Cotrimoxazole)..." autocomplete="off" />
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Category Filter Chips -->
+      <div class="category-filter-bar" id="category-chips">
+        <button type="button" class="cat-chip active" data-cat="all">Semua (36)</button>
+        <button type="button" class="cat-chip" data-cat="penicillin">Penicillin</button>
+        <button type="button" class="cat-chip" data-cat="cephalosporin">Sefalosporin</button>
+        <button type="button" class="cat-chip" data-cat="carbapenem">Karbapenem</button>
+        <button type="button" class="cat-chip" data-cat="fluoroquinolone">Fluorokuinolon</button>
+        <button type="button" class="cat-chip" data-cat="aminoglycoside">Aminoglikosida</button>
+        <button type="button" class="cat-chip" data-cat="glycopeptide">Glikopeptida / Lipo</button>
+        <button type="button" class="cat-chip" data-cat="antiviral">Antivirus</button>
+        <button type="button" class="cat-chip" data-cat="antifungal">Antijamur</button>
+        <button type="button" class="cat-chip" data-cat="other">Lainnya</button>
+      </div>
+
+      <!-- Dropdown Results (Visible on Search / Click) -->
+      <div id="drug-dropdown" class="drug-results-dropdown"></div>
+
+      <!-- Selected Drug Detail Card (Visible when drug selected) -->
+      <div id="selected-drug-card" class="selected-drug-card" style="display: none;">
+        <!-- Drug Banner Header -->
+        <div class="drug-banner-header">
+          <div class="drug-title-area">
+            <h2 id="drug-detail-name">Drug Name</h2>
+            <div class="drug-tags-row">
+              <span id="drug-detail-class" class="badge-pill badge-blue">Class</span>
+              <span id="drug-toxicity-badge" class="badge-pill" style="display: none;">Toxicity</span>
+            </div>
+          </div>
+          <button type="button" id="btn-clear-drug" class="btn-close-drug" title="Tutup detail obat terpilih">
+            <!-- X SVG -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <!-- High-Risk Warning Banners -->
+        <div id="drug-nephro-alert" class="alert-banner alert-danger" style="display: none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <div>
+            <strong>ANTIMIKROBA BERISIKO TINGGI NEFROTOKSIK:</strong>
+            Wajib Therapeutic Drug Monitoring (TDM). Hindari nefrotoksin bersamaan (NSAID, ACEi/ARB, kontras radiologi). Pemantauan kadar palung (<em>pre-dose trough monitoring</em>) sangat dianjurkan.
+          </div>
+        </div>
+
+        <div id="drug-neuro-alert" class="alert-banner alert-warning" style="display: none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <div>
+            <strong>PROTEKSI NEUROTOKSISITAS:</strong>
+            Risiko tinggi ensefalopati berat, mioklonus, dan kejang jika dosis tidak dititrasi pada gangguan ginjal. Sesuaikan interval dan dosis rumatan secara ketat.
+          </div>
+        </div>
+
+        <div id="drug-contraindication-alert" class="alert-banner alert-danger" style="display: none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+          </svg>
+          <div id="drug-contraindication-text"></div>
+        </div>
+
+        <!-- Strategy Selector (For Multi-Strategy Drugs) -->
+        <div id="strategy-selector-container" class="strategy-selector-box" style="display: none;">
+          <label>Pilih Indikasi Klinis / Strategi Regimen</label>
+          <div id="strategy-pills-list" class="strategy-pills"></div>
+        </div>
+
+        <!-- Loading Dose Guidance Banner -->
+        <div id="loading-dose-banner" class="alert-banner alert-info">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <div id="loading-dose-text">
+            <strong>PRINSIP LOADING DOSE:</strong> Pada sepsis akut, Volume of Distribution (Vd) tetap terjaga atau bahkan meningkat. JANGAN PERNAH menurunkan initial loading dose karena gangguan ginjal. Penyesuaian ginjal HANYA berlaku untuk dosis dan interval rumatan (<em>maintenance dose</em>).
+          </div>
+        </div>
+
+        <!-- Calculated Single Dose Box (If weight-based factor exists) -->
+        <div id="single-dose-box" class="calculated-single-dose-box" style="display: none;">
+          <div class="csd-left">
+            <div class="csd-icon-circle">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path>
+                <line x1="16" y1="8" x2="2" y2="22"></line>
+                <line x1="17.5" y1="15" x2="9" y2="15"></line>
+              </svg>
+            </div>
+            <div>
+              <div class="csd-label">Kalkulasi Single Dose</div>
+              <div id="val-calculated-single-dose" class="csd-value">--</div>
+            </div>
+          </div>
+          <div class="csd-right">
+            <div class="csd-title basis-title">Dasar Bobot Tubuh</div>
+            <div id="val-single-dose-basis" class="basis-val">-- kg</div>
+          </div>
+        </div>
+
+        <!-- Matched Renal Maintenance Regimen Card -->
+        <div class="maintenance-regimen-card">
+          <div class="maint-top-row">
+            <span class="maint-caption">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              Dosis Sesuai Klirens Ginjal
+            </span>
+          </div>
+          <span id="active-crcl-indicator" class="maint-crcl-label">Berdasarkan CrCl</span>
+          <div id="val-maintenance-dose" class="maint-dose-text">Menunggu kalkulasi klirens ginjal...</div>
+        </div>
+
+        <!-- Accordion Tier Table -->
+        <div class="tier-accordion">
+          <button class="tier-toggle" onclick="toggleTierTable(this)" aria-expanded="false">
+            <span>Lihat Panduan Dosis Seluruh Tier CrCl</span>
+            <svg class="tier-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="tier-table-collapse" hidden>
+            <div class="titration-table-wrap">
+              <table class="titration-table">
+                <thead>
+                  <tr>
+                    <th>Tier Fungsi Ginjal (CrCl)</th>
+                    <th>Rekomendasi Regimen Rumatan</th>
+                  </tr>
+                </thead>
+                <tbody id="titration-table-body">
+                  <!-- Dynamically populated rows -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Renal Replacement Therapy (IHD / CRRT) Cards -->
+        <div class="rrt-grid">
+          <div class="rrt-box">
+            <div class="rrt-title">
+              <!-- Shield SVG -->
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+              Hemodialisis Intermiten (IHD)
+            </div>
+            <div id="val-rrt-ihd" class="rrt-text">--</div>
+          </div>
+
+          <div class="rrt-box">
+            <div class="rrt-title">
+              <!-- Shield SVG -->
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+              CRRT (CVVH / CVVHD / CVVHDF)
+            </div>
+            <div id="val-rrt-crrt" class="rrt-text">--</div>
+          </div>
+        </div>
+
+        <!-- Clinical Pearls Box -->
+        <div class="pearls-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <div>
+            <div class="pearls-title">Clinical Pearl &amp; Catatan Farmakologi Ahli</div>
+            <div id="val-clinical-note" class="pearls-text">--</div>
+          </div>
+        </div>
+
+        <!-- CPPT Resume Box & Copy Button -->
+        <div class="cppt-resume-card" style="margin-top: 1.25rem; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(0, 242, 254, 0.25); border-radius: 14px; padding: 1.25rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 8px;">
+            <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent-cyan); display: flex; align-items: center; gap: 8px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+              Salin Resume Penyesuaian Dosis (CPPT)
+            </span>
+            <button type="button" id="btn-copy-drug-resume" onclick="copyDrugResume()" class="btn-reset" style="background: rgba(0, 242, 254, 0.15); border: 1px solid rgba(0, 242, 254, 0.4); color: var(--accent-cyan); font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; padding: 0.45rem 0.85rem; border-radius: 8px;" title="Salin resume ke clipboard untuk rekam medis">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Salin CPPT</span>
+            </button>
+          </div>
+          <pre id="drug-cppt-pre" style="font-family: monospace; font-size: 0.75rem; color: #cbd5e1; background: rgba(3, 7, 18, 0.75); padding: 0.85rem; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08); white-space: pre-wrap; word-break: break-word; line-height: 1.5;"></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>
+        <strong>ADJUSTR.IO</strong> disintesis dari <em>Stanford Antimicrobial Dosing Guide (Nov 2025)</em>, <em>Panduan Praktik Klinis KDIGO 2024</em>, <em>Sanford Guide</em>, dan <em>Winter's Clinical Pharmacokinetics</em>.
+      </p>
+      <p>
+        Untuk pertanyaan, laporan bug, atau masukan klinis, hubungi: 
+        <a href="mailto:drguswib@gmail.com" class="footer-feedback-link" target="_blank" rel="noopener">drguswib@gmail.com</a>
+      </p>
+      <div>
+        <span class="disclaimer-pill">Alat Bantu Keputusan Klinis • Khusus Profesional Medis Berlisensi • Bukan Pengganti Pertimbangan Klinis Dokter</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Drug Catalog Modal -->
+  <div id="inventory-modal" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Katalog Lengkap Antimikroba (36 Obat)</h3>
+        <button type="button" id="btn-close-modal" class="btn-close-drug">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="inventory-grid" class="inventory-grid"></div>
+      </div>
+    </div>
+  </div>
+

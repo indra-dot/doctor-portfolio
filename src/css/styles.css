@@ -1,0 +1,120 @@
+:root{--bg:#040814;--card:rgba(15,23,42,.75);--bd:rgba(255,255,255,.08);--tx:#e2e8f0;--mut:#94a3b8;--ac:#00F2FE;--ac2:#4FACFE;--ok:#34d399;--warn:#fbbf24;--bad:#f87171}
+body.light{--bg:#f1f5f9;--card:#fff;--bd:#cbd5e1;--tx:#0f172a;--mut:#64748b;--ac:#047857;--ac2:#059669}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Inter,sans-serif;min-height:100vh}
+h1,h2,h3{font-family:'Plus Jakarta Sans',sans-serif;margin:0}
+header{padding:20px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--bd)}
+.logo{font-size:22px;font-weight:800;background:linear-gradient(135deg,var(--ac),var(--ac2));-webkit-background-clip:text;color:transparent}
+#q{flex:1;min-width:220px;padding:12px 16px;border-radius:12px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font-size:15px;outline:none}
+#q:focus{border-color:var(--ac)}
+button{cursor:pointer;font-family:inherit}
+.btn{padding:9px 14px;border-radius:10px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font-size:13px}
+.btn.pri{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#04121f;border:none;font-weight:700}
+main{max-width:1100px;margin:0 auto;padding:20px 24px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.chip{padding:6px 12px;border-radius:999px;border:1px solid var(--bd);background:var(--card);color:var(--mut);font-size:12px}
+.chip.on{color:var(--ac);border-color:var(--ac)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;cursor:pointer;backdrop-filter:blur(8px)}
+.card:hover{border-color:var(--ac)}
+.card h3{font-size:15px;margin-bottom:4px}
+.card small{color:var(--mut)}
+.tag{display:inline-block;font-size:10px;color:var(--ac);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.panel{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:20px;margin-top:8px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{font-size:12px;color:var(--mut);display:block;margin:10px 0 4px}
+input[type=number],select,textarea{width:100%;padding:9px 11px;border-radius:8px;border:1px solid var(--bd);background:transparent;color:var(--tx);font-family:inherit;font-size:14px}
+textarea{min-height:140px}
+.chk{display:flex;gap:8px;align-items:center;margin:8px 0;font-size:14px}
+.res{margin-top:16px;padding:14px;border-radius:12px;background:rgba(0,242,254,.07);border:1px solid var(--ac)}
+.res b{font-size:20px}
+.auto{border-color:var(--ok)!important}
+#ctxbar{font-size:12px;color:var(--mut);margin:0 0 12px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:50}
+.modal.show{display:flex}
+.modal .panel{width:640px;max-width:94vw;max-height:88vh;overflow:auto;margin:0}
+.toast{position:fixed;bottom:20px;right:20px;background:var(--card);border:1px solid var(--ok);padding:10px 16px;border-radius:10px;font-size:13px;display:none;z-index:99}
+.disc{font-size:11px;color:var(--mut);text-align:center;padding:24px}
+
+/* GEH Glassmorphism & Accent Styles */
+.glass-panel { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(255, 255, 255, 0.09); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45); }
+.glass-card { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(255, 255, 255, 0.09); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45); transition: all 0.22s ease; }
+.glass-input { background: rgba(30, 41, 59, 0.65); border: 1px solid rgba(255, 255, 255, 0.09); color: #F8FAFC; transition: all 0.2s ease; }
+.glass-input:focus { outline: none; border-color: #00F2FE; box-shadow: 0 0 0 3px rgba(0, 242, 254, 0.18); }
+.glass-btn { background: linear-gradient(135deg, #00F2FE 0%, #2563EB 100%); color: #ffffff; border: none; font-weight: 600; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.35); transition: all 0.2s ease; }
+.glass-btn:hover { box-shadow: 0 6px 20px rgba(0, 242, 254, 0.5); transform: translateY(-1px); }
+.glass-btn-secondary { background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.09); color: #F8FAFC; transition: all 0.2s ease; }
+.glass-btn-secondary:hover { background: rgba(255, 255, 255, 0.12); border-color: #00F2FE; }
+.glass-btn-danger { background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.4); color: #fca5a5; }
+.glass-btn-danger:hover { background: rgba(239, 68, 68, 0.3); }
+
+
+/* HOM Custom Classes (Hematologi-Onkologi) */
+.ch { display: flex; justify-content: space-between; gap: 0.5rem; align-items: flex-start; margin-bottom: 0.9rem; }
+.ct { color: #F8FAFC; font-weight: 700; font-size: 1.02rem; font-family: 'Plus Jakarta Sans', sans-serif; }
+.cs { font-size: 0.74rem; color: #94A3B8; margin-top: 0.2rem; line-height: 1.4; }
+.pill { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.25rem 0.6rem; border-radius: 9999px; white-space: nowrap; }
+.p-onco { background: rgba(244, 63, 94, 0.15); color: #FDA4AF; }
+.p-chemo { background: rgba(139, 92, 246, 0.15); color: #C4B5FD; }
+.p-hemo { background: rgba(245, 158, 11, 0.15); color: #FCD34D; }
+.p-transf { background: rgba(56, 189, 248, 0.15); color: #7DD3FC; }
+.form { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+@media (max-width: 600px) { .form { grid-template-columns: 1fr; } }
+.f { display: flex; flex-direction: column; gap: 0.25rem; }
+.f.full { grid-column: 1 / -1; }
+.f label { font-size: 0.72rem; color: #94A3B8; font-weight: 500; }
+.f input[type=number], .f select {
+  background: rgba(30, 41, 59, 0.65); border: 1px solid rgba(255, 255, 255, 0.09); color: #F8FAFC;
+  border-radius: 10px; padding: 0.5rem 0.6rem; font-size: 0.85rem; outline: none; width: 100%; font-family: inherit;
+  transition: all 0.2s ease;
+}
+.f select option { background: #0f172a; }
+.f input:focus, .f select:focus { border-color: #00F2FE; box-shadow: 0 0 0 3px rgba(0, 242, 254, 0.18); }
+.res ul { margin: 0.3rem 0 0 1.1rem; }
+.res li { margin: 0.15rem 0; }
+.res .pl { margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px dashed rgba(255, 255, 255, 0.15); }
+.res .pl b { color: #F8FAFC; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.res table { width: 100%; border-collapse: collapse; margin-top: 0.3rem; font-size: 0.76rem; }
+.res td { padding: 0.2rem 0.3rem; border-bottom: 1px solid rgba(255, 255, 255, 0.09); }
+.res.ok { border-color: rgba(16, 185, 129, 0.4); background: rgba(16, 185, 129, 0.06); }
+.res.ok .h { color: #6EE7B7; }
+.res.warn { border-color: rgba(245, 158, 11, 0.4); background: rgba(245, 158, 11, 0.06); }
+.res.warn .h { color: #FCD34D; }
+.res.bad { border-color: rgba(239, 68, 68, 0.5); background: rgba(239, 68, 68, 0.08); }
+.res.bad .h { color: #FCA5A5; }
+.res.info { border-color: rgba(56, 189, 248, 0.3); }
+.res.info .h { color: #7DD3FC; }
+.act { display: flex; gap: 0.5rem; margin-top: 0.7rem; }
+.act button { flex: 1; border-radius: 10px; padding: 0.5rem; font-size: 0.76rem; font-weight: 600; cursor: pointer; }
+pre { white-space: pre-wrap; word-break: break-word; background: rgba(0, 0, 0, 0.4); border-radius: 10px; padding: 0.6rem; margin-top: 0.4rem; color: #94A3B8; font-family: ui-monospace, Consolas, monospace; font-size: 0.7rem; }
+
+
+/* RheumaTools & adjustr-io Glassmorphism Styles */
+.pill-tab { display: inline-flex; align-items: center; gap: 6px; padding: 0.4rem 0.85rem; border-radius: 9999px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.09); color: #94A3B8; font-size: 0.78rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease; }
+.pill-tab:hover { background: rgba(255, 255, 255, 0.09); color: #ffffff; border-color: rgba(0, 242, 254, 0.35); }
+.pill-tab.active { background: linear-gradient(135deg, rgba(0, 242, 254, 0.18) 0%, rgba(79, 172, 254, 0.12) 100%); color: #00F2FE; border-color: rgba(0, 242, 254, 0.45); font-weight: 600; box-shadow: 0 0 12px rgba(0, 242, 254, 0.2); }
+
+.status-badge { display: inline-flex; align-items: center; gap: 4px; padding: 0.25rem 0.65rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+.badge-remission { background: rgba(16, 185, 129, 0.15); color: #6EE7B7; border: 1px solid rgba(16, 185, 129, 0.35); }
+.badge-low { background: rgba(56, 189, 248, 0.15); color: #7DD3FC; border: 1px solid rgba(56, 189, 248, 0.35); }
+.badge-moderate { background: rgba(245, 158, 11, 0.15); color: #FCD34D; border: 1px solid rgba(245, 158, 11, 0.35); }
+.badge-high { background: rgba(239, 68, 68, 0.18); color: #FCA5A5; border: 1px solid rgba(239, 68, 68, 0.4); }
+
+.accordion-header { cursor: pointer; user-select: none; transition: background 0.2s ease; }
+.accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s cubic-bezier(0, 1, 0, 1); }
+.accordion-content.open { max-height: 2000px; transition: max-height 0.3s ease-in-out; }
+
+.diag-tree-step { animation: fadeIn 0.3s ease; }
+.tree-choice-btn { width: 100%; text-align: left; padding: 0.85rem 1.1rem; border-radius: 12px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); transition: all 0.2s ease; font-size: 0.875rem; color: #F8FAFC; }
+.tree-choice-btn:hover { background: rgba(0, 242, 254, 0.08); border-color: rgba(0, 242, 254, 0.4); transform: translateX(3px); }
+
+.cat-chip { padding: 0.35rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; cursor: pointer; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); color: #94A3B8; transition: all 0.2s ease; }
+.cat-chip:hover { color: #fff; background: rgba(255, 255, 255, 0.08); }
+.cat-chip.active { background: rgba(0, 242, 254, 0.15); border-color: #00F2FE; color: #00F2FE; font-weight: 600; }
+
+.tier-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+.tier-table th { padding: 0.5rem 0.75rem; text-align: left; font-size: 0.72rem; color: #64748B; border-bottom: 1px solid rgba(255, 255, 255, 0.08); text-transform: uppercase; }
+.tier-table td { padding: 0.55rem 0.75rem; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+.tier-row.active { background: rgba(0, 242, 254, 0.12) !important; border-left: 3px solid #00F2FE; font-weight: 600; color: #ffffff; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }

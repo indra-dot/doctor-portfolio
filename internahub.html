@@ -132,7 +132,6 @@ pre { white-space: pre-wrap; word-break: break-word; background: rgba(0, 0, 0, 0
 .tier-row.active { background: rgba(0, 242, 254, 0.12) !important; border-left: 3px solid #00F2FE; font-weight: 600; color: #ffffff; }
 
 @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-
 </style>
 </head>
 <body>
@@ -2272,7 +2271,6 @@ window.copyToClipboard = window.copyToClipboard || function(text, msg) {
   }
   toast(msg || 'Resume klinis berhasil disalin!');
 };
-
 
 /* ===================== M3: GASTROENTEROHEPATOLOGI (adjustr-GEH.html FULL FIDELITY) ===================== */
 
@@ -8206,9 +8204,6 @@ reg({
   }
 });
 
-
-
-
 /* ===================== M4: HEMATOLOGI-ONKOLOGI (adjustr-HOM.html FULL FIDELITY) ===================== */
 
 // HOM Core Engine & Dictionaries
@@ -8570,7 +8565,6 @@ HOM_C.forEach(c => {
     }
   });
 });
-
 
 /* ===================== M5: REUMATOLOGI & DOSIS ANTIMIKROBA (rheumatools.html & adjustr-io.html FULL FIDELITY) ===================== */
 
@@ -9978,7 +9972,6 @@ reg({
     mountRheumaTool('gout-page', null, 'func-result', container, ctx, emit);
   }
 });
-
 
 // --- PART B: ANTIMICROBIAL RENAL DOSING ENGINE (adjustr-io CDSS) ---
 const DRUG_DATABASE = {
@@ -11970,14 +11963,19 @@ const ClinicalEngine = {
         const bmi = this.calculateBMI(tbw, heightCm);
         const abw = (tbw > ibw) ? (ibw + 0.4 * (tbw - ibw)) : null;
 
+        const category = bmi < 18.5 ? 'Underweight' :
+                         bmi < 25.0 ? 'Normal Weight' :
+                         bmi < 30.0 ? 'Overweight' :
+                         'Obesitas (Kelas ' + (bmi >= 40 ? 'III' : bmi >= 35 ? 'II' : 'I') + ')';
+
         if (tbw < ibw) {
           return {
             usedWeight: tbw,
-            weightType: 'TBW (Underweight / BB Rendah)',
+            weightType: 'TBW (TBW < IBW)',
             ibw: ibw,
             bmi: bmi,
             abw: abw,
-            category: 'Underweight'
+            category: category
           };
         } else if (bmi >= 30.0) {
           return {
@@ -11986,7 +11984,7 @@ const ClinicalEngine = {
             ibw: ibw,
             bmi: bmi,
             abw: abw,
-            category: 'Obesitas (Kelas ' + (bmi >= 40 ? 'III' : bmi >= 35 ? 'II' : 'I') + ')'
+            category: category
           };
         } else {
           return {
@@ -11995,7 +11993,7 @@ const ClinicalEngine = {
             ibw: ibw,
             bmi: bmi,
             abw: abw,
-            category: bmi >= 25 ? 'Overweight' : 'Normal Weight'
+            category: category
           };
         }
       },
@@ -12013,6 +12011,7 @@ const ClinicalEngine = {
 
         return {
           crCl: Math.max(0, crcl),
+          normCrCl: Math.max(0, normalizedCrCl),
           normalizedCrCl: Math.max(0, normalizedCrCl),
           usedWeight: weightInfo.usedWeight,
           weightType: weightInfo.weightType,

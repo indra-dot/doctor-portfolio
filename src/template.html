@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InternaHub | CDSS Penyakit Dalam</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+<!-- Tailwind CSS for GEH full-fidelity modules -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+/* {{STYLES}} */
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">InternaHub</div>
+  <input id="q" placeholder="Cari kalkulator, skor, atau protokol (mis. CURB, anion gap, kalsium)..." autocomplete="off">
+  <button class="btn" id="btnPaste">Tempel Data SIMETRISS</button>
+  <button class="btn" id="btnTheme">Terang/Gelap</button>
+</header>
+<main>
+  <p id="ctxbar"></p>
+  <div id="chips" class="chips"></div>
+  <div id="view"></div>
+  <p class="disc">Alat bantu keputusan klinis. Tidak menggantikan penilaian klinis dokter. Data pasien hanya tersimpan di browser perangkat ini.</p>
+</main>
+
+<div class="modal" id="pasteModal"><div class="panel">
+  <h2>Tempel Data SIMETRISS / LabKeep / CPPT</h2>
+  <p style="color:var(--mut);font-size:13px">Tempel teks lab serial atau CPPT. Nilai terdeteksi akan mengisi otomatis kalkulator yang relevan.</p>
+  <textarea id="pasteTxt" placeholder="WBC 12.3  HGB 10.1  Kreatinin 1.8  Natrium 128 ... TD 100/60 N 98 R 22 S 37.5 SpO2 94% GCS 15"></textarea>
+  <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
+    <button class="btn" id="pasteCancel">Batal</button>
+    <button class="btn pri" id="pasteGo">Ekstrak</button>
+  </div>
+  <div id="pasteOut" style="margin-top:12px;font-size:13px"></div>
+</div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* {{SCRIPTS}} */
+</script>
+</body>
+</html>
