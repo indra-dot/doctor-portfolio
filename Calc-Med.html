@@ -309,6 +309,14 @@
                     <i class="fa-solid fa-flask text-pink-400 text-xs"></i>
                     <span>Acid-Base AGD</span>
                 </button>
+                <button type="button" id="pill-nabic" onclick="navigateTo('calc-nabic', 'Koreksi Nabic (Meylon)', this.id)" class="quick-nav-pill">
+                    <i class="fa-solid fa-calculator text-amber-400 text-xs"></i>
+                    <span>Koreksi Nabic</span>
+                </button>
+                <button type="button" id="pill-caglukonas" onclick="navigateTo('calc-caglukonas', 'Drip Ca Glukonas 3x', this.id)" class="quick-nav-pill">
+                    <i class="fa-solid fa-bone text-emerald-400 text-xs"></i>
+                    <span>Ca Glukonas</span>
+                </button>
             </div>
         </nav>
 
@@ -424,6 +432,26 @@
                         <h4 class="font-bold text-white text-base mb-1 group-hover:text-cyan-400 transition-colors">8. Acid-Base Analyzer (AGD)</h4>
                         <p class="text-xs text-slate-400 line-clamp-2 mb-3">Validasi Henderson, formula Winter's, Anion Gap terkoreksi albumin, Delta ratio, dan rasio P/F.</p>
                         <span class="mt-auto text-xs text-pink-400 font-semibold flex items-center">Buka Acid-Base AGD <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i></span>
+                    </button>
+
+                    <!-- 9. Koreksi Nabic (Meylon) -->
+                    <button type="button" onclick="navigateTo('calc-nabic', 'Koreksi Nabic (Meylon 25 mEq)', 'pill-nabic')" class="glass-card rounded-xl p-5 flex flex-col items-start text-left cursor-pointer group w-full">
+                        <div class="h-11 w-11 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-calculator"></i>
+                        </div>
+                        <h4 class="font-bold text-white text-base mb-1 group-hover:text-cyan-400 transition-colors">9. Koreksi Nabic (Meylon 25 mEq)</h4>
+                        <p class="text-xs text-slate-400 line-clamp-2 mb-3">Formula defisit bikarbonat 0.5 x BB x ΔHCO3, konversi flacon Meylon 25 mEq, dosis bolus & drip 24 jam.</p>
+                        <span class="mt-auto text-xs text-amber-400 font-semibold flex items-center">Buka Koreksi Nabic <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i></span>
+                    </button>
+
+                    <!-- 10. Drip Ca Glukonas 3x Siklus -->
+                    <button type="button" onclick="navigateTo('calc-caglukonas', 'Drip Ca Glukonas 3x Siklus', 'pill-caglukonas')" class="glass-card rounded-xl p-5 flex flex-col items-start text-left cursor-pointer group w-full">
+                        <div class="h-11 w-11 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-bone"></i>
+                        </div>
+                        <h4 class="font-bold text-white text-base mb-1 group-hover:text-cyan-400 transition-colors">10. Drip Ca Glukonas 3x Siklus</h4>
+                        <p class="text-xs text-slate-400 line-clamp-2 mb-3">Protokol replesi hipokalsemia: 1 ampul dlm D5% 200 cc habis 30 menit (diberikan 3x jeda 2 jam) + evaluasi lab.</p>
+                        <span class="mt-auto text-xs text-emerald-400 font-semibold flex items-center">Buka Ca Glukonas <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i></span>
                     </button>
 
                 </div>
@@ -974,6 +1002,131 @@
                 </div>
             </section>
 
+            <!-- ================= TOOL 9: KOREKSI NABIC ================= -->
+            <section id="calc-nabic" class="module-section hidden">
+                <button type="button" onclick="navigateTo('home-module', 'Home Dashboard', 'pill-dash')" class="btn-back">
+                    <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
+                </button>
+
+                <h2 class="text-3xl font-bold mb-6 text-white"><span class="text-amber-400">Koreksi Nabic</span> (Meylon 25 mEq)</h2>
+                <div class="glass-panel rounded-2xl p-6 mb-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <h3 class="text-xs uppercase text-slate-400 font-semibold border-b border-slate-700 pb-1">Parameter Pasien & Asam Basa</h3>
+                            <div>
+                                <label class="block text-xs text-slate-300 mb-1">Berat Badan (kg)</label>
+                                <input type="number" id="nabic-bb" class="w-full glass-input rounded-lg px-3 py-2 calc-trigger" value="50">
+                            </div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-xs text-slate-300 mb-1">HCO3 Aktual (mEq/L)</label>
+                                    <input type="number" id="nabic-cur" class="w-full glass-input rounded-lg px-3 py-2 calc-trigger" value="4" step="0.5">
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-slate-300 mb-1">Target HCO3 (mEq/L)</label>
+                                    <input type="number" id="nabic-target" class="w-full glass-input rounded-lg px-3 py-2 calc-trigger" value="10" step="0.5">
+                                </div>
+                            </div>
+                            <div class="p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs text-amber-200">
+                                <b>Formula:</b> Defisit = 0.5 &times; BB &times; (Target - Aktual HCO3).<br>
+                                1 flacon Meylon 8.4% (25 mL) = <b>25 mEq Bikarbonat</b>.
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <h3 class="text-xs uppercase text-slate-400 font-semibold border-b border-slate-700 pb-1">Hasil Perhitungan & Resep Drip</h3>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-700">
+                                    <div class="text-xs text-slate-400">Total Defisit HCO3</div>
+                                    <div id="nabic-res-defisit" class="text-xl font-bold text-amber-400">150 mEq</div>
+                                </div>
+                                <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-700">
+                                    <div class="text-xs text-slate-400">Kebutuhan Meylon</div>
+                                    <div id="nabic-res-flacon" class="text-xl font-bold text-white">6.0 Flacon</div>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-slate-900/80 rounded-xl border border-slate-700 text-xs space-y-2">
+                                <div class="font-semibold text-cyan-400 border-b border-slate-800 pb-1">Protokol Pemberian Klinis (RSUP Ngoerah):</div>
+                                <div>• <b>Bolus Awal:</b> <span id="nabic-bolus-text" class="text-white">50 mEq (2 fl Meylon) dalam 100 cc NaCl 0.9% habis dalam 30 menit IV</span></div>
+                                <div>• <b>Drip Lanjutan:</b> <span id="nabic-drip-text" class="text-white">100 mEq (4 fl Meylon) dalam 500 cc NaCl 0.9% habis dalam 24 jam IV</span></div>
+                                <div class="text-slate-400 text-[11px] mt-1">• Cek AGD evaluasi 24 jam post-koreksi. Waspadai hipokalsemia/hipokalemia sekunder.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CPPT Box -->
+                <div class="glass-panel rounded-2xl p-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="font-semibold text-amber-400 text-sm"><i class="fas fa-clipboard-list mr-2"></i>Copy ke CPPT</h4>
+                        <button onclick="copyCPPT('nabic-cppt', this)" class="bg-slate-700 hover:bg-slate-600 text-white text-xs py-1.5 px-3 rounded-lg transition-colors flex items-center gap-1.5">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <pre id="nabic-cppt" class="text-sm text-slate-300 whitespace-pre font-mono bg-slate-900/80 p-4 rounded-xl border border-slate-700 overflow-x-auto"></pre>
+                </div>
+            </section>
+
+            <!-- ================= TOOL 10: DRIP CA GLUKONAS ================= -->
+            <section id="calc-caglukonas" class="module-section hidden">
+                <button type="button" onclick="navigateTo('home-module', 'Home Dashboard', 'pill-dash')" class="btn-back">
+                    <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
+                </button>
+
+                <h2 class="text-3xl font-bold mb-6 text-white"><span class="text-emerald-400">Protokol Drip Ca Glukonas</span> 3x Siklus</h2>
+                <div class="glass-panel rounded-2xl p-6 mb-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <h3 class="text-xs uppercase text-slate-400 font-semibold border-b border-slate-700 pb-1">Parameter Laboratorium Kalsium</h3>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-xs text-slate-300 mb-1">Kalsium Serum (mg/dL)</label>
+                                    <input type="number" id="cag-ca" class="w-full glass-input rounded-lg px-3 py-2 calc-trigger" value="6.8" step="0.1">
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-slate-300 mb-1">Albumin Serum (g/dL)</label>
+                                    <input type="number" id="cag-alb" class="w-full glass-input rounded-lg px-3 py-2 calc-trigger" value="2.8" step="0.1">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-slate-300 mb-1">Berat Badan Pasien (kg)</label>
+                                <input type="number" id="cag-bb" class="w-full glass-input rounded-lg px-3 py-2 calc-trigger" value="50">
+                            </div>
+                            <div class="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-200">
+                                <b>Rumus Payne:</b> Kalsium Terkoreksi = Ca terukur + 0.8 &times; (4.0 - Albumin).<br>
+                                Target kalsium normal: 8.5 – 10.5 mg/dL.
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <h3 class="text-xs uppercase text-slate-400 font-semibold border-b border-slate-700 pb-1">Status & Protokol 3x Siklus</h3>
+                            <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-700">
+                                <div class="text-xs text-slate-400">Kalsium Terkoreksi (Payne)</div>
+                                <div id="cag-res-corr" class="text-xl font-bold text-emerald-400">7.76 mg/dL (Hipokalsemia)</div>
+                            </div>
+                            <div class="p-4 bg-slate-900/80 rounded-xl border border-slate-700 text-xs space-y-2">
+                                <div class="font-semibold text-emerald-300 border-b border-slate-800 pb-1">Instruksi Drip Cepat 3x Siklus:</div>
+                                <div>• <b>Rejimen:</b> Drip cepat Ca Glukonas 1 ampul (10 mL 10%) dalam D5% 200 cc, habis dalam 30 menit IV.</div>
+                                <div>• <b>Frekuensi:</b> Diberikan sebanyak <b>3x pemberian</b>, dengan jeda 2 jam tiap pemberian.</div>
+                                <div>• <b>Evaluasi:</b> Cek Ca serum & albumin ulang 2 jam setelah 3x pemberian selesai.</div>
+                                <div class="text-rose-400 text-[11px] font-semibold mt-1">⚠️ Jangan dicampur dengan Bikarbonat / Nabic dalam 1 jalur infus (presipitasi).</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CPPT Box -->
+                <div class="glass-panel rounded-2xl p-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="font-semibold text-emerald-400 text-sm"><i class="fas fa-clipboard-list mr-2"></i>Copy ke CPPT</h4>
+                        <button onclick="copyCPPT('cag-cppt', this)" class="bg-slate-700 hover:bg-slate-600 text-white text-xs py-1.5 px-3 rounded-lg transition-colors flex items-center gap-1.5">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <pre id="cag-cppt" class="text-sm text-slate-300 whitespace-pre font-mono bg-slate-900/80 p-4 rounded-xl border border-slate-700 overflow-x-auto"></pre>
+                </div>
+            </section>
+
             <footer class="mt-12 mb-6 p-4 glass-panel rounded-xl text-center">
                 <p class="text-xs text-slate-400 max-w-2xl mx-auto leading-relaxed">
                     Alat bantu hitung dosis klinis — bukan pengganti penilaian klinis profesional. Selalu verifikasi ulang dosis dan konsentrasi larutan sebelum diberikan.<br>
@@ -997,7 +1150,9 @@
       { id: 'calc-ntg', name: 'Nitrogliserin (NTG)', category: 'Vasodilator', color: 'emerald', pillId: 'pill-ntg', desc: 'Venodilator poten untuk reduksi preload pada ALO dan ACS (dosis tetap 10–100 mcg/menit).', keywords: ['nitrogliserin', 'ntg', 'vasodilator', 'alo', 'edema paru', 'iskemia miokard'] },
       { id: 'calc-insulin', name: 'Bridging Insulin IV ke SC', category: 'Protokol Transisi', color: 'orange', pillId: 'pill-insulin', desc: 'Titrasi drip insulin 24 jam ke regimen basal-bolus 80% dengan overlap 1-2 jam dan ekspor CPPT.', keywords: ['bridging insulin', 'insulin', 'drip', 'subkutan', 'kda', 'hhs', 'overlap'] },
       { id: 'calc-na', name: 'Koreksi Hipernatremia', category: 'Elektrolit & Cairan', color: 'blue', pillId: 'pill-na', desc: 'Formula Adrogué-Madias & Free Water Deficit (FWD) dengan batas aman penurunan Na maksimal 10 mEq/hari.', keywords: ['hipernatremia', 'adrogue-madias', 'fwd', 'free water deficit', 'd5w', 'natrium'] },
-      { id: 'calc-abg', name: 'Acid-Base Analyzer (AGD)', category: 'Asam-Basa', color: 'pink', pillId: 'pill-abg', desc: 'Validasi Henderson, Winter formula kompensasi, Anion Gap terkoreksi albumin, Delta ratio, dan rasio P/F.', keywords: ['agd', 'acid base', 'analisis gas darah', 'winter', 'anion gap', 'henderson', 'p/f ratio'] }
+      { id: 'calc-abg', name: 'Acid-Base Analyzer (AGD)', category: 'Asam-Basa', color: 'pink', pillId: 'pill-abg', desc: 'Validasi Henderson, Winter formula kompensasi, Anion Gap terkoreksi albumin, Delta ratio, dan rasio P/F.', keywords: ['agd', 'acid base', 'analisis gas darah', 'winter', 'anion gap', 'henderson', 'p/f ratio'] },
+      { id: 'calc-nabic', name: 'Koreksi Nabic (Meylon 25 mEq)', category: 'Elektrolit & Asam-Basa', color: 'amber', pillId: 'pill-nabic', desc: 'Formula defisit bikarbonat 0.5 x BB x ΔHCO3, konversi flacon Meylon 25 mEq, dosis bolus & drip 24 jam.', keywords: ['nabic', 'meylon', 'bikarbonat', 'hco3', 'asidosis', 'koreksi bikarbonat'] },
+      { id: 'calc-caglukonas', name: 'Drip Ca Glukonas 3x Siklus', category: 'Elektrolit & Cairan', color: 'emerald', pillId: 'pill-caglukonas', desc: 'Protokol replesi hipokalsemia: 1 ampul dlm D5% 200 cc habis 30 menit (diberikan 3x jeda 2 jam) + evaluasi lab.', keywords: ['ca glukonas', 'kalsium', 'calcium', 'hipokalsemia', 'payne', 'tetani'] }
     ];
 
     function showToast(msg) {
@@ -1675,6 +1830,79 @@
         if (cpptEl) cpptEl.innerText = cppt;
     }
 
+    function calcNabic() {
+        const bb = parseFloat(document.getElementById('nabic-bb')?.value) || 50;
+        const cur = parseFloat(document.getElementById('nabic-cur')?.value) || 4;
+        const target = parseFloat(document.getElementById('nabic-target')?.value) || 10;
+
+        const delta = Math.max(0, target - cur);
+        const defisit = 0.5 * bb * delta;
+        const flacon = (defisit / 25).toFixed(1);
+
+        let bolusMeq = defisit >= 50 ? 50 : defisit;
+        let dripMeq = Math.max(0, defisit - bolusMeq);
+        let bolusFlacon = Math.round(bolusMeq / 25);
+        let dripFlacon = (dripMeq / 25).toFixed(1);
+
+        const defEl = document.getElementById('nabic-res-defisit');
+        if (defEl) defEl.textContent = `${Math.round(defisit)} mEq`;
+
+        const flEl = document.getElementById('nabic-res-flacon');
+        if (flEl) flEl.textContent = `${flacon} Flacon`;
+
+        const bolusEl = document.getElementById('nabic-bolus-text');
+        if (bolusEl) bolusEl.textContent = `${bolusMeq} mEq (${bolusFlacon} fl Meylon) dalam 100 cc NaCl 0.9% habis dalam 30 menit IV`;
+
+        const dripEl = document.getElementById('nabic-drip-text');
+        if (dripEl) dripEl.textContent = dripMeq > 0 ? `${Math.round(dripMeq)} mEq (~${dripFlacon} fl Meylon) dalam 500 cc NaCl 0.9% habis dalam 24 jam IV` : 'Tidak diperlukan drip lanjutan (dosis tercukupi dengan bolus)';
+
+        let cppt = `KOREKSI ASIDOSIS METABOLIK (NABIC / MEYLON 25 mEq)\n`;
+        cppt += `BB Pasien    : ${bb} kg\n`;
+        cppt += `Delta HCO3   : ${target} - ${cur} = ${delta.toFixed(1)} mEq/L\n`;
+        cppt += `Total Defisit: 0.5 x ${bb} x ${delta.toFixed(1)} = ${Math.round(defisit)} mEq (~${flacon} flacon Meylon @ 25 mEq)\n\n`;
+        cppt += `INSTRUKSI PEMBERIAN:\n`;
+        cppt += `1. Bolus Nabic ${bolusMeq} mEq (${bolusFlacon} fl Meylon) dalam 100 cc NaCl 0.9% habis dalam 30 menit IV\n`;
+        if (dripMeq > 0) {
+            cppt += `2. Lanjut drip Nabic ${Math.round(dripMeq)} mEq (~${dripFlacon} fl Meylon) dalam 500 cc NaCl 0.9% habis dalam 24 jam IV\n`;
+        }
+        cppt += `\nMONITORING:\n`;
+        cppt += `- Evaluasi AGD ulang besok pagi (24 jam post koreksi)\n`;
+        cppt += `- Cek kadar kalsium & kalium serum (risiko hipokalsemia & hipokalemia sekunder)`;
+
+        const cpptEl = document.getElementById('nabic-cppt');
+        if (cpptEl) cpptEl.innerText = cppt;
+    }
+
+    function calcCaGlukonas() {
+        const ca = parseFloat(document.getElementById('cag-ca')?.value) || 6.8;
+        const alb = parseFloat(document.getElementById('cag-alb')?.value) || 2.8;
+        const bb = parseFloat(document.getElementById('cag-bb')?.value) || 50;
+
+        const caCorr = ca + 0.8 * (4.0 - alb);
+        const isHypo = caCorr < 8.5;
+
+        const resEl = document.getElementById('cag-res-corr');
+        if (resEl) {
+            resEl.textContent = `${caCorr.toFixed(2)} mg/dL (${isHypo ? 'Hipokalsemia' : 'Normal'})`;
+            resEl.className = `text-xl font-bold ${isHypo ? 'text-rose-400' : 'text-emerald-400'}`;
+        }
+
+        let cppt = `KOREKSI HIPOKALSEMIA (PROTOKOL DRIP CA GLUKONAS 3X SIKLUS)\n`;
+        cppt += `Kalsium Terukur : ${ca.toFixed(2)} mg/dL\n`;
+        cppt += `Albumin Serum   : ${alb.toFixed(1)} g/dL\n`;
+        cppt += `Kalsium Payne   : ${caCorr.toFixed(2)} mg/dL (${isHypo ? 'HIPOKALSEMIA' : 'NORMAL'})\n\n`;
+        cppt += `INSTRUKSI PEMBERIAN:\n`;
+        cppt += `- Drip cepat Ca Glukonas 1 ampul (10 mL 10%) dalam D5% 200 cc, habis dalam 30 menit IV\n`;
+        cppt += `- Diberikan sebanyak 3x pemberian, dengan jeda 2 jam tiap pemberian\n`;
+        cppt += `- Cek Ca serum & albumin ulang 2 jam setelah 3x pemberian drip selesai\n\n`;
+        cppt += `PERHATIAN:\n`;
+        cppt += `- Hindari pencampuran dengan Bikarbonat (Nabic) atau Fosfat (risiko presipitasi)\n`;
+        cppt += `- Evaluasi dan koreksi Magnesium bila refrakter`;
+
+        const cpptEl = document.getElementById('cag-cppt');
+        if (cpptEl) cpptEl.innerText = cppt;
+    }
+
     function calculateAll() {
         calcNE();
         calcDobu();
@@ -1684,6 +1912,8 @@
         calcInsulin();
         calcNa();
         calcABG();
+        calcNabic();
+        calcCaGlukonas();
     }
 
     // Initialize calculations & UI bindings

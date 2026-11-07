@@ -132,16 +132,386 @@ pre { white-space: pre-wrap; word-break: break-word; background: rgba(0, 0, 0, 0
 .tier-row.active { background: rgba(0, 242, 254, 0.12) !important; border-left: 3px solid #00F2FE; font-weight: 600; color: #ffffff; }
 
 @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ==========================================================
+   11 IPD Subspecialty Hero Launchpad Styles
+   ========================================================== */
+.hero-section { margin-bottom: 24px; }
+.hero-header { margin-bottom: 18px; }
+.hero-header h2 { font-size: 1.25rem; font-weight: 800; color: var(--tx); letter-spacing: -0.01em; margin-bottom: 4px; }
+.hero-header p { font-size: 0.85rem; color: var(--mut); line-height: 1.5; margin: 0; }
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 14px;
+}
+@media (max-width: 640px) {
+  .hero-grid { grid-template-columns: 1fr; }
+}
+
+.hero-sub-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--card);
+  border: 1px solid var(--bd);
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+  user-select: none;
+}
+.hero-sub-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--sub-color, var(--ac)), transparent 70%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.35;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.hero-sub-btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--sub-color, var(--ac));
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.3), 0 0 16px var(--sub-glow, rgba(0, 242, 254, 0.25));
+}
+.hero-sub-btn:hover::before { opacity: 0.9; }
+
+.hero-icon-box {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--bd);
+  color: var(--sub-color, var(--ac));
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+.hero-sub-btn:hover .hero-icon-box {
+  transform: scale(1.06);
+  background: rgba(255, 255, 255, 0.08);
+}
+.hero-info { flex: 1; min-width: 0; }
+.hero-badge-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.hero-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 7px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--sub-color, var(--ac));
+  border: 1px solid var(--sub-color, var(--ac));
+}
+.hero-count-badge { font-size: 0.72rem; color: var(--mut); font-weight: 500; }
+.hero-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--tx);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  margin-bottom: 3px;
+  line-height: 1.3;
+}
+.hero-desc {
+  font-size: 0.74rem;
+  color: var(--mut);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.hero-arrow {
+  color: var(--mut);
+  font-size: 14px;
+  transition: transform 0.25s ease, color 0.25s ease;
+  margin-left: 4px;
+}
+.hero-sub-btn:hover .hero-arrow {
+  color: var(--sub-color, var(--ac));
+  transform: translateX(3px);
+}
+
+/* Subspecialty Catalog View Banner */
+.sub-banner {
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+.sub-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: var(--sub-color, var(--ac));
+}
+.sub-banner-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--sub-color, var(--ac));
+  color: var(--sub-color, var(--ac));
+}
+.sub-banner-content h2 { font-size: 1.25rem; font-weight: 800; color: var(--tx); margin-bottom: 4px; }
+.sub-banner-content p { font-size: 0.85rem; color: var(--mut); line-height: 1.5; margin: 0; }
+
+/* Empty State Box for unfilled subspecialties */
+.empty-state-box {
+  background: var(--card);
+  border: 1px dashed var(--bd);
+  border-radius: 16px;
+  padding: 40px 24px;
+  text-align: center;
+  max-width: 640px;
+  margin: 30px auto;
+}
+.empty-state-icon { font-size: 44px; color: var(--mut); margin-bottom: 14px; opacity: 0.7; }
+.empty-state-box h3 { font-size: 1.1rem; color: var(--tx); margin-bottom: 8px; font-weight: 700; }
+.empty-state-box p { font-size: 0.88rem; color: var(--mut); line-height: 1.6; margin-bottom: 20px; }
+
+/* ===================================================
+   AUTOCALCULATE DASHBOARD PANEL (FastTrack & LabKeep)
+   =================================================== */
+.autocalc-panel {
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+  backdrop-filter: blur(14px);
+  position: relative;
+  overflow: hidden;
+}
+.autocalc-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--ac) 0%, var(--ac2) 50%, var(--ok) 100%);
+}
+.autocalc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--bd);
+  padding-bottom: 14px;
+}
+.autocalc-header h3 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--tx);
+  margin-bottom: 4px;
+}
+.autocalc-header p {
+  font-size: 0.8rem;
+  color: var(--mut);
+  margin: 0;
+}
+.autocalc-btns {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.autocalc-alerts {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  color: #fca5a5;
+  font-size: 0.82rem;
+}
+.autocalc-alert-title {
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: #f87171;
+}
+.autocalc-alerts ul {
+  margin: 0;
+  padding-left: 20px;
+}
+.autocalc-alerts li {
+  margin: 2px 0;
+}
+.autocalc-quick-inputs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed var(--bd);
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 18px;
+  font-size: 0.8rem;
+}
+.quick-in-title {
+  font-weight: 700;
+  color: var(--ac);
+  white-space: nowrap;
+}
+.quick-in-fields {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.quick-in-fields label {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--mut);
+  font-size: 0.8rem;
+}
+.quick-in-fields input, .quick-in-fields select {
+  padding: 5px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--bd);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--tx);
+  font-size: 0.8rem;
+  width: 72px;
+}
+.quick-in-fields select {
+  width: 90px;
+}
+.autocalc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+.autocalc-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--bd);
+  border-radius: 14px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.autocalc-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--ac);
+  box-shadow: 0 6px 20px rgba(0, 242, 254, 0.12);
+}
+.autocalc-card.ok {
+  border-left: 4px solid var(--ok);
+}
+.autocalc-card.warn {
+  border-left: 4px solid var(--warn);
+}
+.autocalc-card.bad {
+  border-left: 4px solid var(--bad);
+}
+.autocalc-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.autocalc-badge {
+  font-size: 0.68rem;
+  color: var(--mut);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.autocalc-status-pill {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+.status-ok { background: rgba(52, 211, 153, 0.15); color: var(--ok); }
+.status-warn { background: rgba(251, 191, 36, 0.15); color: var(--warn); }
+.status-bad { background: rgba(248, 113, 113, 0.18); color: var(--bad); }
+.autocalc-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--tx);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  margin-bottom: 4px;
+}
+.autocalc-val {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--ac);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  margin-bottom: 6px;
+}
+.autocalc-interp {
+  font-size: 0.76rem;
+  color: var(--tx);
+  line-height: 1.35;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+.autocalc-sub {
+  font-size: 0.7rem;
+  color: var(--mut);
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+.autocalc-action {
+  font-size: 0.72rem;
+  color: var(--ac);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  margin-top: auto;
+}
+
 </style>
 </head>
 <body>
 <header>
   <div class="logo">InternaHub</div>
   <input id="q" placeholder="Cari kalkulator, skor, atau protokol (mis. CURB, anion gap, kalsium)..." autocomplete="off">
-  <button class="btn" id="btnPaste">Tempel Data SIMETRISS</button>
+  <button class="btn pri" id="btnQuickPaste" onclick="pasteFromClipboard()" title="Ambil data langsung dari Clipboard atau tekan Ctrl+V di mana saja">⚡ Ambil Clipboard</button>
+  <button class="btn" id="btnPaste">Tempel Teks</button>
   <button class="btn" id="btnTheme">Terang/Gelap</button>
 </header>
 <main>
+  <!-- Hidden compatibility bridge field for GERIOP protocol in FastTrack.exe -->
+  <textarea id="impText" style="display:none;"></textarea>
   <p id="ctxbar"></p>
   <div id="chips" class="chips"></div>
   <div id="view"></div>
@@ -167,46 +537,1118 @@ const ctx = (() => { try { return JSON.parse(localStorage.getItem(LS_KEY)) || {}
 function saveCtx() { try { localStorage.setItem(LS_KEY, JSON.stringify(ctx)); } catch (_) {} renderCtxBar(); }
 function setCtx(patch) { Object.assign(ctx, patch); saveCtx(); }
 function clearCtx() { Object.keys(ctx).forEach(k => delete ctx[k]); saveCtx(); }
-const CTX_LABELS = { bb:'BB', age:'Usia', sex:'JK', sbp:'TD sis', dbp:'TD dia', hr:'Nadi', rr:'RR', temp:'Suhu', spo2:'SpO2', gcs:'GCS',
-  bun:'BUN', cr:'Kreatinin', na:'Na', k:'K', ca:'Ca', alb:'Albumin', glu:'GDS', ph:'pH', pco2:'pCO2', hco3:'HCO3', cl:'Cl' };
+
+const CTX_LABELS = {
+  // Demografi & Fisik
+  bb:'BB', tb:'TB', age:'Usia', sex:'JK',
+  // Tanda Vital & Saraf
+  sbp:'TD sis', dbp:'TD dia', hr:'Nadi', rr:'RR', temp:'Suhu', spo2:'SpO2', gcs:'GCS',
+  // Hematologi
+  wbc:'WBC', hb:'Hb', hct:'HCT', plt:'PLT', ne_abs:'NE#', ly_abs:'LY#',
+  mcv:'MCV', mch:'MCH', mchc:'MCHC', ppt:'PPT', inr:'INR', aptt:'APTT',
+  ddimer:'D-dimer', fib:'Fibrinogen',
+  // Kimia & Elektrolit
+  bun:'BUN', ureum:'Ureum', cr:'Kreatinin', egfr_lab:'e-LFG',
+  na:'Na', k:'K', cl:'Cl', ca:'Ca', po4:'Fosfat', mg:'Mg',
+  alb:'Albumin', prot:'Protein Tot', glob:'Globulin',
+  ast:'AST', alt:'ALT', bili:'Bilirubin', bili_dir:'Bili Dir', bili_ind:'Bili Ind',
+  alp:'ALP', ggt:'GGT', ldh:'LDH', ua:'Asam Urat',
+  glu:'GDS', hba1c:'HbA1c', keton:'Keton',
+  tc:'Kol Total', tg:'Trigliserida', hdl:'HDL', ldl:'LDL',
+  // AGD / Analisis Gas Darah
+  ph:'pH', pco2:'pCO2', po2:'pO2', hco3:'HCO3', be:'BE', so2:'SO2', lac:'Laktat', fio2:'FiO2',
+  // Imunologi & Marker
+  crp:'CRP', pct:'Procalcitonin', ferritin:'Ferritin', esr:'LED',
+  // Analisa Cairan
+  ascites_alb:'Alb Asites', ascites_prot:'Prot Asites',
+  pleura_prot:'Prot Pleura', pleura_ldh:'LDH Pleura', pleura_alb:'Alb Pleura'
+};
+
 function renderCtxBar() {
+  const bar = document.getElementById('ctxbar');
+  if (!bar) return;
   const keys = Object.keys(ctx).filter(k => CTX_LABELS[k] && ctx[k] !== undefined && ctx[k] !== '');
-  document.getElementById('ctxbar').innerHTML = keys.length
-    ? 'Data pasien aktif: ' + keys.map(k => `${CTX_LABELS[k]} <b>${ctx[k]}</b>`).join(' · ') + ' <button class="btn" onclick="clearCtx();route()">Hapus</button>'
-    : 'Belum ada data pasien. Gunakan "Tempel Data SIMETRISS" atau kirim dari FastTrack.';
+  if (!keys.length) {
+    bar.innerHTML = 'Belum ada data pasien aktif. Tekan <b>Ctrl+V</b> di mana saja untuk menempelkan hasil <b>LabKeep / SIMETRISS</b>, atau gunakan tombol di samping: <button class="btn" style="padding:4px 10px;font-size:12px;margin-left:6px;" onclick="pasteFromClipboard()">⚡ Ambil dari Clipboard</button>';
+    return;
+  }
+  bar.innerHTML = 'Data pasien aktif: ' + keys.map(k => `${CTX_LABELS[k]} <b>${ctx[k]}</b>`).join(' · ') +
+    ' <button class="btn" style="padding:4px 8px;font-size:12px;margin-left:8px;" onclick="clearCtx();route()">Hapus</button>';
 }
 
-/* ===================== PARSER (SIMETRISS / CPPT) ===================== */
+/* ===================== UNIVERSAL CLINICAL & LABKEEP PARSER ===================== */
 function parseClinical(text) {
-  const t = String(text || '');
-  const out = {};
-  const num = '(-?\\d+(?:[.,]\\d+)?)';
-  const grab = (key, re, group = 1) => { const m = t.match(re); if (m) out[key] = parseFloat(m[group].replace(',', '.')); };
-  // Vital: TD 100/60
-  const td = t.match(/\bT\.?D\.?\s*[:=]?\s*(\d{2,3})\s*\/\s*(\d{2,3})/i);
-  if (td) { out.sbp = +td[1]; out.dbp = +td[2]; }
-  grab('hr', new RegExp('\\b(?:N|Nadi|HR)\\s*[:=]?\\s*' + num + '\\s*(?:x|/)?', 'i'));
-  grab('rr', new RegExp('\\b(?:R|RR|Napas)\\s*[:=]?\\s*' + num + '\\s*(?:x|/)?', 'i'));
-  grab('temp', new RegExp('\\b(?:S|Suhu|T)\\s*[:=]?\\s*(3[4-9][.,]?\\d?|4[0-2][.,]?\\d?)\\s*(?:°|c)?', 'i'));
-  grab('spo2', new RegExp('SpO2\\s*[:=]?\\s*' + num, 'i'));
-  grab('gcs', /GCS\s*[:=]?\s*(\d{1,2})/i);
-  grab('bun', new RegExp('\\bBUN\\s*[:=]?\\s*' + num, 'i'));
-  grab('cr', new RegExp('\\b(?:Kreatinin|Creatinine|SC|Cr)\\s*[:=]?\\s*' + num, 'i'));
-  grab('na', new RegExp('\\b(?:Natrium|Na)\\s*[:=]?\\s*' + num, 'i'));
-  grab('k', new RegExp('\\b(?:Kalium|K)\\s*[:=]?\\s*' + num, 'i'));
-  grab('cl', new RegExp('\\b(?:Klorida|Chlorida|Cl)\\s*[:=]?\\s*' + num, 'i'));
-  grab('ca', new RegExp('\\b(?:Kalsium|Calcium|Ca)\\s*[:=]?\\s*' + num, 'i'));
-  grab('alb', new RegExp('\\bAlbumin\\s*[:=]?\\s*' + num, 'i'));
-  grab('glu', new RegExp('\\b(?:GDS|BS|Gula Darah Sewaktu)\\s*[:=]?\\s*' + num, 'i'));
-  grab('ph', new RegExp('\\bpH\\s*[:=]?\\s*(7[.,]\\d+|6[.,]\\d+)', 'i'));
-  grab('pco2', new RegExp('\\bpCO2\\s*[:=]?\\s*' + num, 'i'));
-  grab('hco3', new RegExp('\\bHCO3-?\\s*[:=]?\\s*' + num, 'i'));
-  grab('bb', new RegExp('\\b(?:BB|Berat Badan)\\s*[:=]?\\s*' + num + '\\s*(?:kg)?', 'i'));
-  const age = t.match(/(\d{1,3})\s*(?:tahun|thn|th)\b/i); if (age) out.age = +age[1];
-  if (/\b(laki-?laki|pria|male)\b/i.test(t)) out.sex = 'L';
-  else if (/\b(perempuan|wanita|female)\b/i.test(t)) out.sex = 'P';
+  return parseFastTrackLabKeep(text);
+}
+
+function parseFastTrackLabKeep(text) {
+  let t = String(text || '');
+  // Normalisasi spasi Unicode proporsional (LabKeep / Google Keep) ke spasi standar
+  t = t.replace(/[\u2000-\u200B\u00A0\u3000]/g, ' ');
+  t = t.replace(/\r/g, '');
+
+  const out = { baseline: {}, series: {} };
+
+  // Helper konversi angka aman
+  const toNum = (val) => {
+    if (val === undefined || val === null || val === '') return undefined;
+    const clean = String(val).replace(/,/g, '.').trim();
+    const n = parseFloat(clean);
+    return isFinite(n) ? n : undefined;
+  };
+
+  // Helper ekstraksi deret angka serial (mis. "0.80  -  1.10  -  1.95" atau "176.00")
+  const parseSerialNumbers = (str) => {
+    if (!str) return [];
+    // Pisahkan berdasarkan ' - ' atau spasi/tab serial, abaikan 'x' / '-'
+    const tokens = str.trim().split(/\s+(?:-\s+)?|\s*-\s+/);
+    const nums = [];
+    tokens.forEach(tok => {
+      const n = toNum(tok);
+      if (n !== undefined) nums.push(n);
+    });
+    return nums;
+  };
+
+  const applySerialParam = (key, rawValStr) => {
+    const nums = parseSerialNumbers(rawValStr);
+    if (!nums.length) return;
+    const latest = nums[nums.length - 1];
+    out[key] = latest;
+    out.series[key] = nums;
+    if (nums.length > 1) {
+      out.baseline[key] = nums[0];
+    }
+  };
+
+  // 1. Ekstraksi Demografi (Usia & JK)
+  // Format operan: "NAMA / L / 62 th / 26089265" atau "Pria 62 tahun"
+  const ageMatch = t.match(/\b(\d{1,3})\s*(?:tahun|thn|th)\b/i) ||
+                   t.match(/\/\s*(?:L|P)\s*\/\s*(\d{1,3})\b/i) ||
+                   t.match(/\/\s*(\d{1,3})\s*\/\s*(?:L|P)\b/i);
+  if (ageMatch) {
+    const a = parseInt(ageMatch[1], 10);
+    if (isFinite(a) && a >= 0 && a <= 125) out.age = a;
+  }
+
+  if (/\b(?:laki-?laki|pria|male)\b/i.test(t) || /\/\s*L\s*[\/\b]/i.test(t)) {
+    out.sex = 'L';
+  } else if (/\b(?:perempuan|wanita|female)\b/i.test(t) || /\/\s*P\s*[\/\b]/i.test(t)) {
+    out.sex = 'P';
+  }
+
+  // 2. Ekstraksi Antropometri & Tanda Vital
+  const numRe = '(-?\\d+(?:[.,]\\d+)?)';
+  const grabRegex = (key, re, group = 1) => {
+    const m = t.match(re);
+    if (m) {
+      const v = toNum(m[group]);
+      if (v !== undefined) out[key] = v;
+    }
+  };
+
+  // Tekanan Darah
+  const td = t.match(/\b(?:T\.?D\.?|BP|Tekanan\s+Darah)\s*[:=]?\s*(\d{2,3})\s*\/\s*(\d{2,3})/i);
+  if (td) {
+    out.sbp = parseInt(td[1], 10);
+    out.dbp = parseInt(td[2], 10);
+  }
+
+  grabRegex('hr', new RegExp('\\b(?:N|Nadi|HR|Heart\\s+Rate)\\s*[:=]?\\s*' + numRe + '\\s*(?:x|/|bpm)?', 'i'));
+  grabRegex('rr', new RegExp('\\b(?:R|RR|Napas|Respirasi)\\s*[:=]?\\s*' + numRe + '\\s*(?:x|/)?', 'i'));
+  grabRegex('temp', new RegExp('\\b(?:S|Suhu|Temp|T)\\s*[:=]?\\s*(3[4-9][.,]?\\d?|4[0-3][.,]?\\d?)\\s*(?:°|c)?', 'i'));
+  grabRegex('spo2', new RegExp('\\bSp\\s*O2\\s*[:=]?\\s*' + numRe + '\\s*%?', 'i'));
+  grabRegex('gcs', /\bGCS\s*[:=]?\s*(\d{1,2})\b/i);
+  grabRegex('bb', new RegExp('\\b(?:BB|Berat\\s+Badan|Weight)\\s*[:=]?\\s*' + numRe + '\\s*(?:kg)?\\b', 'i'));
+  grabRegex('tb', new RegExp('\\b(?:TB|Tinggi\\s+Badan|Height)\\s*[:=]?\\s*' + numRe + '\\s*(?:cm)?\\b', 'i'));
+
+  // 3. Ekstraksi POCT (Glukosa POCT Jam-ke-Jam LabKeep)
+  // Format: "BS 08 = 55\nBS 10 = 85\nBS 11 = 61"
+  const poctMatches = [...t.matchAll(/\bBS\s+(\d{1,2}(?::\d{2})?)\s*=\s*(\d+(?:[.,]\d+)?)/gi)];
+  if (poctMatches.length > 0) {
+    const poctVals = [];
+    poctMatches.forEach(m => {
+      const v = toNum(m[2]);
+      if (v !== undefined) poctVals.push(v);
+    });
+    if (poctVals.length > 0) {
+      out.poct_latest = poctVals[poctVals.length - 1];
+      out.poct_min = Math.min(...poctVals);
+      out.poct_max = Math.max(...poctVals);
+      if (out.glu === undefined) {
+        out.glu = out.poct_latest;
+      }
+    }
+  }
+
+  // 4. Deteksi Seksi Cairan Tubuh (Asites & Pleura)
+  let ascitesText = '';
+  let pleuraText = '';
+  const ascitesIdx = t.search(/ANALISA\s+CAIRAN\s+ASITES/i);
+  const pleuraIdx = t.search(/ANALISA\s+CAIRAN\s+PLEURA/i);
+
+  if (ascitesIdx !== -1) {
+    const afterAscites = t.slice(ascitesIdx);
+    const endAscites = afterAscites.search(/\n\s*===|\n\s*ANALISA|\n\s*UTDRS/i);
+    ascitesText = endAscites !== -1 ? afterAscites.slice(0, endAscites) : afterAscites;
+  }
+  if (pleuraIdx !== -1) {
+    const afterPleura = t.slice(pleuraIdx);
+    const endPleura = afterPleura.search(/\n\s*===|\n\s*ANALISA|\n\s*UTDRS/i);
+    pleuraText = endPleura !== -1 ? afterPleura.slice(0, endPleura) : afterPleura;
+  }
+
+  if (ascitesText) {
+    const aAlb = ascitesText.match(/\bAlbumin\s+([0-9.,\s-]+)/i);
+    if (aAlb) applySerialParam('ascites_alb', aAlb[1]);
+    const aProt = ascitesText.match(/\bProtein\s+Total\s+([0-9.,\s-]+)/i);
+    if (aProt) applySerialParam('ascites_prot', aProt[1]);
+  }
+  if (pleuraText) {
+    const pProt = pleuraText.match(/\bProtein\s+Total\s+([0-9.,\s-]+)/i);
+    if (pProt) applySerialParam('pleura_prot', pProt[1]);
+    const pLdh = pleuraText.match(/\bLDH\s*(?:\([^)]+\))?\s+([0-9.,\s-]+)/i);
+    if (pLdh) applySerialParam('pleura_ldh', pLdh[1]);
+    const pAlb = pleuraText.match(/\bAlbumin\s+([0-9.,\s-]+)/i);
+    if (pAlb) applySerialParam('pleura_alb', pAlb[1]);
+  }
+
+  // 5. Pemetaan Baris Parameter Laboratorium Utama (Hematologi & Kimia)
+  // Menghindari pencocokan di dalam seksi cairan jika sudah terpotong
+  const lines = t.split('\n');
+  lines.forEach(rawLine => {
+    const line = rawLine.trim().replace(/^[-*•·•]+\s*/, '');
+    if (!line || line.startsWith('===') || line.startsWith('---') || line.startsWith('Hasil Lab No RM')) return;
+
+    // Helper match line prefix
+    const matchLine = (labelRegex) => {
+      const m = line.match(labelRegex);
+      if (m) {
+        return m[1];
+      }
+      return null;
+    };
+
+    // HEMATOLOGI
+    let valStr = matchLine(/^WBC\s+([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('wbc', valStr);
+
+    valStr = matchLine(/^NE#\s+([0-9.,\s-]+)/i) || matchLine(/^Neutrofil\s+Absolut\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('ne_abs', valStr);
+
+    valStr = matchLine(/^LY#\s+([0-9.,\s-]+)/i) || matchLine(/^Limfosit\s+Absolut\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('ly_abs', valStr);
+
+    valStr = matchLine(/^HGB\s+([0-9.,\s-]+)/i) || matchLine(/^Hemoglobin\s*[:=]?\s*([0-9.,\s-]+)/i) || matchLine(/\bHb\s*[:=]?\s*(\d+(?:[.,]\d+)?)/i);
+    if (valStr) return applySerialParam('hb', valStr);
+
+    valStr = matchLine(/^HCT\s+([0-9.,\s-]+)/i) || matchLine(/^Hematokrit\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('hct', valStr);
+
+    valStr = matchLine(/^MCV\s+([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('mcv', valStr);
+
+    valStr = matchLine(/^MCH\s+([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('mch', valStr);
+
+    valStr = matchLine(/^MCHC\s+([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('mchc', valStr);
+
+    valStr = matchLine(/^PLT\s+([0-9.,\s-]+)/i) || matchLine(/^Trombosit\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('plt', valStr);
+
+    valStr = matchLine(/^PPT\s+([0-9.,\s-]+)/i) || matchLine(/^PT\s+([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('ppt', valStr);
+
+    valStr = matchLine(/^INR\s+([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('inr', valStr);
+
+    valStr = matchLine(/^APTT\s+([0-9.,\s-]+)/i) || matchLine(/^aPTT\s+([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('aptt', valStr);
+
+    valStr = matchLine(/^D-dimer\s+([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('ddimer', valStr);
+
+    valStr = matchLine(/^Fibrinogen\s+([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('fib', valStr);
+
+    // LIVER FUNCTION TEST
+    valStr = matchLine(/^AST\/SGOT\s+([0-9.,\s-]+)/i) || matchLine(/^SGOT\s*[:=]?\s*([0-9.,\s-]+)/i) || matchLine(/^AST\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('ast', valStr);
+
+    valStr = matchLine(/^ALT\/SGPT\s+([0-9.,\s-]+)/i) || matchLine(/^SGPT\s*[:=]?\s*([0-9.,\s-]+)/i) || matchLine(/^ALT\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('alt', valStr);
+
+    valStr = matchLine(/^Albumin\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr && out.alb === undefined) return applySerialParam('alb', valStr);
+
+    valStr = matchLine(/^Protein\s+Total\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr && out.prot === undefined) return applySerialParam('prot', valStr);
+
+    valStr = matchLine(/^Globulin\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('glob', valStr);
+
+    valStr = matchLine(/^Bilirubin\s+Total\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('bili', valStr);
+
+    valStr = matchLine(/^Bilirubin\s+Direk\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('bili_dir', valStr);
+
+    valStr = matchLine(/^Bilirubin\s+Indirek\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('bili_ind', valStr);
+
+    valStr = matchLine(/^Fosfatase\s+alkali\s*\(ALP\)\s+([0-9.,\s-]+)/i) || matchLine(/^ALP\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('alp', valStr);
+
+    valStr = matchLine(/^Gamma\s+GT\s*[:=]?\s*([0-9.,\s-]+)/i) || matchLine(/^GGT\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('ggt', valStr);
+
+    valStr = matchLine(/^LDH\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr && out.ldh === undefined) return applySerialParam('ldh', valStr);
+
+    // RENAL FUNCTION TEST
+    valStr = matchLine(/^BUN\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('bun', valStr);
+
+    valStr = matchLine(/^Ureum\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('ureum', valStr);
+
+    valStr = matchLine(/^Kreatinin\s*[:=]?\s*([0-9.,\s-]+)/i) || matchLine(/^Creatinine\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('cr', valStr);
+
+    valStr = matchLine(/^e-LFG\s*[:=]?\s*([0-9.,\s-]+)/i) || matchLine(/^eGFR\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('egfr_lab', valStr);
+
+    // ELEKTROLIT & MINERAL
+    valStr = matchLine(/^Natrium\s*(?:\(Na\))?(?:\s*-\s*Serum)?\s*[:=]?\s*([0-9.,\s-]+)/i) || matchLine(/^Na\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('na', valStr);
+
+    valStr = matchLine(/^Kalium\s*(?:\(K\))?(?:\s*-\s*Serum)?\s*[:=]?\s*([0-9.,\s-]+)/i) || matchLine(/^K\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('k', valStr);
+
+    valStr = matchLine(/^Klorida\s*(?:\(Cl\))?(?:\s*-\s*Serum)?\s*[:=]?\s*([0-9.,\s-]+)/i) || matchLine(/^Cl\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('cl', valStr);
+
+    valStr = matchLine(/^Kalsium\s*(?:\(Ca\))?(?:\s*Darah)?\s*[:=]?\s*([0-9.,\s-]+)/i) || matchLine(/^Ca\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('ca', valStr);
+
+    valStr = matchLine(/^Fosfat\s*(?:Inorganik\s*Darah)?\s*[:=]?\s*([0-9.,\s-]+)/i) || matchLine(/^Phosphate\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('po4', valStr);
+
+    valStr = matchLine(/^Magnesium\s*[:=]?\s*([0-9.,\s-]+)/i) || matchLine(/^Mg\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('mg', valStr);
+
+    // METABOLIK & GULA DARAH
+    valStr = matchLine(/^Glukosa\s+Darah\s*\(?Sewaktu\)?\s*[:=]?\s*([0-9.,\s-]+)/i) || matchLine(/^GDS\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('glu', valStr);
+
+    valStr = matchLine(/^Hb-?A1c\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('hba1c', valStr);
+
+    valStr = matchLine(/^Asam\s+Urat\s*(?:Darah)?\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('ua', valStr);
+
+    // LIPID PROFILE
+    valStr = matchLine(/^Kolesterol\s+Total\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('tc', valStr);
+
+    valStr = matchLine(/^Trigliserida\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('tg', valStr);
+
+    valStr = matchLine(/^Kolesterol\s+HDL\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('hdl', valStr);
+
+    valStr = matchLine(/^Kolesterol\s+LDL\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('ldl', valStr);
+
+    // AGD / BGA
+    valStr = matchLine(/^pH\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('ph', valStr);
+
+    valStr = matchLine(/^pCO2\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('pco2', valStr);
+
+    valStr = matchLine(/^pO2\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('po2', valStr);
+
+    valStr = matchLine(/^HCO3-?\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('hco3', valStr);
+
+    valStr = matchLine(/^BE(?:ecf)?\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('be', valStr);
+
+    valStr = matchLine(/^Laktat\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('lac', valStr);
+
+    valStr = matchLine(/^FiO2\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('fio2', valStr);
+
+    // INFLAMASI & LAINNYA
+    valStr = matchLine(/^CRP\s*(?:Kuantitatif)?\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('crp', valStr);
+
+    valStr = matchLine(/^Procalcitonin\s*[:=]?\s*([0-9.,\s-]+)/i) || matchLine(/^PCT\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('pct', valStr);
+
+    valStr = matchLine(/^Ferritin\s*[:=]?\s*([0-9.,\s-]+)/i);
+    if (valStr) return applySerialParam('ferritin', valStr);
+  });
+
   return out;
 }
+
+if (typeof window !== 'undefined') {
+  window.parseClinical = parseClinical;
+  window.parseFastTrackLabKeep = parseFastTrackLabKeep;
+}
+
+
+/**
+ * src/core/autocalc.js
+ * 
+ * Deterministic Clinical Auto-Calculate Engine for InternaHub & Internize.ai.
+ * Evaluates patient context (ctx) and automatically computes 25+ validated medical scores,
+ * indexes, and clinical decision support flags.
+ * 
+ * 100% On-Device, Deterministic, Zero External Dependencies.
+ */
+
+(function (global) {
+  'use strict';
+
+  const fmt = (num, digits = 1) => {
+    if (num === undefined || num === null || isNaN(num) || !isFinite(num)) return '-';
+    return Number(num).toFixed(digits).replace('.', ',');
+  };
+
+  const toNum = (val) => {
+    if (val === undefined || val === null || val === '') return undefined;
+    const n = parseFloat(String(val).replace(/,/g, '.'));
+    return isFinite(n) ? n : undefined;
+  };
+
+  const has = (...vals) => vals.every(v => v !== undefined && v !== null && (typeof v !== 'number' || (!isNaN(v) && isFinite(v))));
+
+  /**
+   * Main Auto-Calculate Evaluation
+   * @param {Object} c Patient context dictionary (e.g. from ctx / parseClinical)
+   * @returns {Object} { scores: [], alerts: [], missing: [], keepSummary: string, cpptSummary: string }
+   */
+  function runAutoCalc(c) {
+    if (!c || typeof c !== 'object') {
+      return { scores: [], alerts: [], missing: [], keepSummary: '', cpptSummary: '' };
+    }
+
+    const scores = [];
+    const alerts = [];
+    const missing = [];
+
+    const age = toNum(c.age);
+    const sex = c.sex === 'P' || c.sex === 'female' ? 'female' : (c.sex === 'L' || c.sex === 'male' ? 'male' : undefined);
+    const bb = toNum(c.bb);
+    const tb = toNum(c.tb);
+
+    const na = toNum(c.na);
+    const k = toNum(c.k);
+    const cl = toNum(c.cl);
+    const ca = toNum(c.ca);
+    const po4 = toNum(c.po4);
+    const mg = toNum(c.mg);
+    const alb = toNum(c.alb);
+    const prot = toNum(c.prot);
+    const glu = toNum(c.glu);
+
+    const bun = toNum(c.bun);
+    const ureum = toNum(c.ureum);
+    const cr = toNum(c.cr);
+
+    const ast = toNum(c.ast);
+    const alt = toNum(c.alt);
+    const bili = toNum(c.bili);
+    const alp = toNum(c.alp);
+    const ldh = toNum(c.ldh);
+
+    const wbc = toNum(c.wbc);
+    const hb = toNum(c.hb);
+    const plt = toNum(c.plt);
+    const ne_abs = toNum(c.ne_abs);
+    const ly_abs = toNum(c.ly_abs);
+
+    const inr = toNum(c.inr);
+    const ppt = toNum(c.ppt);
+    const aptt = toNum(c.aptt);
+    const fib = toNum(c.fib);
+    const ddimer = toNum(c.ddimer);
+
+    const ph = toNum(c.ph);
+    const pco2 = toNum(c.pco2);
+    const po2 = toNum(c.po2);
+    const hco3 = toNum(c.hco3);
+    const fio2 = toNum(c.fio2);
+    const lac = toNum(c.lac);
+
+    const sbp = toNum(c.sbp);
+    const dbp = toNum(c.dbp);
+    const hr = toNum(c.hr);
+    const rr = toNum(c.rr);
+
+    const asc_alb = toNum(c.ascites_alb);
+    const pl_prot = toNum(c.pleura_prot);
+    const pl_ldh = toNum(c.pleura_ldh);
+
+    // ==========================================
+    // 1. ELEKTROLIT, OSMOLARITAS & GULA DARAH
+    // ==========================================
+
+    // Natrium Terkoreksi Hiperglikemia
+    if (has(na, glu)) {
+      if (glu > 100) {
+        const corrKatz = na + 1.6 * (glu - 100) / 100;
+        const corrHillier = na + 2.4 * (glu - 100) / 100;
+        const isHi = corrKatz > 145;
+        const isLo = corrKatz < 135;
+        scores.push({
+          id: 'corr-na',
+          name: 'Natrium Terkoreksi Hiperglikemia',
+          group: 'Elektrolit & Metabolik',
+          value: `${fmt(corrKatz)} mEq/L`,
+          subvalue: `Faktor 1.6: ${fmt(corrKatz)} | Faktor 2.4: ${fmt(corrHillier)}`,
+          status: (isHi || isLo) ? 'warn' : 'ok',
+          interpretation: isLo ? 'Hiponatremia hipotonik sejati (terkoreksi)' : (isHi ? 'Hipernatremia terselubung' : 'Eunatremia (terkoreksi)'),
+          calcId: 'corr-na'
+        });
+      } else {
+        scores.push({
+          id: 'corr-na',
+          name: 'Natrium Terkoreksi',
+          group: 'Elektrolit & Metabolik',
+          value: `${fmt(na)} mEq/L`,
+          subvalue: 'Glukosa darah normal (tanpa koreksi pseudohiponatremia)',
+          status: (na < 135 || na > 145) ? 'warn' : 'ok',
+          interpretation: na < 135 ? 'Hiponatremia' : (na > 145 ? 'Hipernatremia' : 'Normal'),
+          calcId: 'corr-na'
+        });
+      }
+    }
+
+    // Kalsium Terkoreksi Albumin (Payne)
+    if (has(ca, alb)) {
+      const corrCa = ca + 0.8 * (4.0 - alb);
+      let st = 'ok';
+      let interp = 'Normal (8,5 – 10,5 mg/dL)';
+      if (corrCa < 8.5) {
+        st = corrCa < 7.5 ? 'bad' : 'warn';
+        interp = corrCa < 7.5 ? 'Hipokalsemia Berat / Simtomatik' : 'Hipokalsemia Ringan-Sedang';
+      } else if (corrCa > 10.5) {
+        st = corrCa > 12.0 ? 'bad' : 'warn';
+        interp = corrCa > 12.0 ? 'Krisis Hiperkalsemia Maligna (>12 mg/dL)' : 'Hiperkalsemia Ringan-Sedang';
+      }
+      scores.push({
+        id: 'ca-mgmt',
+        name: 'Kalsium Terkoreksi (Payne)',
+        group: 'Elektrolit & Metabolik',
+        value: `${fmt(corrCa)} mg/dL`,
+        subvalue: `Ca terukur ${fmt(ca)} mg/dL, Albumin ${fmt(alb)} g/dL`,
+        status: st,
+        interpretation: interp,
+        calcId: 'ca-mgmt'
+      });
+      if (st === 'bad') {
+        alerts.push(`Kalsium terkoreksi kritis: ${fmt(corrCa)} mg/dL (${interp})`);
+      }
+    }
+
+    // Effective & Total Serum Osmolarity
+    if (has(na, glu)) {
+      const effOsm = 2 * na + (glu / 18);
+      let totOsm = null;
+      let bunVal = bun;
+      if (bunVal === undefined && ureum !== undefined) {
+        bunVal = ureum / 2.14; // Ureum to BUN
+      }
+      if (bunVal !== undefined) {
+        totOsm = 2 * na + (glu / 18) + (bunVal / 2.8);
+      }
+      const isHhs = effOsm >= 320;
+      scores.push({
+        id: 'osmo',
+        name: 'Osmolaritas Serum Efektif (Tonisitas)',
+        group: 'Elektrolit & Metabolik',
+        value: `${fmt(effOsm, 0)} mOsm/kg`,
+        subvalue: totOsm ? `Total Osm: ${fmt(totOsm, 0)} mOsm/kg | Nilai Normal: 275–295` : 'Nilai Normal: 275–295 mOsm/kg',
+        status: isHhs ? 'bad' : (effOsm > 295 || effOsm < 275 ? 'warn' : 'ok'),
+        interpretation: isHhs ? 'Hiperosmolaritas Berat (Kriteria HHS ≥ 320 mOsm/kg)' : (effOsm > 295 ? 'Hipertonik' : (effOsm < 275 ? 'Hipotonik' : 'Isotonik')),
+        calcId: 'osmo'
+      });
+    }
+
+    // Alert Gangguan Kalium
+    if (has(k)) {
+      if (k < 3.5 || k > 5.5) {
+        const isCrit = k < 2.5 || k > 6.0;
+        alerts.push(`Kalium ${fmt(k, 2)} mEq/L: ${isCrit ? 'KRITIS (' + (k < 2.5 ? 'Hipokalemia Berat' : 'Hiperkalemia Mengancam Jiwa') + ')' : (k < 3.5 ? 'Hipokalemia' : 'Hiperkalemia')}`);
+      }
+    }
+
+    // Alert POCT Hipoglikemia
+    if (c.poct_min !== undefined && c.poct_min < 70) {
+      alerts.push(`Glukosa POCT Terendah: ${fmt(c.poct_min, 0)} mg/dL — Waspada Hipoglikemia! Segera koreksi D40% Rumus 30.`);
+    }
+
+    // ==========================================
+    // 2. FUNGSI GINJAL & AZOTEMIA
+    // ==========================================
+
+    // Rasio BUN:Kreatinin
+    if (has(bun, cr) && cr > 0) {
+      const ratio = bun / cr;
+      let interp = 'Normal / Post-renal (10–20 : 1)';
+      let st = 'ok';
+      if (ratio > 20) {
+        st = 'warn';
+        interp = 'Azotemia Prerenal, Dehidrasi Berat, atau Perdarahan Saluran Cerna Atas (> 20:1)';
+      } else if (ratio < 10) {
+        st = 'warn';
+        interp = 'Kerusakan Intrinsik Renal / ATN (< 10:1) atau Malnutrisi';
+      }
+      scores.push({
+        id: 'aki-bun-cr',
+        name: 'Rasio BUN : Kreatinin',
+        group: 'Ginjal & Cairan',
+        value: `${fmt(ratio, 1)} : 1`,
+        subvalue: `BUN ${fmt(bun)} mg/dL, Kreatinin ${fmt(cr)} mg/dL`,
+        status: st,
+        interpretation: interp,
+        calcId: 'aki-bun-cr'
+      });
+    }
+
+    // eGFR CKD-EPI 2021 (Refit Without Race)
+    if (has(cr, age, sex) && cr > 0 && age > 0) {
+      const kappa = sex === 'female' ? 0.7 : 0.9;
+      const alpha = sex === 'female' ? -0.241 : -0.302;
+      const minVal = Math.min(cr / kappa, 1);
+      const maxVal = Math.max(cr / kappa, 1);
+      const genderMult = sex === 'female' ? 1.012 : 1.0;
+      const egfr = 142 * Math.pow(minVal, alpha) * Math.pow(maxVal, -1.200) * Math.pow(0.9938, age) * genderMult;
+
+      let ckdStage = 'G1 (Normal ≥ 90)';
+      let st = 'ok';
+      if (egfr < 15) { ckdStage = 'G5 (Gagal Ginjal Akut/Terminal < 15)'; st = 'bad'; }
+      else if (egfr < 30) { ckdStage = 'G4 (Penurunan Berat 15–29)'; st = 'bad'; }
+      else if (egfr < 45) { ckdStage = 'G3b (Penurunan Sedang-Berat 30–44)'; st = 'warn'; }
+      else if (egfr < 60) { ckdStage = 'G3a (Penurunan Ringan-Sedang 45–59)'; st = 'warn'; }
+      else if (egfr < 90) { ckdStage = 'G2 (Penurunan Ringan 60–89)'; st = 'ok'; }
+
+      scores.push({
+        id: 'ckd-epi-2021',
+        name: 'eGFR CKD-EPI 2021 (Formula Baku)',
+        group: 'Ginjal & Cairan',
+        value: `${fmt(egfr, 0)} mL/min/1.73m²`,
+        subvalue: `Stadium KDIGO: ${ckdStage}`,
+        status: st,
+        interpretation: `Fungsi Filtrasi Ginjal: ${ckdStage}. Selalu sesuaikan dosis antimikroba (Adjustr-IO) bila eGFR < 50.`,
+        calcId: 'crcl-cockcroft'
+      });
+
+      // CrCl Cockcroft-Gault (jika BB ada)
+      if (has(bb) && bb > 0) {
+        let crcl = ((140 - age) * bb) / (72 * cr);
+        if (sex === 'female') crcl *= 0.85;
+        scores.push({
+          id: 'crcl-cockcroft',
+          name: 'Klirens Kreatinin Cockcroft-Gault',
+          group: 'Ginjal & Cairan',
+          value: `${fmt(crcl, 1)} mL/min`,
+          subvalue: `BB Aktual ${fmt(bb)} kg, Usia ${age} th, Cr ${fmt(cr)}`,
+          status: crcl < 30 ? 'bad' : (crcl < 50 ? 'warn' : 'ok'),
+          interpretation: crcl < 50 ? 'Penyesuaian dosis obat ginjal Adjustr-IO diperlukan!' : 'Klirens ginjal adekuat untuk dosis standar.',
+          calcId: 'crcl-cockcroft'
+        });
+      } else {
+        missing.push({ param: 'BB', purpose: 'Menghitung Klirens Kreatinin Cockcroft-Gault & Dosis Obat Ginjal' });
+      }
+    } else {
+      if (has(cr) && (!age || !sex)) {
+        missing.push({ param: 'Usia & Jenis Kelamin', purpose: 'Menghitung eGFR CKD-EPI 2021 & Cockcroft-Gault' });
+      }
+    }
+
+    // Monitoring AKI KDIGO jika ada data kreatinin serial/baseline
+    if (has(cr) && c.baseline && has(c.baseline.cr)) {
+      const bCr = c.baseline.cr;
+      const deltaCr = Math.round((cr - bCr) * 100) / 100;
+      const ratioCr = Math.round((cr / bCr) * 100) / 100;
+      if (deltaCr >= 0.3 || ratioCr >= 1.5) {
+        let stage = 'Stage 1';
+        let st = 'warn';
+        if (ratioCr >= 3.0 || cr >= 4.0) {
+          stage = 'Stage 3'; st = 'bad';
+        } else if (ratioCr >= 2.0) {
+          stage = 'Stage 2'; st = 'bad';
+        }
+        alerts.push(`Kecurigaan AKI KDIGO ${stage}! Kenaikan SCr dari baseline ${fmt(bCr)} -> ${fmt(cr)} mg/dL (Δ ${fmt(deltaCr)} mg/dL, Rasio ${fmt(ratioCr)}x)`);
+        scores.push({
+          id: 'aki-kdigo',
+          name: 'Staging AKI KDIGO (Riwayat LabKeep)',
+          group: 'Ginjal & Cairan',
+          value: stage,
+          subvalue: `Baseline: ${fmt(bCr)} mg/dL | Terkini: ${fmt(cr)} mg/dL (Rasio ${fmt(ratioCr)}x)`,
+          status: st,
+          interpretation: `Acute Kidney Injury ${stage}. Hindari nefrotoksik, evaluasi hemodinamik dan balans cairan.`,
+          calcId: 'aki-bun-cr'
+        });
+      }
+    }
+
+    // ==========================================
+    // 3. ANALISIS GAS DARAH (AGD / BGA)
+    // ==========================================
+    if (has(na, cl, hco3)) {
+      const ag = na - cl - hco3;
+      const corrAg = alb ? ag + 2.5 * (4.0 - alb) : ag;
+      const isHagma = corrAg > 12;
+
+      let agInterp = isHagma ? 'High Anion Gap Metabolic Acidosis (HAGMA) > 12' : 'Anion Gap Normal (NAGMA / Normal)';
+      let subDetail = `AG Terukur: ${fmt(ag)} | Terkoreksi Albumin: ${fmt(corrAg)}`;
+
+      // Delta Ratio / Delta Gap bila HAGMA
+      if (isHagma) {
+        const deltaGap = (corrAg - 12) - (24 - hco3);
+        const deltaRatio = (24 - hco3) > 0 ? (corrAg - 12) / (24 - hco3) : null;
+        if (deltaRatio !== null) {
+          let deltaInterp = '';
+          if (deltaRatio < 0.4) deltaInterp = 'Campuran HAGMA + NAGMA hiperkloremik';
+          else if (deltaRatio <= 0.8) deltaInterp = 'Campuran HAGMA + NAGMA (mis. DKA + Saline berlebih)';
+          else if (deltaRatio <= 1.6) deltaInterp = 'HAGMA Murni (DKA, Asidosis Laktat, atau Toksin)';
+          else deltaInterp = 'Campuran HAGMA + Alkalosis Metabolik pre-eksisting';
+          subDetail += ` | Delta Ratio: ${fmt(deltaRatio, 2)} (${deltaInterp})`;
+        }
+      }
+
+      scores.push({
+        id: 'anion-gap',
+        name: 'Anion Gap & Analisa Asam-Basa',
+        group: 'Asam Basa & Respirasi',
+        value: `${fmt(corrAg)} mEq/L`,
+        subvalue: subDetail,
+        status: isHagma ? 'bad' : 'ok',
+        interpretation: agInterp,
+        calcId: 'anion-gap'
+      });
+    }
+
+    // A-a Gradient (jika ada pO2, pCO2)
+    if (has(po2, pco2)) {
+      const fi = fio2 ? fio2 : 21;
+      const pao2Exp = (fi / 100) * 713 - (pco2 / 0.8);
+      const aaGrad = Math.max(0, pao2Exp - po2);
+      const normalAa = age ? (age / 4) + 4 : 12;
+      const isWide = aaGrad > normalAa;
+
+      scores.push({
+        id: 'abg-aa',
+        name: 'A-a Oxygen Gradient',
+        group: 'Asam Basa & Respirasi',
+        value: `${fmt(aaGrad, 1)} mmHg`,
+        subvalue: `Batas Normal Sesuai Usia: ≤ ${fmt(normalAa, 0)} mmHg (FiO2 ${fi}%)`,
+        status: isWide ? 'warn' : 'ok',
+        interpretation: isWide ? 'Gradien A-a Melebar: Curiga defek V/Q mismatch, pirau intrapulmonal, atau kelainan difusi paru' : 'Gradien A-a Normal: Hipoksemia murni akibat hipoventilasi atau FiO2 rendah',
+        calcId: 'abg'
+      });
+    }
+
+    // ==========================================
+    // 4. HEPATOLOGI & GASTROENTEROLOGI
+    // ==========================================
+
+    // APRI Score (AST to Platelet Ratio Index)
+    if (has(ast, plt) && plt > 0) {
+      const astUln = 35; // Standard ULN RS Ngoerah
+      const apri = ((ast / astUln) / plt) * 100;
+      let interp = 'Fibrosis signifikan minimal / tidak mungkin (APRI < 0.5)';
+      let st = 'ok';
+      if (apri > 1.5) {
+        st = 'bad';
+        interp = 'Probabilitas Sirosis Hepar Tinggi (APRI > 1.5)';
+      } else if (apri >= 0.5) {
+        st = 'warn';
+        interp = 'Zona Intermediate Fibrosis (0.5 – 1.5)';
+      }
+      scores.push({
+        id: 'apri',
+        name: 'APRI Score (Fibrosis Hepar)',
+        group: 'Gastroenterologi & Hepatologi',
+        value: fmt(apri, 2),
+        subvalue: `AST ${fmt(ast)} U/L (ULN 35), PLT ${fmt(plt)} ribu/µL`,
+        status: st,
+        interpretation: interp,
+        calcId: 'geh-ctp'
+      });
+    }
+
+    // FIB-4 Index
+    if (has(age, ast, alt, plt) && alt > 0 && plt > 0 && age > 0) {
+      const fib4 = (age * ast) / (plt * Math.sqrt(alt));
+      let interp = 'Risiko Rendah Fibrosis Lanjut F0–F2 (FIB-4 < 1.45, NPV ~90%)';
+      let st = 'ok';
+      if (fib4 > 3.25) {
+        st = 'bad';
+        interp = 'Risiko Tinggi Fibrosis Lanjut / Sirosis F3–F4 (FIB-4 > 3.25)';
+      } else if (fib4 >= 1.45) {
+        st = 'warn';
+        interp = 'Zona Intermediate (1.45 – 3.25, evaluasi modalitas elastografi/biopsi)';
+      }
+      scores.push({
+        id: 'fib4',
+        name: 'FIB-4 Index (Stratifikasi Fibrosis Hati)',
+        group: 'Gastroenterologi & Hepatologi',
+        value: fmt(fib4, 2),
+        subvalue: `Usia ${age} th, AST ${fmt(ast)}, ALT ${fmt(alt)}, PLT ${fmt(plt)}`,
+        status: st,
+        interpretation: interp,
+        calcId: 'geh-ctp'
+      });
+    } else {
+      if (has(ast, alt, plt) && !age) {
+        missing.push({ param: 'Usia', purpose: 'Menghitung FIB-4 Index' });
+      }
+    }
+
+    // Rasio De Ritis (AST/ALT)
+    if (has(ast, alt) && alt > 0) {
+      const deRitis = ast / alt;
+      let interp = 'Pola Non-Alkoholik / Steatohepatitis / Hepatitis Akut (Rasio < 1.0)';
+      let st = 'ok';
+      if (deRitis >= 2.0) {
+        st = 'warn';
+        interp = 'Sugestif Kerusakan Akibat Alkoholik atau Sirosis Lanjut (Rasio AST/ALT ≥ 2.0)';
+      } else if (deRitis > 1.0) {
+        interp = 'Rasio 1.0–2.0: Perhatikan progresivitas fibrosis atau hepatitis kronik';
+      }
+      scores.push({
+        id: 'deritis',
+        name: 'Rasio De Ritis (AST / ALT)',
+        group: 'Gastroenterologi & Hepatologi',
+        value: fmt(deRitis, 2),
+        subvalue: `AST ${fmt(ast)} U/L, ALT ${fmt(alt)} U/L`,
+        status: st,
+        interpretation: interp,
+        calcId: 'geh-ctp'
+      });
+    }
+
+    // R-Factor (Pola DILI Drug-Induced Liver Injury)
+    if (has(alt, alp) && alp > 0) {
+      const altUln = 35;
+      const alpUln = 105;
+      const rFactor = (alt / altUln) / (alp / alpUln);
+      let interp = 'Pola Cholestatic Injury (R < 2.0)';
+      let st = 'warn';
+      if (rFactor > 5.0) {
+        st = 'bad';
+        interp = 'Pola Hepatocellular Injury (R > 5.0) — Waspadai DILI / Kriteria Hy\'s Law';
+      } else if (rFactor >= 2.0) {
+        interp = 'Pola Mixed Liver Injury (R 2.0 – 5.0)';
+      }
+      scores.push({
+        id: 'rfactor',
+        name: 'R-Factor (Klasifikasi Pola DILI)',
+        group: 'Gastroenterologi & Hepatologi',
+        value: fmt(rFactor, 2),
+        subvalue: `ALT ${fmt(alt)} U/L, ALP ${fmt(alp)} U/L`,
+        status: st,
+        interpretation: interp,
+        calcId: 'geh-ctp'
+      });
+    }
+
+    // SAAG (Serum-Ascites Albumin Gradient)
+    if (has(alb, asc_alb)) {
+      const saag = alb - asc_alb;
+      const isPortalHt = saag >= 1.1;
+      scores.push({
+        id: 'saag',
+        name: 'SAAG (Serum-Ascites Albumin Gradient)',
+        group: 'Gastroenterologi & Hepatologi',
+        value: `${fmt(saag, 2)} g/dL`,
+        subvalue: `Serum Alb: ${fmt(alb)} g/dL | Cairan Asites Alb: ${fmt(asc_alb)} g/dL`,
+        status: isPortalHt ? 'warn' : 'ok',
+        interpretation: isPortalHt
+          ? 'Gradien Tinggi (SAAG ≥ 1.1 g/dL): Hipertensi Portal Positif (Sirosis Hepar, Gagal Jantung, Sindrom Budd-Chiari)'
+          : 'Gradien Rendah (SAAG < 1.1 g/dL): Non-Hipertensi Portal (Karsinomatosis Peritoneum, TB Peritoneum, Sindrom Nefrotik, Pankreatitis)',
+        calcId: 'geh-ctp'
+      });
+    }
+
+    // Light's Criteria (Cairan Pleura)
+    if (has(prot, pl_prot) && prot > 0) {
+      const protRatio = pl_prot / prot;
+      let ldhRatio = null;
+      if (has(ldh, pl_ldh) && ldh > 0) {
+        ldhRatio = pl_ldh / ldh;
+      }
+      const isExudate = protRatio > 0.5 || (ldhRatio !== null && ldhRatio > 0.6);
+      scores.push({
+        id: 'lights-criteria',
+        name: 'Kriteria Light (Analisa Cairan Pleura)',
+        group: 'Gastroenterologi & Hepatologi',
+        value: isExudate ? 'Eksudat' : 'Transudat',
+        subvalue: `Rasio Protein Pleura/Serum: ${fmt(protRatio, 2)} ${ldhRatio !== null ? '| Rasio LDH: ' + fmt(ldhRatio, 2) : ''}`,
+        status: isExudate ? 'warn' : 'ok',
+        interpretation: isExudate
+          ? 'Efusi Pleura Eksudat (Infeksi/TB, Keganasan, Emboli Paru, Pankreatitis)'
+          : 'Efusi Pleura Transudat (Gagal Jantung Kongestif, Sirosis Hepar, Hipoalbuminemia Berat)',
+        calcId: 'abg'
+      });
+    }
+
+    // Child-Turcotte-Pugh (CTP) Lab Components
+    if (has(bili, alb, inr)) {
+      let ctpLabPts = 0;
+      if (bili < 2.0) ctpLabPts += 1; else if (bili <= 3.0) ctpLabPts += 2; else ctpLabPts += 3;
+      if (alb > 3.5) ctpLabPts += 1; else if (alb >= 2.8) ctpLabPts += 2; else ctpLabPts += 3;
+      if (inr < 1.7) ctpLabPts += 1; else if (inr <= 2.2) ctpLabPts += 2; else ctpLabPts += 3;
+
+      scores.push({
+        id: 'ctp-score',
+        name: 'CTP Score (Komponen Lab Sirosis)',
+        group: 'Gastroenterologi & Hepatologi',
+        value: `${ctpLabPts} / 9 Poin Lab`,
+        subvalue: `Bilirubin ${fmt(bili)} mg/dL, Albumin ${fmt(alb)} g/dL, INR ${fmt(inr)}`,
+        status: ctpLabPts >= 6 ? 'bad' : (ctpLabPts >= 4 ? 'warn' : 'ok'),
+        interpretation: `Skor dasar lab: ${ctpLabPts}. Buka kalkulator untuk menambah poin klinis Asites (+1-3) dan Ensefalopati (+1-3).`,
+        calcId: 'geh-ctp'
+      });
+    }
+
+    // ==========================================
+    // 5. HEMATOLOGI, ONKOLOGI & INFEKSI
+    // ==========================================
+
+    // Absolute Neutrophil Count (ANC) & NLR
+    if (has(wbc)) {
+      let ancVal = null;
+      if (has(ne_abs)) {
+        ancVal = ne_abs >= 100 ? ne_abs : ne_abs * 1000;
+      }
+      if (ancVal !== null) {
+        let st = 'ok';
+        let interp = 'Normal (ANC ≥ 1.500 /µL)';
+        if (ancVal < 500) {
+          st = 'bad';
+          interp = 'Neutropenia Berat (ANC < 500 /µL) — Risiko Tinggi Sepsis / Indikasi MASCC!';
+        } else if (ancVal < 1000) {
+          st = 'warn';
+          interp = 'Neutropenia Sedang (500–1.000 /µL)';
+        } else if (ancVal < 1500) {
+          st = 'warn';
+          interp = 'Neutropenia Ringan (1.000–1.500 /µL)';
+        }
+        scores.push({
+          id: 'anc',
+          name: 'Absolute Neutrophil Count (ANC)',
+          group: 'Hematologi & Onkologi',
+          value: `${fmt(ancVal, 0)} /µL`,
+          subvalue: `WBC ${fmt(wbc)} ribu/µL, NE# ${fmt(ne_abs)}`,
+          status: st,
+          interpretation: interp,
+          calcId: 'hom-mascc'
+        });
+        if (st === 'bad') {
+          alerts.push(`NEUTROPENIA BERAT: ANC ${fmt(ancVal, 0)} /µL. Pantau demam neutropenia, antibiotik broad-spectrum cito bila demam!`);
+        }
+      }
+
+      if (has(ne_abs, ly_abs) && ly_abs > 0) {
+        const nlr = ne_abs / ly_abs;
+        scores.push({
+          id: 'nlr',
+          name: 'Neutrophil-to-Lymphocyte Ratio (NLR)',
+          group: 'Hematologi & Onkologi',
+          value: fmt(nlr, 2),
+          subvalue: `NE# ${fmt(ne_abs)}, LY# ${fmt(ly_abs)}`,
+          status: nlr > 5.0 ? 'warn' : 'ok',
+          interpretation: nlr > 5.0 ? 'Respon Inflamasi Sistemik Kuat / Infeksi Berat' : 'Dalam batas inflamasi fisiologis',
+          calcId: 'hom-mascc'
+        });
+      }
+    }
+
+    // Skrining Koagulopati & Koagulasi Intravaskular (DIC / ISTH)
+    if (has(plt)) {
+      if (plt < 50) {
+        alerts.push(`Trombositopenia Berat: ${fmt(plt, 0)} ribu/µL. Waspada perdarahan spontan; tunda prosedur invasif / transfusi TC bila perlu.`);
+      }
+      if (has(inr) && inr > 1.5) {
+        alerts.push(`Pemanjangan INR ${fmt(inr)} — Disfungsi koagulasi / sintesis faktor pembekuan hepar.`);
+      }
+    }
+
+    // Ganzoni Iron Deficit (jika Hb dan BB tersedia)
+    if (has(hb, bb) && hb < 12) {
+      const targetHb = sex === 'male' ? 13 : 12;
+      const deficit = bb * (targetHb - hb) * 2.4 + 500;
+      if (deficit > 500) {
+        scores.push({
+          id: 'ganzoni',
+          name: 'Defisit Besi Total (Formula Ganzoni)',
+          group: 'Hematologi & Onkologi',
+          value: `${fmt(deficit, 0)} mg Fe`,
+          subvalue: `Hb Aktual ${fmt(hb)} g/dL (Target ${targetHb}), BB ${fmt(bb)} kg`,
+          status: 'warn',
+          interpretation: `Kebutuhan elemental besi: ~${Math.ceil(deficit / 100)} ampul Iron Sucrose (100 mg/ampul) atau Ferric Carboxymaltose sesuai protokol.`,
+          calcId: 'ganzoni'
+        });
+      }
+    }
+
+    // ==========================================
+    // 6. RAWAT KRITIS & SEPSIS (CURB-65, SOFA PARSIAL)
+    // ==========================================
+
+    // CURB-65 Komponen Lab & Vital
+    if (has(bun, rr, sbp, age)) {
+      let curbPts = 0;
+      if (bun > 19) curbPts += 1;
+      if (rr >= 30) curbPts += 1;
+      if (sbp < 90 || (dbp !== undefined && dbp <= 60)) curbPts += 1;
+      if (age >= 65) curbPts += 1;
+
+      let interp = 'Mortalitas Rendah (Rawat Jalan / Observasi Singkat)';
+      let st = 'ok';
+      if (curbPts >= 3) {
+        st = 'bad';
+        interp = 'Pneumonia Komunitas Berat (Rawat Inap / Evaluasi ICU)';
+      } else if (curbPts === 2) {
+        st = 'warn';
+        interp = 'Risiko Sedang (Pertimbangkan Rawat Inap Ruangan)';
+      }
+
+      scores.push({
+        id: 'curb65',
+        name: 'CURB-65 (Komponen Lab & Vital)',
+        group: 'Rawat Kritis & Infeksi',
+        value: `${curbPts} / 4 Poin Objektif`,
+        subvalue: `BUN ${fmt(bun)}, RR ${fmt(rr)}, TD ${sbp}/${dbp || '-'}, Usia ${age}`,
+        status: st,
+        interpretation: interp + ' (+1 poin bila terdapat Confusion baru)',
+        calcId: 'curb65'
+      });
+    }
+
+    // SOFA Lab Score (Sequential Organ Failure Assessment)
+    let sofaLabPts = 0;
+    const sofaDetails = [];
+    if (has(plt)) {
+      if (plt < 20) { sofaLabPts += 4; sofaDetails.push('Koagulasi +4'); }
+      else if (plt < 50) { sofaLabPts += 3; sofaDetails.push('Koagulasi +3'); }
+      else if (plt < 100) { sofaLabPts += 2; sofaDetails.push('Koagulasi +2'); }
+      else if (plt < 150) { sofaLabPts += 1; sofaDetails.push('Koagulasi +1'); }
+    }
+    if (has(bili)) {
+      if (bili > 12.0) { sofaLabPts += 4; sofaDetails.push('Liver +4'); }
+      else if (bili >= 6.0) { sofaLabPts += 3; sofaDetails.push('Liver +3'); }
+      else if (bili >= 2.0) { sofaLabPts += 2; sofaDetails.push('Liver +2'); }
+      else if (bili >= 1.2) { sofaLabPts += 1; sofaDetails.push('Liver +1'); }
+    }
+    if (has(cr)) {
+      if (cr > 4.9) { sofaLabPts += 4; sofaDetails.push('Ginjal +4'); }
+      else if (cr >= 3.5) { sofaLabPts += 3; sofaDetails.push('Ginjal +3'); }
+      else if (cr >= 2.0) { sofaLabPts += 2; sofaDetails.push('Ginjal +2'); }
+      else if (cr >= 1.2) { sofaLabPts += 1; sofaDetails.push('Ginjal +1'); }
+    }
+    if (has(sbp) && sbp < 90) {
+      sofaLabPts += 1;
+      sofaDetails.push('Kardio +1');
+    }
+
+    if (sofaDetails.length > 0) {
+      scores.push({
+        id: 'sofa',
+        name: 'SOFA Score (Komponen Lab/Vital Terkini)',
+        group: 'Rawat Kritis & Infeksi',
+        value: `${sofaLabPts} Poin Organ Terhitung`,
+        subvalue: sofaDetails.join(' · '),
+        status: sofaLabPts >= 4 ? 'bad' : (sofaLabPts >= 2 ? 'warn' : 'ok'),
+        interpretation: sofaLabPts >= 2 ? 'Kecurigaan Disfungsi Organ / Sepsis (Skor SOFA Lab ≥ 2)' : 'Disfungsi organ minimal pada parameter lab saat ini',
+        calcId: 'curb65'
+      });
+    }
+
+    // ==========================================
+    // 7. FORMAT SUMMARY UNTUK VIEW KEEP & CPPT
+    // ==========================================
+    const keepSummary = formatAutoCalcForKeep(scores, alerts, c);
+    const cpptSummary = formatAutoCalcForCppt(scores, alerts, c);
+
+    return {
+      scores,
+      alerts,
+      missing,
+      keepSummary,
+      cpptSummary
+    };
+  }
+
+  /**
+   * Format hasil auto-calculate untuk Keep (selaras dengan font LabKeep)
+   */
+  function formatAutoCalcForKeep(scores, alerts, c) {
+    if (!scores.length) return '';
+    let out = '\n================\nKALKULASI MEDIS OTOMATIS (InternaHub)\n================\n';
+    if (alerts.length) {
+      out += 'PERINGATAN KLINIS:\n' + alerts.map(a => `! ${a}`).join('\n') + '\n\n';
+    }
+    const grouped = {};
+    scores.forEach(s => {
+      if (!grouped[s.group]) grouped[s.group] = [];
+      grouped[s.group].push(s);
+    });
+
+    for (const g in grouped) {
+      out += `[${g}]\n`;
+      grouped[g].forEach(s => {
+        out += `${s.name.padEnd(30, ' ')}: ${s.value} (${s.interpretation})\n`;
+      });
+      out += '\n';
+    }
+    return out.trimEnd();
+  }
+
+  /**
+   * Format hasil auto-calculate untuk SOAP/CPPT
+   */
+  function formatAutoCalcForCppt(scores, alerts, c) {
+    if (!scores.length) return '';
+    const dt = new Date().toLocaleDateString('id-ID');
+    let out = `[InternaHub CDSS Auto-Calculate — ${dt}]\n`;
+    if (alerts.length) {
+      out += `ALERT:\n` + alerts.map(a => `- ${a}`).join('\n') + `\n`;
+    }
+    out += `ANALISIS HASIL LAB & INDEKS KLINIS:\n`;
+    scores.forEach(s => {
+      out += `- ${s.name}: ${s.value} -> ${s.interpretation}\n`;
+    });
+    out += `*Hasil kalkulasi otomatis berbasis riwayat lab; verifikasi klinis tetap oleh DPJP.`;
+    return out;
+  }
+
+  const AutoCalcEngine = {
+    runAutoCalc,
+    formatAutoCalcForKeep,
+    formatAutoCalcForCppt
+  };
+
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = AutoCalcEngine;
+  }
+  if (typeof window !== 'undefined') {
+    window.AutoCalcEngine = AutoCalcEngine;
+    window.runAutoCalc = runAutoCalc;
+  }
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
 
 /* ===================== CALCULATOR REGISTRY ===================== */
 // field: {id, label, type:'number'|'check'|'select', ctx?:key, options?:[[label,value]], step?}
@@ -8566,6 +10008,1665 @@ HOM_C.forEach(c => {
   });
 });
 
+/* ==========================================================================
+   MODULE 5: PULMONOLOGI & RESPIROLOGI (m5-pulmo.js)
+   - Pneumonia Severity Index (PSI / PORT Score for CAP)
+   - Evaluasi & Optimasi Preoperatif Asma / PPOK
+   ========================================================================== */
+
+// 1. Pneumonia Severity Index (PSI / PORT Score)
+reg({
+  id: 'psi',
+  nama: 'Pneumonia Severity Index (PSI / PORT Score)',
+  divisi: 'Pulmonologi',
+  tags: 'pneumonia port fine score psi cap rawat inap icu severity mortalitas',
+  batch: 'M5',
+  fields: [
+    { id: 'age', label: 'Usia (tahun)', type: 'number', step: 1, val: 65, ctx: 'age' },
+    { id: 'sex', label: 'Jenis Kelamin', type: 'select', options: [['Pria', 'm'], ['Wanita', 'f']], val: 'm', ctx: 'sex' },
+    { id: 'nursing_home', label: 'Penghuni Panti Jompo / Nursing Home (+10)', type: 'check' },
+    
+    // Komorbiditas
+    { id: 'neoplasm', label: 'Riwayat Keganasan / Neoplasma Aktif (+30)', type: 'check' },
+    { id: 'liver_dis', label: 'Penyakit Hati Kronis / Sirosis (+20)', type: 'check' },
+    { id: 'chf', label: 'Gagal Jantung Kongestif / CHF (+10)', type: 'check' },
+    { id: 'cvd', label: 'Penyakit Serebrovaskular / Stroke (+10)', type: 'check' },
+    { id: 'renal_dis', label: 'Penyakit Ginjal Kronis (+10)', type: 'check' },
+
+    // Pemeriksaan Fisik
+    { id: 'ams', label: 'Gangguan Kesadaran / Altered Mental Status (+20)', type: 'check' },
+    { id: 'rr30', label: 'Frekuensi Napas ≥ 30 x/menit (+20)', type: 'check', ctxFn: c => c.rr !== undefined ? c.rr >= 30 : undefined },
+    { id: 'sbp90', label: 'Tekanan Darah Sistolik < 90 mmHg (+20)', type: 'check', ctxFn: c => c.sbp !== undefined ? c.sbp < 90 : undefined },
+    { id: 'temp_abn', label: 'Suhu Tubuh < 35°C atau ≥ 40°C (+15)', type: 'check' },
+    { id: 'hr125', label: 'Denyut Nadi ≥ 125 x/menit (+10)', type: 'check', ctxFn: c => c.hr !== undefined ? c.hr >= 125 : undefined },
+
+    // Lab & Radiologi
+    { id: 'ph735', label: 'Analisis Gas Darah: pH arteri < 7.35 (+30)', type: 'check' },
+    { id: 'bun30', label: 'BUN ≥ 30 mg/dL (atau Ureum ≥ 64 mg/dL) (+20)', type: 'check', ctxFn: c => c.bun !== undefined ? c.bun >= 30 : undefined },
+    { id: 'na130', label: 'Natrium Serum < 130 mEq/L (+20)', type: 'check', ctxFn: c => c.na !== undefined ? c.na < 130 : undefined },
+    { id: 'glu250', label: 'Glukosa Darah ≥ 250 mg/dL (+10)', type: 'check', ctxFn: c => c.glu !== undefined ? c.glu >= 250 : undefined },
+    { id: 'hct30', label: 'Hematokrit < 30% (+10)', type: 'check' },
+    { id: 'hypox', label: 'PaO2 < 60 mmHg atau SpO2 < 90% (+10)', type: 'check', ctxFn: c => c.spo2 !== undefined ? c.spo2 < 90 : undefined },
+    { id: 'pleural_eff', label: 'Efusi Pleura pada Rontgen Toraks (+10)', type: 'check' }
+  ],
+  compute: v => {
+    let score = Number(v.age || 0);
+    if (v.sex === 'f') score -= 10;
+    if (v.nursing_home) score += 10;
+
+    // Komorbid
+    if (v.neoplasm) score += 30;
+    if (v.liver_dis) score += 20;
+    if (v.chf) score += 10;
+    if (v.cvd) score += 10;
+    if (v.renal_dis) score += 10;
+
+    // Fisik
+    if (v.ams) score += 20;
+    if (v.rr30) score += 20;
+    if (v.sbp90) score += 20;
+    if (v.temp_abn) score += 15;
+    if (v.hr125) score += 10;
+
+    // Lab & X-ray
+    if (v.ph735) score += 30;
+    if (v.bun30) score += 20;
+    if (v.na130) score += 20;
+    if (v.glu250) score += 10;
+    if (v.hct30) score += 10;
+    if (v.hypox) score += 10;
+    if (v.pleural_eff) score += 10;
+
+    // Tentukan Kelas PSI
+    let riskClass = '', mortality = '', rec = '', cls = 'ok';
+    const hasComorbid = v.neoplasm || v.liver_dis || v.chf || v.cvd || v.renal_dis;
+    const hasAbnVitals = v.ams || v.rr30 || v.sbp90 || v.temp_abn || v.hr125;
+
+    if (v.age <= 50 && !v.nursing_home && !hasComorbid && !hasAbnVitals && score <= 50) {
+      riskClass = 'Kelas I';
+      mortality = '0.1%';
+      rec = 'Risiko sangat rendah. Rekomendasi: Rawat Jalan (Outpatient).';
+      cls = 'ok';
+    } else if (score <= 70) {
+      riskClass = 'Kelas II';
+      mortality = '0.6%';
+      rec = 'Risiko rendah. Rekomendasi: Rawat Jalan (Outpatient).';
+      cls = 'ok';
+    } else if (score <= 90) {
+      riskClass = 'Kelas III';
+      mortality = '0.9% – 2.8%';
+      rec = 'Risiko sedang. Pertimbangkan Observasi Rawat Inap Singkat / Ruang Rawat.';
+      cls = 'warn';
+    } else if (score <= 130) {
+      riskClass = 'Kelas IV';
+      mortality = '8.2% – 9.3%';
+      rec = 'Risiko tinggi. Rekomendasi: Rawat Inap Ruangan Umum.';
+      cls = 'bad';
+    } else {
+      riskClass = 'Kelas V';
+      mortality = '27.0% – 31.0%';
+      rec = 'Risiko sangat tinggi. Rekomendasi: Rawat Inap, evaluasi indikasi ICU.';
+      cls = 'bad';
+    }
+
+    const resume = `[PNEUMONIA SEVERITY INDEX / PORT SCORE]\n` +
+      `- Total Skor: ${score} poin (${riskClass})\n` +
+      `- Estimasi Mortalitas 30 Hari: ${mortality}\n` +
+      `- Rekomendasi Penempatan: ${rec}\n` +
+      `- Parameter Kunci Terpenuhi: ${[
+        v.nursing_home ? 'Nursing Home' : '',
+        v.neoplasm ? 'Neoplasma' : '',
+        v.liver_dis ? 'Liver Dis' : '',
+        v.chf ? 'CHF' : '',
+        v.cvd ? 'Stroke' : '',
+        v.renal_dis ? 'CKD' : '',
+        v.ams ? 'Kesadaran Terganggu' : '',
+        v.rr30 ? 'RR≥30' : '',
+        v.sbp90 ? 'TDS<90' : '',
+        v.ph735 ? 'pH<7.35' : '',
+        v.bun30 ? 'BUN≥30' : '',
+        v.na130 ? 'Na<130' : '',
+        v.hypox ? 'Hipoksemia' : '',
+        v.pleural_eff ? 'Efusi Pleura' : ''
+      ].filter(Boolean).join(', ') || 'Nihil'}`;
+
+    return {
+      value: `${score} Poin (${riskClass})`,
+      text: `<b>${riskClass}</b> (Mortalitas: ${mortality})<br>${rec}`,
+      cls,
+      resume
+    };
+  }
+});
+
+// 2. Evaluasi Preoperatif Asma / PPOK
+reg({
+  id: 'preop-asthma',
+  nama: 'Evaluasi & Optimasi Preoperatif Asma / PPOK',
+  divisi: 'Pulmonologi',
+  tags: 'asma ppok preoperatif paru bronkodilator metilprednisolon spirometri konsul',
+  batch: 'M5',
+  fields: [
+    { id: 'diag', label: 'Diagnosis Respirasi', type: 'select', options: [['Asma Bronkial', 'asthma'], ['PPOK (Penyakit Paru Obstruktif Kronik)', 'copd'], ['Asma-PPOK Overlap (ACO)', 'aco']], val: 'asthma' },
+    { id: 'symptom_freq', label: 'Kontrol Klinis / Gejala Saat Ini', type: 'select', options: [['Terkontrol Penuh (tanpa wheezing / sesak)', 'controlled'], ['Sebagian Terkontrol (wheezing intermiten)', 'partially'], ['Tidak Terkontrol / Eksaserbasi 4 Minggu Terakhir', 'uncontrolled']], val: 'controlled' },
+    { id: 'fev1', label: 'Nilai FEV1 Spirometri (% Prediksi)', type: 'number', step: 1, val: 75 },
+    { id: 'urgency', label: 'Urgensi Tindakan Bedah', type: 'select', options: [['Elektif', 'elective'], ['Urgent / Cito', 'urgent']], val: 'elective' }
+  ],
+  compute: v => {
+    let rec = '';
+    let cls = 'ok';
+
+    if (v.symptom_freq === 'uncontrolled' || (v.fev1 && v.fev1 < 50)) {
+      cls = 'bad';
+      rec = `<b>Peringatan: Risiko Bronkospasme Perioperatif Tinggi!</b><br>` +
+        `• Tunda operasi elektif hingga kondisi respirasi optimal (bebas eksaserbasi minimal 4 minggu).<br>` +
+        `• Bila operasi emergensi/urgent: Berikan terapi agresif pra-bedah sesuai protokol.`;
+    } else if (v.symptom_freq === 'partially' || (v.fev1 && v.fev1 < 70)) {
+      cls = 'warn';
+      rec = `<b>Risiko Moderat: Diperlukan Profilaksis Perioperatif Ketat.</b>`;
+    } else {
+      cls = 'ok';
+      rec = `<b>Status Respirasi Stabil / Terkontrol Baik.</b> Jalankan protokol perlindungan perioperatif standar.`;
+    }
+
+    const templateKonsul = `[PREOPERATIVE ASMA / PPOK - REKOMENDASI KLINIS]\n` +
+      `Planning:\n` +
+      `- Spirometri (evaluasi FEV1 preop: ${v.fev1 || '-'}%)\n\n` +
+      `Terapi jika saat akan melakukan tindakan:\n` +
+      `- Nebulisasi Farbivent 1 respul 4 jam sebelum dan sesudah tindakan\n` +
+      `- Metilprednisolone 62.5 mg IV 4 jam sebelum dan sesudah tindakan\n` +
+      `- Optimalisasi TS terkait\n\n` +
+      `Saran perioperatif:\n` +
+      `- Persiapan pre-op: Respiratory muscle training (saran konsul TS URM/Rehab Medik)\n` +
+      `- Intraoperasi:\n` +
+      `  * Pilih prosedur dan durasi anestesi optimal (2-3 jam)\n` +
+      `  * Minimalisasi durasi anestesi dan manipulasi jalan napas\n` +
+      `- Post Operasi (saran konsul TS URM):\n` +
+      `  * Deep breathing exercise\n` +
+      `  * Mobilisasi dini\n` +
+      `  * Manajemen nyeri adekuat untuk mencegah splinting toraks`;
+
+    return {
+      value: v.diag.toUpperCase() + ` (${v.symptom_freq})`,
+      text: `${rec}<br><br><div style="font-size:0.85em;line-height:1.4;background:rgba(0,0,0,0.2);padding:10px;border-radius:8px;">${templateKonsul.replace(/\n/g, '<br>')}</div>`,
+      cls,
+      resume: templateKonsul
+    };
+  }
+});
+
+
+/* ==========================================================================
+   MODULE 6: PREOPERATIF & GERIATRI SUITE (m6-preop-geriatri.js)
+   - ARISCAT Score (Postoperative Pulmonary Complications)
+   - Revised Cardiac Risk Index (RCRI / Lee Score)
+   - Caprini VTE Risk Score & Antikoagulan Profilaksis
+   - IMPROVE Bleeding Risk Score
+   - Clinical Frailty Scale (CFS / Rockwood)
+   - Morse Fall Scale (Risiko Jatuh)
+   - Risiko Delirium Pasca Operasi (Skor Delirium PAPDI & AWOL)
+   - Skrining Geriatri Cepat: Mini-Cog, Nutrisi (MNA-SF 2-Q), Depresi (GDS-2)
+   - Master Preop Checklist & Generator Resume Konsul (Biasa & Geriatri)
+   ========================================================================== */
+
+// 1. ARISCAT Score
+reg({
+  id: 'ariscat',
+  nama: 'ARISCAT Score (Postoperative Pulmonary Complications)',
+  divisi: 'Geriatri',
+  tags: 'ariscat preoperatif paru komplikasi respirasi bedah konsul',
+  batch: 'M6',
+  fields: [
+    { id: 'age', label: 'Usia Pasien', type: 'select', options: [['≤ 50 tahun (0)', '0'], ['51 – 80 tahun (+3)', '3'], ['> 80 tahun (+16)', '16']], val: '0', ctx: 'age' },
+    { id: 'spo2', label: 'SpO2 Preoperatif (Udara Ruangan)', type: 'select', options: [['≥ 96% (0)', '0'], ['91 – 95% (+8)', '8'], ['≤ 90% (+24)', '24']], val: '0', ctx: 'spo2' },
+    { id: 'resp_inf', label: 'Infeksi Respirasi Akut dalam 1 Bulan Terakhir (+17)', type: 'check' },
+    { id: 'anemia', label: 'Anemia Preoperatif (Hb ≤ 10 g/dL) (+11)', type: 'check', ctxFn: c => c.hb !== undefined ? c.hb <= 10 : undefined },
+    { id: 'incision', label: 'Lokasi Insisi Bedah', type: 'select', options: [['Perifer / Ekstremitas / Kepala / Leher (0)', '0'], ['Abdomen Atas (+15)', '15'], ['Intratorakal (+24)', '24']], val: '0' },
+    { id: 'duration', label: 'Durasi Operasi Terencana', type: 'select', options: [['≤ 2 jam (0)', '0'], ['> 2 jam hingga 3 jam (+16)', '16'], ['> 3 jam (+23)', '23']], val: '0' },
+    { id: 'emergency', label: 'Prosedur Bedah Emergensi / Cito (+8)', type: 'check' }
+  ],
+  compute: v => {
+    let score = Number(v.age || 0) + Number(v.spo2 || 0) + Number(v.incision || 0) + Number(v.duration || 0);
+    if (v.resp_inf) score += 17;
+    if (v.anemia) score += 11;
+    if (v.emergency) score += 8;
+
+    let riskCat = '', ppcRate = '', cls = 'ok';
+    if (score < 26) {
+      riskCat = 'Low Risk';
+      ppcRate = '1.6%';
+      cls = 'ok';
+    } else if (score <= 44) {
+      riskCat = 'Intermediate Risk';
+      ppcRate = '13.3%';
+      cls = 'warn';
+    } else {
+      riskCat = 'High Risk';
+      ppcRate = '42.1%';
+      cls = 'bad';
+    }
+
+    const resume = `ARISCAT score ${score} points (${riskCat})\n${ppcRate} risk of in-hospital post-op pulmonary complication`;
+    return {
+      value: `${score} Poin (${riskCat})`,
+      text: `<b>${riskCat} (${score} poin)</b><br>Risiko komplikasi paru pasca-bedah (PPC): <b>${ppcRate}</b>`,
+      cls,
+      resume
+    };
+  }
+});
+
+// 2. Revised Cardiac Risk Index (RCRI / Lee Score)
+reg({
+  id: 'rcri',
+  nama: 'Revised Cardiac Risk Index (RCRI / Lee Score)',
+  divisi: 'Geriatri',
+  tags: 'rcri lee cardiac risk mace kardiovaskular preoperatif konsul',
+  batch: 'M6',
+  fields: [
+    { id: 'high_risk_surg', label: 'Operasi Risiko Tinggi (Intraperitoneal, Intratorakal, Suprainguinal vaskular) (+1)', type: 'check' },
+    { id: 'ihd', label: 'Riwayat Penyakit Jantung Koroner / IHD (Infark, Angina, Gelombang Q) (+1)', type: 'check' },
+    { id: 'chf', label: 'Riwayat Gagal Jantung Kongestif / CHF (+1)', type: 'check' },
+    { id: 'cvd', label: 'Riwayat Penyakit Serebrovaskular (Stroke atau TIA) (+1)', type: 'check' },
+    { id: 'insulin_dm', label: 'Diabetes Melitus Terapi Insulin Preoperatif (+1)', type: 'check' },
+    { id: 'renal_cr', label: 'Insufisiensi Ginjal Preoperatif (Kreatinin Serum > 2.0 mg/dL) (+1)', type: 'check', ctxFn: c => c.cr !== undefined ? c.cr > 2.0 : undefined }
+  ],
+  compute: v => {
+    const score = [v.high_risk_surg, v.ihd, v.chf, v.cvd, v.insulin_dm, v.renal_cr].filter(Boolean).length;
+    let cls = 'ok', riskCat = '', maceRate = '';
+
+    if (score === 0) {
+      riskCat = 'Class I (Low Risk)';
+      maceRate = '3.9%';
+      cls = 'ok';
+    } else if (score === 1) {
+      riskCat = 'Class II (Low-Moderate Risk)';
+      maceRate = '6.0% (1.1% death/MI/arrest)';
+      cls = 'ok';
+    } else if (score === 2) {
+      riskCat = 'Class III (Moderate-High Risk)';
+      maceRate = '10.1%';
+      cls = 'warn';
+    } else {
+      riskCat = 'Class IV (High Risk)';
+      maceRate = '≥ 15.0%';
+      cls = 'bad';
+    }
+
+    const resume = `Revised Cardiac Risk Index ${score} point (${riskCat})\n${maceRate} 30 day risk of death, MI, or cardiac arrest`;
+    return {
+      value: `${score} Poin (${riskCat})`,
+      text: `<b>${riskCat}</b><br>Estimasi risiko MACE 30 hari: <b>${maceRate}</b>`,
+      cls,
+      resume
+    };
+  }
+});
+
+// 3. Caprini VTE Risk Score & Antikoagulan Profilaksis
+reg({
+  id: 'caprini',
+  nama: 'Caprini VTE Risk Score (Surgical Thromboprophylaxis)',
+  divisi: 'Geriatri',
+  tags: 'caprini vte dvt pe trombosis emboli profilaksis enoxaparin heparin bedah',
+  batch: 'M6',
+  fields: [
+    { id: 'age_group', label: 'Kelompok Usia', type: 'select', options: [['< 41 tahun (0)', '0'], ['41 – 60 tahun (+1)', '1'], ['61 – 74 tahun (+2)', '2'], ['≥ 75 tahun (+3)', '3']], val: '1', ctx: 'age' },
+    { id: 'surg_type', label: 'Tipe Bedah / Durasi', type: 'select', options: [['Bedah Minor / Rawat Jalan (0)', '0'], ['Bedah Mayor terencana (>45 menit) (+1)', '1'], ['Laparoskopi > 45 menit (+2)', '2'], ['Artroplasti Panggul / Lutut elektif (+5)', '5']], val: '1' },
+    { id: 'mobility', label: 'Mobilitas / Imobilisasi', type: 'select', options: [['Mobilisasi Normal (0)', '0'], ['Tirah Baring > 72 jam (+2)', '2'], ['Imobilisasi gips / splint (+2)', '2']], val: '0' },
+    
+    // 1 poin
+    { id: 'bmi25', label: 'BMI > 25 kg/m² (+1)', type: 'check', ctxFn: c => c.bmi !== undefined ? c.bmi > 25 : undefined },
+    { id: 'swollen_legs', label: 'Edema tungkai bawah saat ini (+1)', type: 'check' },
+    { id: 'varicose', label: 'Vena varikosa (+1)', type: 'check' },
+    { id: 'sepsis1m', label: 'Sepsis dalam 1 bulan terakhir (+1)', type: 'check' },
+    { id: 'copd', label: 'PPOK berat (+1)', type: 'check' },
+
+    // 2 poin
+    { id: 'cancer', label: 'Keganasan aktif / riwayat keganasan (+2)', type: 'check' },
+    { id: 'cvc', label: 'Kateter vena sentral / CVC line (+2)', type: 'check' },
+
+    // 3 poin
+    { id: 'prior_vte', label: 'Riwayat DVT / Emboli Paru sebelumnya (+3)', type: 'check' },
+    { id: 'thrombophilia', label: 'Trombofilia kongenital / didapat (+3)', type: 'check' },
+
+    // 5 poin
+    { id: 'stroke1m', label: 'Stroke / Stroke iskemik < 1 bulan (+5)', type: 'check' },
+    { id: 'polytrauma', label: 'Politrauma multipel / Fraktur panggul < 1 bulan (+5)', type: 'check' }
+  ],
+  compute: v => {
+    let score = Number(v.age_group || 0) + Number(v.surg_type || 0) + Number(v.mobility || 0);
+    if (v.bmi25) score += 1;
+    if (v.swollen_legs) score += 1;
+    if (v.varicose) score += 1;
+    if (v.sepsis1m) score += 1;
+    if (v.copd) score += 1;
+    if (v.cancer) score += 2;
+    if (v.cvc) score += 2;
+    if (v.prior_vte) score += 3;
+    if (v.thrombophilia) score += 3;
+    if (v.stroke1m) score += 5;
+    if (v.polytrauma) score += 5;
+
+    let cat = '', vteRisk = '', saran = '', cls = 'ok';
+    if (score === 0) {
+      cat = 'Very Low Risk';
+      vteRisk = '< 0.5%';
+      saran = 'Mobilisasi dini agresif.';
+      cls = 'ok';
+    } else if (score <= 2) {
+      cat = 'Low Risk';
+      vteRisk = '1.5%';
+      saran = 'Profilaksis mekanik (IPC / stocking kompresi elastis).';
+      cls = 'ok';
+    } else if (score <= 4) {
+      cat = 'Moderate Risk';
+      vteRisk = '3.0%';
+      saran = 'Profilaksis mekanik ATAU farmakologis (LMWH Enoxaparin 20–40 mg SC q24h).';
+      cls = 'warn';
+    } else if (score <= 8) {
+      cat = 'High Risk';
+      vteRisk = '4.0% – 6.0%';
+      saran = 'Pemberian enoxaparin 0.4 cc (40 mg) tiap 24 jam SC hingga 24 jam sebelum operasi dan dimulai kembali 12 jam post operasi + profilaksis mekanik.';
+      cls = 'bad';
+    } else {
+      cat = 'Highest Risk';
+      vteRisk = '≥ 10.7%';
+      saran = 'Pemberian enoxaparin 0.4 cc tiap 24 jam SC hingga 24 jam sebelum operasi dan dimulai kembali 12 jam post operasi + IPC mekanik. Pertimbangkan durasi diperpanjang hingga 28–35 hari post-op bedah onkologi/ortopedi.';
+      cls = 'bad';
+    }
+
+    const resume = `Caprini VTE score ${score} points (~ ${cat})\n${vteRisk} VTE risk\nSARAN: ${saran}`;
+    return {
+      value: `${score} Poin (${cat})`,
+      text: `<b>${cat} (${score} poin)</b><br>Estimasi risiko VTE: <b>${vteRisk}</b><br><br><span style="color:var(--pri);">Rekomendasi:</span> ${saran}`,
+      cls,
+      resume
+    };
+  }
+});
+
+// 4. IMPROVE Bleeding Risk Score
+reg({
+  id: 'improve-bleed',
+  nama: 'IMPROVE Bleeding Risk Score',
+  divisi: 'Geriatri',
+  tags: 'improve bleeding perdarahan preoperatif antikoagulan risiko konsul',
+  batch: 'M6',
+  fields: [
+    { id: 'ulcer', label: 'Ulkus Gastroduodenal Aktif (+4.5)', type: 'check' },
+    { id: 'prior_bleed', label: 'Riwayat Perdarahan dalam 3 Bulan Terakhir (+4.0)', type: 'check' },
+    { id: 'plt50', label: 'Trombositopenia < 50.000 /µL (+4.0)', type: 'check', ctxFn: c => c.plt !== undefined ? c.plt < 50 : undefined },
+    { id: 'age85', label: 'Usia ≥ 85 tahun (+3.5)', type: 'check', ctxFn: c => c.age !== undefined ? c.age >= 85 : undefined },
+    { id: 'liver_fail', label: 'Gagal Hati / Sirosis dengan INR > 1.5 (+2.5)', type: 'check' },
+    { id: 'severe_ckd', label: 'Insufisiensi Ginjal Berat (eGFR < 30 mL/min) (+2.5)', type: 'check' },
+    { id: 'icu_stay', label: 'Dirawat di ICU / Ruang Intensif (+2.5)', type: 'check' },
+    { id: 'cvc', label: 'Terpasang Central Venous Catheter / CVC (+2.0)', type: 'check' },
+    { id: 'rheuma', label: 'Penyakit Reumatik Aktif (+2.0)', type: 'check' },
+    { id: 'cancer', label: 'Keganasan Aktif (+2.0)', type: 'check' },
+    { id: 'age40_84', label: 'Usia 40 – 84 tahun (+1.5)', type: 'check', ctxFn: c => c.age !== undefined ? (c.age >= 40 && c.age < 85) : undefined },
+    { id: 'male', label: 'Jenis Kelamin Pria (+1.0)', type: 'check', ctxFn: c => c.sex === 'm' },
+    { id: 'mod_ckd', label: 'Insufisiensi Ginjal Sedang (eGFR 30–59 mL/min) (+1.0)', type: 'check' }
+  ],
+  compute: v => {
+    let score = 0;
+    if (v.ulcer) score += 4.5;
+    if (v.prior_bleed) score += 4.0;
+    if (v.plt50) score += 4.0;
+    if (v.age85) score += 3.5;
+    if (v.liver_fail) score += 2.5;
+    if (v.severe_ckd) score += 2.5;
+    if (v.icu_stay) score += 2.5;
+    if (v.cvc) score += 2.0;
+    if (v.rheuma) score += 2.0;
+    if (v.cancer) score += 2.0;
+    if (v.age40_84 && !v.age85) score += 1.5;
+    if (v.male) score += 1.0;
+    if (v.mod_ckd && !v.severe_ckd) score += 1.0;
+
+    let cat = '', cls = 'ok';
+    if (score < 7.0) {
+      cat = 'No increased risk of bleeding (Low Risk)';
+      cls = 'ok';
+    } else {
+      cat = 'Increased risk of bleeding (High Risk ≥ 7.0)';
+      cls = 'bad';
+    }
+
+    const resume = `Improved bleeding risk score ${score.toFixed(1)} points (${score < 7 ? 'No increased risk of bleeding' : 'Increased risk of bleeding'})`;
+    return {
+      value: `${score.toFixed(1)} Poin (${score < 7 ? 'Low Bleed Risk' : 'Increased Risk'})`,
+      text: `<b>${cat}</b><br>Insiden perdarahan mayor: <b>${score < 7 ? '< 1.5%' : '≥ 7.9%'}</b>`,
+      cls,
+      resume
+    };
+  }
+});
+
+// 5. Clinical Frailty Scale (CFS / Rockwood)
+reg({
+  id: 'cfs',
+  nama: 'Clinical Frailty Scale (CFS / Rockwood)',
+  divisi: 'Geriatri',
+  tags: 'cfs clinical frailty scale rockwood kerapuhan geriatri lansia preop',
+  batch: 'M6',
+  fields: [
+    { id: 'cfs_level', label: 'Tingkat Frailty Pasien', type: 'select', options: [
+      ['1. Sangat Bugar (Very Fit - berolahraga rutin)', '1'],
+      ['2. Bugar / Baik (Fit - aktif tanpa keluhan)', '2'],
+      ['3. Mengelola Mandiri (Managing Well - gejala terkontrol)', '3'],
+      ['4. Rentan (Living with Very Mild Frailty - lambat/mudah lelah)', '4'],
+      ['5. Frail Ringan (Mild Frailty - butuh bantuan IADL belanja/keuangan)', '5'],
+      ['6. Frail Sedang (Moderate Frailty - butuh bantuan mandi/berpakaian)', '6'],
+      ['7. Frail Berat (Severe Frailty - sangat bergantung penuh pada ADL)', '7'],
+      ['8. Frail Sangat Berat (Very Severe - tirah baring total, mendekati akhir hidup)', '8'],
+      ['9. Sakit Terminal (Terminally Ill - harapan hidup < 6 bulan)', '9']
+    ], val: '3' }
+  ],
+  compute: v => {
+    const lvl = Number(v.cfs_level || 3);
+    const labels = [
+      '',
+      'Very Fit (Sangat Bugar)',
+      'Fit / Well (Bugar)',
+      'Managing Well (Mengelola Mandiri)',
+      'Vulnerable (Rentan)',
+      'Mild Frailty (Frail Ringan)',
+      'Moderate Frailty (Frail Sedang)',
+      'Severe Frailty (Frail Berat)',
+      'Very Severe Frailty (Frail Sangat Berat)',
+      'Terminally Ill (Sakit Terminal)'
+    ];
+
+    let cls = 'ok';
+    if (lvl >= 7) cls = 'bad';
+    else if (lvl >= 4) cls = 'warn';
+
+    const resume = `Frailty (clinical frailty assessment) ${lvl} points (${labels[lvl]})`;
+    return {
+      value: `Skor ${lvl}: ${labels[lvl]}`,
+      text: `<b>Clinical Frailty Scale ${lvl}/9: ${labels[lvl]}</b><br>${lvl >= 5 ? 'Pasien memiliki cadangan fisiologis rendah, risiko delirium dan disabilitas pasca bedah meningkat signifikan.' : 'Cadangan fisiologis adekuat untuk toleransi stres operatif.'}`,
+      cls,
+      resume
+    };
+  }
+});
+
+// 6. Morse Fall Scale (Risiko Jatuh)
+reg({
+  id: 'morse-fall',
+  nama: 'Morse Fall Scale (Risiko Jatuh Rawat Inap)',
+  divisi: 'Geriatri',
+  tags: 'morse fall scale risiko jatuh geriatri keselamatan pasien preop',
+  batch: 'M6',
+  fields: [
+    { id: 'history_fall', label: 'Riwayat jatuh baru saja atau dalam 3 bulan terakhir? (Ya=25, Tidak=0)', type: 'check' },
+    { id: 'secondary_diag', label: 'Diagnosis medis sekunder / multipel diagnosis? (Ya=15, Tidak=0)', type: 'check' },
+    { id: 'ambulatory_aid', label: 'Bantuan Berjalan / Ambulasi', type: 'select', options: [
+      ['Tidak ada / tirah baring / kursi roda / dibantu perawat (0)', '0'],
+      ['Tongkat ketiak (crutch) / tongkat (cane) / walker (+15)', '15'],
+      ['Berpegangan pada dinding / furnitur / mebel (+30)', '30']
+    ], val: '0' },
+    { id: 'iv_line', label: 'Terpasang infus intravena / heparin lock? (Ya=20, Tidak=0)', type: 'check' },
+    { id: 'gait', label: 'Gaya Berjalan / Berpindah', type: 'select', options: [
+      ['Normal / tirah baring total / tidak dapat bergerak (0)', '0'],
+      ['Lemah / langkah pendek / diseret (+10)', '10'],
+      ['Terganggu / hilang keseimbangan / butuh sokongan penuh (+20)', '20']
+    ], val: '0' },
+    { id: 'mental_status', label: 'Status Mental', type: 'select', options: [
+      ['Mengetahui dan sadar kemampuan diri sendiri (0)', '0'],
+      ['Lupa keterbatasan / overestimasi kemampuan (+15)', '15']
+    ], val: '0' }
+  ],
+  compute: v => {
+    let score = Number(v.ambulatory_aid || 0) + Number(v.gait || 0) + Number(v.mental_status || 0);
+    if (v.history_fall) score += 25;
+    if (v.secondary_diag) score += 15;
+    if (v.iv_line) score += 20;
+
+    let cat = '', cls = 'ok';
+    if (score <= 24) {
+      cat = 'Tidak ada risiko jatuh (Tindakan dasar keselamatan)';
+      cls = 'ok';
+    } else if (score <= 50) {
+      cat = 'Risiko rendah (Pencegahan jatuh standar)';
+      cls = 'warn';
+    } else {
+      cat = 'Risiko tinggi jatuh (Pencegahan jatuh intensif / gelang kuning)';
+      cls = 'bad';
+    }
+
+    const resume = `Risk of Fall (MORSE)\nSkor ${score} = ${cat}`;
+    return {
+      value: `Skor ${score} (${score >= 51 ? 'Risiko Tinggi' : score >= 25 ? 'Risiko Rendah' : 'Tanpa Risiko'})`,
+      text: `<b>Morse Fall Score: ${score} Poin</b><br>Kategori: <b>${cat}</b>`,
+      cls,
+      resume
+    };
+  }
+});
+
+// 7. Risiko Delirium Pasca Operasi PAPDI & AWOL Score
+reg({
+  id: 'papdi-delirium',
+  nama: 'Risiko Delirium Pasca Operasi PAPDI & AWOL Score',
+  divisi: 'Geriatri',
+  tags: 'delirium awol papdi geriatri preoperatif kognitif konfusi bedah',
+  batch: 'M6',
+  fields: [
+    // Kriteria Buku PAPDI
+    { id: 'age70', label: '1. Usia > 70 tahun (+1)', type: 'check', ctxFn: c => c.age !== undefined ? c.age > 70 : undefined },
+    { id: 'alcohol', label: '2. Riwayat ketergantungan alkohol (+1)', type: 'check' },
+    { id: 'cog_imp', label: '3. Gangguan fungsi kognitif preoperatif (+1)', type: 'check' },
+    { id: 'physical_dep', label: '4. Kelainan jasmani berat (penurunan kemampuan aktivitas sehari-hari/ADL) (+1)', type: 'check' },
+    { id: 'lab_abn', label: '5. Abnormalitas hasil lab darah (elektrolit atau glukosa darah) (+1)', type: 'check' },
+    { id: 'thoracic_surg', label: '6. Operasi toraks non-kardiak (+1)', type: 'check' },
+    { id: 'aaa_surg', label: '7. Operasi aneurisma aorta abdominal (AAA) (+1)', type: 'check' },
+    
+    // Kriteria AWOL tambahan
+    { id: 'world_backward', label: '[AWOL] Kesulitan mengeja kata "WORLD" terbalik / serial 7 (+1)', type: 'check' },
+    { id: 'orient_fail', label: '[AWOL] Disorientasi waktu/tempat saat asesmen (+1)', type: 'check' }
+  ],
+  compute: v => {
+    let papdiScore = [v.age70, v.alcohol, v.cog_imp, v.physical_dep, v.lab_abn, v.thoracic_surg, v.aaa_surg].filter(Boolean).length;
+    let awolScore = (v.age70 ? 1 : 0) + (v.world_backward ? 1 : 0) + (v.orient_fail ? 1 : 0) + (v.physical_dep ? 1 : 0);
+
+    let papdiRisk = '', cls = 'ok';
+    if (papdiScore === 0) {
+      papdiRisk = '2% risiko delirium post operasi (Risiko Rendah)';
+      cls = 'ok';
+    } else if (papdiScore <= 2) {
+      papdiRisk = '11% risiko delirium post operasi (Risiko Sedang)';
+      cls = 'warn';
+    } else {
+      papdiRisk = '50% risiko delirium post operasi (Risiko Tinggi)';
+      cls = 'bad';
+    }
+
+    const resume = `Risiko Delirium Rawat Inap / Post Operasi:\n` +
+      `- SKORING BUKU PAPDI: Skor ${papdiScore} (${papdiRisk})\n` +
+      `- AWOL SCORE: ${awolScore} poin`;
+
+    return {
+      value: `Skor PAPDI ${papdiScore} (${papdiScore >= 3 ? '50% Delirium' : papdiScore >= 1 ? '11% Delirium' : '2% Delirium'})`,
+      text: `<b>Skor Delirium PAPDI: ${papdiScore} Poin</b><br>Estimasi: <b>${papdiRisk}</b><br>AWOL Score: <b>${awolScore} / 4</b>`,
+      cls,
+      resume
+    };
+  }
+});
+
+// 8. Skrining Nutrisi 2 Pertanyaan (MNA-SF) & Mini-Cog Kognitif
+reg({
+  id: 'mna-sf',
+  nama: 'Skrining Geriatri Cepat: Nutrisi, Kognitif & Depresi',
+  divisi: 'Geriatri',
+  tags: 'mna nutrisi kognitif minicog gds depresi geriatri preop malnutrisi',
+  batch: 'M6',
+  fields: [
+    // Nutrisi
+    { id: 'wt_loss', label: 'Nutrisi: Berat badan berkurang > 3 kg dalam 3 bulan terakhir / baju lebih longgar', type: 'check' },
+    { id: 'appetite_loss', label: 'Nutrisi: Hilang nafsu makan dalam 1 minggu terakhir', type: 'check' },
+    
+    // Kognitif Mini-Cog
+    { id: 'words_fail', label: 'Kognitif: Gagal mengingat kembali 3 kata (misal: bunga, pintu, nasi)', type: 'check' },
+    { id: 'orient_fail', label: 'Kognitif: Disorientasi waktu (tanggal) atau tempat (keberadaan saat ini)', type: 'check' },
+
+    // Depresi GDS-2
+    { id: 'depressed_mood', label: 'Depresi: Sering merasa sedih, tertekan, atau putus asa dalam 1 bulan terakhir', type: 'check' },
+    { id: 'anhedonia', label: 'Depresi: Penurunan minat atau kesenangan melakukan aktivitas', type: 'check' }
+  ],
+  compute: v => {
+    const nutrisiRisiko = v.wt_loss || v.appetite_loss;
+    const kognitifTerganggu = v.words_fail || v.orient_fail;
+    const depresiRisiko = v.depressed_mood || v.anhedonia;
+
+    let cls = (!nutrisiRisiko && !kognitifTerganggu && !depresiRisiko) ? 'ok' : 'warn';
+    if (nutrisiRisiko && kognitifTerganggu) cls = 'bad';
+
+    const resume = `- Nutrisi: ${nutrisiRisiko ? 'Risiko Malnutrisi (Asupan / BB menurun)' : 'Status Gizi Baik'}\n` +
+      `- Kognitif: ${kognitifTerganggu ? 'Kognitif Terganggu' : 'Baik'}\n` +
+      `- Depresi: ${depresiRisiko ? 'Skrining Depresi Positif' : 'Tidak ditemukan tanda depresi'}`;
+
+    return {
+      value: `${nutrisiRisiko ? 'Nutrisi Risk' : 'Nutrisi OK'} | ${kognitifTerganggu ? 'Kognitif Abn' : 'Kognitif OK'}`,
+      text: `• <b>Nutrisi:</b> ${nutrisiRisiko ? '<span style="color:var(--bad);">Risiko Malnutrisi</span>' : '<span style="color:var(--ok);">Baik</span>'}<br>` +
+            `• <b>Kognitif:</b> ${kognitifTerganggu ? '<span style="color:var(--bad);">Terganggu</span>' : '<span style="color:var(--ok);">Baik</span>'}<br>` +
+            `• <b>Depresi:</b> ${depresiRisiko ? '<span style="color:var(--warn);">Skrining Positif</span>' : '<span style="color:var(--ok);">Negatif</span>'}`,
+      cls,
+      resume
+    };
+  }
+});
+
+// 9. Master Preoperative Checklist & Consultation Generator
+reg({
+  id: 'preop-checklist',
+  nama: 'Checklist Kesiapan Preoperatif & Generator Konsul IPD',
+  divisi: 'Geriatri',
+  tags: 'preoperatif konsul template simetriss cppt ariscat rcri caprini morse geriatri',
+  batch: 'M6',
+  fields: [
+    { id: 'tipe_konsul', label: 'Tipe Pasien Konsul', type: 'select', options: [['Preop Pasien Dewasa Umum', 'dewasa'], ['Preop Pasien Geriatri (Usia ≥ 60 th)', 'geriatri']], val: 'geriatri' },
+    { id: 'sbp', label: 'Tekanan Darah Sistolik (mmHg)', type: 'number', step: 1, val: 130, ctx: 'sbp' },
+    { id: 'dbp', label: 'Tekanan Darah Diastolik (mmHg)', type: 'number', step: 1, val: 80, ctx: 'dbp' },
+    { id: 'gds', label: 'Gula Darah Sewaktu (mg/dL)', type: 'number', step: 1, val: 140, ctx: 'glu' },
+    { id: 'cr', label: 'Serum Kreatinin (mg/dL)', type: 'number', step: 0.1, val: 1.1, ctx: 'cr' },
+    { id: 'hb', label: 'Hemoglobin (g/dL)', type: 'number', step: 0.1, val: 11.5, ctx: 'hb' },
+    { id: 'k', label: 'Kalium Serum (mmol/L)', type: 'number', step: 0.1, val: 4.2, ctx: 'k' },
+    { id: 'alb', label: 'Albumin Serum (g/dL)', type: 'number', step: 0.1, val: 3.5, ctx: 'alb' }
+  ],
+  compute: v => {
+    const sbpOk = v.sbp < 160 && (v.dbp ? v.dbp < 90 : true);
+    const bsOk = v.gds < 200;
+    const crOk = v.cr < 7.0;
+    const hbOk = v.hb > 10.0;
+    const kOk = v.k >= 3.5 && v.k <= 5.3;
+    const albOk = !v.alb || v.alb >= 2.5;
+
+    const allOk = sbpOk && bsOk && crOk && hbOk && kOk && albOk;
+    const cls = allOk ? 'ok' : 'warn';
+
+    const header = v.tipe_konsul === 'geriatri' ? 'PRE OP GERIATRI' : 'PRE OP BIASA';
+    const resume = `============================================================\n` +
+      `${header}\n\n` +
+      `Saat ini dengan risiko tindakan :\n` +
+      `- ARISCAT Score : (Lihat modul kalkulator ARISCAT)\n` +
+      `- Revised Cardiac Risk Index : (Lihat modul kalkulator RCRI)\n` +
+      `- Caprini VTE Score : (Lihat modul kalkulator Caprini)\n` +
+      `- Improved Bleeding Risk Score : (Lihat modul kalkulator IMPROVE)\n` +
+      (v.tipe_konsul === 'geriatri' ?
+        `- Frailty (Clinical Frailty Scale) : Terlampir\n` +
+        `- Risk of Fall (MORSE) : Terlampir\n` +
+        `- Nutrisi : Evaluasi MNA-SF\n` +
+        `- Kognitif : Evaluasi Mini-Cog\n` +
+        `- Depresi : Evaluasi GDS-2\n` +
+        `- Risiko Delirium Pasca Operasi PAPDI / AWOL : Terlampir\n\n` : `\n`) +
+      `Optimal dilakukan tindakan apabila :\n` +
+      `- TD < 160/90 mmHg ${sbpOk ? '(Tercapai: ' + v.sbp + '/' + v.dbp + ')' : '(BELUM OPTIMAL: ' + v.sbp + '/' + v.dbp + ')'}\n` +
+      `- BS < 200 mg/dL ${bsOk ? '(Tercapai: ' + v.gds + ' mg/dL)' : '(BELUM OPTIMAL: ' + v.gds + ' mg/dL)'}\n` +
+      `- SC < 7.0 mg/dL ${crOk ? '(Tercapai: ' + v.cr + ' mg/dL)' : '(BELUM OPTIMAL: ' + v.cr + ' mg/dL)'}\n` +
+      `- HB > 10.0 g/dL ${hbOk ? '(Tercapai: ' + v.hb + ' g/dL)' : '(BELUM OPTIMAL: ' + v.hb + ' g/dL)'}\n` +
+      `- K 3.5 - 5.3 mmol/L ${kOk ? '(Tercapai: ' + v.k + ' mmol/L)' : '(BELUM OPTIMAL: ' + v.k + ' mmol/L)'}\n` +
+      `- Albumin > 2.5 g/dL ${albOk ? '(Tercapai)' : '(BELUM OPTIMAL: ' + v.alb + ' g/dL)'}\n` +
+      `- Eutiroid / Hipertiroid subklinis\n\n` +
+      `Indikasi dan kontraindikasi tindakan sesuai TS Leader/Operator.\n` +
+      `Terapi lain sesuai PPA terkait.\n` +
+      `============================================================`;
+
+    return {
+      value: allOk ? 'Optimal untuk Tindakan' : 'Perlu Optimalisasi Pra-Bedah',
+      text: `<b>Status: ${allOk ? '<span style="color:var(--ok);">Parameter Biokimiawi Optimal</span>' : '<span style="color:var(--warn);">Terdapat Parameter yang Perlu Dioptimasi</span>'}</b><br>` +
+            `TD: ${sbpOk ? '✓' : '✗'} | BS: ${bsOk ? '✓' : '✗'} | SC: ${crOk ? '✓' : '✗'} | Hb: ${hbOk ? '✓' : '✗'} | K: ${kOk ? '✓' : '✗'}`,
+      cls,
+      resume
+    };
+  }
+});
+
+
+/* ==========================================================================
+   MODULE 7: PSIKOSOMATIS & KEDOKTERAN PALIATIF (m7-psikosomatis.js)
+   - HADS (Hospital Anxiety and Depression Scale)
+   - PHQ-9 (Depression Screening)
+   - GAD-7 (Generalized Anxiety Disorder)
+   - Drip Analgetik / Pain Management Titrator (Morfin & Fentanyl)
+   ========================================================================== */
+
+// 1. Hospital Anxiety and Depression Scale (HADS)
+reg({
+  id: 'hads',
+  nama: 'Hospital Anxiety and Depression Scale (HADS)',
+  divisi: 'Psikosomatis',
+  tags: 'hads anxiety depression cemas depresi psikosomatis paliatif distres',
+  batch: 'M7',
+  fields: [
+    // HADS-A (Anxiety)
+    { id: 'a1', label: '1. [A] Saya merasa tegang atau gelisah', type: 'select', options: [['Tidak pernah (0)', '0'], ['Kadang-kadang (1)', '1'], ['Sering kali (2)', '2'], ['Hampir sepanjang waktu (3)', '3']], val: '1' },
+    { id: 'a2', label: '2. [A] Saya merasa takut seperti ada sesuatu yang buruk akan terjadi', type: 'select', options: [['Sama sekali tidak (0)', '0'], ['Sedikit tapi tidak mengkhawatirkan (1)', '1'], ['Ya, tapi tidak terlalu parah (2)', '2'], ['Sangat jelas dan menakutkan (3)', '3']], val: '1' },
+    { id: 'a3', label: '3. [A] Pikiran mengkhawatirkan berkecamuk di benak saya', type: 'select', options: [['Hanya sesekali (0)', '0'], ['Dari waktu ke waktu (1)', '1'], ['Sangat sering (2)', '2'], ['Sebagian besar waktu (3)', '3']], val: '1' },
+    { id: 'a4', label: '4. [A] Saya dapat duduk santai dan merasa tenang', type: 'select', options: [['Selalu (0)', '0'], ['Biasanya (1)', '1'], ['Jarang (2)', '2'], ['Sama sekali tidak bisa (3)', '3']], val: '1' },
+    { id: 'a5', label: '5. [A] Saya merasakan sensasi berdebar/gemetar di perut', type: 'select', options: [['Tidak pernah (0)', '0'], ['Kadang-kadang (1)', '1'], ['Cukup sering (2)', '2'], ['Sangat sering (3)', '3']], val: '0' },
+    { id: 'a6', label: '6. [A] Saya merasa gelisah dan tidak bisa diam', type: 'select', options: [['Sama sekali tidak (0)', '0'], ['Tidak terlalu (1)', '1'], ['Cukup sering (2)', '2'], ['Sangat gelisah (3)', '3']], val: '0' },
+    { id: 'a7', label: '7. [A] Saya tiba-tiba merasakan perasaan panik', type: 'select', options: [['Sama sekali tidak (0)', '0'], ['Jarang (1)', '1'], ['Cukup sering (2)', '2'], ['Sangat sering (3)', '3']], val: '0' },
+
+    // HADS-D (Depression)
+    { id: 'd1', label: '8. [D] Saya masih menikmati hal-hal yang dulu saya sukai', type: 'select', options: [['Pasti sama seperti dulu (0)', '0'], ['Tidak sebanyak dulu (1)', '1'], ['Hanya sedikit (2)', '2'], ['Hampir tidak sama sekali (3)', '3']], val: '1' },
+    { id: 'd2', label: '9. [D] Saya dapat tertawa dan melihat sisi lucu dari berbagai hal', type: 'select', options: [['Sama seperti dulu (0)', '0'], ['Sekarang tidak terlalu banyak (1)', '1'], ['Pasti kurang sekarang (2)', '2'], ['Sama sekali tidak bisa (3)', '3']], val: '1' },
+    { id: 'd3', label: '10. [D] Saya merasa gembira / ceria', type: 'select', options: [['Sebagian besar waktu (0)', '0'], ['Kadang-kadang (1)', '1'], ['Jarang (2)', '2'], ['Sama sekali tidak pernah (3)', '3']], val: '1' },
+    { id: 'd4', label: '11. [D] Saya merasa seolah-olah saya bergerak lambat', type: 'select', options: [['Sama sekali tidak (0)', '0'], ['Kadang-kadang (1)', '1'], ['Sangat sering (2)', '2'], ['Hampir sepanjang waktu (3)', '3']], val: '0' },
+    { id: 'd5', label: '12. [D] Saya kehilangan minat pada penampilan diri saya', type: 'select', options: [['Saya merawat diri sebaik dulu (0)', '0'], ['Mungkin kurang peduli dibanding dulu (1)', '1'], ['Saya tidak merawat diri dengan baik (2)', '2'], ['Sama sekali tidak peduli (3)', '3']], val: '0' },
+    { id: 'd6', label: '13. [D] Saya menantikan hal-hal yang menyenangkan di masa depan', type: 'select', options: [['Sama seperti dulu (0)', '0'], ['Agak kurang dari dulu (1)', '1'], ['Pasti kurang dari dulu (2)', '2'], ['Hampir tidak pernah (3)', '3']], val: '1' },
+    { id: 'd7', label: '14. [D] Saya dapat menikmati buku, radio, atau acara TV yang bagus', type: 'select', options: [['Sering (0)', '0'], ['Kadang-kadang (1)', '1'], ['Jarang (2)', '2'], ['Sangat jarang (3)', '3']], val: '0' }
+  ],
+  compute: v => {
+    const scoreA = Number(v.a1 || 0) + Number(v.a2 || 0) + Number(v.a3 || 0) + Number(v.a4 || 0) + Number(v.a5 || 0) + Number(v.a6 || 0) + Number(v.a7 || 0);
+    const scoreD = Number(v.d1 || 0) + Number(v.d2 || 0) + Number(v.d3 || 0) + Number(v.d4 || 0) + Number(v.d5 || 0) + Number(v.d6 || 0) + Number(v.d7 || 0);
+
+    function interpret(s) {
+      if (s <= 7) return { text: 'Normal (Tanpa Distres Signifikan)', cls: 'ok' };
+      if (s <= 10) return { text: 'Borderline / Gejala Subklinis Ringan', cls: 'warn' };
+      return { text: 'Kasus Bermakna Klinis (Sedang-Berat)', cls: 'bad' };
+    }
+
+    const resA = interpret(scoreA);
+    const resD = interpret(scoreD);
+    const overallCls = (scoreA >= 11 || scoreD >= 11) ? 'bad' : (scoreA >= 8 || scoreD >= 8) ? 'warn' : 'ok';
+
+    const resume = `[HOSPITAL ANXIETY AND DEPRESSION SCALE (HADS)]\n` +
+      `- Subskala Ansietas (HADS-A): ${scoreA} / 21 (${resA.text})\n` +
+      `- Subskala Depresi (HADS-D): ${scoreD} / 21 (${resD.text})\n` +
+      `- Kesimpulan: ${overallCls === 'bad' ? 'Terindikasi intervensi psikososial/konsul Psikosomatis.' : overallCls === 'warn' ? 'Perlu evaluasi berkala dan konseling suportif.' : 'Dalam batas normal.'}`;
+
+    return {
+      value: `A: ${scoreA} (${scoreA >= 11 ? 'Abnormal' : scoreA >= 8 ? 'Borderline' : 'Normal'}) | D: ${scoreD} (${scoreD >= 11 ? 'Abnormal' : scoreD >= 8 ? 'Borderline' : 'Normal'})`,
+      text: `<b>Ansietas (HADS-A):</b> ${scoreA}/21 — <span class="${resA.cls}">${resA.text}</span><br>` +
+            `<b>Depresi (HADS-D):</b> ${scoreD}/21 — <span class="${resD.cls}">${resD.text}</span>`,
+      cls: overallCls,
+      resume
+    };
+  }
+});
+
+// 2. Patient Health Questionnaire-9 (PHQ-9)
+reg({
+  id: 'phq9',
+  nama: 'Patient Health Questionnaire-9 (PHQ-9)',
+  divisi: 'Psikosomatis',
+  tags: 'phq9 depresi depression psikosomatis dsm suicidality skrining',
+  batch: 'M7',
+  fields: [
+    { id: 'q1', label: '1. Kurang berminat atau kurang bergairah dalam melakukan apapun', type: 'select', options: [['Sama sekali tidak (0)', '0'], ['Beberapa hari (1)', '1'], ['Lebih dari separuh waktu (2)', '2'], ['Hampir setiap hari (3)', '3']], val: '0' },
+    { id: 'q2', label: '2. Merasa murung, sedih, atau putus asa', type: 'select', options: [['Sama sekali tidak (0)', '0'], ['Beberapa hari (1)', '1'], ['Lebih dari separuh waktu (2)', '2'], ['Hampir setiap hari (3)', '3']], val: '0' },
+    { id: 'q3', label: '3. Sulit tidur, sering terbangun, atau tidur terlalu banyak', type: 'select', options: [['Sama sekali tidak (0)', '0'], ['Beberapa hari (1)', '1'], ['Lebih dari separuh waktu (2)', '2'], ['Hampir setiap hari (3)', '3']], val: '0' },
+    { id: 'q4', label: '4. Merasa lelah atau kurang bertenaga', type: 'select', options: [['Sama sekali tidak (0)', '0'], ['Beberapa hari (1)', '1'], ['Lebih dari separuh waktu (2)', '2'], ['Hampir setiap hari (3)', '3']], val: '0' },
+    { id: 'q5', label: '5. Nafsu makan kurang atau makan berlebihan', type: 'select', options: [['Sama sekali tidak (0)', '0'], ['Beberapa hari (1)', '1'], ['Lebih dari separuh waktu (2)', '2'], ['Hampir setiap hari (3)', '3']], val: '0' },
+    { id: 'q6', label: '6. Merasa buruk tentang diri sendiri atau merasa gagal', type: 'select', options: [['Sama sekali tidak (0)', '0'], ['Beberapa hari (1)', '1'], ['Lebih dari separuh waktu (2)', '2'], ['Hampir setiap hari (3)', '3']], val: '0' },
+    { id: 'q7', label: '7. Sulit berkonsentrasi pada hal-hal seperti membaca koran/menonton TV', type: 'select', options: [['Sama sekali tidak (0)', '0'], ['Beberapa hari (1)', '1'], ['Lebih dari separuh waktu (2)', '2'], ['Hampir setiap hari (3)', '3']], val: '0' },
+    { id: 'q8', label: '8. Bergerak/berbicara sangat lambat, atau gelisah/resah', type: 'select', options: [['Sama sekali tidak (0)', '0'], ['Beberapa hari (1)', '1'], ['Lebih dari separuh waktu (2)', '2'], ['Hampir setiap hari (3)', '3']], val: '0' },
+    { id: 'q9', label: '9. Memiliki pikiran bahwa Anda lebih baik mati atau ingin melukai diri', type: 'select', options: [['Sama sekali tidak (0)', '0'], ['Beberapa hari (1)', '1'], ['Lebih dari separuh waktu (2)', '2'], ['Hampir setiap hari (3)', '3']], val: '0' }
+  ],
+  compute: v => {
+    let score = 0;
+    for (let i = 1; i <= 9; i++) {
+      score += Number(v['q' + i] || 0);
+    }
+    const hasSuicide = Number(v.q9 || 0) > 0;
+
+    let cat = '', cls = 'ok', tatalaksana = '';
+    if (score <= 4) {
+      cat = 'Depresi Minimal / Tanpa Depresi';
+      tatalaksana = 'Tidak memerlukan intervensi farmakologis khusus.';
+      cls = 'ok';
+    } else if (score <= 9) {
+      cat = 'Depresi Ringan';
+      tatalaksana = 'Watchful waiting, psikoedukasi, evaluasi ulang dalam 1 bulan.';
+      cls = 'ok';
+    } else if (score <= 14) {
+      cat = 'Depresi Sedang (Moderate)';
+      tatalaksana = 'Pertimbangkan psikoterapi (CBT) dan/atau farmakoterapi antidepresan (SSRI).';
+      cls = 'warn';
+    } else if (score <= 19) {
+      cat = 'Depresi Sedang-Berat (Moderately Severe)';
+      tatalaksana = 'Inisiasi antidepresan lini pertama dan/atau psikoterapi intensif.';
+      cls = 'bad';
+    } else {
+      cat = 'Depresi Berat (Severe)';
+      tatalaksana = 'Inisiasi segera antidepresan + rujuk/konsul Psikiatri/Psikosomatis.';
+      cls = 'bad';
+    }
+
+    const suicideWarning = hasSuicide ? '<br><span style="color:#ef4444;font-weight:bold;">⚠️ PERINGATAN: Pasien memiliki ide mencederai diri/bunuh diri (Poin 9 aktif). Wajib evaluasi keamanan segera!</span>' : '';
+
+    const resume = `[PATIENT HEALTH QUESTIONNAIRE-9 (PHQ-9)]\n` +
+      `- Total Skor: ${score} / 27 (${cat})\n` +
+      `- Saran: ${tatalaksana}\n` +
+      (hasSuicide ? `- PERINGATAN: Terdapat ide bunuh diri/melukai diri aktif (Poin 9 = ${v.q9}).` : '');
+
+    return {
+      value: `${score} Poin (${cat.split(' ')[0]})`,
+      text: `<b>Skor PHQ-9: ${score} / 27</b> — <b>${cat}</b><br>${tatalaksana}${suicideWarning}`,
+      cls: hasSuicide ? 'bad' : cls,
+      resume
+    };
+  }
+});
+
+// 3. Generalized Anxiety Disorder-7 (GAD-7)
+reg({
+  id: 'gad7',
+  nama: 'Generalized Anxiety Disorder-7 (GAD-7)',
+  divisi: 'Psikosomatis',
+  tags: 'gad7 cemas anxiety panik psikosomatis skrining',
+  batch: 'M7',
+  fields: [
+    { id: 'g1', label: '1. Merasa gugup, cemas, atau gelisah', type: 'select', options: [['Sama sekali tidak (0)', '0'], ['Beberapa hari (1)', '1'], ['Lebih dari separuh waktu (2)', '2'], ['Hampir setiap hari (3)', '3']], val: '0' },
+    { id: 'g2', label: '2. Tidak mampu menghentikan atau mengendalikan kekhawatiran', type: 'select', options: [['Sama sekali tidak (0)', '0'], ['Beberapa hari (1)', '1'], ['Lebih dari separuh waktu (2)', '2'], ['Hampir setiap hari (3)', '3']], val: '0' },
+    { id: 'g3', label: '3. Terlalu mengkhawatirkan berbagai hal yang berbeda', type: 'select', options: [['Sama sekali tidak (0)', '0'], ['Beberapa hari (1)', '1'], ['Lebih dari separuh waktu (2)', '2'], ['Hampir setiap hari (3)', '3']], val: '0' },
+    { id: 'g4', label: '4. Kesulitan untuk bersantai / rileks', type: 'select', options: [['Sama sekali tidak (0)', '0'], ['Beberapa hari (1)', '1'], ['Lebih dari separuh waktu (2)', '2'], ['Hampir setiap hari (3)', '3']], val: '0' },
+    { id: 'g5', label: '5. Begitu gelisah sehingga sulit untuk duduk diam', type: 'select', options: [['Sama sekali tidak (0)', '0'], ['Beberapa hari (1)', '1'], ['Lebih dari separuh waktu (2)', '2'], ['Hampir setiap hari (3)', '3']], val: '0' },
+    { id: 'g6', label: '6. Menjadi mudah jengkel atau lekas marah', type: 'select', options: [['Sama sekali tidak (0)', '0'], ['Beberapa hari (1)', '1'], ['Lebih dari separuh waktu (2)', '2'], ['Hampir setiap hari (3)', '3']], val: '0' },
+    { id: 'g7', label: '7. Merasa takut seolah-olah sesuatu yang mengerikan akan terjadi', type: 'select', options: [['Sama sekali tidak (0)', '0'], ['Beberapa hari (1)', '1'], ['Lebih dari separuh waktu (2)', '2'], ['Hampir setiap hari (3)', '3']], val: '0' }
+  ],
+  compute: v => {
+    let score = 0;
+    for (let i = 1; i <= 7; i++) {
+      score += Number(v['g' + i] || 0);
+    }
+
+    let cat = '', cls = 'ok';
+    if (score <= 4) {
+      cat = 'Kecemasan Minimal';
+      cls = 'ok';
+    } else if (score <= 9) {
+      cat = 'Kecemasan Ringan';
+      cls = 'ok';
+    } else if (score <= 14) {
+      cat = 'Kecemasan Sedang (Moderate Anxiety)';
+      cls = 'warn';
+    } else {
+      cat = 'Kecemasan Berat (Severe Anxiety)';
+      cls = 'bad';
+    }
+
+    const resume = `[GENERALIZED ANXIETY DISORDER-7 (GAD-7)]\n` +
+      `- Total Skor: ${score} / 21 (${cat})\n` +
+      `- Rekomendasi: ${score >= 10 ? 'Indikasi evaluasi klinis mendalam dan intervensi kecemasan aktif.' : 'Kondisi kecemasan terkontrol.'}`;
+
+    return {
+      value: `${score} Poin (${cat.split(' ')[1] || cat})`,
+      text: `<b>Skor GAD-7: ${score} / 21</b> — <b>${cat}</b>`,
+      cls,
+      resume
+    };
+  }
+});
+
+// 4. Drip Analgetik / Pain Management Titrator (Morfin & Fentanyl)
+reg({
+  id: 'pain-titrator',
+  nama: 'Drip Pain Management Titrator (Morfin & Fentanyl)',
+  divisi: 'Psikosomatis',
+  tags: 'nyeri pain paliatif morfin fentanyl syringe pump konsul cppt analgetik',
+  batch: 'M7',
+  fields: [
+    { id: 'opioid', label: 'Pilihan Opioid IV Kontinu', type: 'select', options: [['Morfin IV Drip (0.2 – 0.6 mg/kgBB/hari)', 'morphine'], ['Fentanyl IV Drip (0.25 – 0.5 mcg/kgBB/jam)', 'fentanyl']], val: 'morphine' },
+    { id: 'bb', label: 'Berat Badan Pasien (kg)', type: 'number', step: 1, val: 50, ctx: 'bb' },
+    { id: 'dose_target', label: 'Intensitas Dosis', type: 'select', options: [['Dosis Rendah (Inisiasi)', 'low'], ['Dosis Menengah (Standar)', 'mid'], ['Dosis Tinggi (Refrakter)', 'high']], val: 'mid' }
+  ],
+  compute: v => {
+    const bb = Number(v.bb || 50);
+    let outputText = '', resumeText = '', valSummary = '';
+
+    if (v.opioid === 'morphine') {
+      // Dosis: 0.2 - 0.6 mg/kgBB/hari (atau cc/kgBB/hari)
+      let mgPerKgDay = v.dose_target === 'low' ? 0.2 : v.dose_target === 'mid' ? 0.4 : 0.6;
+      let totalMgDay = mgPerKgDay * bb;
+      // Dilarutkan dalam 20 cc NaCl 0.9%, habis dalam 24 jam -> 20 cc / 24 jam = 0.83 cc/jam (~ 0.8 cc/jam)
+      valSummary = `${totalMgDay.toFixed(1)} mg/hari (0.8 cc/jam)`;
+      outputText = `<b>Drip Morfin Harian:</b><br>` +
+        `• Dosis harian terpilih: ${mgPerKgDay} mg/kgBB/hari × ${bb} kg = <b>${totalMgDay.toFixed(1)} mg/24 jam</b><br>` +
+        `• Pelarut: <b>NaCl 0.9% ad 20 cc</b> pada syringe pump<br>` +
+        `• Kecepatan infus: <b>0.8 cc/jam</b> (habis tepat dalam 24 jam)`;
+
+      resumeText = `Drip Pain Management (Morfin)\n` +
+        `*hitung dosis harian berdasarkan berat badan (kecepatan selalu sama, untuk dihabiskan dalam 24 jam)\n\n` +
+        `*MORFIN*\n` +
+        `Dosis: ${mgPerKgDay} mg/kgBB/hari (${bb} kg)\n` +
+        `Ketikan (untuk kebutuhan drip dalam 1 hari):\n` +
+        `* Drip morfin ${totalMgDay.toFixed(1)} mg dalam 20cc NaCl 0.9%; kecepatan 0.8cc/jam`;
+    } else {
+      // Fentanyl: 0.25 - 0.5 mcg/kgBB/jam
+      let mcgKgHr = v.dose_target === 'low' ? 0.25 : v.dose_target === 'mid' ? 0.35 : 0.5;
+      let mcgPerHr = mcgKgHr * bb;
+      let totalMcgDay = mcgPerHr * 24;
+      // Dilarutkan dalam 50 cc NaCl 0.9%, habis dalam 24 jam -> 50 cc / 24 jam = 2.08 cc/jam (~ 2.1 cc/jam)
+      valSummary = `${totalMcgDay.toFixed(0)} mcg/hari (2.1 cc/jam)`;
+      outputText = `<b>Drip Fentanyl Harian:</b><br>` +
+        `• Dosis terpilih: ${mcgKgHr} mcg/kgBB/jam = <b>${mcgPerHr.toFixed(1)} mcg/jam</b> (Total: <b>${totalMcgDay.toFixed(0)} mcg/24 jam</b>)<br>` +
+        `• Pelarut: <b>NaCl 0.9% ad 50 cc</b> pada syringe pump<br>` +
+        `• Kecepatan infus: <b>2.1 cc/jam</b> (habis tepat dalam 24 jam)`;
+
+      resumeText = `Drip Pain Management (Fentanyl)\n` +
+        `*hitung dosis harian berdasarkan berat badan (kecepatan selalu sama, untuk dihabiskan dalam 24 jam)\n\n` +
+        `*FENTANYL*\n` +
+        `Dosis: ${mcgKgHr} mcg/kgBB/jam (${bb} kg)\n` +
+        `Ketikan (untuk kebutuhan drip dalam 1 hari):\n` +
+        `* Drip fentanyl ${totalMcgDay.toFixed(0)} mcg dalam 50cc NaCl 0.9%; kecepatan 2.1cc/ jam`;
+    }
+
+    return {
+      value: valSummary,
+      text: outputText,
+      cls: 'ok',
+      resume: resumeText
+    };
+  }
+});
+
+
+/* ==========================================================================
+   MODULE 8: ENDOKRIN, STATUS KAKI DIABETIK & STEROID (m8-endokrin-kaki.js)
+   - Status Kaki Diabetik (PEDIS, Wagner-Meggit, Texas, & ABI Interpreter)
+   - Suplementasi Kortikosteroid Perioperatif / Stres Medis (Tabel 12 Appel/Annane)
+   - Tatalaksana Gula Darah & Drip Insulin Basal / ICU / Perioperatif
+   ========================================================================== */
+
+// 1. Status Kaki Diabetik & ABI Interpreter
+reg({
+  id: 'pedis-wagner',
+  nama: 'Status Kaki Diabetik (PEDIS, Wagner, Texas & ABI)',
+  divisi: 'Endokrin-Metabolik',
+  tags: 'pedis wagner texas abi kaki diabetik ulkus gangren amputasi monofilamen endokrin',
+  batch: 'M8',
+  fields: [
+    { id: 'regio', label: 'Regio Pedis', type: 'select', options: [['Pedis Sinistra (Kiri)', 'sinistra'], ['Pedis Dextra (Kanan)', 'dextra'], ['Bilateral', 'bilateral']], val: 'sinistra' },
+    { id: 'abi_val', label: 'Nilai ABI (Ankle-Brachial Index)', type: 'number', step: 0.01, val: 1.00 },
+    { id: 'monofilament', label: 'Tes Sensibilitas Monofilamen 10g', type: 'select', options: [['Normal / Sensasi Utuh (+)', 'intact'], ['Terganggu / Hilang Sensasi Proteksi (-)', 'loss']], val: 'loss' },
+    
+    // Dimensi & Karakteristik Ulkus
+    { id: 'ulcer_len', label: 'Panjang Ulkus (cm)', type: 'number', step: 0.1, val: 4.0 },
+    { id: 'ulcer_wid', label: 'Lebar Ulkus (cm)', type: 'number', step: 0.1, val: 3.0 },
+    { id: 'depth', label: 'Kedalaman Ulkus (Depth)', type: 'select', options: [
+      ['Derajat 0: Kulit utuh / Kalus pre-ulkus', '0'],
+      ['Derajat 1: Superfisial (hanya dermis, tidak menembus subkutan)', '1'],
+      ['Derajat 2: Dalam (mencapai tendon, fasia, kapsul sendi, atau otot)', '2'],
+      ['Derajat 3: Menembus tulang / osteomielitis / abses sendi', '3']
+    ], val: '2' },
+    { id: 'infection', label: 'Derajat Infeksi (Infection)', type: 'select', options: [
+      ['Grade 1: Tanpa tanda infeksi / pus', '1'],
+      ['Grade 2: Infeksi Ringan (eritema < 2 cm dari tepi ulkus)', '2'],
+      ['Grade 3: Infeksi Sedang (eritema ≥ 2 cm, abses dalam, osteitis, fasitis)', '3'],
+      ['Grade 4: Infeksi Berat / Disertai SIRS / Sepsis', '4']
+    ], val: '1' },
+    { id: 'gangrene', label: 'Kondisi Gangren / Nekrosis', type: 'select', options: [
+      ['Tidak ada gangren', 'none'],
+      ['Gangren Terlokalisir (misal terbatas pada digiti/jari kaki)', 'localized'],
+      ['Gangren Luas (meliputi seluruh forefoot / hindfoot)', 'extensive']
+    ], val: 'none' },
+
+    // Temuan Fisik Tambahan
+    { id: 'dry_skin', label: 'Kulit kering / tumit pecah-pecah', type: 'check' },
+    { id: 'hair_loss', label: 'Bulu rambut ekstremitas menipis', type: 'check' },
+    { id: 'maceration', label: 'Maserasi interdigital', type: 'check' },
+    { id: 'prior_amp', label: 'Riwayat amputasi jari sebelumnya', type: 'check' }
+  ],
+  compute: v => {
+    const abi = Number(v.abi_val || 1.0);
+    const area = (Number(v.ulcer_len || 0) * Number(v.ulcer_wid || 0)).toFixed(1);
+
+    // 1. ABI Interpretation
+    let abiCat = '';
+    if (abi > 1.30) abiCat = 'Non-compressible / Kalsifikasi Arteri Berat';
+    else if (abi >= 0.91) abiCat = 'Normal (Perfusi Adekuat)';
+    else if (abi >= 0.70) abiCat = 'Penyakit Arteri Perifer (PAD) Ringan';
+    else if (abi >= 0.41) abiCat = 'Penyakit Arteri Perifer (PAD) Sedang';
+    else abiCat = 'PAD Berat / Iskemik Mengancam Ekstremitas';
+
+    // 2. Wagner Classification
+    let wagnerGrade = 0;
+    if (v.gangrene === 'extensive') wagnerGrade = 5;
+    else if (v.gangrene === 'localized') wagnerGrade = 4;
+    else if (v.depth === '3') wagnerGrade = 3;
+    else if (v.depth === '2') wagnerGrade = 2;
+    else if (v.depth === '1') wagnerGrade = 1;
+    else wagnerGrade = 0;
+
+    const wagnerDesc = [
+      'Grade 0: Kulit utuh / Pre-ulcerative lesion',
+      'Grade 1: Ulkus superfisial tanpa infeksi jaringan dalam',
+      'Grade 2: Ulkus dalam mencapai tendon / kapsul sendi tanpa abses/osteomielitis',
+      'Grade 3: Ulkus dalam dengan abses, osteomielitis, atau infeksi sendi',
+      'Grade 4: Gangren terlokalisir (digiti / forefoot)',
+      'Grade 5: Gangren luas melibatkan seluruh kaki (ekstensif)'
+    ];
+
+    // 3. PEDIS Score
+    let p_grade = abi >= 0.9 ? 1 : (abi >= 0.5 ? 2 : 3);
+    let e_desc = `${area} cm²`;
+    let d_grade = Number(v.depth || 1);
+    let i_grade = Number(v.infection || 1);
+    let s_grade = v.monofilament === 'loss' ? 2 : 1;
+
+    let cls = (wagnerGrade >= 3 || i_grade >= 3 || abi < 0.5) ? 'bad' : (wagnerGrade >= 2 || i_grade >= 2) ? 'warn' : 'ok';
+
+    const resume = `==================================\n` +
+      `STATUS KAKI DIABETIK\n\n` +
+      `Regio Pedis ${v.regio.toUpperCase()}\n` +
+      `Kulit kaki kering (${v.dry_skin ? '+' : '-'}) tumit pecah-pecah (${v.dry_skin ? '+' : '-'}) bulu rambut menipis (${v.hair_loss ? '+' : '-'}) maserasi interdigital (${v.maceration ? '+' : '-'})\n` +
+      `Ulkus (+) ukuran ${v.ulcer_len} x ${v.ulcer_wid} cm (Luas: ${area} cm²)\n` +
+      `Dasar luka: ${v.depth === '3' ? 'tulang / osteomielitis' : v.depth === '2' ? 'otot / tendon' : 'superfisial dermis'}\n` +
+      `Infeksi: Grade ${i_grade} (${v.infection === '1' ? 'Tanpa tanda infeksi' : 'Disertai infeksi'})\n` +
+      `Gangren: ${v.gangrene}\n` +
+      `Amputasi jari kaki: ${v.prior_amp ? '(+) riwayat amputasi' : '(-)'}\n` +
+      `Tes monofilamen pada pedis: ${v.monofilament === 'loss' ? '(-) Hilang sensasi proteksi' : '(+) Normal'}\n\n` +
+      `Vaskularisasi & ABI:\n` +
+      `- ABI: ${abi.toFixed(2)} (${abiCat})\n\n` +
+      `Staging Klinis:\n` +
+      `- Wagner-Meggit: ${wagnerDesc[wagnerGrade]}\n` +
+      `- Klasifikasi PEDIS: P${p_grade} E(${e_desc}) D${d_grade} I${i_grade} S${s_grade}\n` +
+      `==================================`;
+
+    return {
+      value: `Wagner ${wagnerGrade} | PEDIS P${p_grade}E${d_grade}I${i_grade}S${s_grade}`,
+      text: `<b>${wagnerDesc[wagnerGrade]}</b><br>` +
+            `• <b>ABI:</b> ${abi.toFixed(2)} (${abiCat})<br>` +
+            `• <b>PEDIS:</b> Perfusi P${p_grade}, Luas ${area} cm², Kedalaman D${d_grade}, Infeksi I${i_grade}, Sensasi S${s_grade}`,
+      cls,
+      resume
+    };
+  }
+});
+
+// 2. Suplementasi Kortikosteroid Perioperatif / Stres Medis (Tabel 12 Appel/Annane)
+reg({
+  id: 'steroid-perioperative',
+  nama: 'Rekomendasi Suplementasi Kortikosteroid Perioperatif',
+  divisi: 'Endokrin-Metabolik',
+  tags: 'kortikosteroid steroid hidrokortison metilprednisolon stres operasi insufisiensi adrenal preop',
+  batch: 'M8',
+  fields: [
+    { id: 'stress_level', label: 'Derajat Stres Medis atau Operasi', type: 'select', options: [
+      ['Minor (Hernia inguinalis, kolonoskopi, demam ringan, GE ringan-sedang)', 'minor'],
+      ['Sedang (Kolesistektomi, hemikolektomi, demam tinggi, pneumonia, GE berat)', 'moderate'],
+      ['Berat (Operasi kardiotoraks mayor, Whipple, reseksi hepar, pankreatitis)', 'severe'],
+      ['Kondisi Kritis (Syok septik, hipotensi refrakter sepsis)', 'critical']
+    ], val: 'moderate' }
+  ],
+  compute: v => {
+    let dosis = '', detail = '', cls = 'ok';
+
+    if (v.stress_level === 'minor') {
+      dosis = '25 mg hidrokortison ATAU 5 mg metilprednisolon intravena pada hari prosedur.';
+      detail = 'Diberikan saat induksi anestesi. Pada hari berikutnya pasien dapat langsung kembali ke dosis steroid rumatan oral biasa.';
+      cls = 'ok';
+    } else if (v.stress_level === 'moderate') {
+      dosis = '50–75 mg hidrokortison ATAU 10–15 mg metilprednisolon intravena pada hari prosedur.';
+      detail = 'Diturunkan secara cepat dalam 1–2 hari ke dosis awal. Atau: Dosis steroid yang biasa digunakan ditambah + 25 mg Hidrokortison saat induksi + 100 mg hidrokortison/hari.';
+      cls = 'warn';
+    } else if (v.stress_level === 'severe') {
+      dosis = '100–150 mg hidrokortison ATAU 20–30 mg metilprednisolon intravena pada hari prosedur.';
+      detail = 'Diturunkan dengan cepat dalam 1–2 hari ke dosis awal rumatan pasca operasi stabil.';
+      cls = 'bad';
+    } else {
+      dosis = '50 mg hidrokortison intravena setiap 6 jam (200 mg/hari) DENGAN 50 µg fludrokortison/hari selama 7 hari.';
+      detail = 'Protokol syok septik / hipotensi refrakter vasopresor (Annane et al.). Tappering off bertahap setelah vasopresor berhasil disapih.';
+      cls = 'bad';
+    }
+
+    const resume = `[REKOMENDASI SUPLEMENTASI KORTIKOSTEROID PERIOPERATIF / STRES MEDIS]\n` +
+      `Kategori: ${v.stress_level.toUpperCase()}\n` +
+      `Dosis Rekomendasi: ${dosis}\n` +
+      `Instruksi: ${detail}\n` +
+      `*Sumber: Panduan Suplementasi Kortikosteroid (Appel GB, Silva FG, Pirani CL / Annane dkk.)`;
+
+    return {
+      value: `${v.stress_level.toUpperCase()} STRESS`,
+      text: `<b>Dosis Rekomendasi:</b><br>${dosis}<br><br><span style="color:var(--mut);">Instruksi: ${detail}</span>`,
+      cls,
+      resume
+    };
+  }
+});
+
+// 3. Tatalaksana Gula Darah & Drip Insulin Basal / Perioperatif
+reg({
+  id: 'insulin-perioperative',
+  nama: 'Tatalaksana Gula Darah & Drip Insulin Perioperatif / ICU',
+  divisi: 'Endokrin-Metabolik',
+  tags: 'insulin drip sliding scale gds perioperatif kad hhs icu gula darah',
+  batch: 'M8',
+  fields: [
+    { id: 'cur_bs', label: 'Gula Darah Saat Ini (mg/dL)', type: 'number', step: 1, val: 240, ctx: 'glu' },
+    { id: 'prior_bs', label: 'Gula Darah 1 Jam Sebelumnya (bila evaluasi drip)', type: 'number', step: 1, val: 280 },
+    { id: 'cur_rate', label: 'Kecepatan Drip Insulin Saat Ini (Unit/jam)', type: 'number', step: 0.5, val: 2.0 },
+    { id: 'condition', label: 'Kondisi Klinis Pasien', type: 'select', options: [
+      ['Pasien Puasa Preoperatif / Perioperatif', 'preop'],
+      ['Pasien Kritis / Syok / Kebutuhan Basal ICU', 'icu']
+    ], val: 'preop' }
+  ],
+  compute: v => {
+    const bs = Number(v.cur_bs || 200);
+    const prevBs = v.prior_bs ? Number(v.prior_bs) : null;
+    const curRate = Number(v.cur_rate || 0);
+
+    let tindakan = '', targetDrip = '', cls = 'ok';
+
+    if (bs < 100) {
+      cls = 'bad';
+      tindakan = '<b>Standby OFF drip insulin!</b> Maintenance infus D5% 20 tpm. Monitor BS tiap 1 jam.';
+      targetDrip = '0 Unit/jam (OFF)';
+    } else if (bs < 140) {
+      cls = 'ok';
+      tindakan = 'Turunkan kecepatan drip menjadi <b>0.5 Unit/jam</b>. Monitor BS tiap 4 jam.';
+      targetDrip = '0.5 Unit/jam';
+    } else if (bs <= 180) {
+      cls = 'ok';
+      tindakan = '<b>Target BS Tercapai (140 – 180 mg/dL)!</b> Pertahankan drip <b>1 Unit/jam</b>.';
+      targetDrip = '1.0 Unit/jam';
+    } else if (bs <= 250) {
+      cls = 'warn';
+      if (v.condition === 'preop') {
+        tindakan = 'Berikan <b>Correctional dose Insulin Rapid 3 Unit Subkutan (SC)</b>. Evaluasi BS 2-4 jam.';
+        targetDrip = 'Rapid 3 U SC';
+      } else {
+        tindakan = 'Jalankan drip insulin <b>1 – 2 Unit/jam</b>. Evaluasi BS tiap 2 jam.';
+        targetDrip = '1.5 Unit/jam';
+      }
+    } else {
+      cls = 'bad';
+      let newRate = curRate > 0 ? curRate + 1 : 2.0;
+      tindakan = `GDS > 250 mg/dL: Mulai/Titrasi Drip Insulin Aspart (50 unit dalam NS 50 mL). Jalankan <b>${newRate} Unit/jam</b> (${newRate} cc/jam).`;
+      targetDrip = `${newRate} Unit/jam`;
+    }
+
+    // Evaluasi Delta Penurunan GDS
+    let deltaNote = '';
+    if (prevBs !== null) {
+      const drop = prevBs - bs;
+      if (drop > 75) {
+        deltaNote = `<br><span style="color:var(--warn);">⚠️ Penurunan GDS cepat (${drop} mg/dL dalam 1 jam > 75 mg/dL) ➔ Turunkan drip 1 Unit/jam untuk cegah hipoglikemia!</span>`;
+      } else if (drop < 50 && bs > 200) {
+        deltaNote = `<br><span style="color:var(--warn);">⚠️ Penurunan GDS lambat (${drop} mg/dL dalam 1 jam < 50 mg/dL) ➔ Naikkan drip 1 Unit/jam.</span>`;
+      }
+    }
+
+    const templateKonsul = `[TATALAKSANA GULA DARAH PERIOPERATIF / BASAL INFUSION]\n` +
+      `- Cek BS tiap 2-4 jam perioperatif selama pasien puasa\n` +
+      `- Status Saat Ini: GDS ${bs} mg/dL ➔ ${tindakan.replace(/<[^>]+>/g, '')}\n` +
+      `- Protokol Standar:\n` +
+      `  * Bila BS < 100 mg/dL : Standby off drip, infus maintenance D5% 20 tpm, monitor BS tiap 1 jam\n` +
+      `  * Bila BS 100-139 mg/dL : Jalan 0.5 unit/jam\n` +
+      `  * Bila BS 140-180 mg/dL : Target optimal, jalan 1 unit/jam\n` +
+      `  * Bila BS 200-250 mg/dL : Correctional dose insulin rapid 3 unit SC\n` +
+      `  * Bila BS > 250 mg/dL : Drip insulin aspart (50 unit dalam NS 50 ml) jalan 0.5 - 2 unit/jam\n` +
+      `- Monitoring Wajib:\n` +
+      `  * Cek Kalium serum tiap 6-8 jam selama drip insulin berjalan\n` +
+      `  * Target BS perioperatif: 140 - 180 mg/dL`;
+
+    return {
+      value: `Target: ${targetDrip}`,
+      text: `${tindakan}${deltaNote}<br><br><span style="color:var(--mut);">Target BS perioperatif: 140 – 180 mg/dL | Monitor K+ q6-8h</span>`,
+      cls,
+      resume: templateKonsul
+    };
+  }
+});
+
+
+/* ==========================================================================
+   MODULE 9: PENYAKIT TROPIK INFEKSI, KARDIOLOGI & GINJAL (m9-pti-cardio-nefro.js)
+   - Wells Score for DVT & Wells Score for PE
+   - Protokol Resusitasi Cairan Dengue Shock Syndrome (DSS)
+   - Protokol Kontras & MACD (Maximum Allowable Contrast Dose)
+   - Kalkulator Koreksi Bikarbonat (Nabic / Meylon 25 mEq)
+   - Protokol Drip Ca Glukonas 3x Siklus Hipokalsemia
+   - Panduan Profilaksis & Terapi Infeksi Oportunistik (IO) HIV
+   - Panduan Penghentian & Memulai Kembali DMARDs/Imunosupresan Perioperatif
+   ========================================================================== */
+
+// 1. Wells Score for DVT
+reg({
+  id: 'wells-dvt',
+  nama: 'Wells Score for DVT (Deep Vein Thrombosis)',
+  divisi: 'Kardiologi',
+  tags: 'wells dvt trombosis vena kaki bengkak kardiologi vaskular',
+  batch: 'M9',
+  fields: [
+    { id: 'cancer', label: 'Keganasan aktif (dalam terapi atau paliatif 6 bulan terakhir) (+1)', type: 'check' },
+    { id: 'bedridden', label: 'Tirah baring > 3 hari atau bedah mayor dalam 12 minggu (+1)', type: 'check' },
+    { id: 'calf_swelling', label: 'Pembengkakan betis > 3 cm dibanding sisi asimtomatik (+1)', type: 'check' },
+    { id: 'collateral_veins', label: 'Vena kolateral superfisial non-varikosa (+1)', type: 'check' },
+    { id: 'entire_leg', label: 'Seluruh tungkai bengkak / entire leg swollen (+1)', type: 'check' },
+    { id: 'tenderness', label: 'Nyeri tekan lokal sepanjang sistem vena profunda (+1)', type: 'check' },
+    { id: 'pitting_edema', label: 'Pitting edema lebih berat pada tungkai yang bergejala (+1)', type: 'check' },
+    { id: 'paralysis', label: 'Paresis, paralisis, atau imobilisasi gips tungkai bawah (+1)', type: 'check' },
+    { id: 'prior_dvt', label: 'Riwayat DVT terkonfirmasi sebelumnya (+1)', type: 'check' },
+    { id: 'alt_diag', label: 'Diagnosis alternatif lain sama atau lebih mungkin dibanding DVT (-2)', type: 'check' }
+  ],
+  compute: v => {
+    let score = 0;
+    if (v.cancer) score += 1;
+    if (v.bedridden) score += 1;
+    if (v.calf_swelling) score += 1;
+    if (v.collateral_veins) score += 1;
+    if (v.entire_leg) score += 1;
+    if (v.tenderness) score += 1;
+    if (v.pitting_edema) score += 1;
+    if (v.paralysis) score += 1;
+    if (v.prior_dvt) score += 1;
+    if (v.alt_diag) score -= 2;
+
+    let cat = '', prob = '', saran = '', cls = 'ok';
+    if (score <= 0) {
+      cat = 'Low Risk Group (DVT Unlikely)';
+      prob = '~ 3% – 5%';
+      saran = 'Pemeriksaan D-Dimer (sensitivitas tinggi). Bila D-Dimer normal (<500 ng/mL), DVT dapat dieksklusi tanpa perlu USG Doppler cito.';
+      cls = 'ok';
+    } else if (score <= 2) {
+      cat = 'Moderate Risk Group';
+      prob = '~ 17%';
+      saran = 'Pemeriksaan D-Dimer dan/atau USG Vaskular Doppler Kompresi Tungkai Bawah.';
+      cls = 'warn';
+    } else {
+      cat = 'High Risk Group (DVT Likely)';
+      prob = '≥ 75%';
+      saran = 'Segera lakukan USG Vaskular Doppler Kompresi Tungkai Bawah. Pertimbangkan inisiasi dini antikoagulan terapeutik (LMWH / UFH) bila USG tertunda dan tidak ada kontraindikasi perdarahan.';
+      cls = 'bad';
+    }
+
+    const resume = `Wells score for DVT\n` +
+      `Active Cancer (${v.cancer ? '+1' : '0'})\n` +
+      `Bedridden >72h / Surgery (${v.bedridden ? '+1' : '0'})\n` +
+      `Calf Swelling compared to other leg (${v.calf_swelling ? '+1' : '0'})\n` +
+      `Collateral superficial veins (${v.collateral_veins ? '+1' : '0'})\n` +
+      `Entire leg swollen (${v.entire_leg ? '+1' : '0'})\n` +
+      `Localized tenderness along deep venous system (${v.tenderness ? '+1' : '0'})\n` +
+      `Pitting edema compared to symptomatic leg (${v.pitting_edema ? '+1' : '0'})\n` +
+      `Paresis/paralysis/plaster immobilization (${v.paralysis ? '+1' : '0'})\n` +
+      `Previously documented DVT (${v.prior_dvt ? '+1' : '0'})\n` +
+      `Alternate diagnosis as likely (${v.alt_diag ? '-2' : '0'})\n` +
+      `Total: ${score} points\n` +
+      `${cat} (Probabilitas DVT: ${prob})\n` +
+      `Saran: ${saran}`;
+
+    return {
+      value: `${score} Poin (${cat.split(' ')[0]})`,
+      text: `<b>${cat} (${score} Poin)</b><br>Probabilitas DVT: <b>${prob}</b><br><br><span style="color:var(--pri);">Saran:</span> ${saran}`,
+      cls,
+      resume
+    };
+  }
+});
+
+// 2. Wells Score for PE
+reg({
+  id: 'wells-pe',
+  nama: 'Wells Score for PE (Pulmonary Embolism)',
+  divisi: 'Kardiologi',
+  tags: 'wells pe emboli paru sesak napas kardiologi pulmo',
+  batch: 'M9',
+  fields: [
+    { id: 'dvt_signs', label: 'Tanda & gejala klinis DVT objektif (+3.0)', type: 'check' },
+    { id: 'pe_likely', label: 'Diagnosis alternatif lain kurang mungkin dibanding PE (+3.0)', type: 'check' },
+    { id: 'tachycardia', label: 'Denyut Jantung / HR > 100 x/menit (+1.5)', type: 'check', ctxFn: c => c.hr !== undefined ? c.hr > 100 : undefined },
+    { id: 'immob_surg', label: 'Imobilisasi ≥ 3 hari atau pembedahan dalam 4 minggu (+1.5)', type: 'check' },
+    { id: 'prior_vte', label: 'Riwayat DVT atau PE sebelumnya terkonfirmasi (+1.5)', type: 'check' },
+    { id: 'hemoptysis', label: 'Hemoptisis / Batuk Darah (+1.0)', type: 'check' },
+    { id: 'malignancy', label: 'Keganasan aktif (dalam terapi atau paliatif) (+1.0)', type: 'check' }
+  ],
+  compute: v => {
+    let score = 0;
+    if (v.dvt_signs) score += 3.0;
+    if (v.pe_likely) score += 3.0;
+    if (v.tachycardia) score += 1.5;
+    if (v.immob_surg) score += 1.5;
+    if (v.prior_vte) score += 1.5;
+    if (v.hemoptysis) score += 1.0;
+    if (v.malignancy) score += 1.0;
+
+    let cat = '', saran = '', cls = 'ok';
+    if (score <= 4.0) {
+      cat = 'PE Unlikely (Risiko Rendah / Sedang)';
+      saran = 'Periksa D-Dimer. Bila D-Dimer negatif (<500 ng/mL), PE dapat disingkirkan tanpa CTPA (CT Pulmonary Angiography).';
+      cls = 'ok';
+    } else {
+      cat = 'PE Likely (Risiko Tinggi)';
+      saran = 'Segera jadwalkan CTPA (CT Pulmonary Angiography). Pertimbangkan inisiasi dini antikoagulan terapeutik bila tidak ada kontraindikasi perdarahan.';
+      cls = 'bad';
+    }
+
+    const resume = `[WELLS SCORE FOR PULMONARY EMBOLISM]\n` +
+      `- Total Skor: ${score.toFixed(1)} poin (${cat})\n` +
+      `- Rekomendasi: ${saran}`;
+
+    return {
+      value: `${score.toFixed(1)} Poin (${score <= 4 ? 'PE Unlikely' : 'PE Likely'})`,
+      text: `<b>${cat} (${score.toFixed(1)} Poin)</b><br><span style="color:var(--pri);">Alur Klinis:</span> ${saran}`,
+      cls,
+      resume
+    };
+  }
+});
+
+// 3. Protokol Resusitasi Cairan DSS (Dengue Shock Syndrome)
+reg({
+  id: 'dss-fluid',
+  nama: 'Protokol Resusitasi Cairan DSS (Dengue Shock Syndrome)',
+  divisi: 'Penyakit Tropik & Infeksi',
+  tags: 'dss dengue shock syndrome resusitasi cairan ringer laktat pti konsul',
+  batch: 'M9',
+  fields: [
+    { id: 'bb', label: 'Berat Badan Pasien (kg)', type: 'number', step: 1, val: 50, ctx: 'bb' },
+    { id: 'phase', label: 'Tahapan Resusitasi Saat Ini', type: 'select', options: [
+      ['Loading Awal: 10 - 20 mL/kg dalam 30 - 60 menit', 'bolus'],
+      ['Tahap 1 Pasca Loading: 7 mL/kgBB/jam (1 - 2 jam)', 'step7'],
+      ['Tahap 2 Stabilisasi: 5 mL/kgBB/jam (1 - 2 jam)', 'step5'],
+      ['Tahap 3 Tapering: 3 mL/kgBB/jam (2 - 4 jam)', 'step3'],
+      ['Tahap 4 Maintenance Pemulihan: 1.5 - 2 mL/kgBB/jam (~20-30 tpm)', 'maint']
+    ], val: 'bolus' }
+  ],
+  compute: v => {
+    const bb = Number(v.bb || 50);
+    let volMl = 0, rateCcHr = 0, tpm = 0, desc = '', cls = 'warn';
+
+    if (v.phase === 'bolus') {
+      volMl = 20 * bb; // 1000 cc pd BB 50 kg
+      rateCcHr = volMl; // dalam 1 jam
+      tpm = Math.round((volMl * 20) / 60);
+      desc = `Loading RL 1000 cc IV (atau ${volMl} cc = 10–20 mL/kg) habis dalam 30–60 menit. Berikan O2 nasal kanul 2–4 lpm.`;
+      cls = 'bad';
+    } else if (v.phase === 'step7') {
+      rateCcHr = 7 * bb; // 350 cc/jam
+      tpm = Math.round((rateCcHr * 20) / 60);
+      desc = `RL ${rateCcHr} cc dalam 1 jam (7 cc/kgBB/jam). Evaluasi tanda vital, perfusi akral, dan hematokrit tiap jam.`;
+      cls = 'warn';
+    } else if (v.phase === 'step5') {
+      rateCcHr = 5 * bb; // 250 cc/jam
+      tpm = Math.round((rateCcHr * 20) / 60);
+      desc = `RL ${rateCcHr} cc dalam 1 jam (5 cc/kgBB/jam). Bila hemodinamik membaik, turunkan ke tahap 3 cc/kgBB/jam.`;
+      cls = 'ok';
+    } else if (v.phase === 'step3') {
+      rateCcHr = 3 * bb; // 150 cc/jam
+      tpm = Math.round((rateCcHr * 20) / 60);
+      desc = `RL ${rateCcHr} cc per jam (3 cc/kgBB/jam) selama 2–4 jam. Pantau ketat produksi urine (target ≥ 0.5 cc/kg/jam).`;
+      cls = 'ok';
+    } else {
+      rateCcHr = Math.round(1.5 * bb);
+      tpm = 30; // standard maintenance
+      desc = `IVFD RL maintenance 20 – 30 tpm (~${rateCcHr} cc/jam). Hentikan cairan intravena 48 jam pasca syok teratasi / fase konvalesen.`;
+      cls = 'ok';
+    }
+
+    const templateKonsul = `[PROTOKOL RESUSITASI CAIRAN DSS (BB ${bb} kg)]\n` +
+      `Bila syok terkompensasi / dekompensasi:\n` +
+      `1. Loading RL 1000 cc IV (atau 10-20 mL/kgBB) habis dalam 30-60 menit\n` +
+      `   O2 Nasal Kanul 2-4 lpm | Pasang Kateter Urin | Diet lunak/cair 1900 kkal\n\n` +
+      `2. Bila pasca loading membaik:\n` +
+      `   - RL ${7 * bb} cc dalam 1 jam (7 cc/kgBB/jam)\n` +
+      `3. Bila membaik:\n` +
+      `   - RL ${5 * bb} cc dalam 1 jam (5 cc/kgBB/jam)\n` +
+      `4. Bila membaik:\n` +
+      `   - RL ${3 * bb} cc per jam (3 cc/kgBB/jam) selama 2-4 jam\n` +
+      `5. Bila stabil:\n` +
+      `   - Kembali pada maintenance IVFD RL 20-30 tpm (~${Math.round(1.5 * bb)} cc/jam)\n\n` +
+      `Monitoring Ketat:\n` +
+      `- TTV & Akral tiap 15-30 menit hingga stabil\n` +
+      `- Cek Darah Lengkap & Hematokrit serial tiap 4-6 jam\n` +
+      `- Waspadai overload cairan bila Hct turun drastis namun klinis memburuk`;
+
+    return {
+      value: `${rateCcHr} cc/jam (~${tpm} tpm)`,
+      text: `<b>Tahapan: ${v.phase.toUpperCase()} (BB ${bb} kg)</b><br>${desc}<br>Kecepatan infus: <b>${rateCcHr} cc/jam</b> (~<b>${tpm} tetes/menit makro</b>)`,
+      cls,
+      resume: templateKonsul
+    };
+  }
+});
+
+// 4. Protokol Kontras & MACD (Maximum Allowable Contrast Dose)
+reg({
+  id: 'macd-cin',
+  nama: 'Protokol Kontras & MACD (Contrast-Induced Nephropathy)',
+  divisi: 'Ginjal-Hipertensi',
+  tags: 'macd kontras cin aki kreatinin resfar hidrasi nefropati nefro',
+  batch: 'M9',
+  fields: [
+    { id: 'bb', label: 'Berat Badan Pasien (kg)', type: 'number', step: 1, val: 60, ctx: 'bb' },
+    { id: 'cr', label: 'Serum Kreatinin Pre-Tindakan (mg/dL)', type: 'number', step: 0.1, val: 1.5, ctx: 'cr' },
+    { id: 'planned_vol', label: 'Volume Kontras Terencana (mL)', type: 'number', step: 5, val: 100 }
+  ],
+  compute: v => {
+    const bb = Number(v.bb || 60);
+    const cr = Number(v.cr || 1.5);
+    const planned = Number(v.planned_vol || 100);
+
+    // MACD = 5 mL x BB / SC
+    const macd = Math.round((5 * bb) / cr);
+    const isExceeded = planned > macd;
+    const ratio = (planned / macd).toFixed(2);
+
+    let cls = isExceeded ? 'bad' : (ratio > 0.8 ? 'warn' : 'ok');
+
+    const templateKonsul = `[PROTOKOL PERLINDUNGAN KONTRAS GINJAL]\n` +
+      `Estimasi Batas Maksimal Kontras (MACD):\n` +
+      `- Rumus MACD: (5 mL x ${bb} kg) / ${cr} mg/dL = ${macd} mL\n` +
+      `- Volume Kontras Terencana: ${planned} mL (Rasio: ${ratio}x MACD) ${isExceeded ? '➔ MELEBIHI BATAS AMAN!' : '➔ Dalam batas aman'}\n\n` +
+      `Himbauan / Protokol Pencegahan CIN:\n` +
+      `- Hidrasi NaCl 0.9% 1 - 1.5 cc/kgBB/jam (${Math.round(1.2 * bb)} cc/jam), mulai 12 jam sebelum sampai 12 jam post tindakan\n` +
+      `- Injeksi intravena Resfar (NAC) 5 gr, 4 jam sebelum dan 4 jam post tindakan, dilanjutkan NAC oral 2x600 mg sampai H+5\n` +
+      `- Hindari obat nefrotoksik (NSAID, Aminoglikosida, dll) & tunda Metformin 48 jam\n` +
+      `- Saran penggunaan jenis kontras Iso-osmolar (IOCM) dengan volume < ${macd} mL\n` +
+      `- Monitoring Cairan Masuk - Cairan Keluar (CM-CK): urine 6 jam pertama, lalu urine 24 jam\n` +
+      `- Cek serial BUN & Serum Kreatinin pada 12, 24, dan 48 jam post tindakan`;
+
+    return {
+      value: `MACD: ${macd} mL (${ratio}x)`,
+      text: `<b>Maksimum Volume Kontras (MACD): ${macd} mL</b><br>` +
+            `Rasio Volume Terencana: <b>${ratio}x</b> ${isExceeded ? '<span style="color:var(--bad);font-weight:bold;">(Melebihi MACD! Risiko CIN Tinggi)</span>' : '<span style="color:var(--ok);">(Aman)</span>'}<br><br>` +
+            `• Hidrasi NaCl: <b>${Math.round(1.2 * bb)} cc/jam</b> (12 jam pre & post)<br>` +
+            `• Resfar (NAC): 5 g IV 4 jam pre & post, lanjut oral 2x600 mg s.d. H+5`,
+      cls,
+      resume: templateKonsul
+    };
+  }
+});
+
+// 5. Kalkulator Koreksi Bikarbonat (Nabic / Meylon 25 mEq)
+reg({
+  id: 'koreksi-nabic',
+  nama: 'Kalkulator Koreksi Bikarbonat (Nabic / Meylon 25 mEq)',
+  divisi: 'Ginjal-Hipertensi',
+  tags: 'nabic meylon bikarbonat hco3 asidosis asidemia koreksi nefro cairan',
+  batch: 'M9',
+  fields: [
+    { id: 'bb', label: 'Berat Badan Pasien (kg)', type: 'number', step: 1, val: 50, ctx: 'bb' },
+    { id: 'cur_hco3', label: 'HCO3 Aktual Pasien (mEq/L)', type: 'number', step: 0.5, val: 4.0, ctx: 'hco3' },
+    { id: 'target_hco3', label: 'Target HCO3 Awal (mEq/L)', type: 'number', step: 0.5, val: 10.0 }
+  ],
+  compute: v => {
+    const bb = Number(v.bb || 50);
+    const cur = Number(v.cur_hco3 || 4);
+    const target = Number(v.target_hco3 || 10);
+
+    const delta = Math.max(0, target - cur);
+    // Defisit = 0.5 x BB x Delta HCO3
+    const defisit = 0.5 * bb * delta;
+    // 1 flacon Meylon = 25 mEq (8.4% 25 mL)
+    const flacon = (defisit / 25).toFixed(1);
+
+    // Bolus 1/3 (atau 50 mEq) dan sisa drip 24 jam
+    let bolusMeq = defisit >= 50 ? 50 : defisit;
+    let dripMeq = Math.max(0, defisit - bolusMeq);
+    let bolusFlacon = Math.round(bolusMeq / 25);
+    let dripFlacon = (dripMeq / 25).toFixed(1);
+
+    const templateKonsul = `[KOREKSI ASIDOSIS METABOLIK BERAT / NABIC]\n` +
+      `- Delta HCO3: ${target} - ${cur} = ${delta.toFixed(1)} mEq/L\n` +
+      `- Rumus Defisit: 0.5 x ${bb} kg x ${delta.toFixed(1)} = ${defisit.toFixed(0)} mEq (Total: ~${flacon} flacon Meylon @ 25 mEq)\n\n` +
+      `Protokol Pemberian:\n` +
+      `➔ Bolus Nabic ${bolusMeq} mEq (${bolusFlacon} flacon Meylon) dalam 100 cc NaCl 0.9% habis dalam 30 menit IV\n` +
+      (dripMeq > 0 ? `➔ Lanjut Drip Nabic ${dripMeq.toFixed(0)} mEq (~${dripFlacon} flacon Meylon) dalam 500 cc NaCl 0.9% habis dalam 24 jam IV\n\n` : '\n') +
+      `Evaluasi & Monitoring:\n` +
+      `- Evaluasi AGD ulang besok pagi (24 jam post koreksi)\n` +
+      `- Waspadai hipokalsemia akut (kalsium ionik turun saat asidosis terkoreksi) dan hipokalemia`;
+
+    return {
+      value: `${defisit.toFixed(0)} mEq (~${flacon} fl Meylon)`,
+      text: `<b>Defisit Bikarbonat: ${defisit.toFixed(0)} mEq (~${flacon} flacon Meylon)</b><br>` +
+            `• <b>Bolus:</b> Nabic ${bolusMeq} mEq (${bolusFlacon} fl Meylon) dlm 100 cc NS habis 30 menit<br>` +
+            (dripMeq > 0 ? `• <b>Drip:</b> Nabic ${dripMeq.toFixed(0)} mEq (~${dripFlacon} fl Meylon) dlm 500 cc NS habis 24 jam` : ''),
+      cls: defisit > 0 ? 'warn' : 'ok',
+      resume: templateKonsul
+    };
+  }
+});
+
+// 6. Protokol Drip Ca Glukonas 3x Siklus Hipokalsemia
+reg({
+  id: 'ca-glukonas-drip',
+  nama: 'Protokol Drip Ca Glukonas 3x Siklus (Hipokalsemia)',
+  divisi: 'Cairan & Elektrolit',
+  tags: 'kalsium glukonas ca hipokalsemia tetani drip konsul meylon elektrolit',
+  batch: 'M9',
+  fields: [
+    { id: 'ca_val', label: 'Kadar Kalsium Serum Total (mg/dL)', type: 'number', step: 0.1, val: 6.8, ctx: 'ca' },
+    { id: 'alb_val', label: 'Albumin Serum (g/dL)', type: 'number', step: 0.1, val: 2.8, ctx: 'alb' },
+    { id: 'symptomatic', label: 'Gejala Akut / Tetani / Tanda Chvostek / Trousseau (+)', type: 'check' }
+  ],
+  compute: v => {
+    const ca = Number(v.ca_val || 7.0);
+    const alb = Number(v.alb_val || 3.0);
+    const caCorr = ca + 0.8 * (4.0 - alb);
+
+    const templateKonsul = `[KOREKSI HIPOKALSEMIA - PROTOKOL DRIP 3X SIKLUS]\n` +
+      `- Kalsium Terukur: ${ca.toFixed(2)} mg/dL | Albumin: ${alb.toFixed(1)} g/dL\n` +
+      `- Kalsium Terkoreksi (Payne): ${caCorr.toFixed(2)} mg/dL ${caCorr < 8.5 ? '(Hipokalsemia)' : '(Normal)'}\n\n` +
+      `Protokol Pemberian:\n` +
+      `- Drip cepat Ca Glukonas 1 ampul (10 mL 10%) dalam D5% 200 cc, habis dalam 30 menit IV\n` +
+      `- Diberikan sebanyak 3x siklus, dengan jeda 2 jam tiap pemberian\n` +
+      `- Cek Ca serum dan albumin ulang 2 jam setelah 3x pemberian drip selesai\n\n` +
+      `Perhatian Klinis:\n` +
+      `- Jangan mencampur Kalsium Glukonas dengan Bikarbonat (Nabic) atau Fosfat dalam satu jalur infus (risiko presipitasi kristal kalsium kation-anion)\n` +
+      `- Cek dan koreksi kadar Magnesium (hipomagnesemia menyebabkan hipokalsemia refrakter)`;
+
+    return {
+      value: `Ca Payne: ${caCorr.toFixed(2)} mg/dL`,
+      text: `<b>Kalsium Terkoreksi: ${caCorr.toFixed(2)} mg/dL</b><br>` +
+            `• <b>Regimen:</b> Drip cepat Ca Glukonas 1 ampul dalam D5% 200 cc habis 30 menit IV (diberikan 3x, jeda 2 jam tiap pemberian)<br>` +
+            `• <b>Monitoring:</b> Cek ulang Ca serum & albumin 2 jam pasca 3x drip`,
+      cls: caCorr < 8.0 ? 'bad' : 'warn',
+      resume: templateKonsul
+    };
+  }
+});
+
+// 7. Panduan Profilaksis & Terapi IO HIV
+reg({
+  id: 'hiv-oi-guide',
+  nama: 'Panduan Profilaksis & Terapi Infeksi Oportunistik HIV',
+  divisi: 'Penyakit Tropik & Infeksi',
+  tags: 'hiv cd4 viral load kotrimoksazol pcp toxo candidiasis sifilis pti konsul',
+  batch: 'M9',
+  fields: [
+    { id: 'condition', label: 'Indikasi Klinis / Infeksi Oportunistik', type: 'select', options: [
+      ['Profilaksis Primer PCP & Toksoplasmosis (CD4 < 200)', 'prophylaxis'],
+      ['PCP Sedang – Berat (PaO2 < 70 mmHg / A-a gradient ≥ 35)', 'pcp_severe'],
+      ['PCP Ringan – Sedang (PaO2 ≥ 70 mmHg)', 'pcp_mild'],
+      ['Toksoplasmosis Serebri Akut', 'toxo'],
+      ['Kandidiasis Orofaringeal & Esofageal', 'candida'],
+      ['Sifilis (Early Stage vs Late / Latent)', 'syphilis'],
+      ['Monitoring Pasien HIV Baru & Kontrol Rutin', 'monitoring']
+    ], val: 'prophylaxis' },
+    { id: 'bb', label: 'Berat Badan Pasien (kg)', type: 'number', step: 1, val: 50, ctx: 'bb' },
+    { id: 'cd4', label: 'Hitung CD4 Saat Ini (sel/µL)', type: 'number', step: 1, val: 120 }
+  ],
+  compute: v => {
+    const bb = Number(v.bb || 50);
+    const cd4 = Number(v.cd4 || 100);
+
+    let title = '', regimen = '', cls = 'ok';
+
+    if (v.condition === 'prophylaxis') {
+      title = 'Profilaksis Primer PCP & Toxoplasma';
+      regimen = `• Dosis: <b>Kotrimoksasol 1 x 960 mg per oral</b> harian.\n` +
+        `• Indikasi Stop: CD4 > 200 sel/µL setelah minimal 3 bulan terapi ARV stabil, atau CD4 100–200 dengan viral load tidak terdeteksi 3–6 bulan.`;
+      cls = cd4 < 200 ? 'warn' : 'ok';
+    } else if (v.condition === 'pcp_severe') {
+      title = 'PCP Sedang-Berat (PaO2 < 70 / Aa ≥ 35) (21 Hari)';
+      regimen = `• TMP (${(15*bb).toFixed(0)}–${(20*bb).toFixed(0)} mg) + SMX (${(75*bb).toFixed(0)}–${(100*bb).toFixed(0)} mg)/hari terbagi dalam 3–4 dosis IV/PO.\n` +
+        `• Terapi Tambahan Kortikosteroid Oral:\n` +
+        `  - H1–H5: Prednison 2 x 40 mg PO (atau Metilprednisolon IV 75% dosis prednison)\n` +
+        `  - H6–H10: Prednison 1 x 40 mg PO\n` +
+        `  - H11–H21: Prednison 1 x 20 mg PO\n` +
+        `• Lanjut profilaksis sekunder Kotrimoksasol 1x960 mg hingga CD4 > 200.`;
+      cls = 'bad';
+    } else if (v.condition === 'pcp_mild') {
+      title = 'PCP Ringan-Sedang (21 Hari)';
+      regimen = `• TMP-SMX PO dosis: TMP 15–20 mg/kg/hari terbagi 3 dosis, ATAU TMP-SMX oral 3 x 1920 mg (3 x 2 tablet Forte).\n` +
+        `• Dilanjutkan profilaksis sekunder 1 x 960 mg.`;
+      cls = 'warn';
+    } else if (v.condition === 'toxo') {
+      title = 'Toksoplasmosis Serebri (6 Minggu)';
+      regimen = `• Lini Alternatif Indonesia: TMP 5 mg/kg + SMX 25 mg/kg tiap 12 jam (atau TMP-SMX 4 x 960 mg PO/IV).\n` +
+        `• Dilanjutkan sekunder profilaksis 1 x 960 mg jika CD4 < 200.`;
+      cls = 'bad';
+    } else if (v.condition === 'candida') {
+      title = 'Kandidiasis Mukokutan';
+      regimen = `• Orofaringeal: Flukonazol 1 x 150 mg PO (selama 7–14 hari).\n` +
+        `• Esofageal: Flukonazol 1 x 150–400 mg IV/PO (selama 14–21 hari).`;
+      cls = 'ok';
+    } else if (v.condition === 'syphilis') {
+      title = 'Sifilis Dewasa (WHO Guideline)';
+      regimen = `• Early Stage (Primer, Sekunder, Laten Dini < 1 tahun): Benzatin Penisilin G 2.4 juta Unit IM single dose.\n` +
+        `• Late Latent (> 1 tahun / durasi tidak diketahui) / Tersier: Benzatin Penisilin G 2.4 juta Unit IM tiap minggu sebanyak 3 dosis (total 7.2 juta Unit).`;
+      cls = 'ok';
+    } else {
+      title = 'Jadwal Monitoring Pasien HIV';
+      regimen = `• Pasien Baru Pra-ARV: DL, SGOT/SGPT, SC, HBsAg, Anti-HCV, GDS, VDRL/TPHA, Rontgen dada, TCM sputum, tes kehamilan, CD4.\n` +
+        `• Evaluasi Post-Inisiasi: Cek SC pada 1 bulan post TLD; Cek VL dan CD4 pada 6 bulan post ARV; Pasien kontrol rutin: Cek Viral Load dan CD4 tiap 1 tahun.`;
+      cls = 'ok';
+    }
+
+    const resume = `[PANDUAN TATALAKSANA IO & PROFILAKSIS HIV]\n` +
+      `Kategori: ${title}\n` +
+      `Rekomendasi:\n${regimen.replace(/<[^>]+>/g, '')}\n` +
+      `*Sumber: WHO Guidelines on Opportunistic Infections in HIV`;
+
+    return {
+      value: title,
+      text: `<b>${title}</b><br><div style="font-size:0.9em;margin-top:6px;line-height:1.4;">${regimen.replace(/\n/g, '<br>')}</div>`,
+      cls,
+      resume
+    };
+  }
+});
+
+// 8. Panduan Perioperatif DMARDs / Imunosupresan SLE & Reumatik
+reg({
+  id: 'rheuma-perioperative',
+  nama: 'Panduan Perioperatif DMARDs & Imunosupresan (SLE / RA)',
+  divisi: 'Reumatologi',
+  tags: 'dmard mtx leflunomide sulfasalazin azatioprin steroid preop reuma sle konsul',
+  batch: 'M9',
+  fields: [
+    { id: 'drug', label: 'Jenis Obat Imunosupresan / DMARD', type: 'select', options: [
+      ['Metotreksat (MTX)', 'mtx'],
+      ['Leflunomide (Arava)', 'leflunomide'],
+      ['Sulfasalazin', 'ssz'],
+      ['Azatioprin (Imuran)', 'aza'],
+      ['Klorokuin / Hidroksiklorokuin (Plaquenil)', 'hcq'],
+      ['Agen Biologi (Infliximab, Etanercept, Rituximab)', 'biologics']
+    ], val: 'mtx' }
+  ],
+  compute: v => {
+    let guide = '';
+    if (v.drug === 'mtx') {
+      guide = '• <b>Metotreksat (MTX):</b> Dihentikan <b>1 minggu sebelum operasi</b> dan dapat dilanjutkan kembali <b>1 minggu setelah tindakan operatif</b> (setelah luka operasi sembuh baik tanpa tanda infeksi).';
+    } else if (v.drug === 'leflunomide') {
+      guide = '• <b>Leflunomide:</b> Harus dihentikan <b>2 minggu sebelum operasi</b> dan dapat dilanjutkan kembali <b>3 hari sesudahnya</b> bila fungsi hepar dan penyembuhan luka baik.';
+    } else if (v.drug === 'ssz' || v.drug === 'aza') {
+      guide = '• <b>Sulfasalazin & Azatioprin:</b> Dihentikan <b>1 hari sebelum tindakan bedah</b> dan dilanjutkan kembali <b>3 hari setelahnya</b>.';
+    } else if (v.drug === 'hcq') {
+      guide = '• <b>Klorokuin / Hidroksiklorokuin (HCQ):</b> <b>DAPAT DILANJUTKAN</b> sepanjang periode perioperatif tanpa harus dihentikan.';
+    } else {
+      guide = '• <b>Agen Biologi (Anti-TNF, Rituximab):</b> Dianjurkan dihentikan <b>1 siklus dosis sebelum tindakan</b> (umumnya minimal 1 minggu) dan dilanjutkan kembali <b>1–2 minggu setelah tindakan</b> pasca evaluasi luka bedah.';
+    }
+
+    const templateKonsul = `[MANAJEMEN PERIOPERATIF DMARDs / IMUNOSUPRESAN]\n` +
+      `${guide.replace(/<[^>]+>/g, '')}\n` +
+      `*Sumber: Panduan Rekomendasi Perioperatif Pasien Reumatik & SLE (ACR / IRA)`;
+
+    return {
+      value: v.drug.toUpperCase(),
+      text: guide,
+      cls: 'ok',
+      resume: templateKonsul
+    };
+  }
+});
+
+
 /* ===================== M5: REUMATOLOGI & DOSIS ANTIMIKROBA (rheumatools.html & adjustr-io.html FULL FIDELITY) ===================== */
 
 // --- PART A: RHEUMATOID & AUTOIMMUNE ENGINE ---
@@ -12984,37 +16085,441 @@ Deskripsi: ${kdigo.desc}`;
   }
 });
 
-/* ===================== SEARCH ===================== */
+/* ===================== SUBSPECIALTIES METADATA ===================== */
+const SUBSPECIALTIES = [
+  {
+    id: 'gastro',
+    nama: 'Gastroenterologi & Hepatologi',
+    short: 'GEH / Gastro',
+    icon: 'fa-solid fa-utensils',
+    color: '#00F2FE',
+    glow: 'rgba(0, 242, 254, 0.4)',
+    badge: 'GEH',
+    deskripsi: 'Perdarahan saluran cerna (UGIB/LGIB), sirosis & dekompensasi hati (CTP/MELD), pankreatitis akut, IBD, dan motilitas.',
+    matchDivisi: ['Gastroenterohepatologi']
+  },
+  {
+    id: 'nefro',
+    nama: 'Ginjal, Hipertensi & Cairan',
+    short: 'Nefrologi',
+    icon: 'fa-solid fa-water',
+    color: '#38BDF8',
+    glow: 'rgba(56, 189, 248, 0.4)',
+    badge: 'Nefro',
+    deskripsi: 'Klirens kreatinin Cockcroft-Gault, CKD-EPI 2021, AKI staging, terapi cairan & koreksi elektrolit (Na, K, Ca, Mg, P).',
+    matchDivisi: ['Ginjal-Hipertensi', 'Cairan & Elektrolit'],
+    matchIds: ['anion-gap', 'aki-bun-cr', 'crcl-cockcroft', 'ckd-epi-2021', 'maint-fluid', 'hypoNa', 'hyperNa', 'k-mgmt', 'ca-mgmt', 'mg-mgmt', 'po4-mgmt']
+  },
+  {
+    id: 'endokrin',
+    nama: 'Endokrin, Metabolik & Diabetes',
+    short: 'Endokrin',
+    icon: 'fa-solid fa-fire-flame-curved',
+    color: '#F59E0B',
+    glow: 'rgba(245, 158, 11, 0.4)',
+    badge: 'EMD',
+    deskripsi: 'Krisis tiroid (BWPS) & miksedema, krisis adrenal, DKA tracker, bridging insulin, hipoglikemia, TDD & kardiometabolik.',
+    matchDivisi: ['Endokrin-Metabolik']
+  },
+  {
+    id: 'rheuma',
+    nama: 'Reumatologi',
+    short: 'Reuma',
+    icon: 'fa-solid fa-bone',
+    color: '#C084FC',
+    glow: 'rgba(192, 132, 252, 0.4)',
+    badge: 'Reuma',
+    deskripsi: 'Skor aktivitas RA (DAS28, CDAI, SDAI), kriteria SLEDAI, lupus, SpA aksial, sklerosis sistemik, gout & alur nyeri sendi.',
+    matchDivisi: ['Reumatologi']
+  },
+  {
+    id: 'hom',
+    nama: 'Hematologi & Onkologi Medik',
+    short: 'HOM',
+    icon: 'fa-solid fa-droplet',
+    color: '#F43F5E',
+    glow: 'rgba(244, 63, 94, 0.4)',
+    badge: 'HOM',
+    deskripsi: 'Demam neutropenia (MASCC/CISNE), komplikasi onkologi (TLS, SVCO), kemoterapi Calvert, DIC, HIT, transfusi & myeloma.',
+    matchDivisi: ['Hematologi-Onkologi']
+  },
+  {
+    id: 'pulmo',
+    nama: 'Pulmonologi & Respirologi',
+    short: 'Pulmo',
+    icon: 'fa-solid fa-lungs',
+    color: '#2DD4BF',
+    glow: 'rgba(45, 212, 191, 0.4)',
+    badge: 'Pulmo',
+    deskripsi: 'Stratifikasi risiko pneumonia komunitas (CURB-65 & PSI/PORT Score), evaluasi fungsi respirasi & asma perioperatif.',
+    matchDivisi: ['Pulmonologi'],
+    matchIds: ['curb65', 'psi', 'preop-asthma', 'abg']
+  },
+  {
+    id: 'kardio',
+    nama: 'Kardiologi & Vaskular',
+    short: 'Kardio',
+    icon: 'fa-solid fa-heart-pulse',
+    color: '#EF4444',
+    glow: 'rgba(239, 68, 68, 0.4)',
+    badge: 'Kardio',
+    deskripsi: 'Stratifikasi risiko kardiovaskular 10-tahun (ASCVD AHA/ACC), Wells DVT/PE, dan titrasi syringe pump inotropik & vasoaktif.',
+    matchDivisi: ['Kardiologi'],
+    matchIds: ['ascvd', 'pump-ne', 'pump-dobu', 'pump-dopa', 'pump-nica', 'pump-ntg', 'wells-dvt', 'wells-pe']
+  },
+  {
+    id: 'pti',
+    nama: 'Penyakit Tropik & Infeksi',
+    short: 'Tropik Infeksi',
+    icon: 'fa-solid fa-virus',
+    color: '#10B981',
+    glow: 'rgba(16, 185, 129, 0.4)',
+    badge: 'PTI',
+    deskripsi: 'Panduan penyesuaian dosis antimikroba Adjustr-IO (36 obat), resusitasi cairan DSS, dan tatalaksana IO HIV.',
+    matchDivisi: ['Penyakit Tropik & Infeksi'],
+    matchIds: ['adjustr-io', 'dss-fluid', 'hiv-oi-guide']
+  },
+  {
+    id: 'alergi',
+    nama: 'Alergi - Imunologi Klinik',
+    short: 'Alergi-Imunologi',
+    icon: 'fa-solid fa-shield-halved',
+    color: '#A78BFA',
+    glow: 'rgba(167, 139, 250, 0.4)',
+    badge: 'Alergi-Imuno',
+    deskripsi: 'Anafilaksis klinis, alergi obat, urtikaria kronik, angioedema herediter, dan evaluasi defisiensi imun.',
+    matchDivisi: ['Alergi-Imunologi'],
+    matchIds: []
+  },
+  {
+    id: 'geriatri',
+    nama: 'Geriatri',
+    short: 'Geriatri',
+    icon: 'fa-solid fa-person-walking-with-cane',
+    color: '#F97316',
+    glow: 'rgba(249, 115, 22, 0.4)',
+    badge: 'Geriatri',
+    deskripsi: 'Comprehensive Geriatric Assessment (CGA), frailty CFS, risiko jatuh, delirium, nutrisi, dan preoperatif suite.',
+    matchDivisi: ['Geriatri'],
+    matchIds: ['ariscat', 'rcri', 'caprini', 'improve-bleed', 'cfs', 'morse-fall', 'papdi-delirium', 'mna-sf', 'preop-checklist']
+  },
+  {
+    id: 'psikosomatis',
+    nama: 'Psikosomatis & Kedokteran Paliatif',
+    short: 'Psikosomatis',
+    icon: 'fa-solid fa-brain',
+    color: '#818CF8',
+    glow: 'rgba(129, 140, 248, 0.4)',
+    badge: 'Psikosomatis',
+    deskripsi: 'Gangguan cemas & depresi (HADS, PHQ-9, GAD-7), distres emosional kronis, dan titrasi drip analgetik paliatif.',
+    matchDivisi: ['Psikosomatis'],
+    matchIds: ['hads', 'phq9', 'gad7', 'pain-titrator']
+  }
+];
+
+function getSubCalculators(sub) {
+  return R.filter(c => {
+    if (sub.matchIds && sub.matchIds.includes(c.id)) return true;
+    if (sub.matchDivisi && sub.matchDivisi.includes(c.divisi)) return true;
+    return false;
+  });
+}
+
+function findSubspecialtyByCalc(c) {
+  return SUBSPECIALTIES.find(s => (s.matchIds && s.matchIds.includes(c.id)) || (s.matchDivisi && s.matchDivisi.includes(c.divisi)));
+}
+
+/* ===================== SEARCH & SCORING ===================== */
 function score(c, q) {
-  const hay = (c.nama + ' ' + c.divisi + ' ' + c.tags).toLowerCase();
+  const hay = (c.nama + ' ' + c.divisi + ' ' + (c.tags || '')).toLowerCase();
   return q.toLowerCase().split(/\s+/).filter(Boolean).reduce((s, w) => s + (hay.includes(w) ? (c.nama.toLowerCase().includes(w) ? 3 : 1) : -100), 0);
 }
-let divFilter = '';
+
+/* ===================== ROUTER ===================== */
 function route() {
-  const id = location.hash.slice(1);
-  const c = R.find(x => x.id === id);
-  renderChips();
-  c ? renderCalc(c) : renderList();
+  const hash = location.hash.slice(1);
+  const qEl = document.getElementById('q');
+  const q = qEl ? qEl.value.trim() : '';
+
+  // 1. If search query is active, display search results
+  if (q) {
+    renderChips();
+    renderSearchResults(q);
+    return;
+  }
+
+  // 2. Subspecialty Hero Category View (#sub:<id>)
+  if (hash.startsWith('sub:')) {
+    const subId = hash.slice(4);
+    const sub = SUBSPECIALTIES.find(s => s.id === subId);
+    if (sub) {
+      renderChips(sub.id);
+      renderSubspecialty(sub);
+      return;
+    }
+  }
+
+  // 3. Calculator Direct View (#<calc-id>)
+  const c = R.find(x => x.id === hash);
+  if (c) {
+    const parentSub = findSubspecialtyByCalc(c);
+    renderChips(parentSub ? parentSub.id : '');
+    renderCalc(c);
+    return;
+  }
+
+  // 4. Default Home Dashboard -> 11 Hero Buttons Launchpad
+  renderChips('');
+  renderHeroLaunchpad();
 }
-function renderChips() {
-  const divs = [...new Set(R.map(c => c.divisi))].sort();
-  document.getElementById('chips').innerHTML = ['Semua', ...divs].map(d =>
-    `<button class="chip ${(divFilter || 'Semua') === d ? 'on' : ''}" data-d="${d}">${d}</button>`).join('');
-  document.querySelectorAll('.chip').forEach(b => b.onclick = () => { divFilter = b.dataset.d === 'Semua' ? '' : b.dataset.d; location.hash = ''; route(); });
+
+function renderChips(activeSubId = '') {
+  const chipsEl = document.getElementById('chips');
+  if (!chipsEl) return;
+  const items = [
+    { label: 'Semua', id: '' },
+    ...SUBSPECIALTIES.map(s => ({ label: s.short, id: s.id }))
+  ];
+  chipsEl.innerHTML = items.map(it =>
+    `<button class="chip ${activeSubId === it.id ? 'on' : ''}" data-sub="${it.id}">${it.label}</button>`
+  ).join('');
+
+  chipsEl.querySelectorAll('.chip').forEach(b => {
+    b.onclick = () => {
+      const qEl = document.getElementById('q');
+      if (qEl) qEl.value = '';
+      const subId = b.dataset.sub;
+      location.hash = subId ? `#sub:${subId}` : '';
+      route();
+    };
+  });
 }
-function renderList() {
-  const q = document.getElementById('q').value.trim();
-  let list = R.filter(c => !divFilter || c.divisi === divFilter);
-  if (q) list = list.map(c => [c, score(c, q)]).filter(x => x[1] > 0).sort((a, b) => b[1] - a[1]).map(x => x[0]);
-  document.getElementById('view').innerHTML = list.length
-    ? `<div class="grid">${list.map(c => `<div class="card" onclick="location.hash='${c.id}'"><span class="tag">${c.divisi}</span><h3>${c.nama}</h3><small>${c.fields ? c.fields.length + ' parameter' : 'Protokol Interaktif'}</small></div>`).join('')}</div>`
-    : '<p style="color:var(--mut)">Tidak ada hasil.</p>';
+
+/* ===================== HERO LAUNCHPAD VIEW & AUTOCALC PANEL ===================== */
+function renderAutoCalcPanel() {
+  if (typeof runAutoCalc !== 'function') return '';
+  const hasData = Object.keys(ctx).some(k => CTX_LABELS[k] && ctx[k] !== undefined && ctx[k] !== '');
+  if (!hasData) return '';
+
+  const res = runAutoCalc(ctx);
+  if (!res.scores.length && !res.alerts.length) return '';
+
+  const alertsHtml = res.alerts.length ? `
+    <div class="autocalc-alerts">
+      <div class="autocalc-alert-title"><i class="fa-solid fa-triangle-exclamation"></i> Peringatan Klinis Kritis:</div>
+      <ul>
+        ${res.alerts.map(a => `<li>${a}</li>`).join('')}
+      </ul>
+    </div>
+  ` : '';
+
+  const quickInputsHtml = `
+    <div class="autocalc-quick-inputs">
+      <span class="quick-in-title"><i class="fa-solid fa-user-pen"></i> Parameter Pasien:</span>
+      <div class="quick-in-fields">
+        <label>Usia: <input type="number" id="qi_age" min="0" max="120" value="${ctx.age || ''}" placeholder="Th" onchange="setCtx({age: parseInt(this.value,10)||undefined});route();"></label>
+        <label>JK: <select id="qi_sex" onchange="setCtx({sex: this.value||undefined});route();">
+          <option value="">Pilih</option>
+          <option value="L" ${ctx.sex === 'L' ? 'selected' : ''}>Pria (L)</option>
+          <option value="P" ${ctx.sex === 'P' ? 'selected' : ''}>Wanita (P)</option>
+        </select></label>
+        <label>BB: <input type="number" id="qi_bb" step="0.1" value="${ctx.bb || ''}" placeholder="kg" onchange="setCtx({bb: parseFloat(this.value)||undefined});route();"></label>
+        <label>TB: <input type="number" id="qi_tb" step="1" value="${ctx.tb || ''}" placeholder="cm" onchange="setCtx({tb: parseFloat(this.value)||undefined});route();"></label>
+      </div>
+    </div>
+  `;
+
+  const cardsHtml = res.scores.map(s => `
+    <div class="autocalc-card ${s.status}" onclick="location.hash='#${s.calcId}'" title="Klik untuk membuka kalkulator interaktif lengkap">
+      <div class="autocalc-card-top">
+        <span class="autocalc-badge">${s.group}</span>
+        <span class="autocalc-status-pill status-${s.status}">${s.status === 'bad' ? 'Kritis' : (s.status === 'warn' ? 'Waspada' : 'Normal')}</span>
+      </div>
+      <div class="autocalc-name">${s.name}</div>
+      <div class="autocalc-val">${s.value}</div>
+      <div class="autocalc-interp">${s.interpretation}</div>
+      <div class="autocalc-sub">${s.subvalue}</div>
+      <div class="autocalc-action"><span>Buka Kalkulator Detail</span> <i class="fa-solid fa-arrow-right"></i></div>
+    </div>
+  `).join('');
+
+  return `
+    <div class="autocalc-panel">
+      <div class="autocalc-header">
+        <div>
+          <h3><i class="fa-solid fa-bolt" style="color:var(--ac)"></i> Hasil Kalkulasi Otomatis (LabKeep / FastTrack)</h3>
+          <p>Dihitung secara deterministik berdasarkan data laboratorium dan riwayat pasien yang aktif:</p>
+        </div>
+        <div class="autocalc-btns">
+          <button class="btn pri" onclick="copyAutoCalcKeep()"><i class="fa-regular fa-copy"></i> Salin Format LabKeep</button>
+          <button class="btn" onclick="copyAutoCalcCppt()"><i class="fa-solid fa-file-medical"></i> Salin Format CPPT</button>
+        </div>
+      </div>
+      ${alertsHtml}
+      ${quickInputsHtml}
+      <div class="autocalc-grid">
+        ${cardsHtml}
+      </div>
+    </div>
+  `;
 }
+
+function renderHeroLaunchpad() {
+  const viewEl = document.getElementById('view');
+  if (!viewEl) return;
+
+  const autoCalcHtml = renderAutoCalcPanel();
+
+  const html = `
+    ${autoCalcHtml}
+    <div class="hero-section" id="tool-grid">
+      <div class="hero-header">
+        <h2>Subspesialis Ilmu Penyakit Dalam</h2>
+        <p>Pilih divisi subspesialis untuk mengakses kalkulator klinis, panduan dosis, dan instrumen diagnostik terkait:</p>
+      </div>
+      <div class="hero-grid">
+        ${SUBSPECIALTIES.map(s => {
+          const calcs = getSubCalculators(s);
+          const count = calcs.length;
+          const countLabel = count > 0 ? `${count} Kalkulator` : 'Segera Hadir';
+          return `
+            <div class="hero-sub-btn" data-filter="cdss" style="--sub-color:${s.color};--sub-glow:${s.glow}" onclick="location.hash='#sub:${s.id}'">
+              <div class="hero-icon-box">
+                <i class="${s.icon}"></i>
+              </div>
+              <div class="hero-info">
+                <div class="hero-badge-row">
+                  <span class="hero-badge">${s.badge}</span>
+                  <span class="hero-count-badge">${countLabel}</span>
+                </div>
+                <div class="hero-title">${s.nama}</div>
+                <div class="hero-desc">${s.deskripsi}</div>
+              </div>
+              <div class="hero-arrow">
+                <i class="fa-solid fa-chevron-right"></i>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </div>
+  `;
+  viewEl.innerHTML = html;
+}
+
+/* ===================== SUBSPECIALTY VIEW ===================== */
+function renderSubspecialty(sub) {
+  const viewEl = document.getElementById('view');
+  if (!viewEl) return;
+
+  const calcs = getSubCalculators(sub);
+  const count = calcs.length;
+
+  let bodyHtml = '';
+  if (count === 0) {
+    bodyHtml = `
+      <div class="empty-state-box">
+        <div class="empty-state-icon" style="color:${sub.color}">
+          <i class="${sub.icon}"></i>
+        </div>
+        <h3>Divisi ${sub.nama}</h3>
+        <p>Saat ini belum ada kalkulator klinis aktif di divisi ${sub.nama}. Modul kalkulator sedang disiapkan dan akan ditambahkan secara bertahap.</p>
+        <button class="btn pri" onclick="location.hash=''">Kembali ke Semua Subspesialis</button>
+      </div>
+    `;
+  } else {
+    bodyHtml = `
+      <div class="grid">
+        ${calcs.map(c => `
+          <div class="card" onclick="location.hash='${c.id}'">
+            <span class="tag" style="color:${sub.color}">${c.divisi}</span>
+            <h3>${c.nama}</h3>
+            <small>${c.fields ? c.fields.length + ' parameter' : 'Protokol Interaktif'}</small>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  viewEl.innerHTML = `
+    <div style="margin-bottom:14px">
+      <button class="btn" onclick="location.hash=''">← Kembali ke Semua Subspesialis</button>
+    </div>
+    <div class="sub-banner" style="--sub-color:${sub.color}">
+      <div class="sub-banner-icon">
+        <i class="${sub.icon}"></i>
+      </div>
+      <div class="sub-banner-content">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <span class="hero-badge" style="--sub-color:${sub.color}">${sub.badge}</span>
+          <span class="hero-count-badge">${count > 0 ? count + ' Kalkulator Aktif' : 'Modul Segera Hadir'}</span>
+        </div>
+        <h2>${sub.nama}</h2>
+        <p>${sub.deskripsi}</p>
+      </div>
+    </div>
+    ${bodyHtml}
+  `;
+}
+
+function clearSearch() {
+  const qEl = document.getElementById('q');
+  if (qEl) qEl.value = '';
+  route();
+}
+
+/* ===================== SEARCH RESULTS VIEW ===================== */
+function renderSearchResults(q) {
+  const viewEl = document.getElementById('view');
+  if (!viewEl) return;
+
+  let list = R.map(c => [c, score(c, q)]).filter(x => x[1] > 0).sort((a, b) => b[1] - a[1]).map(x => x[0]);
+
+  viewEl.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <div style="font-size:14px;color:var(--tx)">
+        Ditemukan <b>${list.length}</b> kalkulator untuk "<i>${q}</i>"
+      </div>
+      <button class="btn" onclick="clearSearch()">Hapus Pencarian</button>
+    </div>
+    ${list.length ? `
+      <div class="grid">
+        ${list.map(c => `
+          <div class="card" onclick="location.hash='${c.id}'">
+            <span class="tag">${c.divisi}</span>
+            <h3>${c.nama}</h3>
+            <small>${c.fields ? c.fields.length + ' parameter' : 'Protokol Interaktif'}</small>
+          </div>
+        `).join('')}
+      </div>
+    ` : '<p style="color:var(--mut);padding:20px 0;text-align:center">Tidak ada kalkulator yang cocok dengan kata kunci tersebut.</p>'}
+  `;
+}
+
+/* ===================== CALCULATOR RENDER VIEW ===================== */
 function renderCalc(c) {
+  const parentSub = findSubspecialtyByCalc(c);
+  const backTarget = parentSub ? `#sub:${parentSub.id}` : '';
+  const backLabel = parentSub ? `← Kembali ke ${parentSub.short}` : '← Semua kalkulator';
+
+  const backHtml = `
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+      <button class="btn" onclick="location.hash='${backTarget}'">${backLabel}</button>
+      ${parentSub ? `<button class="btn" onclick="location.hash=''">Beranda</button>` : ''}
+    </div>
+  `;
+
   if (c.mount) {
-    document.getElementById('view').innerHTML = `<button class="btn" onclick="location.hash=''">← Semua kalkulator</button>
-      <div class="panel"><span class="tag">${c.divisi}</span><h2>${c.nama}</h2><div id="calc-mount"></div><div id="res"></div>
-      <button class="btn" style="margin-top:14px" id="copyBtn">Salin hasil untuk CPPT</button></div>`;
+    document.getElementById('view').innerHTML = `
+      ${backHtml}
+      <div class="panel">
+        <span class="tag">${c.divisi}</span>
+        <h2>${c.nama}</h2>
+        <div id="calc-mount"></div>
+        <div id="res"></div>
+        <button class="btn" style="margin-top:14px" id="copyBtn">Salin hasil untuk CPPT</button>
+      </div>
+    `;
     const mountEl = document.getElementById('calc-mount');
     const updateRes = (r) => {
       const tbl = r && r.table ? `<table style="width:100%;margin-top:10px;font-size:13px;border-collapse:collapse">${r.table.map(x => `<tr><td style="padding:4px 6px;border-bottom:1px solid var(--bd)">${x[0]}</td><td style="padding:4px 6px;border-bottom:1px solid var(--bd);text-align:right"><b>${x[1]}</b></td></tr>`).join('')}</table>` : '';
@@ -13025,6 +16530,7 @@ function renderCalc(c) {
     document.getElementById('copyBtn').onclick = () => { if (window._last) { navigator.clipboard.writeText(window._last).catch(() => {}); toast('Hasil disalin untuk CPPT'); } };
     return;
   }
+
   const html = c.fields.map(f => {
     const pre = f.ctx ? ctx[f.ctx] : (f.ctxFn ? f.ctxFn(ctx) : undefined);
     const auto = pre !== undefined && pre !== '';
@@ -13033,9 +16539,18 @@ function renderCalc(c) {
     const val = auto ? pre : (f.def !== undefined ? f.def : '');
     return `<label>${f.label}${auto ? ' <small style="color:var(--ok)">(auto)</small>' : ''}</label><input type="number" step="${f.step || 'any'}" data-f="${f.id}" class="${auto ? 'auto' : ''}" value="${val}">`;
   }).join('');
-  document.getElementById('view').innerHTML = `<button class="btn" onclick="location.hash=''">← Semua kalkulator</button>
-    <div class="panel"><span class="tag">${c.divisi}</span><h2>${c.nama}</h2>${html}<div id="res"></div>
-    <button class="btn" style="margin-top:12px" id="copyBtn">Salin hasil untuk CPPT</button></div>`;
+
+  document.getElementById('view').innerHTML = `
+    ${backHtml}
+    <div class="panel">
+      <span class="tag">${c.divisi}</span>
+      <h2>${c.nama}</h2>
+      ${html}
+      <div id="res"></div>
+      <button class="btn" style="margin-top:12px" id="copyBtn">Salin hasil untuk CPPT</button>
+    </div>
+  `;
+
   const calc = () => {
     const v = {};
     document.querySelectorAll('[data-f]').forEach(el => { v[el.dataset.f] = el.type === 'checkbox' ? el.checked : el.tagName === 'SELECT' ? el.value : (el.value === '' ? undefined : parseFloat(el.value)); });
@@ -13048,37 +16563,105 @@ function renderCalc(c) {
   document.getElementById('copyBtn').onclick = () => { if (window._last) { navigator.clipboard.writeText(window._last).catch(() => {}); toast('Hasil disalin'); } };
   calc();
 }
-function toast(m) { const t = document.getElementById('toast'); t.textContent = m; t.style.display = 'block'; setTimeout(() => t.style.display = 'none', 2500); }
+
+function toast(m) { const t = document.getElementById('toast'); if (t) { t.textContent = m; t.style.display = 'block'; setTimeout(() => t.style.display = 'none', 2500); } }
 
 /* ===================== PASTE MODAL ===================== */
 const pm = document.getElementById('pasteModal');
-document.getElementById('btnPaste').onclick = () => pm.classList.add('show');
-document.getElementById('pasteCancel').onclick = () => pm.classList.remove('show');
-document.getElementById('pasteGo').onclick = () => {
-  const r = parseClinical(document.getElementById('pasteTxt').value);
-  const n = Object.keys(r).length;
-  document.getElementById('pasteOut').innerHTML = n ? `Terdeteksi ${n} nilai: ` + Object.entries(r).map(([k, v]) => `${CTX_LABELS[k] || k}=<b>${v}</b>`).join(', ') : 'Tidak ada nilai terdeteksi.';
-  if (n) { setCtx(r); route(); toast(`${n} nilai diisi otomatis`); setTimeout(() => pm.classList.remove('show'), 1200); }
-};
+if (document.getElementById('btnPaste')) document.getElementById('btnPaste').onclick = () => pm && pm.classList.add('show');
+if (document.getElementById('pasteCancel')) document.getElementById('pasteCancel').onclick = () => pm && pm.classList.remove('show');
+if (document.getElementById('pasteGo')) {
+  document.getElementById('pasteGo').onclick = () => {
+    const txtEl = document.getElementById('pasteTxt');
+    const r = parseClinical(txtEl ? txtEl.value : '');
+    const n = Object.keys(r).length;
+    const outEl = document.getElementById('pasteOut');
+    if (outEl) outEl.innerHTML = n ? `Terdeteksi ${n} nilai: ` + Object.entries(r).map(([k, v]) => `${CTX_LABELS[k] || k}=<b>${v}</b>`).join(', ') : 'Tidak ada nilai terdeteksi.';
+    if (n) { setCtx(r); route(); toast(`${n} nilai diisi otomatis`); setTimeout(() => pm && pm.classList.remove('show'), 1200); }
+  };
+}
 
-/* ===================== FASTTRACK BRIDGE ===================== */
-// Payload NE.PRO FastTrack: {pasien, tanda_vital, kimia, agd, hematologi, urin, transfer_id}
+/* ===================== FASTTRACK & LABKEEP UNIVERSAL BRIDGE ===================== */
 function mapBridgePayload(p) {
-  const o = {}; const pick = (obj, map) => { if (!obj) return; for (const [src, dst] of Object.entries(map)) { const v = parseFloat(obj[src]); if (!isNaN(v)) o[dst] = v; } };
+  const o = {};
+  const pick = (obj, map) => {
+    if (!obj) return;
+    for (const [src, dst] of Object.entries(map)) {
+      const v = parseFloat(obj[src]);
+      if (!isNaN(v) && isFinite(v)) o[dst] = v;
+    }
+  };
   const ps = p.pasien || {};
-  const age = parseInt(ps.usia ?? ps.umur ?? ps.age, 10); if (!isNaN(age)) o.age = age;
-  const sx = String(ps.jenis_kelamin ?? ps.sex ?? '').toUpperCase(); if (sx.startsWith('L') || sx.startsWith('P')) o.sex = sx[0];
-  pick(p.pasien, { bb:'bb', berat_badan:'bb' });
+  const age = parseInt(ps.usia ?? ps.umur ?? ps.age, 10);
+  if (!isNaN(age)) o.age = age;
+  const sx = String(ps.jenis_kelamin ?? ps.sex ?? ps.gender ?? '').toUpperCase();
+  if (sx.startsWith('L') || sx.startsWith('M')) o.sex = 'L';
+  else if (sx.startsWith('P') || sx.startsWith('W') || sx.startsWith('F')) o.sex = 'P';
+
+  pick(p.pasien, { bb:'bb', berat_badan:'bb', tb:'tb', tinggi_badan:'tb' });
   pick(p.tanda_vital, { bb:'bb', sbp:'sbp', dbp:'dbp', nadi:'hr', hr:'hr', rr:'rr', respirasi:'rr', suhu:'temp', temp:'temp', spo2:'spo2', gcs:'gcs' });
-  pick(p.kimia, { bun:'bun', kreatinin:'cr', creatinine:'cr', natrium:'na', kalium:'k', klorida:'cl', kalsium:'ca', albumin:'alb', gds:'glu', glukosa:'glu' });
-  pick(p.agd, { ph:'ph', pco2:'pco2', hco3:'hco3' });
+  pick(p.kimia, {
+    bun:'bun', ureum:'ureum', kreatinin:'cr', creatinine:'cr', cr:'cr',
+    natrium:'na', na:'na', kalium:'k', k:'k', klorida:'cl', cl:'cl',
+    kalsium:'ca', ca:'ca', albumin:'alb', alb:'alb', protein_total:'prot',
+    gds:'glu', glukosa:'glu', glu:'glu', hba1c:'hba1c',
+    ast:'ast', alt:'alt', sgot:'ast', sgpt:'alt',
+    bilirubin_total:'bili', bilirubin:'bili', bili:'bili',
+    alp:'alp', ggt:'ggt', ldh:'ldh', asam_urat:'ua', ua:'ua'
+  });
+  pick(p.hematologi, {
+    hb:'hb', hgb:'hb', hct:'hct', plt:'plt', trombosit:'plt',
+    wbc:'wbc', leukosit:'wbc', ne:'ne_abs', ne_abs:'ne_abs',
+    ly:'ly_abs', ly_abs:'ly_abs', ppt:'ppt', inr:'inr', aptt:'aptt',
+    ddimer:'ddimer', fib:'fib', fibrinogen:'fib'
+  });
+  pick(p.agd, {
+    ph:'ph', pco2:'pco2', hco3:'hco3', po2:'po2', laktat:'lac', lac:'lac', fio2:'fio2', be:'be'
+  });
+  pick(p.urin, {
+    na:'na_urin', k:'k_urin', cl:'cl_urin', uacr:'uacr'
+  });
   return o;
 }
+
 function importPayload(p) {
   const patch = mapBridgePayload(p);
-  if (Object.keys(patch).length) { setCtx(patch); route(); toast('Data dari FastTrack diterima'); }
-  else console.warn('InternaHub: payload tidak dikenali', p);
+  if (Object.keys(patch).length) {
+    setCtx(patch);
+    route();
+    toast('⚡ Data klinis dari FastTrack / LabKeep berhasil dimuat!');
+  } else {
+    console.warn('InternaHub: payload tidak dikenali', p);
+  }
 }
+
+// 1. Hook injeksi frame langsung (Protokol NE.PRO & EMER Desktop Bridge)
+window.applyBridgeData = function(payload, source) {
+  importPayload(payload);
+  return true;
+};
+window.importPatient = function(payload) {
+  importPayload(payload);
+  return true;
+};
+
+// 2. Hook impor teks (Protokol GERIOP)
+window.openImport = function() {};
+window.runImport = function() {
+  const imp = document.getElementById('impText');
+  if (imp && imp.value) {
+    const r = parseClinical(imp.value);
+    const n = Object.keys(r).filter(k => k !== 'baseline' && k !== 'series').length;
+    if (n > 0) {
+      setCtx(r);
+      route();
+      toast(`⚡ ${n} data dari GERIOP berhasil diimpor!`);
+    }
+  }
+  return true;
+};
+
+// 3. Hook PostMessage (Recursive Post & Cross-origin)
 window.addEventListener('message', ev => {
   const d = ev.data;
   if (!d || (d.type !== 'INTERNAHUB_IMPORT' && d.type !== 'NEPRO_IMPORT')) return;
@@ -13087,18 +16670,95 @@ window.addEventListener('message', ev => {
   try { ev.source && ev.source.postMessage({ type: d.type + '_ACK', transfer_id: tid }, '*'); } catch (_) {}
   if (d.type === 'INTERNAHUB_IMPORT') try { ev.source && ev.source.postMessage({ type: 'NEPRO_IMPORT_ACK', transfer_id: tid }, '*'); } catch (_) {}
 });
+
+// 4. Hook Impor Parameter URL (?data= & #data=)
 (function urlImport() {
   const m = (location.search + '&' + location.hash.slice(1)).match(/data=([^&]+)/);
   if (!m) return;
-  try { importPayload(JSON.parse(decodeURIComponent(escape(atob(decodeURIComponent(m[1])))))); history.replaceState(null, '', location.pathname); } catch (_) {}
+  try {
+    const raw = decodeURIComponent(m[1]).replace(/ /g, '+');
+    const jsonStr = decodeURIComponent(escape(atob(raw)));
+    importPayload(JSON.parse(jsonStr));
+    history.replaceState(null, '', location.pathname);
+  } catch (_) {}
 })();
 
+// 5. Global Clipboard & Paste Anywhere (Ctrl+V)
+window.pasteFromClipboard = async function() {
+  try {
+    const txt = await navigator.clipboard.readText();
+    if (!txt) return toast('Clipboard kosong.');
+    const r = parseClinical(txt);
+    const n = Object.keys(r).filter(k => k !== 'baseline' && k !== 'series').length;
+    if (n > 0) {
+      setCtx(r);
+      route();
+      toast(`⚡ ${n} parameter dari Clipboard berhasil diekstrak!`);
+    } else {
+      toast('Tidak ada parameter medis yang dikenali dari clipboard.');
+    }
+  } catch (e) {
+    const pm = document.getElementById('pasteModal');
+    if (pm) pm.classList.add('show');
+  }
+};
+
+window.addEventListener('paste', function(e) {
+  const targetTag = (e.target && e.target.tagName) || '';
+  if (targetTag === 'INPUT' || targetTag === 'TEXTAREA' || (e.target && e.target.isContentEditable)) return;
+  const txt = (e.clipboardData || window.clipboardData).getData('text');
+  if (!txt) return;
+  const r = parseClinical(txt);
+  const n = Object.keys(r).filter(k => k !== 'baseline' && k !== 'series').length;
+  if (n > 0) {
+    setCtx(r);
+    route();
+    toast(`⚡ ${n} data dari FastTrack / LabKeep berhasil diekstrak otomatis!`);
+  }
+});
+
+// Copy Helpers untuk Auto-Calculate Panel
+window.copyAutoCalcKeep = function() {
+  if (typeof runAutoCalc !== 'function') return;
+  const res = runAutoCalc(ctx);
+  if (res.keepSummary) {
+    navigator.clipboard.writeText(res.keepSummary).catch(() => {});
+    toast('Hasil kalkulasi disalin dalam format LabKeep!');
+  } else {
+    toast('Belum ada hasil kalkulasi untuk disalin.');
+  }
+};
+
+window.copyAutoCalcCppt = function() {
+  if (typeof runAutoCalc !== 'function') return;
+  const res = runAutoCalc(ctx);
+  if (res.cpptSummary) {
+    navigator.clipboard.writeText(res.cpptSummary).catch(() => {});
+    toast('Hasil kalkulasi disalin dalam format CPPT!');
+  } else {
+    toast('Belum ada hasil kalkulasi untuk disalin.');
+  }
+};
+
 /* ===================== INIT ===================== */
-document.getElementById('q').addEventListener('input', () => { if (location.hash) location.hash = ''; renderList(); });
-document.getElementById('btnTheme').onclick = () => { document.body.classList.toggle('light'); localStorage.setItem('internahub_theme', document.body.classList.contains('light') ? 'light' : 'dark'); };
+const qInput = document.getElementById('q');
+if (qInput) {
+  qInput.addEventListener('input', () => {
+    route();
+  });
+}
+const btnTheme = document.getElementById('btnTheme');
+if (btnTheme) {
+  btnTheme.onclick = () => {
+    document.body.classList.toggle('light');
+    localStorage.setItem('internahub_theme', document.body.classList.contains('light') ? 'light' : 'dark');
+  };
+}
 if (localStorage.getItem('internahub_theme') === 'light') document.body.classList.add('light');
 window.addEventListener('hashchange', route);
-renderCtxBar(); route();
+renderCtxBar();
+route();
+
 </script>
 </body>
 </html>

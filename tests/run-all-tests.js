@@ -10,6 +10,8 @@ const critTest = require('./calc/critical-care-pulm.test');
 const rheumaTest = require('./calc/rheumatology.test');
 const antiTest = require('./calc/antimicrobial.test');
 const parserTest = require('./calc/clinical-parser.test');
+const newCalcTest = require('./calc/new-calculators.test');
+const fastTrackAutoCalcTest = require('./calc/test-fasttrack-autocalc');
 const { execSync } = require('child_process');
 
 async function main() {
@@ -38,7 +40,9 @@ async function main() {
     { name: 'Critical Care & Pulmonology', fn: critTest.runTests },
     { name: 'Rheumatology Scoring', fn: rheumaTest.runTests },
     { name: 'Antimicrobial Dosing (Adjustr-IO)', fn: antiTest.runTests },
-    { name: 'SIMETRISS / CPPT Clinical Parser', fn: parserTest.runTests }
+    { name: 'SIMETRISS / CPPT Clinical Parser', fn: parserTest.runTests },
+    { name: 'IPD Bali / Indonesia Clinical Suite', fn: newCalcTest.runTests },
+    { name: 'FastTrack LabKeep & AutoCalc Suite', fn: fastTrackAutoCalcTest.runTests }
   ];
 
   for (const suite of suites) {
@@ -50,6 +54,16 @@ async function main() {
       console.error(`❌ Suite '${suite.name}' threw unhandled exception:`, err);
       totalFailed++;
     }
+  }
+
+  // Step 3: Run 11 Hero Buttons & Router Navigation Verification
+  console.log('\n[PHASE 3: 11 HERO BUTTONS & ROUTER NAVIGATION]');
+  try {
+    execSync('node tests/hero-buttons.test.js', { stdio: 'inherit' });
+    totalPassed += 7; // 7 assertion groups in hero-buttons
+  } catch (err) {
+    console.error('❌ Hero buttons & router navigation test failed!');
+    totalFailed++;
   }
 
   console.log('\n====================================================');

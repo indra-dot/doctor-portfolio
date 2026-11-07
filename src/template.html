@@ -19,10 +19,13 @@
 <header>
   <div class="logo">InternaHub</div>
   <input id="q" placeholder="Cari kalkulator, skor, atau protokol (mis. CURB, anion gap, kalsium)..." autocomplete="off">
-  <button class="btn" id="btnPaste">Tempel Data SIMETRISS</button>
+  <button class="btn pri" id="btnQuickPaste" onclick="pasteFromClipboard()" title="Ambil data langsung dari Clipboard atau tekan Ctrl+V di mana saja">⚡ Ambil Clipboard</button>
+  <button class="btn" id="btnPaste">Tempel Teks</button>
   <button class="btn" id="btnTheme">Terang/Gelap</button>
 </header>
 <main>
+  <!-- Hidden compatibility bridge field for GERIOP protocol in FastTrack.exe -->
+  <textarea id="impText" style="display:none;"></textarea>
   <p id="ctxbar"></p>
   <div id="chips" class="chips"></div>
   <div id="view"></div>

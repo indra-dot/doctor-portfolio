@@ -27,11 +27,17 @@ const styles = fs.readFileSync('src/css/styles.css', 'utf8');
 // 2. Read Modular JavaScript Components
 const scriptComponents = [
   'src/core/context.js',
+  'src/core/autocalc.js',
   'src/calculators/m0-general.js',
   'src/calculators/m2-endokrin.js',
   'src/calculators/m1-cairan.js',
   'src/calculators/m3-geh.js',
   'src/calculators/m4-hom.js',
+  'src/calculators/m5-pulmo.js',
+  'src/calculators/m6-preop-geriatri.js',
+  'src/calculators/m7-psikosomatis.js',
+  'src/calculators/m8-endokrin-kaki.js',
+  'src/calculators/m9-pti-cardio-nefro.js',
   'src/engines/rheuma-engine.js',
   'src/modules/rheumatools-templates.js',
   'src/data/drug-database.js'
@@ -71,6 +77,14 @@ fs.writeFileSync('internahub.html', output, 'utf8');
 const outputSizeKb = Math.round(output.length / 1024);
 console.log(`✓ Generated dist/internahub.html (${outputSizeKb} KB)`);
 console.log(`✓ Updated internahub.html (${outputSizeKb} KB)`);
+
+// 5b. Auto-Sync to Google Drive for Desktop (Hospital Wi-Fi Google Apps Script Bridge)
+const gDriveDeployDir = path.resolve('G:/My Drive/internahub-deploy');
+if (fs.existsSync(gDriveDeployDir)) {
+  const gDriveDest = path.join(gDriveDeployDir, 'internahub.html');
+  fs.writeFileSync(gDriveDest, output, 'utf8');
+  console.log(`✓ Synced to Google Drive: ${gDriveDest} (Auto-updating Google Apps Script)`);
+}
 
 // 6. Run Automated Integrity Verification
 console.log('\n[RUNNING BUILD INTEGRITY CHECKS]');
