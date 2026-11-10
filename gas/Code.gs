@@ -1,15 +1,26 @@
 /**
- * Google Apps Script Web App Bridge for InternaHub CDSS
+ * Google Apps Script Web App Bridge for InternaHub CDSS & Doctor Portfolio
  * 
- * Serves the production InternaHub HTML directly from Google Drive.
+ * Serves production single-file HTML (internahub.html or index.html) directly from Google Drive.
  * 100% Google Cloud Environment (script.google.com), bypassing hospital Wi-Fi firewalls.
  * Allows embedding in Google Sites via "Sematkan -> Berdasarkan URL" with ALLOWALL x-frame options.
+ *
+ * Usage:
+ * - Default URL (.../exec)             -> serves internahub.html
+ * - Portfolio URL (.../exec?page=index) -> serves index.html
  */
 
 function doGet(e) {
   try {
     var folderName = 'internahub-deploy';
-    var fileName = 'internahub.html';
+    var pageParam = (e && e.parameter && (e.parameter.page || e.parameter.file || '')).toLowerCase();
+
+    var isPortfolio = (pageParam === 'index' || pageParam === 'index.html' || pageParam === 'portfolio');
+    var fileName = isPortfolio ? 'index.html' : 'internahub.html';
+    var pageTitle = isPortfolio
+      ? 'Dr. Guswib — Clinical Software & Tools for Internal Medicine'
+      : 'InternaHub CDSS (dr. Guswib)';
+
     var file = null;
 
     // 1. Cari di folder khusus internahub-deploy
@@ -33,19 +44,19 @@ function doGet(e) {
     if (!file) {
       return HtmlService.createHtmlOutput(
         '<div style="font-family:sans-serif; padding:40px; text-align:center; color:#333;">' +
-        '<h2>⚠️ File InternaHub Belum Tersinkronisasi</h2>' +
-        '<p>Pastikan file <code>internahub.html</code> sudah ada di folder <code>internahub-deploy</code> pada Google Drive Anda.</p>' +
-        '<p style="color:#666; font-size:13px;">Google Drive for Desktop akan otomatis mengunggah file ini saat build dijalankan.</p>' +
+        '<h2>⚠️ File ' + fileName + ' Belum Tersinkronisasi</h2>' +
+        '<p>Pastikan file <code>' + fileName + '</code> sudah ada di folder <code>' + folderName + '</code> pada Google Drive Anda.</p>' +
+        '<p style="color:#666; font-size:13px;">Jalankan <code>npm run build</code> agar Google Drive for Desktop otomatis mengunggah file ini.</p>' +
         '</div>'
-      ).setTitle('InternaHub CDSS - Not Ready');
+      ).setTitle(pageTitle + ' - Not Ready');
     }
 
-    // 3. Baca konten HTML produksi yang disinkronkan oleh build-internahub.js
+    // 3. Baca konten HTML produksi yang disinkronkan oleh build pipeline
     var htmlContent = file.getBlob().getDataAsString();
 
     // 4. Return sebagai Web App yang mengizinkan iframe embedding di Google Sites
     return HtmlService.createHtmlOutput(htmlContent)
-      .setTitle('InternaHub CDSS (dr. Guswib)')
+      .setTitle(pageTitle)
       .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL)
       .addMetaTag('viewport', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no');
 
@@ -55,6 +66,6 @@ function doGet(e) {
       '<h3>Terjadi Kesalahan Server GAS:</h3>' +
       '<pre>' + err.toString() + '</pre>' +
       '</div>'
-    ).setTitle('InternaHub Error');
+    ).setTitle('GAS Server Error');
   }
 }

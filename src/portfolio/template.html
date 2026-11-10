@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Guswib — Clinical Software & Tools for Internal Medicine</title>
+  <meta name="description" content="Portfolio of clinical decision support systems, medical examination simulators, and digital health applications developed by dr. Ida Bagus Indra Wibawa Putrawan for internal medicine practice." />
+  <meta name="theme-color" content="#040814" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js');</script>
+  <style>
+/* {{STYLES}} */
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Backdrop -->
+  <div class="backdrop-spotlight" aria-hidden="true"></div>
+
+  <!-- Header Nav -->
+  <header class="header-wrapper" id="header">
+    <nav class="nav-pill" aria-label="Primary Navigation">
+      <a href="#hero" class="nav-brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>drguswib</span>
+      </a>
+      <div class="nav-links">
+        <a href="#showcase" class="nav-link">CDSS Demo</a>
+        <a href="#apps" class="nav-link">Apps</a>
+        <a href="#about" class="nav-link">About</a>
+      </div>
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=drguswib@gmail.com" target="_blank" rel="noopener noreferrer" onclick="handleEmailClick(event, 'drguswib@gmail.com')" class="nav-cta">
+        <span>Contact Me</span>
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="container">
+        <!-- Physician Profile Pill & Announcement Pill -->
+        <div class="hero-top-badges">
+          <a href="#about" class="hero-physician-pill" title="View physician background">
+            <span class="physician-avatar">
+              <img src="{{PROFILE_DATA_URI}}" alt="dr. Ida Bagus Indra Wibawa Putrawan" loading="eager" />
+            </span>
+            <span>dr. Guswib</span>
+            <span class="physician-sep">·</span>
+            <span class="physician-sub">Internal Medicine Resident</span>
+          </a>
+        </div>
+
+        <h1 class="hero-heading">
+          Built for <span class="highlight">clarity</span> in clinical practice.
+        </h1>
+
+        <p class="hero-lead">
+          Clinical decision support systems, medical examination simulators, and evidence-based tools designed by a practicing physician to remove friction from hospital bedside workflows.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#apps" class="btn-primary">
+            <span>Explore Flagship Apps</span>
+            <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+          </a>
+          <a href="#about" class="btn-secondary">
+            <span>Physician Profile</span>
+            <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </a>
+        </div>
+
+        <!-- Pinterest RedSun Signature Feature:
+             Rising Sun Horizon Orb + Interactive Multi-App Showcase Mockup Frame with Scroll-Driven Lighting -->
+        <div class="redsun-stage" id="redsun-stage">
+          
+          <!-- RedSun Rising Planetary Horizon Sun Orb -->
+          <div class="redsun-orb-wrapper" aria-hidden="true">
+            <div class="redsun-solar-flare"></div>
+            <div class="redsun-planet-disc"></div>
+            <div class="redsun-core-glow"></div>
+          </div>
+
+          <div class="showcase-wrapper" id="showcase">
+            <div class="showcase-emitter" aria-hidden="true"></div>
+            <div class="showcase-window">
+              
+              <!-- Window Header with Tabs -->
+              <div class="window-header">
+                <div class="window-controls" aria-hidden="true">
+                  <span class="window-dot"></span>
+                  <span class="window-dot"></span>
+                  <span class="window-dot"></span>
+                </div>
+
+                <!-- Interactive Tab Switcher -->
+                <div class="window-tabs" role="tablist" aria-label="Interactive Showcase Switcher">
+                  <button type="button" class="window-tab active" id="tab-btn-internahub" role="tab" aria-selected="true" aria-controls="pane-internahub" onclick="switchShowcaseTab('internahub')">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    <span>InternaHub CDSS</span>
+                  </button>
+                  <button type="button" class="window-tab" id="tab-btn-cbt" role="tab" aria-selected="false" aria-controls="pane-cbt" onclick="switchShowcaseTab('cbt')">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                    <span>IPD CBT Pro</span>
+                  </button>
+                  <button type="button" class="window-tab" id="tab-btn-internize" role="tab" aria-selected="false" aria-controls="pane-internize" onclick="switchShowcaseTab('internize')">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+                    <span>Internize.ai</span>
+                  </button>
+                </div>
+
+                <span class="window-badge" id="window-status-badge">
+                  <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
+                  <span>Evidence-Based</span>
+                </span>
+              </div>
+
+              <!-- Window Body -->
+              <div class="window-body">
+
+                <!-- TAB 1: InternaHub Interactive Renal Dosing Simulator -->
+                <div class="tab-content active" id="pane-internahub" role="tabpanel" aria-labelledby="tab-btn-internahub">
+                  <div class="calc-interactive-grid">
+                    
+                    <div class="calc-input-pane">
+                      <div class="calc-pane-title">
+                        <span>Cockcroft-Gault &amp; Meropenem Adjuster</span>
+                        <span class="pill-badge">KDIGO 2024</span>
+                      </div>
+                      <p class="calc-pane-sub">Adjust parameters below to see instantaneous renal clearance and antibiotic dosing changes.</p>
+
+                      <div class="calc-form-row">
+                        <div class="calc-field">
+                          <label for="input-age">Patient Age (years)</label>
+                          <input type="number" id="input-age" class="calc-input" value="65" min="18" max="120" oninput="runLiveCrCl()" />
+                        </div>
+                        <div class="calc-field">
+                          <label>Biological Sex</label>
+                          <div class="gender-toggle" role="radiogroup" aria-label="Sex for CrCl calculation">
+                            <button type="button" class="gender-btn active" id="gender-m" onclick="setGender('male')">Male</button>
+                            <button type="button" class="gender-btn" id="gender-f" onclick="setGender('female')">Female</button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="calc-form-row">
+                        <div class="calc-field">
+                          <label for="input-weight">Weight (kg)</label>
+                          <input type="number" id="input-weight" class="calc-input" value="60" min="20" max="250" oninput="runLiveCrCl()" />
+                        </div>
+                        <div class="calc-field">
+                          <label for="input-scr">Serum Creatinine (mg/dL)</label>
+                          <input type="number" step="0.1" id="input-scr" class="calc-input" value="1.2" min="0.1" max="15.0" oninput="runLiveCrCl()" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Output Box -->
+                    <div class="calc-result-pane">
+                      <div>
+                        <div class="result-badge">Calculated Renal Clearance</div>
+                        <div class="result-value-display">
+                          <span id="output-crcl">52.1</span>
+                          <span class="result-unit">mL/min</span>
+                        </div>
+                        <div class="result-status-tag" id="output-stage">G3a · Mild-Moderate Impairment</div>
+
+                        <div class="clinical-guidance-box">
+                          <div class="guidance-title">
+                            <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                            <span>Sanford / Stanford Antimicrobial Rule</span>
+                          </div>
+                          <div id="output-dosing"><strong>Meropenem:</strong> 1,000 mg IV q12h (Extended infusion over 3 hrs recommended).</div>
+                        </div>
+                      </div>
+
+                      <a href="https://sites.google.com/view/drguswib/internahub" target="_blank" rel="noopener noreferrer" class="btn-launch-embed">
+                        <span>Launch Full InternaHub (40+ Scores)</span>
+                        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                      </a>
+                    </div>
+
+                  </div>
+                </div>
+
+                <!-- TAB 2: IPD CBT Pro Board Exam Simulation -->
+                <div class="tab-content" id="pane-cbt" role="tabpanel" aria-labelledby="tab-btn-cbt">
+                  <div class="cbt-pane">
+                    <div class="cbt-meta-bar">
+                      <span class="cbt-subspecialty-badge">Pulmonology &amp; Critical Care</span>
+                      <div class="cbt-timer">
+                        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        <span>Simulation Mode: Active</span>
+                      </div>
+                    </div>
+
+                    <div class="cbt-vignette">
+                      <strong>Case #341:</strong> A 68-year-old male with COPD presents to the Emergency Department with acute dyspnea and productive cough. Triage vitals: BP 84/52 mmHg, Pulse 118 bpm, RR 34/min, SpO2 88% on room air. Lab reveals Blood Urea Nitrogen (BUN) 32 mg/dL. The patient is disoriented to time and place. Based on the CURB-65 criteria, what is the score and the most appropriate triage disposition?
+                    </div>
+
+                    <div class="cbt-options-list" role="radiogroup" aria-label="CBT Examination Options">
+                      <button type="button" class="cbt-option" id="cbt-opt-a" onclick="answerCBT('a')">
+                        <span class="cbt-opt-letter">A</span>
+                        <span>CURB-65 = 1, Outpatient oral antibiotic treatment</span>
+                      </button>
+                      <button type="button" class="cbt-option" id="cbt-opt-b" onclick="answerCBT('b')">
+                        <span class="cbt-opt-letter">B</span>
+                        <span>CURB-65 = 2, Inpatient ward care with oral amoxicillin-clavulanate</span>
+                      </button>
+                      <button type="button" class="cbt-option" id="cbt-opt-c" onclick="answerCBT('c')">
+                        <span class="cbt-opt-letter">C</span>
+                        <span>CURB-65 = 4, Immediate ICU admission and IV broad-spectrum therapy</span>
+                      </button>
+                      <button type="button" class="cbt-option" id="cbt-opt-d" onclick="answerCBT('d')">
+                        <span class="cbt-opt-letter">D</span>
+                        <span>CURB-65 = 3, Outpatient treatment with respiratory fluoroquinolone</span>
+                      </button>
+                    </div>
+
+                    <div class="cbt-feedback-alert" id="cbt-feedback"></div>
+
+                    <a href="https://ipd-cbt-pro.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-launch-embed">
+                      <span>Open IPD CBT Pro Question Bank (1,000+ MCQs)</span>
+                      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- TAB 3: Internize.ai On-Device Clinical AI Simulation -->
+                <div class="tab-content" id="pane-internize" role="tabpanel" aria-labelledby="tab-btn-internize">
+                  <div class="internize-container">
+                    
+                    <!-- Top Telemetry & Specifications Strip -->
+                    <div class="internize-top-bar">
+                      <div class="internize-case-switcher" role="group" aria-label="Clinical Case Selection">
+                        <button type="button" class="internize-case-btn active" id="case-btn-adhf" onclick="setInternizeCase('adhf')">Case 1: ADHF (Cardiology)</button>
+                        <button type="button" class="internize-case-btn" id="case-btn-sepsis" onclick="setInternizeCase('sepsis')">Case 2: Sepsis / DKA (Critical Care)</button>
+                      </div>
+
+                      <div class="internize-telemetry">
+                        <span>&#x25C7; 42 ms On-Device</span>
+                        <span>&#x2298; 0 KB Egress</span>
+                        <span class="internize-gate-pill gate-pass" id="internize-gate-pill">
+                          <span id="internize-gate-text">G1a: PASS &#x2022; 100% Recall</span>
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- 2-Column Balanced Clinical AI Workspace (52% left : 48% right) -->
+                    <div class="internize-workspace-grid">
+                      
+                      <!-- Left Pane: Clinical Narrative & Normalized Entities -->
+                      <div class="internize-workbench-column">
+                        <div class="internize-pane-header">
+                          <span class="internize-pane-title">
+                            <span>Clinical Narrative</span>
+                          </span>
+                          <div class="internize-toggle-chips">
+                            <button type="button" class="internize-toggle-chip active" id="chip-toggle-deid" onclick="toggleInternizeDeid()" aria-pressed="true">
+                              <span>&#x25C7; HIPAA De-ID</span>
+                            </button>
+                            <button type="button" class="internize-toggle-chip active" id="chip-toggle-ner" onclick="toggleInternizeNer()" aria-pressed="true">
+                              <span>&#x25C7; NER Spans</span>
+                            </button>
+                          </div>
+                        </div>
+
+                        <!-- Live Annotated Narrative Text Box -->
+                        <div class="internize-note-box" id="internize-note-display">
+                          <!-- Injected dynamically via renderInternizeSimulation -->
+                        </div>
+
+                        <!-- Extracted Entity & Terminology Mapping -->
+                        <div class="internize-pane-header" style="margin-top: 0.35rem;">
+                          <span class="internize-pane-title">
+                            <span>Normalized Clinical Entities</span>
+                          </span>
+                          <span class="pill-badge" style="font-size: 0.6875rem;">ON-DEVICE NER</span>
+                        </div>
+
+                        <div class="internize-entities-list" id="internize-entities-display">
+                          <!-- Injected dynamically via renderInternizeSimulation -->
+                        </div>
+                      </div>
+
+                      <!-- Right Pane: Full-Height FHIR Transaction Bundle Inspector -->
+                      <div class="internize-workbench-column">
+                        <div class="fhir-inspector-pane">
+                          <div class="fhir-header-bar">
+                            <div class="fhir-header-left">
+                              <span class="internize-pane-title">FHIR R4 Bundle</span>
+                              <span class="fhir-type-pill">TRANSACTION</span>
+                            </div>
+                            <button type="button" class="fhir-copy-btn" onclick="copyFhirBundle()" title="Copy entire valid FHIR R4 Bundle">
+                              <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                              <span>Copy JSON</span>
+                            </button>
+                          </div>
+                          <pre class="fhir-json-pre" id="internize-fhir-display" tabindex="0" aria-label="FHIR R4 Transaction Bundle JSON output"></pre>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <!-- Footer Standards Strip -->
+                    <div class="internize-footer-strip">
+                      <span>&#x229A; HL7 US Core Conformance</span>
+                      <a href="https://github.com/indra-dot/internize-ai" target="_blank" rel="noopener noreferrer" class="internize-source-link">
+                        <span>GitHub: internize.ai</span>
+                        <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                      </a>
+                    </div>
+
+                  </div>
+                </div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clinical Impact Bento Metrics Strip -->
+        <div class="metrics-bento-strip" aria-label="Clinical Metrics Highlights">
+          <div class="metric-card">
+            <div class="metric-number">5</div>
+            <div class="metric-label">Flagship Clinical &amp; Productivity Apps</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-number">40+</div>
+            <div class="metric-label">Validated Clinical Diagnostic Scores</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-number">6</div>
+            <div class="metric-label">Internal Medicine Subspecialties Covered</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-number text-mode">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              <span>100% On-Device</span>
+            </div>
+            <div class="metric-label">Zero PHI Transmission by Design</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Flagship Applications Section -->
+    <section class="container" id="apps" aria-labelledby="apps-heading">
+      <div class="section-headline-group">
+        <span class="section-eyebrow">Digital Armamentarium</span>
+        <h2 class="section-title" id="apps-heading">Engineered for Bedside Precision</h2>
+        <p class="section-desc">Practical applications created to solve clinical calculation bottlenecks, assist diagnostic evaluations, and streamline medical study.</p>
+      </div>
+
+      <div class="apps-bento-grid">
+        
+        <!-- App 1: InternaHub CDSS (Featured 7-col) -->
+        <article class="bento-card bento-featured">
+          <div class="bento-top">
+            <div class="bento-badge-row">
+              <span class="bento-tag">Flagship Suite · Google Sites</span>
+              <div class="bento-app-icon" aria-hidden="true">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+              </div>
+            </div>
+            <h3 class="bento-title">InternaHub CDSS</h3>
+            <p class="bento-desc">Comprehensive internal medicine clinical decision support suite. Single-file architecture with zero leaked scripts, 40+ calculators, Cockcroft-Gault antimicrobial engine, Adrogué-Madias electrolyte correction, and DAS28 rheumatology evaluator.</p>
+            <div class="bento-feature-chips">
+              <span class="feature-chip">KDIGO 2024</span>
+              <span class="feature-chip">Sanford Dosing</span>
+              <span class="feature-chip">Adrogué-Madias</span>
+              <span class="feature-chip">DAS28 / CDAI</span>
+              <span class="feature-chip">MELD-Na</span>
+              <span class="feature-chip">Holliday-Segar</span>
+            </div>
+          </div>
+          <a href="https://sites.google.com/view/drguswib/internahub" target="_blank" rel="noopener noreferrer" class="bento-action-link">
+            <span>Launch InternaHub Portal</span>
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+        </article>
+
+        <!-- App 2: IPD CBT Pro (Secondary 5-col) -->
+        <article class="bento-card bento-secondary">
+          <div class="bento-top">
+            <div class="bento-badge-row">
+              <span class="bento-tag">Board Examination</span>
+              <div class="bento-app-icon" aria-hidden="true">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+              </div>
+            </div>
+            <h3 class="bento-title">IPD CBT Pro</h3>
+            <p class="bento-desc">High-yield computer-based examination simulator for internal medicine residents and medical specialists. Features realistic timed exam conditions, specialty filtering, and comprehensive evidence-based clinical rationales.</p>
+            <div class="bento-feature-chips">
+              <span class="feature-chip">Timed Exam Mode</span>
+              <span class="feature-chip">Score Analytics</span>
+              <span class="feature-chip">Clinical Vignettes</span>
+            </div>
+          </div>
+          <a href="https://ipd-cbt-pro.vercel.app/" target="_blank" rel="noopener noreferrer" class="bento-action-link">
+            <span>Start Practice Exam</span>
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+        </article>
+
+        <!-- App 3: Pindai Sehat (4-col) -->
+        <article class="bento-card bento-tertiary-1">
+          <div class="bento-top">
+            <div class="bento-badge-row">
+              <span class="bento-tag">AI Nutrition</span>
+              <div class="bento-app-icon" aria-hidden="true">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z"/></svg>
+              </div>
+            </div>
+            <h3 class="bento-title">Pindai Sehat</h3>
+            <p class="bento-desc">Smart nutrition and food scanner powered by vision AI. Deconstructs meal photos into macronutrient estimates and checks dietary safety against patient comorbidities.</p>
+            <div class="bento-feature-chips">
+              <span class="feature-chip">Vision AI</span>
+              <span class="feature-chip">Nutrient Breakdown</span>
+            </div>
+          </div>
+          <a href="https://pindai-sehat.vercel.app/" target="_blank" rel="noopener noreferrer" class="bento-action-link">
+            <span>Explore App</span>
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+        </article>
+
+        <!-- App 4: Internize.ai (4-col) -->
+        <article class="bento-card bento-tertiary-2">
+          <div class="bento-top">
+            <div class="bento-badge-row">
+              <span class="bento-tag">Clinical AI</span>
+              <div class="bento-app-icon" aria-hidden="true">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"/></svg>
+              </div>
+            </div>
+            <h3 class="bento-title">Internize.ai</h3>
+            <p class="bento-desc">On-device clinical intelligence system with HIPAA Safe Harbor de-identification, FHIR R4 Bundle extraction, and medical named-entity recognition running strictly local.</p>
+            <div class="bento-feature-chips">
+              <span class="feature-chip">FHIR R4</span>
+              <span class="feature-chip">HIPAA Safe Harbor</span>
+              <span class="feature-chip">Local LLM</span>
+            </div>
+          </div>
+          <a href="https://github.com/indra-dot/internize.ai" target="_blank" rel="noopener noreferrer" class="bento-action-link">
+            <span>View GitHub Repository</span>
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+        </article>
+
+        <!-- App 5: Dompetku (4-col) -->
+        <article class="bento-card bento-tertiary-3">
+          <div class="bento-top">
+            <div class="bento-badge-row">
+              <span class="bento-tag">Personal Finance</span>
+              <div class="bento-app-icon" aria-hidden="true">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M21 12a2.25 2.25 0 00-2.25-2.25H15a3 3 0 11-6 0H5.25A2.25 2.25 0 003 12m18 0v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 9m18 0V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v3"/></svg>
+              </div>
+            </div>
+            <h3 class="bento-title">Dompetku</h3>
+            <p class="bento-desc">Privacy-first cashflow and personal budget manager. Operates with offline client storage, zero telemetry, and detailed categorizations for resident doctors and professionals.</p>
+            <div class="bento-feature-chips">
+              <span class="feature-chip">Client-Only Storage</span>
+              <span class="feature-chip">Cashflow Visualizer</span>
+            </div>
+          </div>
+          <a href="https://financial-tracker-nine-kohl.vercel.app/" target="_blank" rel="noopener noreferrer" class="bento-action-link">
+            <span>Open Dompetku</span>
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Physician Profile & Philosophy (About Section) -->
+    <section class="container" id="about" aria-labelledby="about-heading">
+      <div class="section-headline-group">
+        <span class="section-eyebrow">Profile &amp; Clinical Background</span>
+        <h2 class="section-title" id="about-heading">Clinician Who Codes</h2>
+        <p class="section-desc">Working at the intersection of acute internal medicine, clinical evidence, and dependable software engineering.</p>
+      </div>
+
+      <div class="about-profile-panel">
+        <!-- Left Doctor Identity Column -->
+        <div class="about-left-col">
+          <div class="avatar-frame">
+            <img src="{{PROFILE_DATA_URI}}" alt="dr. Ida Bagus Indra Wibawa Putrawan" loading="eager" />
+          </div>
+          <h3 class="profile-name">dr. Ida Bagus Indra Wibawa Putrawan, S.Ked</h3>
+          <div class="profile-role">Internal Medicine Resident (PPDS-1)</div>
+          <div class="profile-institution">
+            Faculty of Medicine, Udayana University<br />
+            RSUP Prof. Dr. I.G.N.G. Ngoerah
+          </div>
+          <div class="profile-location">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Denpasar, Bali, Indonesia</span>
+          </div>
+        </div>
+
+        <!-- Right Narrative & Credentials Column -->
+        <div class="about-right-col">
+          <h4 class="about-headline">Solving bedside friction through verified clinical software.</h4>
+
+          <div class="about-bio-text">
+            <p>
+              I am an Internal Medicine Resident at RSUP Prof. Dr. I.G.N.G. Ngoerah / Udayana University. My daily clinical practice centers on inpatient care, acute admissions, and subspecialty wards, with focused research interests in <strong>hematology</strong> and <strong>gastroenterology</strong>.
+            </p>
+            <p>
+              When dealing with critical calculations—such as nephrotoxic drug dosing in acute kidney injury, complex electrolyte deficits, or multi-criteria prognostic scores—mental math and cumbersome PDF guidelines introduce unnecessary friction. I engineer standalone, privacy-first software tools to deliver instantaneous, guideline-adherent decisions at the point of care.
+            </p>
+            <blockquote class="about-quote">
+              "The most impactful digital health innovations emerge where clinical precision meets efficient, dependable code."
+            </blockquote>
+          </div>
+
+          <div>
+            <div class="section-eyebrow" style="margin-bottom: 1rem;">Education &amp; Credentials</div>
+            <div class="credentials-timeline">
+              <div class="timeline-node">
+                <div class="timeline-title">Internal Medicine Specialist Residency (PPDS-1)</div>
+                <div class="timeline-desc">Faculty of Medicine, Udayana University / RSUP Prof. Dr. I.G.N.G. Ngoerah, Denpasar (Ongoing)</div>
+              </div>
+              <div class="timeline-node">
+                <div class="timeline-title">Medical Doctor (dr.) &amp; Bachelor of Medicine (S.Ked)</div>
+                <div class="timeline-desc">Faculty of Medicine, Udayana University (Class of 2019)</div>
+              </div>
+              <div class="timeline-node">
+                <div class="timeline-title">Clinical &amp; Research Focus Areas</div>
+                <div class="bento-feature-chips" style="margin-top: 0.5rem; margin-bottom: 0;">
+                  <span class="feature-chip">Hematology &amp; Hemostasis</span>
+                  <span class="feature-chip">Gastroenterohepatology</span>
+                  <span class="feature-chip">Clinical Decision Support Systems</span>
+                  <span class="feature-chip">Critical Care Infusion Titration</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="section-eyebrow" style="margin-bottom: 0.85rem;">Connect &amp; Collaborate</div>
+            <div class="connect-row">
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=drguswib@gmail.com" target="_blank" rel="noopener noreferrer" onclick="handleEmailClick(event, 'drguswib@gmail.com')" class="connect-btn" title="Open in Gmail">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <span>drguswib@gmail.com</span>
+              </a>
+              <button type="button" onclick="copyEmailOnly(event, 'drguswib@gmail.com')" class="connect-btn" title="Copy email address" aria-label="Copy email address to clipboard">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <span>Copy Email</span>
+              </button>
+              <a href="https://linkedin.com/in/indrawibawap" target="_blank" rel="noopener noreferrer" class="connect-btn" title="LinkedIn Profile">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                <span>LinkedIn</span>
+              </a>
+              <a href="https://github.com/indra-dot" target="_blank" rel="noopener noreferrer" class="connect-btn" title="GitHub Profile">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.090 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                <span>GitHub</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand-group">
+          <span class="footer-brand">drguswib</span>
+          <span class="footer-tagline">Clinical software &amp; diagnostic systems crafted for practice.</span>
+        </div>
+        <nav class="footer-nav" aria-label="Footer Navigation">
+          <a href="#hero">Hero</a>
+          <a href="#showcase">CDSS Showcase</a>
+          <a href="#apps">Applications</a>
+          <a href="#about">About</a>
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=drguswib@gmail.com" target="_blank" rel="noopener noreferrer" onclick="handleEmailClick(event, 'drguswib@gmail.com')">Email Direct</a>
+        </nav>
+      </div>
+
+      <div class="clinical-disclaimer-card">
+        <strong>Clinical Disclaimer:</strong> The clinical algorithms, decision support tools, and calculators published on this site are designed as educational and clinical reference aids for licensed medical professionals. They do not supersede individualized clinical judgment, in-person patient evaluation, or institutional hospital protocols.
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 dr. Ida Bagus Indra Wibawa Putrawan. All rights reserved.</span>
+        <span>Denpasar, Bali, Indonesia</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Pill -->
+  <div class="toast-pill" id="global-toast" role="status" aria-live="polite">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+    <span id="toast-message">Message text</span>
+  </div>
+
+  <!-- Interactive Logic & RedSun Scroll-Lighting Engine -->
+  <script>
+/* {{SCRIPTS}} */
+  </script>
+</body>
+</html>

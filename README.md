@@ -15,8 +15,11 @@ npm run check
 # 2. Benchmark Perhitungan & Algoritma Klinis (27 skenario klinis)
 npm test
 
-# 3. Build dari src/ ke dist/internahub.html dan internahub.html
+# 3. Build semua (internahub.html + index.html) & auto-sync ke Google Drive untuk GAS
 npm run build
+
+# 3b. Build khusus index.html saja & auto-sync ke Google Drive
+npm run build:index
 
 # 4. Audit Keamanan & Analisis Kode Statis
 npm run audit:code

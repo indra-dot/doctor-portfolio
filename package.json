@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "Clinical decision support & medical tools portfolio",
   "scripts": {
-    "check": "node scripts/check-html-scripts.js internahub.html",
+    "check": "node scripts/check-html-scripts.js internahub.html index.html",
     "test": "node tests/run-all-tests.js",
     "audit:code": "node scripts/audit-code.js",
-    "build": "node scripts/build-internahub.js"
+    "build": "node scripts/build-internahub.js && node scripts/build-index.js",
+    "build:internahub": "node scripts/build-internahub.js",
+    "build:index": "node scripts/build-index.js"
   },
   "keywords": [
     "clinical",
